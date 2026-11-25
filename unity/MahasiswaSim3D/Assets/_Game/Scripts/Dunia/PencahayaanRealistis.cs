@@ -26,8 +26,10 @@ namespace MS.Dunia
 
         static void SaatScene(Scene scene, LoadSceneMode mode)
         {
-            if (scene.name == "Kampung" || scene.name == "KamarKos" || scene.name.StartsWith("Gedung_"))
-                new GameObject("Pencahayaan dunia").AddComponent<PencahayaanRealistis>();
+            if (scene.name != "Kampung" && scene.name != "KamarKos" && !scene.name.StartsWith("Gedung_")) return;
+            var dunia = new GameObject("Pencahayaan dunia");
+            dunia.AddComponent<PencahayaanRealistis>();
+            if (scene.name == "KamarKos") VisualKamar.Pasang(dunia);
         }
 
         void Start()
