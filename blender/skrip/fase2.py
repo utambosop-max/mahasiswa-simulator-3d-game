@@ -85,16 +85,16 @@ def building(b):
  body_h=h*.76
  box('massa gedung',(w,d,body_h),(0,0,body_h/2),wall,0)
  box('atap datar',(w,d,h-body_h),(0,0,(h+body_h)/2),roof,0)
- box('pintu utama',(min(1.25,w*.22),.045,min(2.2,body_h*.7)),(0,-d/2+.0225,min(2.2,body_h*.7)/2),dark,0)
+ box('pintu utama',(min(1.25,w*.22),.045,min(2.2,body_h*.7)),(0,-d/2-.0225,min(2.2,body_h*.7)/2),dark,0)
  floors=2 if b.get('lantai',1)>1 or h>6 else 1
  for floor in range(floors):
   z=body_h*(floor+.52)/floors
-  for x in (-w*.3,w*.3):box('jendela',(.9,.035,.75),(x,-d/2+.0175,z),accent,0)
+  for x in (-w*.3,w*.3):box('jendela',(.9,.035,.75),(x,-d/2-.0175,z),accent,0)
  if b['id']=='kampus':
-  for x in (-w*.37,w*.37):box('pilar',(.36,.4,body_h*.85),(x,-d/2+.2,body_h*.425),wall,0)
- elif b['id']=='warteg':box('etalase',(w*.4,.08,1.3),(w*.2,-d/2+.04,1.25),accent,0)
- elif b['id']=='warkop':box('kanopi',(w*.7,.65,.12),(0,-d/2+.325,body_h*.7),roof,0)
- if b.get('papan'):box('papan nama',(min(w*.72,6),.07,.5),(0,-d/2+.035,body_h-.38),accent,0)
+  for x in (-w*.37,w*.37):box('pilar',(.36,.4,body_h*.85),(x,-d/2-.2,body_h*.425),wall,0)
+ elif b['id']=='warteg':box('etalase',(w*.4,.08,1.3),(w*.2,-d/2-.04,1.25),accent,0)
+ elif b['id']=='warkop':box('kanopi',(w*.7,.65,.12),(0,-d/2-.325,body_h*.7),roof,0)
+ if b.get('papan'):box('papan nama',(min(w*.72,6),.07,.5),(0,-d/2-.035,body_h-.38),accent,0)
  export('gedung_'+b['id'],6000)
 
 data=json.loads((ROOT/'unity/MahasiswaSim3D/Assets/_Game/Data/dunia.json').read_text(encoding='utf-8'))

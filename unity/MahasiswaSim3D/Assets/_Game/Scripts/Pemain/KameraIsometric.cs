@@ -16,6 +16,7 @@ namespace MS.Pemain
 
         Vector3 _vel;
         float _sudut, _sudutTuju, _velSudut;
+        float _jarakKini = -1f, _velJarak;
         readonly RaycastHit[] penghalang = new RaycastHit[16];
         static readonly float[] SudutAlternatif = { 45f, -45f, 90f, -90f, 135f, -135f, 180f };
 
@@ -53,6 +54,7 @@ namespace MS.Pemain
                 }
             }
             _sudut = _sudutTuju;
+            _jarakKini = jarak; _velJarak = 0;
             transform.position = fokus + (posisi - fokus).normalized * jarak;
             transform.LookAt(fokus);
         }
@@ -91,12 +93,15 @@ namespace MS.Pemain
             _sudut = Mathf.SmoothDampAngle(_sudut, _sudutTuju, ref _velSudut, waktuPutar);
             Vector3 fokus = target.position + Vector3.up * tinggiLihat;
             Vector3 posisi = Vector3.SmoothDamp(transform.position, HitungPosisi(_sudut), ref _vel, waktuHalus);
-            float jarak = JarakBebas(fokus, posisi);
-            if (jarak < Vector3.Distance(fokus, posisi))
-            {
-                posisi = fokus + (posisi - fokus).normalized * jarak;
-                _vel = Vector3.zero;
-            }
+            // Jarak kamera dihaluskan: maju cepat (agar tidak tembus dinding), mundur pelan.
+            // Sebelumnya kamera melompat maju-mundur tiap frame saat lewat tiang/pohon -> layar berkedip.
+            float penuh = Vector3.Distance(fokus, posisi);
+            float bebas = JarakBebas(fokus, posisi);
+            if (_jarakKini <= 0f) _jarakKini = bebas;
+            float waktu = bebas < _jarakKini ? 0.06f : 0.45f;
+            _jarakKini = Mathf.SmoothDamp(_jarakKini, bebas, ref _velJarak, waktu);
+            _jarakKini = Mathf.Min(_jarakKini, penuh);
+            if (_jarakKini < penuh - 0.01f) posisi = fokus + (posisi - fokus) / penuh * _jarakKini;
             transform.position = posisi;
             transform.LookAt(fokus);
         }

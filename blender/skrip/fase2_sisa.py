@@ -18,7 +18,7 @@ def kios(name, w, d, h, wall_color, roof_color, open_front=False):
             for y in (-d*.4,d*.4):box('tiang',(.09,.09,h-.2),(x,y,(h-.2)/2),dark,0)
     else:
         box('badan',(w,d,h-.35),(0,0,(h-.35)/2),wall,0)
-        box('pintu',(.8,.04,1.8),(0,-d/2+.02,.9),dark,0)
+        box('pintu',(.8,.04,1.8),(0,-d/2-.02,.9),dark,0)
     box('atap',(w+.25,d+.25,.3),(0,0,h-.15),roof,0)
     export(name,6000 if name.startswith('gedung') else 1500)
 
