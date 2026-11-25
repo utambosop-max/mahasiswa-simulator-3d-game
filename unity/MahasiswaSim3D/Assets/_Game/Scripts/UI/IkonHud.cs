@@ -8,7 +8,7 @@ namespace MS.UI
 {
     internal static class IkonHud
     {
-        internal enum Jenis { Buku, Rumah, Jam, Uang, Ipk, Energi, Stres, Dialog, Kamera, Aksi, Arah, Cuaca }
+        internal enum Jenis { Buku, Rumah, Jam, Uang, Ipk, Energi, Stres, Dialog, Kamera, Aksi, Arah, Cuaca, Pengaturan }
         static readonly Dictionary<Jenis, Texture2D> Tekstur = new();
 
         internal static RawImage Pasang(RectTransform induk, Jenis jenis, float ukuran = 38, Vector2? jangkar = null)
@@ -47,6 +47,11 @@ namespace MS.UI
                 Jenis.Kamera => new[] { "9,44 22,44 26,52 40,52 44,44 55,44 55,13 9,13 9,44", "32,40 43,29 32,18 21,29 32,40" },
                 Jenis.Arah => new[] { "32,9 32,55", "9,32 55,32", "24,47 32,55 40,47", "24,17 32,9 40,17", "17,24 9,32 17,40", "47,24 55,32 47,40" },
                 Jenis.Cuaca => new[] { "12,18 53,18 55,30 49,38 40,38 35,49 24,50 15,42 13,34 7,30 7,23 12,18" },
+                Jenis.Pengaturan => new[]
+                {
+                    "27,55 37,55 40,46 48,49 55,42 51,34 56,27 51,18 42,19 37,10 27,10 23,19 14,18 9,27 14,34 10,42 17,49 24,46 27,55",
+                    "32,42 39,39 42,32 39,25 32,22 25,25 22,32 25,39 32,42"
+                },
                 _ => new[] { "10,32 51,32", "35,48 51,32 35,16" }
             };
             var ruas = new List<(Vector2 a, Vector2 b)>();

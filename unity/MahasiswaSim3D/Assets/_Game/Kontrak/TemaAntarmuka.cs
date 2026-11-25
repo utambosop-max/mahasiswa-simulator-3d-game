@@ -5,10 +5,10 @@ namespace MS.Kontrak
     public static class TemaAntarmuka
     {
         public static readonly Color Tinta = new Color32(59, 42, 32, 255);
-        public static readonly Color Kertas = new Color32(252, 247, 236, 244);
-        public static readonly Color Mentega = new Color32(241, 217, 167, 255);
-        public static readonly Color Langit = new Color32(195, 221, 232, 255);
-        public static readonly Color Mint = new Color32(188, 222, 197, 255);
+        public static readonly Color Kertas = new Color32(255, 249, 236, 248);
+        public static readonly Color Mentega = new Color32(252, 221, 153, 255);
+        public static readonly Color Langit = new Color32(184, 224, 247, 255);
+        public static readonly Color Mint = new Color32(174, 228, 196, 255);
         public static readonly Color Bata = new Color32(249, 181, 161, 255);
         public static readonly Color Jingga = new Color32(255, 179, 107, 255);
         public static readonly Color Pasif = new Color32(232, 220, 204, 255);

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace MS.UI
 {
@@ -11,11 +12,15 @@ namespace MS.UI
         readonly Queue<string> antrean = new();
         readonly TextMeshProUGUI[] label;
         readonly float[] hingga;
+        readonly LayoutElement[] bentuk;
+        float lebarMaks = 720;
 
         internal ToastAntrean(TextMeshProUGUI[] label)
         {
             this.label = label;
             hingga = new float[label.Length];
+            bentuk = new LayoutElement[label.Length];
+            for (int i = 0; i < label.Length; i++) bentuk[i] = label[i].transform.parent.GetComponent<LayoutElement>();
             Kosongkan();
         }
 
@@ -42,10 +47,26 @@ namespace MS.UI
                     continue;
                 }
                 label[i].text = antrean.Dequeue();
+                AturKapsul(i);
                 hingga[i] = sekarang + Lama;
                 kotak.transform.SetAsLastSibling();
                 kotak.SetActive(true);
             }
+        }
+
+        internal void Ukur(float lebar)
+        {
+            if (lebar <= 0) return;
+            lebarMaks = lebar;
+            for (int i = 0; i < label.Length; i++)
+                if (label[i].transform.parent.gameObject.activeSelf) AturKapsul(i);
+        }
+
+        void AturKapsul(int i)
+        {
+            float teks = label[i].GetPreferredValues(label[i].text, float.PositiveInfinity, float.PositiveInfinity).x;
+            bentuk[i].preferredWidth = Mathf.Min(lebarMaks, Mathf.Max(152, teks + 62));
+            bentuk[i].minHeight = teks + 62 > lebarMaks ? 106 : 76;
         }
 
         public void Kosongkan()

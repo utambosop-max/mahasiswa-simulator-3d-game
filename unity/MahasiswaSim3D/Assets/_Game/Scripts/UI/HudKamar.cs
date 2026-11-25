@@ -108,8 +108,10 @@ namespace MS.UI
             var (pengaturan, _) = BuatTombol("Pengaturan", panelPengaturan.Buka);
             var kotakPengaturan = (RectTransform)pengaturan.transform;
             kotakPengaturan.anchorMin = kotakPengaturan.anchorMax = kotakPengaturan.pivot = Vector2.one;
-            kotakPengaturan.anchoredPosition = new Vector2(-324, -174);
+            kotakPengaturan.anchoredPosition = new Vector2(-24, -174);
             kotakPengaturan.sizeDelta = new Vector2(290, 140);
+            pengaturan.targetGraphic.color = TemaAntarmuka.Kertas;
+            IkonHud.Pasang(kotakPengaturan, IkonHud.Jenis.Pengaturan, 44);
             panelProfil = new PanelProfil(this, areaAman, () =>
             {
                 panelMenu.Tutup();
@@ -632,7 +634,7 @@ namespace MS.UI
         {
             var wadah = BuatKotak("Buka rapor", areaAman);
             wadah.anchorMin = wadah.anchorMax = wadah.pivot = Vector2.one;
-            wadah.anchoredPosition = new Vector2(-24, -174);
+            wadah.anchoredPosition = new Vector2(-24, -326);
             wadah.sizeDelta = new Vector2(285, 140);
             var latar = Gambar(wadah, TemaAntarmuka.Langit, true);
             var tombol = wadah.gameObject.AddComponent<Button>();
@@ -681,20 +683,20 @@ namespace MS.UI
                 IkonHud.Pasang((RectTransform)tombolKamera.transform, IkonHud.Jenis.Kamera, 39);
             }
             kotakPesan = BuatKotak("Alasan aksi", areaAman);
-            kotakPesan.anchorMin = kotakPesan.anchorMax = new Vector2(.5f, .85f);
+            Rentangkan(kotakPesan, new Vector2(.306f, .85f), new Vector2(.694f, .85f));
             kotakPesan.pivot = new Vector2(.5f, 1);
-            kotakPesan.sizeDelta = new Vector2(840, 152);
             kotakPesan.anchoredPosition = new Vector2(0, -14);
             var susun = kotakPesan.gameObject.AddComponent<VerticalLayoutGroup>();
             susun.spacing = 8;
             susun.childControlWidth = susun.childControlHeight = true;
-            susun.childForceExpandHeight = false;
+            susun.childForceExpandWidth = susun.childForceExpandHeight = false;
+            susun.childAlignment = TextAnchor.UpperCenter;
             kotakPesan.gameObject.AddComponent<ContentSizeFitter>().verticalFit = ContentSizeFitter.FitMode.PreferredSize;
             var label = new TextMeshProUGUI[2];
             for (int i = 0; i < label.Length; i++)
             {
                 var kartu = BuatKotak("Toast", kotakPesan);
-                kartu.gameObject.AddComponent<LayoutElement>().minHeight = 88;
+                kartu.gameObject.AddComponent<LayoutElement>().minHeight = 76;
                 Gambar(kartu, Krem);
                 label[i] = Teks(kartu, "", 36, 26, FontStyles.Bold);
                 Rentangkan(label[i].rectTransform, new Vector2(.04f,.04f), new Vector2(.96f,.96f));
@@ -740,6 +742,7 @@ namespace MS.UI
 
             PosisiTombol();
             Canvas.ForceUpdateCanvases();
+            toast.Ukur(kotakPesan.rect.width);
             joystick.ResetPosisi();
         }
 
