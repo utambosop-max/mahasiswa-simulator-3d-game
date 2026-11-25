@@ -319,8 +319,8 @@ namespace MS.UI
         private void PerbaruiKonteks()
         {
             var pakaiAksiUji = konteks == null && tampilkanAksiUji;
-            aksiUtama = pakaiAksiUji ? Tidur : konteks?.Utama;
-            aksiTambahan = pakaiAksiUji ? Belajar : konteks?.Tambahan;
+            aksiUtama = pakaiAksiUji ? Tidur : AksiTersediaDiPort(konteks?.Utama);
+            aksiTambahan = pakaiAksiUji ? Belajar : AksiTersediaDiPort(konteks?.Tambahan);
             labelUtama.text = LabelRingkas(aksiUtama, pakaiAksiUji ? "Tidur" : konteks?.NamaUtama);
             labelTambahan.text = LabelRingkas(aksiTambahan, pakaiAksiUji ? "Belajar" : konteks?.NamaTambahan);
             // Pemain menjauh / konteks berganti -> tutup panel bila aksinya sudah tidak ada
@@ -337,6 +337,9 @@ namespace MS.UI
             foreach (Match cocok in Regex.Matches(aksiJson.text, pola))
                 namaAksi[cocok.Groups["id"].Value] = (cocok.Groups["label"].Value, cocok.Groups["ikon"].Value);
         }
+
+        static PerintahAksi? AksiTersediaDiPort(PerintahAksi? aksi)
+            => aksi?.Id is "klakson" or "minum" ? null : aksi;
 
         private string LabelAksi(PerintahAksi? aksi, string nama)
         {
@@ -472,8 +475,7 @@ namespace MS.UI
             var data = Layanan.Kondisi;
             if (data != null)
             {
-                string ikon = DaftarModal.Ikon(data.CuacaIkon, "Cuaca ·");
-                string nilai = $"{ikon} {data.CuacaNama}" + (data.Sakit ? " · Sakit" : "")
+                string nilai = data.CuacaNama + (data.Sakit ? " · Sakit" : "")
                     + (data.KamarKotor ? " · Kamar kotor" : "") + (data.BajuKotor >= 4 ? " · Cucian menumpuk" : "");
                 if (statusKondisi.text != nilai) statusKondisi.text = nilai;
             }
@@ -496,6 +498,8 @@ namespace MS.UI
             kalender = BarisStat(waktu, "-", .49f, .76f, 42);
             statusAkademik = BarisStat(waktu, "", .24f, .49f, 32);
             statusKondisi = BarisStat(waktu, "", .02f, .25f, 30);
+            statusKondisi.rectTransform.anchorMin = new Vector2(.22f, .02f);
+            IkonHud.Pasang(waktu, IkonHud.Jenis.Cuaca, 31, new Vector2(.11f, .14f));
             uang = BuatStat(bilah, "Uang", .33f, .555f, TemaAntarmuka.Mentega, IkonHud.Jenis.Uang);
             ipk = BuatStat(bilah, "IPK", .555f, .70f, TemaAntarmuka.Langit, IkonHud.Jenis.Ipk);
             energi = BuatStat(bilah, "Energi", .70f, .85f, TemaAntarmuka.Mint, IkonHud.Jenis.Energi);

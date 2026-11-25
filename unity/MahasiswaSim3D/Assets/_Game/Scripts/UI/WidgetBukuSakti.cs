@@ -11,7 +11,7 @@ namespace MS.UI
         readonly Button buka;
         readonly RectTransform areaRingkas;
         ICerita cerita;
-        bool disembunyikan;
+        bool disembunyikan = true;
 
         internal WidgetBukuSakti(HudKamar hud, RectTransform area)
         {
@@ -55,10 +55,10 @@ namespace MS.UI
             bool aktif = !string.IsNullOrEmpty(cerita?.BabJudul);
             isi.transform.parent.gameObject.SetActive(aktif);
             if (!aktif) return;
-            HudKamar.Rentangkan(areaRingkas, new Vector2(.02f, 1), new Vector2(disembunyikan ? .30f : .70f, 1));
-            areaRingkas.offsetMin = new Vector2(0, disembunyikan ? -378 : -445);
-            areaRingkas.offsetMax = new Vector2(0, -306);
-            if (disembunyikan) { isi.text = "Tampilkan tujuan"; return; }
+            HudKamar.Rentangkan(areaRingkas, new Vector2(.02f, .85f), new Vector2(disembunyikan ? .29f : .47f, .85f));
+            areaRingkas.offsetMin = new Vector2(0, disembunyikan ? -160 : -205);
+            areaRingkas.offsetMax = new Vector2(0, -66);
+            if (disembunyikan) { isi.text = "Tujuan Buku Sakti"; return; }
 
             InfoTujuan berikut = null;
             int selesai = 0;
