@@ -28,7 +28,7 @@ namespace MS.UI
             HudKamar.Rentangkan(kartu, new Vector2(.09f,.05f), new Vector2(.91f,.9f));
             hud.Gambar(kartu, TemaAntarmuka.Kertas, true);
             var port = HudKamar.BuatKotak("Viewport", kartu);
-            HudKamar.Rentangkan(port, Vector2.zero, new Vector2(1, .82f));
+            HudKamar.Rentangkan(port, Vector2.zero, new Vector2(1, .80f));
             port.offsetMin = new Vector2(24,24);
             port.offsetMax = new Vector2(-24,-24);
             port.gameObject.AddComponent<RectMask2D>();
@@ -46,7 +46,7 @@ namespace MS.UI
             judul = Teks(isi, "", 48, true);
             info = Teks(isi, "", 32);
             var tombol = (RectTransform)BuatBaris("Tutup", "", true, tutup, null, kartu).transform;
-            HudKamar.Rentangkan(tombol, new Vector2(0, .82f), Vector2.one);
+            HudKamar.Rentangkan(tombol, new Vector2(0, .80f), Vector2.one);
             tombol.offsetMin = new Vector2(24, 0);
             tombol.offsetMax = new Vector2(-24, -24);
             baris.Clear();

@@ -35,7 +35,7 @@ namespace MS.UI
             HudKamar.Rentangkan(bingkai, new Vector2(.10f, .05f), new Vector2(.90f, .87f));
             hud.Gambar(bingkai, TemaAntarmuka.Kertas, true);
             var viewport = HudKamar.BuatKotak("Viewport upgrade", bingkai);
-            HudKamar.Rentangkan(viewport, Vector2.zero, new Vector2(1, .82f));
+            HudKamar.Rentangkan(viewport, Vector2.zero, new Vector2(1, .79f));
             viewport.offsetMin = new Vector2(24, 24);
             viewport.offsetMax = new Vector2(-24, -24);
             viewport.gameObject.AddComponent<RectMask2D>();
@@ -52,7 +52,7 @@ namespace MS.UI
             BuatTeks(konten, "Upgrade kamar", 52, true);
             var tutup = BuatTombol(hud, bingkai, "Tutup", out _, out _);
             var posisiTutup = (RectTransform)tutup.transform;
-            HudKamar.Rentangkan(posisiTutup, new Vector2(0, .82f), Vector2.one);
+            HudKamar.Rentangkan(posisiTutup, new Vector2(0, .79f), Vector2.one);
             posisiTutup.offsetMin = new Vector2(24, 0);
             posisiTutup.offsetMax = new Vector2(-24, -24);
             tutup.onClick.AddListener(() => layanan?.Tutup());

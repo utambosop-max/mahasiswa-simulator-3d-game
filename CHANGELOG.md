@@ -1,6 +1,14 @@
 # Catatan Perubahan — Mahasiswa Simulator 3D
 
-Format versi: MAJOR.MINOR.PATCH (MINOR = milestone). Lihat skill `release-pipeline`.
+Riwayat versi Unity dan web.
+
+## Unity v0.1.1 — Antarmuka baru (2026-11-25)
+
+- Lihat jam, uang, IPK, energi, stres, dan cuaca di HUD baru. Tombol aksi dan joystick lebih mudah dikenali di layar kecil.
+- Dialog mengikuti panjang isi dan bisa disembunyikan sementara. Daftar di Rapor, menu, dan panel lain bisa digulir.
+- Kamera bergerak lebih halus di Kampung. Dinding kamar memudar jika menghalangi pandangan.
+- Pesan hasil aksi tampil di bagian atas layar. Panel racik menjaga posisi tombol saat memberi umpan balik.
+- Kafe memiliki empat pesanan. Pembelian dari menu langsung tersimpan dan game dapat memulihkan save dari file cadangan.
 
 ## v0.13.0 — Buku Sakti Ibu: Rombak Besar (2026-11-23)
 ⚠️ Main online: protokol v2 — perbarui server di PC (`rilis/server-online`) **dan** semua HP ke APK ini.

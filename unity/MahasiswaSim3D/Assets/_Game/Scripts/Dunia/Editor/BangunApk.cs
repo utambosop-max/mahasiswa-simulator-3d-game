@@ -14,8 +14,8 @@ namespace MS.Dunia.Editor
 {
     public static class BangunApk
     {
-        const string VersiNama = "0.1.0";   // semver (skill release-pipeline)
-        const int VersiKode = 100;           // MAJOR*10000 + MINOR*100 + PATCH → 0.1.0 = 100
+        const string VersiNama = "0.1.1";
+        const int VersiKode = 101;
 
         [MenuItem("Mahasiswa Sim/Bangun APK Android")]
         public static void Bangun()

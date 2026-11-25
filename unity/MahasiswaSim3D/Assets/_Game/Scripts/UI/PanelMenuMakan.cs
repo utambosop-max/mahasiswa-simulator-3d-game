@@ -78,8 +78,8 @@ namespace MS.UI
             var tutup = HudKamar.BuatKotak("Tutup", kartu);
             tutup.anchorMin = tutup.anchorMax = tutup.pivot = Vector2.one;
             tutup.anchoredPosition = new Vector2(-20, -20);
-            tutup.sizeDelta = new Vector2(220, 130);
-            var latarTutup = hud.Gambar(tutup, new Color32(239, 230, 220, 255), sentuh: true);
+            tutup.sizeDelta = new Vector2(220, 140);
+            var latarTutup = hud.Gambar(tutup, TemaAntarmuka.Langit, sentuh: true);
             var tombolTutup = tutup.gameObject.AddComponent<Button>();
             tombolTutup.targetGraphic = latarTutup;
             tombolTutup.onClick.AddListener(Tutup);
@@ -90,7 +90,7 @@ namespace MS.UI
             var port = HudKamar.BuatKotak("Viewport", kartu);
             HudKamar.Rentangkan(port, Vector2.zero, Vector2.one);
             port.offsetMin = new Vector2(24, 24);
-            port.offsetMax = new Vector2(-24, -170);
+            port.offsetMax = new Vector2(-24, -180);
             port.gameObject.AddComponent<RectMask2D>();
             var tangkap = port.gameObject.AddComponent<Image>();
             tangkap.color = Color.clear; // agar seret di sela baris tetap menggulir
