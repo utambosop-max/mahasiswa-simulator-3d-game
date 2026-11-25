@@ -27,13 +27,15 @@ namespace MS.Dunia
                     hasil.SetFloat("_BumpScale", .6f);
                     hasil.EnableKeyword("_NORMALMAP");
                 }
-                var arm = Resources.Load<Texture2D>("Bahan/" + id + "/arm");
-                if (arm != null)
+                var pbr = Resources.Load<Texture2D>("Bahan/" + id + "/pbr");
+                if (pbr != null)
                 {
-                    hasil.SetTexture("_OcclusionMap", arm);
-                    hasil.SetFloat("_OcclusionStrength", .25f);
-                    hasil.SetTextureOffset("_OcclusionMap", Vector2.zero);
+                    hasil.SetTexture("_OcclusionMap", pbr);
+                    hasil.SetTexture("_MetallicGlossMap", pbr);
+                    hasil.SetFloat("_OcclusionStrength", .4f);
+                    hasil.SetFloat("_Smoothness", .75f);
                     hasil.EnableKeyword("_OCCLUSIONMAP");
+                    hasil.EnableKeyword("_METALLICSPECGLOSSMAP");
                 }
             }
             bahan.Add(kunci, hasil);
@@ -61,6 +63,43 @@ namespace MS.Dunia
             renderer.sharedMaterial = mat;
             renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
             return detail;
+        }
+
+        public void Tanaman(Transform induk, Vector3 posisi, float tinggi)
+        {
+            const string folder = "Tanaman/potted_plant_01/";
+            var model = Resources.Load<GameObject>(folder + "model");
+            if (model == null) return;
+            var pot = Ambil("Pot tanaman", Color.white, Vector2.one);
+            pot.mainTexture = Resources.Load<Texture2D>(folder + "pot");
+            var daun = Ambil("Daun tanaman", Color.white, Vector2.one);
+            daun.mainTexture = Resources.Load<Texture2D>(folder + "daun");
+            daun.EnableKeyword("_ALPHATEST_ON");
+            daun.SetFloat("_AlphaClip", 1);
+            daun.SetFloat("_Cutoff", .42f);
+            daun.SetFloat("_Cull", 0);
+            daun.renderQueue = (int)UnityEngine.Rendering.RenderQueue.AlphaTest;
+            var akar = new GameObject("Tanaman pot");
+            akar.transform.SetParent(induk, false);
+            akar.transform.localPosition = posisi;
+            var objek = Instantiate(model, akar.transform);
+            var renderers = objek.GetComponentsInChildren<Renderer>();
+            var bounds = new Bounds(objek.transform.position, Vector3.zero);
+            foreach (var item in renderers)
+            {
+                bounds.Encapsulate(item.bounds);
+                item.sharedMaterial = item.name.Contains("leaves") ? daun : pot;
+                item.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            }
+            if (bounds.size.y > .001f)
+            {
+                objek.transform.position -= new Vector3(bounds.center.x - akar.transform.position.x,
+                    bounds.min.y - akar.transform.position.y, bounds.center.z - akar.transform.position.z);
+                akar.transform.localScale = Vector3.one * (tinggi / bounds.size.y);
+            }
+            var lod = akar.AddComponent<LODGroup>();
+            lod.SetLODs(new[] { new LOD(.035f, renderers) });
+            lod.RecalculateBounds();
         }
 
         void OnDestroy()

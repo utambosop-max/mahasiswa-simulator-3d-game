@@ -9,6 +9,7 @@
 | Brick Wall 02, warna / normal / ARM | Poly Haven | CC0 | [Aset](https://polyhaven.com/a/brick_wall_02) | Bata |
 | Kloppenheim 06 Pure Sky, HDRI | Poly Haven | CC0 | [Aset](https://polyhaven.com/a/kloppenheim_06_puresky) | Langit |
 | Tiles 074, warna / normal / roughness | ambientCG | CC0 | [Aset](https://ambientcg.com/a/Tiles074) | Keramik |
+| Potted Plant 01, model disederhanakan / warna / alpha | Poly Haven | CC0 | [Aset](https://polyhaven.com/a/potted_plant_01) | Tanaman pot |
 
 ## Mixamo (tidak diunggah ke repo)
 

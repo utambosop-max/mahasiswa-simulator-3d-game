@@ -15,6 +15,7 @@ namespace MS.Dunia
         VolumeProfile profil;
         Bloom bloom;
         Vignette vignette;
+        VisualKampung kampung;
         bool luar;
         int mutu = -1;
 
@@ -28,8 +29,13 @@ namespace MS.Dunia
         {
             if (scene.name != "Kampung" && scene.name != "KamarKos" && !scene.name.StartsWith("Gedung_")) return;
             var dunia = new GameObject("Pencahayaan dunia");
-            dunia.AddComponent<PencahayaanRealistis>();
+            var cahaya = dunia.AddComponent<PencahayaanRealistis>();
             if (scene.name == "KamarKos") VisualKamar.Pasang(dunia);
+            if (scene.name == "Kampung")
+            {
+                cahaya.kampung = dunia.AddComponent<VisualKampung>();
+                cahaya.kampung.Pasang();
+            }
         }
 
         void Start()
@@ -97,6 +103,7 @@ namespace MS.Dunia
 
         void AturCahaya(Fase fase)
         {
+            if (kampung != null) kampung.AturFase(fase);
             if (matahari == null) return;
             switch (fase)
             {

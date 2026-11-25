@@ -11,7 +11,8 @@ namespace MS.Dunia.Editor
             bool normal = assetPath.EndsWith("/normal.jpg", StringComparison.OrdinalIgnoreCase);
             bool langit = assetPath.EndsWith(".hdr", StringComparison.OrdinalIgnoreCase);
             bool linear = normal || langit || assetPath.EndsWith("/arm.jpg", StringComparison.OrdinalIgnoreCase)
-                || assetPath.EndsWith("/kasar.jpg", StringComparison.OrdinalIgnoreCase);
+                || assetPath.EndsWith("/kasar.jpg", StringComparison.OrdinalIgnoreCase)
+                || assetPath.EndsWith("/pbr.png", StringComparison.OrdinalIgnoreCase);
             var importer = (TextureImporter)assetImporter;
             importer.maxTextureSize = 1024;
             importer.mipmapEnabled = !langit;
