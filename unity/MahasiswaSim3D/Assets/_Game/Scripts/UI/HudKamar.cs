@@ -56,8 +56,6 @@ namespace MS.UI
         private string akademikTerakhir;
         private PerintahAksi? aksiUtama, aksiTambahan;
         private JoystickMelayang joystick;
-        private Sprite spriteLengkung;
-        private Texture2D teksturLengkung;
         private IStatPemain stat;
         private IJamGame jam;
         private IKonteksInteraksi konteks;
@@ -214,8 +212,6 @@ namespace MS.UI
         private void OnDestroy()
         {
             foreach (var tekstur in ikonStat) Destroy(tekstur);
-            Destroy(spriteLengkung);
-            Destroy(teksturLengkung);
         }
 
         private void HubungkanLayanan()
@@ -426,7 +422,6 @@ namespace MS.UI
             wadah.gameObject.AddComponent<GraphicRaycaster>();
             areaAman = BuatKotak("Area aman", wadah);
             Rentangkan(areaAman, Vector2.zero, Vector2.one);
-            spriteLengkung = BuatSpriteLengkung();
         }
 
         private void BuatTiraiTransisi()
@@ -709,8 +704,8 @@ namespace MS.UI
             teks.alignment = TextAlignmentOptions.Center;
             teks.fontStyle = gaya;
             teks.enableAutoSizing = true;
-            teks.fontSizeMin = minimum;
-            teks.fontSizeMax = ukuran;
+            teks.fontSizeMin = Mathf.Max(TemaAntarmuka.TeksMinimum, minimum);
+            teks.fontSizeMax = Mathf.Max(teks.fontSizeMin, ukuran);
             teks.textWrappingMode = TextWrappingModes.NoWrap;
             teks.overflowMode = TextOverflowModes.Truncate;
             teks.gameObject.AddComponent<TitikElipsis>();
@@ -720,30 +715,11 @@ namespace MS.UI
         internal Image Gambar(RectTransform kotak, Color warna, bool sentuh = false, bool bulat = false)
         {
             var gambar = kotak.gameObject.AddComponent<Image>();
-            gambar.sprite = spriteLengkung;
+            gambar.sprite = TemaAntarmuka.Bentuk(bulat);
             gambar.type = bulat ? Image.Type.Simple : Image.Type.Sliced;
             gambar.color = warna;
             gambar.raycastTarget = sentuh;
             return gambar;
-        }
-
-        private Sprite BuatSpriteLengkung()
-        {
-            const int sisi = 64;
-            const int pusat = sisi / 2;
-            var piksel = new Color32[sisi * sisi];
-            for (var y = 0; y < sisi; y++)
-            for (var x = 0; x < sisi; x++)
-            {
-                var jarak = new Vector2(x + 0.5f - pusat, y + 0.5f - pusat).magnitude;
-                var alfa = (byte)Mathf.RoundToInt(Mathf.Clamp01(pusat - jarak) * 255);
-                piksel[y * sisi + x] = new Color32(255, 255, 255, alfa);
-            }
-            teksturLengkung = new Texture2D(sisi, sisi, TextureFormat.RGBA32, false);
-            teksturLengkung.SetPixels32(piksel);
-            teksturLengkung.Apply(false, true);
-            return Sprite.Create(teksturLengkung, new Rect(0, 0, sisi, sisi), new Vector2(0.5f, 0.5f),
-                100, 0, SpriteMeshType.FullRect, new Vector4(30, 30, 30, 30));
         }
 
         internal static RectTransform BuatKotak(string nama, Transform induk)
