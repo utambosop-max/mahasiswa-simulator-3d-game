@@ -99,7 +99,7 @@ namespace MS.UI
             basis.localPosition = new Vector2(Jepit(batas.xMin + 162f, batas.xMin, batas.xMax),
                 Jepit(batas.yMin + 160f, batas.yMin, batas.yMax));
             knob.anchoredPosition = Vector2.zero;
-            tampilan.alpha = 0.53f;
+            tampilan.alpha = 0.44f;
         }
     }
 }

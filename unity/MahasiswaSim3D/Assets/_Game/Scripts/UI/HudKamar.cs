@@ -581,10 +581,14 @@ namespace MS.UI
             basis.sizeDelta = new Vector2(252, 252);
             var grup = basis.gameObject.AddComponent<CanvasGroup>();
             grup.blocksRaycasts = false;
-            Gambar(basis, new Color32(255, 250, 242, 200), bulat: true);
+            Gambar(basis, TemaAntarmuka.Langit, bulat: true);
+            var ring = BuatKotak("Ring joystick", basis);
+            ring.sizeDelta = new Vector2(212, 212);
+            Gambar(ring, TemaAntarmuka.Kertas, bulat: true);
             var knob = BuatKotak("Gagang joystick", basis);
             knob.sizeDelta = new Vector2(120, 120);
-            Gambar(knob, Aksen, bulat: true);
+            Gambar(knob, TemaAntarmuka.Jingga, bulat: true);
+            IkonHud.Pasang(knob, IkonHud.Jenis.Arah, 62, new Vector2(.5f, .5f));
             joystick = zona.gameObject.AddComponent<JoystickMelayang>();
             joystick.Siapkan(basis, knob, grup);
         }
