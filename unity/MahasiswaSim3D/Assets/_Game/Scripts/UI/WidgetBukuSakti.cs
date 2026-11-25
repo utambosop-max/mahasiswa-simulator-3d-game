@@ -17,11 +17,11 @@ namespace MS.UI
         {
             var tombol = HudKamar.BuatKotak("Buku Sakti", area);
             tombol.anchorMin = tombol.anchorMax = tombol.pivot = Vector2.one;
-            tombol.anchoredPosition = new Vector2(-24, -244);
-            tombol.sizeDelta = new Vector2(240, 136);
+            tombol.anchoredPosition = new Vector2(-24, -306);
+            tombol.sizeDelta = new Vector2(268, 118);
             buka = tombol.gameObject.AddComponent<Button>();
             // Image and Button share the same hit target.
-            buka.targetGraphic = hud.Gambar(tombol, new Color32(255,232,192,255), true);
+            buka.targetGraphic = hud.Gambar(tombol, TemaAntarmuka.Mentega, true);
             buka.onClick.AddListener(() =>
             {
                 if (!Layanan.InputDitahan) cerita?.BukaBukuSakti();

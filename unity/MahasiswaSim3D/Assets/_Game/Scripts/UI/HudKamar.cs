@@ -321,8 +321,8 @@ namespace MS.UI
             var pakaiAksiUji = konteks == null && tampilkanAksiUji;
             aksiUtama = pakaiAksiUji ? Tidur : konteks?.Utama;
             aksiTambahan = pakaiAksiUji ? Belajar : konteks?.Tambahan;
-            labelUtama.text = LabelAksi(aksiUtama, pakaiAksiUji ? "Tidur" : konteks?.NamaUtama);
-            labelTambahan.text = LabelAksi(aksiTambahan, pakaiAksiUji ? "Belajar" : konteks?.NamaTambahan);
+            labelUtama.text = LabelRingkas(aksiUtama, pakaiAksiUji ? "Tidur" : konteks?.NamaUtama);
+            labelTambahan.text = LabelRingkas(aksiTambahan, pakaiAksiUji ? "Belajar" : konteks?.NamaTambahan);
             // Pemain menjauh / konteks berganti -> tutup panel bila aksinya sudah tidak ada
             if (panelMenu != null && panelMenu.Terbuka && aksiUtama?.Id != panelMenu.IdAksi && aksiTambahan?.Id != panelMenu.IdAksi)
                 panelMenu.Tutup();
@@ -341,10 +341,24 @@ namespace MS.UI
         private string LabelAksi(PerintahAksi? aksi, string nama)
         {
             if (!aksi.HasValue) return "";
-            if (!string.IsNullOrWhiteSpace(nama) && nama != aksi.Value.Id) return BersihkanEmoji(nama);
+            if (!string.IsNullOrWhiteSpace(nama) && nama != aksi.Value.Id)
+            {
+                string bersih = BersihkanEmoji(nama);
+                if (bersih.Length != 0) return bersih;
+            }
             if (namaAksi.TryGetValue(aksi.Value.Id, out var teks))
                 return DekorasiEmoji.Replace(teks.Ikon + " " + teks.Label, "").Trim();
             return nama ?? aksi.Value.Id;
+        }
+
+        string LabelRingkas(PerintahAksi? aksi, string nama)
+        {
+            if (!aksi.HasValue) return "";
+            string label = LabelAksi(aksi, nama);
+            if (aksi.Value.Id == "masukGedung") return "Masuk";
+            if (label.Length > 22 && namaAksi.TryGetValue(aksi.Value.Id, out var pendek))
+                return BersihkanEmoji(pendek.Label);
+            return label;
         }
 
         private void TerapkanAksiKonteks()
@@ -544,14 +558,15 @@ namespace MS.UI
         {
             var wadah = BuatKotak("Buka rapor", areaAman);
             wadah.anchorMin = wadah.anchorMax = wadah.pivot = Vector2.one;
-            wadah.anchoredPosition = new Vector2(-24, -145);
-            wadah.sizeDelta = new Vector2(190, 95);
-            var latar = Gambar(wadah, Krem, true);
+            wadah.anchoredPosition = new Vector2(-24, -174);
+            wadah.sizeDelta = new Vector2(268, 118);
+            var latar = Gambar(wadah, TemaAntarmuka.Langit, true);
             var tombol = wadah.gameObject.AddComponent<Button>();
             tombol.targetGraphic = latar;
             tombol.onClick.AddListener(() => panelRapor.Buka());
             var teks = Teks(wadah, "Rapor", 36, 27, FontStyles.Bold);
             Rentangkan(teks.rectTransform, Vector2.zero, Vector2.one);
+            IkonHud.Pasang(wadah, IkonHud.Jenis.Ipk, 43);
         }
 
         private void BuatJoystick()
@@ -575,12 +590,15 @@ namespace MS.UI
         {
             (tombolUtama, labelUtama) = BuatTombol("Aksi utama", () => MintaAksi(aksiUtama, true));
             (tombolTambahan, labelTambahan) = BuatTombol("Aksi tambahan", () => MintaAksi(aksiTambahan, false));
+            IkonHud.Pasang((RectTransform)tombolUtama.transform, IkonHud.Jenis.Aksi, 42);
+            IkonHud.Pasang((RectTransform)tombolTambahan.transform, IkonHud.Jenis.Aksi, 38);
             if (Application.isMobilePlatform)
             {
                 (tombolKamera, _) = BuatTombol("Putar kamera", () =>
                 {
                     if (!Layanan.InputDitahan) Camera.main?.GetComponent<MS.Pemain.KameraIsometric>()?.PutarKanan();
                 });
+                IkonHud.Pasang((RectTransform)tombolKamera.transform, IkonHud.Jenis.Kamera, 39);
             }
             kotakPesan = BuatKotak("Alasan aksi", areaAman);
             kotakPesan.anchorMin = kotakPesan.anchorMax = new Vector2(0.5f, 0);
@@ -616,7 +634,7 @@ namespace MS.UI
             tombol.targetGraphic = latar;
             tombol.onClick.AddListener(kirim);
             var nama = Teks(kotak, label, 48, 30, FontStyles.Bold);
-            nama.textWrappingMode = TextWrappingModes.Normal;
+            nama.textWrappingMode = TextWrappingModes.NoWrap;
             Rentangkan(nama.rectTransform, new Vector2(0.08f, 0.08f), new Vector2(0.92f, 0.92f));
             return (tombol, nama);
         }
@@ -649,8 +667,8 @@ namespace MS.UI
             // Pertahankan 56 px walau layar landscape lebih pendek dari ukuran acuan.
             var skala = Mathf.Sqrt(Screen.width / 1920f * (Screen.height / 1080f));
             if (skala <= 0f) return;
-            var tinggi = Mathf.Max(186, 56 / skala);
-            var lebar = Mathf.Max(300, tinggi);
+            var tinggi = Mathf.Max(80, TemaAntarmuka.SentuhMinimum / skala);
+            var lebar = Mathf.Max(346, tinggi);
             var jarak = Mathf.Max(26, 8 / skala);
             ((RectTransform)tombolUtama.transform).sizeDelta = new Vector2(lebar, tinggi);
             ((RectTransform)tombolUtama.transform).anchoredPosition = new Vector2(-32, 32);
