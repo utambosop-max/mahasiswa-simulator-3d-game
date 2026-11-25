@@ -95,7 +95,8 @@ namespace MS.Inti
             if (CuacaId != "hujan") return;
             if (s.payung) { Pesan?.Invoke("☂️ Untung bawa payung!"); return; }
             Terapkan(0, 0, K.stresKehujanan);
-            Pesan?.Invoke("🌧️ Hujan deras & kamu tidak bawa payung! Basah kuyup 😵+" + K.stresKehujanan);
+            string cuaca = jam.Fase == Fase.Pagi || jam.Fase == Fase.Sore ? "Gerimis" : "Hujan deras";
+            Pesan?.Invoke("🌧️ " + cuaca + " dan kamu tidak bawa payung. 😵+" + K.stresKehujanan);
             if (s.sakit == 0 && s.vitaminHari != s.hari && acak() < K.peluangSakitHujan)
             {
                 s.sakit = K.sakitHari;

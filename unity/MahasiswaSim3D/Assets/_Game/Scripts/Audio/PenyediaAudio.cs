@@ -76,6 +76,11 @@ namespace MS.Audio
                 UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Kampung";
             if (gerimis && !hujan.isPlaying) hujan.Play();
             if (!gerimis && hujan.isPlaying) hujan.Stop();
+            if (gerimis)
+            {
+                bool ringan = Layanan.Jam?.Fase == Fase.Pagi || Layanan.Jam?.Fase == Fase.Sore;
+                hujan.volume = Mathf.MoveTowards(hujan.volume, ringan ? .044f : .086f, Time.unscaledDeltaTime * .08f);
+            }
             if (Layanan.Kondisi?.Sakit != true) bersinBerikut = 0;
             else if (Time.unscaledTime >= bersinBerikut)
             {

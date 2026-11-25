@@ -8,6 +8,7 @@ namespace MS.Dunia
         Material lampu;
         Material lampuAsal;
         PeneranganKampung penerangan;
+        internal CuacaKampung Cuaca { get; private set; }
         IPenerimaAksi aksi;
         TextMesh celetukan;
         Transform wargaBicara;
@@ -38,6 +39,8 @@ namespace MS.Dunia
                 }
                 gameObject.AddComponent<DetailJalan>().Pasang(jalan.transform, bahan);
             }
+            Cuaca = gameObject.AddComponent<CuacaKampung>();
+            Cuaca.Pasang(jalan != null ? jalan.transform : null);
 
             var bangunan = GameObject.Find("Bangunan");
             if (bangunan != null)

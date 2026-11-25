@@ -21,6 +21,7 @@ namespace MS.Dunia
         PartikelKampung partikel;
         bool luar;
         int mutu = -1;
+        float cahayaCuaca = 1f;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         static void Pasang()
@@ -48,6 +49,7 @@ namespace MS.Dunia
             matahari = GameObject.Find("Matahari")?.GetComponent<Light>();
             jam = GameInti.Instans?.Jam;
             if (jam != null) jam.FaseBerganti += AturCahaya;
+            if (kampung?.Cuaca != null) kampung.Cuaca.CahayaBerubah += SaatCuaca;
 
             var volume = gameObject.AddComponent<Volume>();
             volume.isGlobal = true;
@@ -147,14 +149,14 @@ namespace MS.Dunia
                 Fase.Malam => (new Color(.19f, .24f, .33f), new Color(.37f, .43f, .60f), new Color(.93f, .97f, 1f), .30f),
                 _ => (new Color(.13f, .16f, .25f), new Color(.30f, .36f, .56f), new Color(.90f, .94f, 1f), .23f)
             };
-            RenderSettings.fogColor = kabut;
+            RenderSettings.fogColor = Color.Lerp(kabut, new Color(.39f, .46f, .51f), (1f - cahayaCuaca) * .72f);
             penataanWarna.colorFilter.value = filter;
             bool malam = fase == Fase.Malam || fase == Fase.Begadang;
             RenderSettings.reflectionIntensity = malam ? .36f : 1f;
-            if (pantulanLangit != null) pantulanLangit.intensity = malam ? .04f : .37f;
+            if (pantulanLangit != null) pantulanLangit.intensity = malam ? .04f : .37f * cahayaCuaca;
             penataanWarna.postExposure.value = malam ? .10f : .21f;
             if (langit == null) return;
-            langit.SetFloat("_Exposure", terang);
+            langit.SetFloat("_Exposure", terang * cahayaCuaca);
             langit.SetColor("_Tint", warnaLangit);
             if (langit.HasProperty("_Malam")) langit.SetFloat("_Malam", malam ? 1f : 0f);
         }
@@ -162,14 +164,21 @@ namespace MS.Dunia
         void Matahari(float tinggi, float intensitas, Color warna)
         {
             matahari.transform.rotation = Quaternion.Euler(tinggi, -36, 0);
-            matahari.intensity = luar ? intensitas : Mathf.Max(.54f, intensitas);
+            matahari.intensity = luar ? intensitas * cahayaCuaca : Mathf.Max(.54f, intensitas);
             matahari.color = warna;
             RenderSettings.ambientLight = Color.Lerp(new Color(.43f, .46f, .53f), warna, luar ? .40f : .52f);
+        }
+
+        void SaatCuaca(float cahaya)
+        {
+            cahayaCuaca = cahaya;
+            AturCahaya(jam?.Fase ?? Fase.Pagi);
         }
 
         void OnDestroy()
         {
             if (jam != null) jam.FaseBerganti -= AturCahaya;
+            if (kampung?.Cuaca != null) kampung.Cuaca.CahayaBerubah -= SaatCuaca;
             if (langit != null) Destroy(langit);
             if (profil != null) Destroy(profil);
         }

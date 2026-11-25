@@ -171,7 +171,15 @@ namespace MS.Dunia
         {
             tersembunyi = !tampil;
             for (int i = 0; i < transform.childCount; i++)
-                transform.GetChild(i).gameObject.SetActive(tampil);
+            {
+                var bagian = transform.GetChild(i);
+                if (bagian.name == "Payung cuaca")
+                {
+                    if (!tampil) bagian.gameObject.SetActive(false);
+                    continue;
+                }
+                bagian.gameObject.SetActive(tampil);
+            }
             var kol = GetComponent<Collider>();
             if (kol != null) kol.enabled = tampil;
         }

@@ -117,5 +117,24 @@ namespace MS.Inti.Tes
             for (int h = 3; h < 203; h++) if (data.Fitur.CuacaHari(h).id == "hujan") hujan++;
             Assert.That(hujan, Is.InRange(20, 60), "± 20% hari hujan");
         }
+
+        [Test]
+        public void EfekBasahMengikutiDataDanPayungMelindungi()
+        {
+            for (int h = 2; h < 220; h++)
+                if (data.Fitur.CuacaHari(h).id == "hujan")
+                {
+                    s.hari = h;
+                    break;
+                }
+            Assert.AreEqual("hujan", hidup.CuacaId);
+            float awal = stat.Stres;
+            hidup.SaatKeluarKos();
+            Assert.Greater(stat.Stres, awal);
+            float setelahHujan = stat.Stres;
+            s.payung = true;
+            hidup.SaatKeluarKos();
+            Assert.AreEqual(setelahHujan, stat.Stres);
+        }
     }
 }
