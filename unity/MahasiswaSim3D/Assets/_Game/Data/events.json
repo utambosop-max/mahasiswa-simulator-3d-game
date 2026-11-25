@@ -500,7 +500,7 @@
     "peluang": 0.03,
     "pilihan": [
       {
-        "label": "✍️ Ikut! (⚡ −25)",
+        "label": "Ikut! (Energi −25)",
         "efek": {
           "energi": -25,
           "stres": 6,

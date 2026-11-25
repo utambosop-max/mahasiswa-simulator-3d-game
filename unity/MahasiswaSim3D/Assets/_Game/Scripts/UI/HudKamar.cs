@@ -46,7 +46,7 @@ namespace MS.UI
         private Canvas kanvas;
         private Image tiraiTransisi;
         private RectTransform areaAman, kotakPesan;
-        private Button tombolUtama, tombolTambahan;
+        private Button tombolUtama, tombolTambahan, tombolKamera;
         private TextMeshProUGUI labelUtama, labelTambahan;
         private TextMeshProUGUI uang, ipk, energi, stres, kalender, judulKalender;
         private TextMeshProUGUI statusAkademik;
@@ -346,7 +346,7 @@ namespace MS.UI
         private string LabelAksi(PerintahAksi? aksi, string nama)
         {
             if (!aksi.HasValue) return "";
-            if (!string.IsNullOrWhiteSpace(nama) && nama != aksi.Value.Id) return nama;
+            if (!string.IsNullOrWhiteSpace(nama) && nama != aksi.Value.Id) return BersihkanEmoji(nama);
             if (namaAksi.TryGetValue(aksi.Value.Id, out var teks))
                 return DekorasiEmoji.Replace(teks.Ikon + " " + teks.Label, "").Trim();
             return nama ?? aksi.Value.Id;
@@ -461,7 +461,7 @@ namespace MS.UI
             var data = Layanan.Kondisi;
             if (data != null)
             {
-                string ikon = DaftarModal.Ikon(data.CuacaIkon, "☁");
+                string ikon = DaftarModal.Ikon(data.CuacaIkon, "Cuaca ·");
                 string nilai = $"{ikon} {data.CuacaNama}" + (data.Sakit ? " · Sakit" : "")
                     + (data.KamarKotor ? " · Kamar kotor" : "") + (data.BajuKotor >= 4 ? " · Cucian menumpuk" : "");
                 if (statusKondisi.text != nilai) statusKondisi.text = nilai;
@@ -584,6 +584,13 @@ namespace MS.UI
         {
             (tombolUtama, labelUtama) = BuatTombol("Aksi utama", () => MintaAksi(aksiUtama, true));
             (tombolTambahan, labelTambahan) = BuatTombol("Aksi tambahan", () => MintaAksi(aksiTambahan, false));
+            if (Application.isMobilePlatform)
+            {
+                (tombolKamera, _) = BuatTombol("Putar kamera", () =>
+                {
+                    if (!Layanan.InputDitahan) Camera.main?.GetComponent<MS.Pemain.KameraIsometric>()?.PutarKanan();
+                });
+            }
             kotakPesan = BuatKotak("Alasan aksi", areaAman);
             kotakPesan.anchorMin = kotakPesan.anchorMax = new Vector2(0.5f, 0);
             kotakPesan.pivot = new Vector2(0.5f, 0);
@@ -617,7 +624,8 @@ namespace MS.UI
             var tombol = kotak.gameObject.AddComponent<Button>();
             tombol.targetGraphic = latar;
             tombol.onClick.AddListener(kirim);
-            var nama = Teks(kotak, label, 52, 40, FontStyles.Bold);
+            var nama = Teks(kotak, label, 48, 30, FontStyles.Bold);
+            nama.textWrappingMode = TextWrappingModes.Normal;
             Rentangkan(nama.rectTransform, new Vector2(0.08f, 0.08f), new Vector2(0.92f, 0.92f));
             return (tombol, nama);
         }
@@ -651,12 +659,18 @@ namespace MS.UI
             var skala = Mathf.Sqrt(Screen.width / 1920f * (Screen.height / 1080f));
             if (skala <= 0f) return;
             var tinggi = Mathf.Max(186, 56 / skala);
-            var lebar = Mathf.Max(264, tinggi);
+            var lebar = Mathf.Max(300, tinggi);
             var jarak = Mathf.Max(26, 8 / skala);
             ((RectTransform)tombolUtama.transform).sizeDelta = new Vector2(lebar, tinggi);
             ((RectTransform)tombolUtama.transform).anchoredPosition = new Vector2(-32, 32);
             ((RectTransform)tombolTambahan.transform).sizeDelta = new Vector2(lebar, tinggi);
             ((RectTransform)tombolTambahan.transform).anchoredPosition = new Vector2(aksiUtama.HasValue ? -32 - lebar - jarak : -32, 32);
+            if (tombolKamera != null)
+            {
+                var kotakKamera = (RectTransform)tombolKamera.transform;
+                kotakKamera.sizeDelta = new Vector2(lebar, Mathf.Max(112, 56 / skala));
+                kotakKamera.anchoredPosition = new Vector2(-32, 32 + tinggi + jarak);
+            }
             // Toast di bawah; saat panel menu terbuka pindah ke atas kartu agar tidak menumpuk
             if (panelMenu != null && panelMenu.Terbuka)
             {

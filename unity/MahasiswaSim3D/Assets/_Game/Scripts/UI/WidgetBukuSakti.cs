@@ -9,6 +9,7 @@ namespace MS.UI
     {
         readonly TextMeshProUGUI isi;
         readonly Button buka;
+        readonly RectTransform areaRingkas;
         ICerita cerita;
         bool disembunyikan;
 
@@ -29,10 +30,7 @@ namespace MS.UI
             HudKamar.Rentangkan(teksTombol.rectTransform, Vector2.zero, Vector2.one);
             IkonHud.Pasang(tombol, IkonHud.Jenis.Buku);
 
-            var areaRingkas = HudKamar.BuatKotak("Ringkasan Buku Sakti", area);
-            HudKamar.Rentangkan(areaRingkas, new Vector2(.02f, 1), new Vector2(.76f, 1));
-            areaRingkas.offsetMin = new Vector2(0, -460);
-            areaRingkas.offsetMax = new Vector2(0, -315);
+            areaRingkas = HudKamar.BuatKotak("Ringkasan Buku Sakti", area);
             hud.Gambar(areaRingkas, new Color32(255,245,226,245), true);
             var lipat = areaRingkas.gameObject.AddComponent<Button>();
             lipat.onClick.AddListener(() => { disembunyikan = !disembunyikan; Segarkan(); });
@@ -57,7 +55,10 @@ namespace MS.UI
             bool aktif = !string.IsNullOrEmpty(cerita?.BabJudul);
             isi.transform.parent.gameObject.SetActive(aktif);
             if (!aktif) return;
-            if (disembunyikan) { isi.text = "Tampilkan tujuan Buku Sakti"; return; }
+            HudKamar.Rentangkan(areaRingkas, new Vector2(.02f, 1), new Vector2(disembunyikan ? .30f : .70f, 1));
+            areaRingkas.offsetMin = new Vector2(0, disembunyikan ? -378 : -445);
+            areaRingkas.offsetMax = new Vector2(0, -306);
+            if (disembunyikan) { isi.text = "Tampilkan tujuan"; return; }
 
             InfoTujuan berikut = null;
             int selesai = 0;

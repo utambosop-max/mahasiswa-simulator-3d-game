@@ -43,8 +43,8 @@ namespace MS.UI
             foreach (var opsi in menu.Daftar)
             {
                 string id = opsi.Id;
-                string nama = $"{DaftarModal.Ikon(opsi.Ikon, "")} {opsi.Nama}".Trim();
-                if (opsi.Aktif) nama += " [✓]";
+                string nama = $"{DaftarModal.Ikon(opsi.Ikon, "")} {HudKamar.BersihkanEmoji(opsi.Nama)}".Trim();
+                if (opsi.Aktif) nama += " · Aktif";
                 string detail = HudKamar.BersihkanEmoji(opsi.Keterangan ?? "");
                 if (opsi.Harga > 0) detail += $"\nRp{opsi.Harga.ToString("N0", Indonesia)}";
                 if (!opsi.Boleh && !opsi.Judul) detail += "\n" + HudKamar.BersihkanEmoji(opsi.Alasan ?? "Belum tersedia.");

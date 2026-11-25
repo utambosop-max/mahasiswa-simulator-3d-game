@@ -59,7 +59,7 @@ namespace MS.UI
             var hidup = Layanan.Hidup;
             if (hidup == null) return;
             string target = hidup.TargetTabungan > 0 ? $" / Rp{hidup.TargetTabungan:N0}" : "";
-            isi.text += $"\nKos {hidup.KosNama} · Pacar {hidup.PacarNama ?? "—"}" +
+            isi.text += $"\n{hidup.KosNama} · Pacar {hidup.PacarNama ?? "—"}" +
                 $"\nTabungan Rp{hidup.Tabungan:N0}{target}" +
                 $"\nBeasiswa {hidup.BeasiswaNama ?? "—"} · UKM {hidup.UkmNama ?? "—"}" +
                 $"\nPemrograman {hidup.LevelSkill("pemrograman")} · Memasak {hidup.LevelSkill("memasak")}" +
