@@ -29,7 +29,7 @@ namespace MS.MiniGame
         static readonly Color Gelap = new Color32(59, 42, 32, 255);
         readonly RectTransform akar, konten;
         readonly ScrollRect gulir;
-        readonly TextMeshProUGUI judul, isi, waktu;
+        readonly TextMeshProUGUI judul, isi, umpanBalik, waktu;
         readonly Image sisaBar;
         readonly LayoutElement tinggiWaktu;
         readonly List<(Button tombol, TextMeshProUGUI teks)> tombol = new();
@@ -74,6 +74,8 @@ namespace MS.MiniGame
             gulir.movementType = ScrollRect.MovementType.Clamped;
             judul = Teks("Judul racik", konten, 52, true);
             isi = Teks("Informasi racik", konten, 40);
+            umpanBalik = Teks("Umpan balik racik", konten, 36, true);
+            umpanBalik.gameObject.AddComponent<LayoutElement>().preferredHeight = 88;
             var bar = Kotak("Kesabaran", konten, Vector2.zero, Vector2.one);
             tinggiWaktu = bar.gameObject.AddComponent<LayoutElement>();
             tinggiWaktu.minHeight = 48;
@@ -230,10 +232,11 @@ namespace MS.MiniGame
         void PerbaruiPesanan()
         {
             string bahan = string.Join(" • ", pesanan.resep.Select(id =>
-                (terisi.Contains(id) ? "✓ " : "") + aturan.bahan.First(b => b.id == id).nama));
+                (terisi.Contains(id) ? "+ " : "") + aturan.bahan.First(b => b.id == id).nama));
             int nomor = benar + gagal + (jeda > 0 ? 0 : 1);
             isi.text = $"Pelanggan {nomor}/{aturan.jumlahPelanggan}   |   Benar {benar}   |   Gagal {gagal}\n" +
-                $"{pesanan.nama}\n{bahan}" + (pesan.Length > 0 ? "\n" + pesan : "");
+                $"{pesanan.nama}\n{bahan}";
+            umpanBalik.text = pesan;
             for (int i = 0; i < aturan.bahan.Length; i++)
                 tombol[i].tombol.interactable = jeda <= 0 && !terisi.Contains(aturan.bahan[i].id);
         }
@@ -263,6 +266,7 @@ namespace MS.MiniGame
             tahap = baru;
             judul.text = nama;
             isi.text = deskripsi;
+            umpanBalik.gameObject.SetActive(baru == Tahap.Racik);
             tinggiWaktu.gameObject.SetActive(baru == Tahap.Racik);
             akar.gameObject.SetActive(true);
             if (awal) saatBuka();
