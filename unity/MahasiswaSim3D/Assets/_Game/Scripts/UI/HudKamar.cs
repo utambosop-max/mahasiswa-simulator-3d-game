@@ -156,6 +156,8 @@ namespace MS.UI
         {
             PerbaruiAreaAman();
             HubungkanLayanan();
+            if (tombolKlakson.gameObject.activeSelf != (Layanan.Kendaraan?.NaikMotor == true))
+                PerbaruiTombol();
             if (Time.unscaledTime >= cekAksiBerikut)
             {
                 PerbaruiTombol();

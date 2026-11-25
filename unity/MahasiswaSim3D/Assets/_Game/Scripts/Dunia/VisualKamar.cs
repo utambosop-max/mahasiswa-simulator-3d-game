@@ -11,7 +11,7 @@ namespace MS.Dunia
             var ruang = kamar.transform;
             var bahan = induk.AddComponent<BahanRealistis>();
             var plester = new Color(.91f, .82f, .68f);
-            bahan.Permukaan(ruang.Find("Lantai"), "Tiles074", new Color(.98f, .91f, .83f), new Vector2(5, 4));
+            bahan.Permukaan(ruang.Find("Lantai"), "Tiles110", new Color(.98f, .95f, .89f), new Vector2(5, 4));
             foreach (var nama in new[] { "Dinding Belakang", "Dinding Kiri", "Dinding Kanan", "Dinding Depan" })
             {
                 var dinding = ruang.Find(nama);
@@ -25,8 +25,12 @@ namespace MS.Dunia
             var kain = bahan.Ambil(null, new Color(.47f, .57f, .50f), Vector2.one);
             var putih = bahan.Ambil(null, new Color(.87f, .83f, .74f), Vector2.one);
             var biru = bahan.Ambil(null, new Color(.19f, .48f, .66f), Vector2.one);
+            bahan.Permukaan(ruang.Find("Pintu"), "wood_table_001", new Color(.65f, .44f, .28f), Vector2.one);
+            bahan.Permukaan(ruang.Find("Jendela"), null, kaca.color, Vector2.one);
+            bahan.Detail(ruang, "Pegangan pintu", new Vector3(.39f, .38f, -3.39f), new Vector3(.14f, .04f, .04f), kusen);
             bahan.Detail(ruang, "Lis dinding belakang", new Vector3(0, .08f, 3.47f), new Vector3(10, .16f, .06f), kayu);
             bahan.Detail(ruang, "Lis kepala dinding", new Vector3(0, 2.46f, 3.43f), new Vector3(10, .10f, .18f), putih);
+            bahan.Detail(ruang, "Potongan plafon", new Vector3(0, 2.52f, 3.38f), new Vector3(10, .09f, .47f), putih);
             bahan.Detail(ruang, "Kusen jendela", new Vector3(-3.2f, 1.56f, 3.46f), new Vector3(1.67f, 1.03f, .12f), kusen);
             bahan.Detail(ruang, "Kaca jendela", new Vector3(-3.2f, 1.56f, 3.39f), new Vector3(1.49f, .87f, .04f), kaca);
             bahan.Detail(ruang, "Bilah jendela", new Vector3(-3.2f, 1.56f, 3.35f), new Vector3(.055f, .88f, .06f), kusen);
@@ -38,6 +42,14 @@ namespace MS.Dunia
             bahan.Detail(ruang, "Keset", new Vector3(-2.9f, .014f, 1.02f), new Vector3(1.62f, .025f, .72f), kain);
             bahan.Detail(ruang, "Galon", new Vector3(4.40f, .42f, 1.18f), new Vector3(.36f, .39f, .36f), biru, PrimitiveType.Cylinder);
             bahan.Detail(ruang, "Tutup galon", new Vector3(4.40f, .84f, 1.18f), new Vector3(.14f, .06f, .14f), putih, PrimitiveType.Cylinder);
+            bahan.Detail(ruang, "Poster kampus", new Vector3(.40f, 1.77f, 3.48f), new Vector3(.50f, .69f, .04f), kusen);
+            bahan.Detail(ruang, "Kertas poster", new Vector3(.40f, 1.77f, 3.451f), new Vector3(.43f, .61f, .018f), putih);
+            bahan.Detail(ruang, "Aksen poster", new Vector3(.40f, 1.96f, 3.436f), new Vector3(.32f, .14f, .012f), biru);
+            bahan.Detail(ruang, "Colokan dinding", new Vector3(2.75f, .36f, 3.47f), new Vector3(.22f, .11f, .07f), putih);
+            bahan.Detail(ruang, "Rak gantung", new Vector3(-.11f, 1.34f, 3.29f), new Vector3(1.2f, .095f, .40f), kayu);
+            bahan.Detail(ruang, "Lampu dinding", new Vector3(2.85f, 2.20f, 3.27f), new Vector3(.24f, .12f, .24f), putih, PrimitiveType.Cylinder);
+            bahan.Detail(ruang, "Rice cooker", new Vector3(4.25f, .95f, -1.83f), new Vector3(.32f, .19f, .32f), putih, PrimitiveType.Cylinder);
+            bahan.Detail(ruang, "Panel rice cooker", new Vector3(3.99f, .95f, -1.83f), new Vector3(.04f, .12f, .14f), kusen);
             bahan.Tanaman(ruang, new Vector3(4.58f, 0, 3.18f), .59f);
         }
     }

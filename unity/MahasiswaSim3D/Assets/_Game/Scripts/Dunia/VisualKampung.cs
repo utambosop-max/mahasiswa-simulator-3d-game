@@ -28,12 +28,13 @@ namespace MS.Dunia
                     if (!aspal && !bidang.name.StartsWith("Trotoar ")) continue;
                     var ukuran = bidang.localScale;
                     bahan.Permukaan(bidang, aspal ? "asphalt_01" : "concrete_floor_02",
-                        aspal ? new Color(.58f, .58f, .59f) : new Color(.83f, .78f, .68f),
+                        aspal ? new Color(.87f, .87f, .88f) : new Color(.87f, .83f, .76f),
                         new Vector2(Mathf.Max(1, ukuran.x * .52f), Mathf.Max(1, ukuran.z * .52f)));
                 }
 
             var bangunan = GameObject.Find("Bangunan");
             if (bangunan != null)
+            {
                 foreach (Transform gedung in bangunan.transform)
                     if (gedung.Find("Badan") is Transform badan)
                     {
@@ -43,6 +44,8 @@ namespace MS.Dunia
                         bahan.Permukaan(badan, gedung.name.Contains("Petak") ? "brick_wall_02" : "plastered_wall_02",
                             Color.Lerp(warna, Color.white, .25f), new Vector2(4, 2));
                     }
+                PasangFasad(bangunan.transform, bahan);
+            }
 
             var prop = GameObject.Find("Prop");
             if (prop == null) return;
@@ -59,9 +62,48 @@ namespace MS.Dunia
             }
             foreach (var posisi in asalLampu)
                 bahan.Detail(prop.transform, "Bohlam jalan", posisi, new Vector3(.22f, .14f, .22f), lampu, PrimitiveType.Sphere);
-            var parkir = GameObject.Find("Parkir Motor");
+            var parkir = GameObject.Find("Motor Saya");
             if (parkir != null)
                 bahan.Tanaman(prop.transform, prop.transform.InverseTransformPoint(parkir.transform.position) + new Vector3(1.8f, 0, 1.6f), .80f);
+        }
+
+        static void PasangFasad(Transform bangunan, BahanRealistis bahan)
+        {
+            var plester = bahan.Ambil("plastered_wall_02", new Color(.82f, .78f, .67f), new Vector2(2, 1));
+            var rangka = bahan.Ambil(null, new Color(.25f, .29f, .28f), Vector2.one);
+            var kaca = bahan.Ambil(null, new Color(.32f, .48f, .48f), Vector2.one);
+            kaca.SetFloat("_Smoothness", .72f);
+            foreach (var id in new[] { "kos", "warteg", "warkop" })
+            {
+                var pintu = bangunan.Find("Pintu " + id);
+                if (pintu == null) continue;
+                foreach (Transform gedung in bangunan)
+                {
+                    if (!gedung.name.EndsWith("(" + id + ")") || !gedung.TryGetComponent<BoxCollider>(out var collider)) continue;
+                    var batas = collider.bounds;
+                    var kePintu = pintu.position - batas.center;
+                    Vector3 depan = Mathf.Abs(kePintu.x) > Mathf.Abs(kePintu.z)
+                        ? Vector3.right * Mathf.Sign(kePintu.x) : Vector3.forward * Mathf.Sign(kePintu.z);
+                    Vector3 sisi = Vector3.Cross(Vector3.up, depan);
+                    float kedalaman = Mathf.Abs(Vector3.Dot(depan, batas.extents));
+                    float lebar = Mathf.Abs(Vector3.Dot(sisi, batas.size));
+                    if (lebar < 2f || batas.size.y < 3f) break;
+                    Vector3 tengah = batas.center + depan * (kedalaman + .045f);
+                    tengah.y = batas.min.y + 2.1f;
+                    var rak = new GameObject("Detail fasad " + id).transform;
+                    rak.SetParent(gedung, true);
+                    rak.SetPositionAndRotation(tengah, Quaternion.LookRotation(depan));
+                    bahan.Detail(rak, "Teritisan", new Vector3(0, .62f, .11f), new Vector3(lebar * .88f, .10f, .42f), plester);
+                    bahan.Detail(rak, "Talang", new Vector3(0, .55f, .29f), new Vector3(lebar * .88f, .10f, .055f), rangka);
+                    for (int arah = -1; arah <= 1; arah += 2)
+                    {
+                        var letak = new Vector3(arah * lebar * .28f, 0, 0);
+                        bahan.Detail(rak, "Kusen luar", letak, new Vector3(.83f, .68f, .095f), rangka);
+                        bahan.Detail(rak, "Kaca luar", letak + Vector3.forward * .065f, new Vector3(.72f, .58f, .05f), kaca);
+                    }
+                    break;
+                }
+            }
         }
 
         public void AturFase(Fase fase)

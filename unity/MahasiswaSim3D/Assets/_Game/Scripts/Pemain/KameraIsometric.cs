@@ -55,7 +55,11 @@ namespace MS.Pemain
 
         void Start()
         {
-            if (gameObject.scene.name == "KamarKos") SiapkanDinding();
+            if (gameObject.scene.name == "KamarKos")
+            {
+                _sudutTuju = 180f;
+                SiapkanDinding();
+            }
             Lompat();
         }
 

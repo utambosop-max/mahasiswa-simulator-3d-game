@@ -65,7 +65,8 @@ namespace MS.Dunia
             if (luar)
             {
                 var hdr = Resources.Load<Cubemap>("Bahan/kloppenheim_06_puresky");
-                var shader = Shader.Find("Skybox/Cubemap");
+                var materialLangit = Resources.Load<Material>("Bahan/MaterialLangit");
+                var shader = materialLangit != null ? materialLangit.shader : Shader.Find("Skybox/Cubemap");
                 if (hdr != null)
                 {
                     if (shader != null)

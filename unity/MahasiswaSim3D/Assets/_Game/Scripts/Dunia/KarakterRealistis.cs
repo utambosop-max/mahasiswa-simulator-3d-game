@@ -16,7 +16,7 @@ namespace MS.Dunia
         };
         static AnimationClip[] klip;
         static readonly GameObject[] model = new GameObject[6];
-        static readonly Dictionary<Material, Material> bahan = new();
+        static readonly Dictionary<(Material, int), Material> bahan = new();
         static readonly Color[] warnaBaju = { Color.white, new(.64f, .80f, .98f), new(.63f, .81f, .64f), new(.93f, .65f, .52f) };
 
         bool pemain;
@@ -71,8 +71,11 @@ namespace MS.Dunia
             }
             if (nomor == 0)
                 foreach (var akar in scene.GetRootGameObjects())
-                    if (akar.name.StartsWith("Penjaga ", StringComparison.Ordinal))
-                        akar.AddComponent<KarakterRealistis>().pilihan = (Math.Abs(akar.name.GetHashCode() % model.Length));
+                    if (akar.name.StartsWith("Ruang ", StringComparison.Ordinal))
+                        foreach (Transform anak in akar.transform)
+                            if (anak.name.StartsWith("Penjaga ", StringComparison.Ordinal) ||
+                                anak.name.StartsWith("kar_penjaga_", StringComparison.Ordinal))
+                                anak.gameObject.AddComponent<KarakterRealistis>().pilihan = Math.Abs(anak.name.GetHashCode() % model.Length);
         }
 
         void Start()
@@ -104,7 +107,7 @@ namespace MS.Dunia
                 bounds.Encapsulate(item.bounds);
                 var material = item.sharedMaterials;
                 for (int i = 0; i < material.Length; i++)
-                    if (material[i] != null) material[i] = BahanUntuk(material[i]);
+                    if (material[i] != null) material[i] = BahanUntuk(material[i], pilihan);
                 item.sharedMaterials = material;
             }
             if (bounds.size.y > .02f)
@@ -113,7 +116,7 @@ namespace MS.Dunia
             lod.SetLODs(new[] { new LOD(.045f, renderer) });
             lod.RecalculateBounds();
             foreach (var item in bawaan)
-                if (item != null) item.enabled = false;
+                if (item != null && !BagianMotor(item.transform)) item.enabled = false;
 
             graf = PlayableGraph.Create("Gerak humanoid");
             hasil = AnimationPlayableOutput.Create(graf, "Karakter", animator);
@@ -121,16 +124,30 @@ namespace MS.Dunia
             warnaTerakhir = -1;
         }
 
-        static Material BahanUntuk(Material asal)
+        bool BagianMotor(Transform bagian)
         {
-            if (bahan.TryGetValue(asal, out var hasil)) return hasil;
-            hasil = new Material(Shader.Find("Universal Render Pipeline/Lit"));
+            for (; bagian != null && bagian != transform; bagian = bagian.parent)
+                if (bagian.name == "Motor Naik") return true;
+            return false;
+        }
+
+        static Material BahanUntuk(Material asal, int nomor)
+        {
+            if (bahan.TryGetValue((asal, nomor), out var hasil)) return hasil;
+            var nama = asal.name.ToLowerInvariant();
+            bool potong = nama.Contains("eyelash") || nama.Contains("brows") || nama.Contains("_eyes") ||
+                nama.Contains("_mouth") || (nama.Contains("hair") && nomor != 1);
+            var acuan = potong ? Resources.Load<Material>("Tanaman/potted_plant_01/MaterialDaun") : null;
+            hasil = acuan != null ? new Material(acuan) : new Material(Shader.Find("Universal Render Pipeline/Lit"));
             hasil.name = asal.name;
             if (asal.HasProperty("_Color")) hasil.color = asal.GetColor("_Color");
             else if (asal.HasProperty("_BaseColor")) hasil.color = asal.GetColor("_BaseColor");
-            hasil.mainTexture = asal.mainTexture;
+            var tekstur = Resources.Load<Texture2D>($"Karakter/Pakaian/kar_{nomor + 1}/{nama}");
+            hasil.mainTexture = tekstur != null ? tekstur : asal.mainTexture;
+            if (tekstur != null) hasil.color = Color.white;
+            if (potong) hasil.SetFloat("_Cutoff", .27f);
             hasil.SetFloat("_Smoothness", .24f);
-            bahan.Add(asal, hasil);
+            bahan.Add((asal, nomor), hasil);
             return hasil;
         }
 
@@ -187,7 +204,8 @@ namespace MS.Dunia
                 {
                     var nama = daftar[i]?.name.ToLowerInvariant();
                     if (nama == null || (!nama.Contains("shirt") && !nama.Contains("cloth") &&
-                        !nama.Contains("jacket") && !nama.Contains("dress") && !nama.Contains("top"))) continue;
+                        !nama.Contains("jacket") && !nama.Contains("dress") && !nama.Contains("top") &&
+                        !nama.Contains("upperbody"))) continue;
                     blok.SetColor("_BaseColor", daftar[i].color * warna);
                     mesh.SetPropertyBlock(blok, i);
                 }

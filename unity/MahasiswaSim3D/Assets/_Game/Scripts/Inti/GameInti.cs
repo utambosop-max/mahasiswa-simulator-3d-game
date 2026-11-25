@@ -106,7 +106,7 @@ namespace MS.Inti
 
         void Update()
         {
-            if (Event.Aktif == null && Kerja.Aktif == null && !Upgrade.Terbuka && !Hidup.Terbuka && !Hidup.PerluDibuat && !Sosial.Terbuka) Jam.Jalan(Time.deltaTime);
+            if (!Layanan.InputDitahan) Jam.Jalan(Time.deltaTime);
             Sosial.Periksa(); // jam malam kos
             // Cerita: cek pemicu tiap 1 detik nyata, tampilkan dialog saat layar kosong
             timerCerita -= Time.deltaTime;

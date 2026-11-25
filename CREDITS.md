@@ -9,21 +9,22 @@
 | Brick Wall 02, warna / normal / ARM | Poly Haven | CC0 | [Aset](https://polyhaven.com/a/brick_wall_02) | Bata |
 | Kloppenheim 06 Pure Sky, HDRI | Poly Haven | CC0 | [Aset](https://polyhaven.com/a/kloppenheim_06_puresky) | Langit |
 | Tiles 074, warna / normal / roughness | ambientCG | CC0 | [Aset](https://ambientcg.com/a/Tiles074) | Keramik |
+| Tiles 110, warna / normal / kanal PBR | ambientCG | CC0 | [Aset](https://ambientcg.com/a/Tiles110) | Lantai kamar |
 | Potted Plant 01, model disederhanakan / warna / alpha | Poly Haven | CC0 | [Aset](https://polyhaven.com/a/potted_plant_01) | Tanaman pot |
 
 ## Mixamo (tidak diunggah ke repo)
 
 Karakter dan animasi Mixamo © Adobe. Bebas royalti untuk dipakai di dalam game, tapi file mentahnya tidak boleh dibagikan ulang.
-Unduh dari https://www.mixamo.com (format FBX for Unity) ke `unity/MahasiswaSim3D/Assets/_Game/Pihak3/Mixamo/`.
+Format sumbernya FBX for Unity dari https://www.mixamo.com. Model dan klip dimuat dari `Pihak3/Mixamo/Resources/Karakter/`. Peta warna opsional dari FBX berada di `Pakaian/kar_N/` dalam folder itu.
 
 | File | Karakter / animasi |
 |---|---|
-| kar_1.fbx | Model 1 |
-| kar_2.fbx | Model 2 |
-| kar_3.fbx | Model 3, mesh dan tekstur diperkecil |
-| kar_4.fbx | Model 4, mesh dan tekstur diperkecil |
-| kar_5.fbx | Model 5 |
-| kar_6.fbx | Model 6 |
+| kar_1.fbx | Remy, model dan peta warna |
+| kar_2.fbx | Boy01, model dan peta warna |
+| kar_3.fbx | Ch02, mesh dan tekstur diperkecil |
+| kar_4.fbx | Ch22, mesh dan tekstur diperkecil |
+| kar_5.fbx | Rasta Boy, model dan peta warna |
+| kar_6.fbx | Girl01, model dan peta warna |
 | anim_Idle.fbx | Diam |
 | anim_Walking.fbx | Jalan |
 | anim_Running.fbx | Lari |

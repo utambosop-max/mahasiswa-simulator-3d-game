@@ -11,7 +11,8 @@ namespace MS.Dunia
         {
             var kunci = (id, warna, ubin);
             if (bahan.TryGetValue(kunci, out var hasil)) return hasil;
-            hasil = new Material(Shader.Find("Universal Render Pipeline/Lit"));
+            var template = id != null ? Resources.Load<Material>("Bahan/MaterialPbr") : null;
+            hasil = template != null ? new Material(template) : new Material(Shader.Find("Universal Render Pipeline/Lit"));
             hasil.name = id ?? "Aksen";
             hasil.color = warna;
             hasil.enableInstancing = true;
@@ -27,6 +28,7 @@ namespace MS.Dunia
                     hasil.SetFloat("_BumpScale", .6f);
                     hasil.EnableKeyword("_NORMALMAP");
                 }
+                else hasil.DisableKeyword("_NORMALMAP");
                 var pbr = Resources.Load<Texture2D>("Bahan/" + id + "/pbr");
                 if (pbr != null)
                 {
@@ -36,6 +38,11 @@ namespace MS.Dunia
                     hasil.SetFloat("_Smoothness", .75f);
                     hasil.EnableKeyword("_OCCLUSIONMAP");
                     hasil.EnableKeyword("_METALLICSPECGLOSSMAP");
+                }
+                else
+                {
+                    hasil.DisableKeyword("_OCCLUSIONMAP");
+                    hasil.DisableKeyword("_METALLICSPECGLOSSMAP");
                 }
             }
             bahan.Add(kunci, hasil);
