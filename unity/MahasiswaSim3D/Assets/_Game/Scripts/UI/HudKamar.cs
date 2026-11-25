@@ -35,6 +35,7 @@ namespace MS.UI
         private PanelEvent panelEvent;
         private PanelUpgrade panelUpgrade;
         private PanelRapor panelRapor;
+        private PanelPengaturan panelPengaturan;
         private PanelProfil panelProfil;
         private PanelToko panelToko;
         private PanelMenuLayanan panelLayanan;
@@ -64,6 +65,7 @@ namespace MS.UI
         private (int Uang, float Ipk, int Energi, int Stres)? statTerakhir;
         private (int Tanggal, int Menit, Fase Fase, bool Sibuk, bool TanggalTua)? kalenderTerakhir;
         private float cekAksiBerikut;
+        private float statTampilEnergi, statTampilStres;
 
         private void Awake()
         {
@@ -102,6 +104,12 @@ namespace MS.UI
                 EventSystem.current?.SetSelectedGameObject(null);
             });
             BuatTombolRapor();
+            panelPengaturan = new PanelPengaturan(this, areaAman, joystick.ResetPosisi);
+            var (pengaturan, _) = BuatTombol("Pengaturan", panelPengaturan.Buka);
+            var kotakPengaturan = (RectTransform)pengaturan.transform;
+            kotakPengaturan.anchorMin = kotakPengaturan.anchorMax = kotakPengaturan.pivot = Vector2.one;
+            kotakPengaturan.anchoredPosition = new Vector2(-324, -174);
+            kotakPengaturan.sizeDelta = new Vector2(290, 140);
             panelProfil = new PanelProfil(this, areaAman, () =>
             {
                 panelMenu.Tutup();
@@ -119,6 +127,7 @@ namespace MS.UI
         {
             if (gameObject.scene.name == "Kampung")
                 PasangOpsional(() => gameObject.AddComponent<WarnaMotorPemain>(), "warna motor");
+            panelPengaturan.AturTeks();
             var pemain = FindAnyObjectByType<MS.Pemain.GerakPemain>();
             if (pemain != null && animasiMahasiswa?.Length == 4 &&
                 System.Array.TrueForAll(animasiMahasiswa, klip => klip != null && klip.length > 0) &&
@@ -156,13 +165,16 @@ namespace MS.UI
                 panelMenu.Segarkan();
             }
             toast.Tick();
+            AnimasiStat();
+            TutorialKonteks();
             if (!panelEvent.Terbuka) panelRacik.Tick(Time.unscaledDeltaTime);
             panelEvent.KeDepan();
             panelProfil.KeDepan();
             // Esc di PC / tombol Back di Android menutup panel menu
             if (!panelEvent.Terbuka && UnityEngine.InputSystem.Keyboard.current?.escapeKey.wasPressedThisFrame == true)
             {
-                if (panelRapor.Terbuka) panelRapor.Tutup();
+                if (panelPengaturan.Terbuka) panelPengaturan.Tutup();
+                else if (panelRapor.Terbuka) panelRapor.Tutup();
                 else if (panelLayanan.Terbuka) panelLayanan.Tutup();
                 else if (panelToko.Terbuka) panelToko.Tutup();
                 else if (panelUpgrade.Terbuka) panelUpgrade.Tutup();
@@ -175,6 +187,7 @@ namespace MS.UI
             panelEvent.Hubungkan(null);
             panelUpgrade.Hubungkan(null);
             panelRapor.Tutup();
+            panelPengaturan.Tutup();
             panelProfil.Hubungkan(null);
             panelToko.Hubungkan(null);
             panelLayanan.Hubungkan(null);
@@ -274,10 +287,52 @@ namespace MS.UI
             var sebelumnya = statTerakhir;
             if (sebelumnya?.Uang != nilai.Uang) uang.text = "Rp" + nilai.Uang.ToString("N0", Indonesia);
             if (sebelumnya?.Ipk != nilai.Ipk) ipk.text = nilai.Ipk.ToString("0.00", Indonesia);
-            if (sebelumnya?.Energi != nilai.Energi) energi.text = $"{nilai.Energi}%";
-            if (sebelumnya?.Stres != nilai.Stres) stres.text = $"{nilai.Stres}%";
-            IsiBar(barEnergi, nilai.Energi); IsiBar(barStres, nilai.Stres);
+            if (!sebelumnya.HasValue)
+            {
+                statTampilEnergi = nilai.Energi;
+                statTampilStres = nilai.Stres;
+                energi.text = $"{nilai.Energi}%";
+                stres.text = $"{nilai.Stres}%";
+                IsiBar(barEnergi, nilai.Energi);
+                IsiBar(barStres, nilai.Stres);
+            }
             statTerakhir = nilai;
+        }
+
+        void AnimasiStat()
+        {
+            if (!statTerakhir.HasValue) return;
+            var target = statTerakhir.Value;
+            float langkah = Time.unscaledDeltaTime * 180;
+            DekatiStat(energi, barEnergi, ref statTampilEnergi, target.Energi, langkah);
+            DekatiStat(stres, barStres, ref statTampilStres, target.Stres, langkah);
+        }
+
+        static void DekatiStat(TextMeshProUGUI teks, Image bar, ref float nilai, int target, float langkah)
+        {
+            if (nilai == target) return;
+            int lalu = Mathf.RoundToInt(nilai);
+            nilai = Mathf.MoveTowards(nilai, target, langkah);
+            int kini = Mathf.RoundToInt(nilai);
+            if (kini != lalu) teks.text = $"{kini}%";
+            IsiBar(bar, nilai);
+        }
+
+        void TutorialKonteks()
+        {
+            if (jam?.Tanggal != 1 || !aksiUtama.HasValue || Layanan.InputDitahan || jam.Sibuk) return;
+            string id = aksiUtama.Value.Id;
+            string pesan = id switch
+            {
+                "mandi" => "Mulai hari dengan mandi untuk memulihkan kondisi.",
+                "keluarKos" => "Cari kampus untuk kuliah dan warteg untuk makan.",
+                "kuliah" => "Kuliah menambah kemajuan akademik. Lihat hasilnya di Rapor.",
+                _ => null
+            };
+            if (pesan == null || PlayerPrefs.HasKey("Panduan." + id)) return;
+            PlayerPrefs.SetInt("Panduan." + id, 1);
+            PlayerPrefs.Save();
+            BeriPesan(pesan);
         }
 
         private void PerbaruiKalender()
@@ -412,6 +467,8 @@ namespace MS.UI
             }
 
             layanan.Lakukan(perintah);
+            if (Application.isMobilePlatform && PlayerPrefs.GetInt("GetarAksi", 1) == 1)
+                Handheld.Vibrate();
             PerbaruiTombol();
         }
 
@@ -666,6 +723,7 @@ namespace MS.UI
             panelLayanan.Ukur(Mathf.Sqrt(ukuran.x / 1920f * (ukuran.y / 1080f)));
             panelUpgrade.Ukur(Mathf.Sqrt(ukuran.x / 1920f * (ukuran.y / 1080f)));
             panelRacik.Ukur(Mathf.Sqrt(ukuran.x / 1920f * (ukuran.y / 1080f)));
+            panelPengaturan.Ukur(Mathf.Sqrt(ukuran.x / 1920f * (ukuran.y / 1080f)));
             areaTerakhir = aman;
             Rentangkan(areaAman, new Vector2(aman.xMin / ukuran.x, aman.yMin / ukuran.y),
                 new Vector2(aman.xMax / ukuran.x, aman.yMax / ukuran.y));

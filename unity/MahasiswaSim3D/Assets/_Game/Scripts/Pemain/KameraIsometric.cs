@@ -18,6 +18,7 @@ namespace MS.Pemain
         Vector3 _vel, _posisiHalus;
         float _sudut, _sudutTuju, _velSudut;
         float _jarakKini = -1f, _velJarak;
+        float waktuPutarAktif;
         readonly RaycastHit[] penghalang = new RaycastHit[16];
         static readonly float[] SudutAlternatif = { 45f, -45f, 90f, -90f, 135f, -135f, 180f };
         readonly Dictionary<Transform, Dinding> dindingKamar = new();
@@ -38,7 +39,16 @@ namespace MS.Pemain
             }
         }
 
-        public void Putar(float derajat) { _sudutTuju += derajat; }
+        public void Putar(float derajat)
+        {
+            waktuPutarAktif = waktuPutar * (PlayerPrefs.GetInt("SensitivitasKamera", 1) switch
+            {
+                0 => 1.65f,
+                2 => .55f,
+                _ => 1f
+            });
+            _sudutTuju += derajat;
+        }
         public void PutarKiri() { Putar(-langkahPutar); }
         public void PutarKanan() { Putar(langkahPutar); }
         public void SetTarget(Transform t) { target = t; Lompat(); }
@@ -154,7 +164,8 @@ namespace MS.Pemain
                 if (kb.rKey.wasPressedThisFrame) PutarKanan();
             }
             if (target == null) return;
-            _sudut = Mathf.SmoothDampAngle(_sudut, _sudutTuju, ref _velSudut, waktuPutar);
+            _sudut = Mathf.SmoothDampAngle(_sudut, _sudutTuju, ref _velSudut,
+                waktuPutarAktif > 0 ? waktuPutarAktif : waktuPutar);
             Vector3 fokus = target.position + Vector3.up * tinggiLihat;
             _posisiHalus = Vector3.SmoothDamp(_posisiHalus, HitungPosisi(_sudut), ref _vel, waktuHalus);
             Vector3 posisi = _posisiHalus;
