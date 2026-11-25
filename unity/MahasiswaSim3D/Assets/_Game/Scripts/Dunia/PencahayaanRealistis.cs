@@ -15,7 +15,9 @@ namespace MS.Dunia
         VolumeProfile profil;
         Bloom bloom;
         Vignette vignette;
+        ColorAdjustments penataanWarna;
         VisualKampung kampung;
+        PartikelKampung partikel;
         bool luar;
         int mutu = -1;
 
@@ -52,9 +54,9 @@ namespace MS.Dunia
             profil = ScriptableObject.CreateInstance<VolumeProfile>();
             volume.sharedProfile = profil;
             profil.Add<Tonemapping>(true).mode.value = TonemappingMode.ACES;
-            var warna = profil.Add<ColorAdjustments>(true);
-            warna.contrast.value = 4;
-            warna.saturation.value = -5;
+            penataanWarna = profil.Add<ColorAdjustments>(true);
+            penataanWarna.contrast.value = 4;
+            penataanWarna.saturation.value = -5;
             bloom = profil.Add<Bloom>(true);
             bloom.intensity.value = .12f;
             bloom.threshold.value = 1.2f;
@@ -64,6 +66,10 @@ namespace MS.Dunia
 
             if (luar)
             {
+                partikel = gameObject.AddComponent<PartikelKampung>();
+                partikel.Pasang();
+                RenderSettings.fog = true;
+                RenderSettings.fogMode = FogMode.Linear;
                 var hdr = Resources.Load<Cubemap>("Bahan/kloppenheim_06_puresky");
                 var materialLangit = Resources.Load<Material>("Bahan/MaterialLangit");
                 var shader = materialLangit != null ? materialLangit.shader : Shader.Find("Skybox/Cubemap");
@@ -101,11 +107,17 @@ namespace MS.Dunia
             bool tinggi = mutu > 0;
             bloom.active = vignette.active = tinggi;
             if (matahari != null) matahari.shadows = tinggi ? LightShadows.Soft : LightShadows.Hard;
+            if (!luar) return;
+            if (Camera.main != null) Camera.main.farClipPlane = tinggi ? 98f : 76f;
+            RenderSettings.fogStartDistance = tinggi ? 38f : 34f;
+            RenderSettings.fogEndDistance = tinggi ? 91f : 71f;
+            partikel?.AturMutu(tinggi);
         }
 
         void AturCahaya(Fase fase)
         {
             if (kampung != null) kampung.AturFase(fase);
+            if (partikel != null) partikel.AturFase(fase);
             if (matahari == null) return;
             switch (fase)
             {
@@ -114,8 +126,24 @@ namespace MS.Dunia
                 case Fase.Sore: Matahari(22, .95f, new Color(1, .66f, .43f)); break;
                 default: Matahari(39, .28f, new Color(.43f, .59f, 1)); break;
             }
-            if (langit != null)
-                langit.SetFloat("_Exposure", fase == Fase.Malam || fase == Fase.Begadang ? .25f : .75f);
+            if (luar) Suasana(fase);
+        }
+
+        void Suasana(Fase fase)
+        {
+            var (kabut, warnaLangit, filter, terang) = fase switch
+            {
+                Fase.Pagi => (new Color(.69f, .63f, .53f), new Color(.54f, .50f, .45f), new Color(1f, .99f, .97f), .69f),
+                Fase.Siang => (new Color(.68f, .72f, .71f), new Color(.50f, .51f, .52f), Color.white, .85f),
+                Fase.Sore => (new Color(.72f, .53f, .38f), new Color(.65f, .42f, .30f), new Color(1f, .96f, .89f), .66f),
+                Fase.Malam => (new Color(.19f, .24f, .33f), new Color(.37f, .43f, .60f), new Color(.93f, .97f, 1f), .30f),
+                _ => (new Color(.13f, .16f, .25f), new Color(.30f, .36f, .56f), new Color(.90f, .94f, 1f), .23f)
+            };
+            RenderSettings.fogColor = kabut;
+            penataanWarna.colorFilter.value = filter;
+            if (langit == null) return;
+            langit.SetFloat("_Exposure", terang);
+            langit.SetColor("_Tint", warnaLangit);
         }
 
         void Matahari(float tinggi, float intensitas, Color warna)
