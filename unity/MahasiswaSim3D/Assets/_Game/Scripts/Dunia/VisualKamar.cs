@@ -38,6 +38,7 @@ namespace MS.Dunia
             bahan.Detail(ruang, "Keset", new Vector3(-2.9f, .014f, 1.02f), new Vector3(1.62f, .025f, .72f), kain);
             bahan.Detail(ruang, "Galon", new Vector3(4.40f, .42f, 1.18f), new Vector3(.36f, .39f, .36f), biru, PrimitiveType.Cylinder);
             bahan.Detail(ruang, "Tutup galon", new Vector3(4.40f, .84f, 1.18f), new Vector3(.14f, .06f, .14f), putih, PrimitiveType.Cylinder);
+            bahan.Tanaman(ruang, new Vector3(4.58f, 0, 3.18f), .59f);
         }
     }
 }

@@ -39,15 +39,19 @@ namespace MS.Dunia
             lampu = bahan.Ambil(null, new Color(.64f, .55f, .37f), Vector2.one);
             lampu.EnableKeyword("_EMISSION");
             lampu.globalIlluminationFlags = MaterialGlobalIlluminationFlags.None;
-            var data = PembacaDunia.Baca(Resources.Load<TextAsset>("dunia"));
-            if (data?.lampu == null) return;
-            foreach (var titik in data.lampu)
+            var asalLampu = new System.Collections.Generic.List<Vector3>();
+            foreach (Transform anak in prop.transform)
             {
-                var posisi = prop.transform.InverseTransformPoint(new Vector3(titik.x, 3.65f, titik.z));
-                bahan.Detail(prop.transform, "Bohlam jalan", posisi, new Vector3(.22f, .14f, .22f), lampu, PrimitiveType.Sphere);
+                if (!anak.name.StartsWith("prop_lampu") && anak.name != "Lampu Jalan") continue;
+                if (anak.name.Contains("lalin")) continue;
+                var tinggi = anak.name == "Lampu Jalan" ? 1.9f : 3.65f;
+                asalLampu.Add(prop.transform.InverseTransformPoint(anak.position + Vector3.up * tinggi));
             }
-            if (data.parkirMotor != null)
-                bahan.Tanaman(prop.transform, new Vector3(data.parkirMotor.x + 1.8f, 0, data.parkirMotor.z + 1.6f), .80f);
+            foreach (var posisi in asalLampu)
+                bahan.Detail(prop.transform, "Bohlam jalan", posisi, new Vector3(.22f, .14f, .22f), lampu, PrimitiveType.Sphere);
+            var parkir = GameObject.Find("Parkir Motor");
+            if (parkir != null)
+                bahan.Tanaman(prop.transform, prop.transform.InverseTransformPoint(parkir.transform.position) + new Vector3(1.8f, 0, 1.6f), .80f);
         }
 
         public void AturFase(Fase fase)

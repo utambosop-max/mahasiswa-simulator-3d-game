@@ -31,6 +31,7 @@ namespace MS.Dunia
             var dunia = new GameObject("Pencahayaan dunia");
             var cahaya = dunia.AddComponent<PencahayaanRealistis>();
             if (scene.name == "KamarKos") VisualKamar.Pasang(dunia);
+            if (scene.name.StartsWith("Gedung_")) VisualInterior.Pasang(dunia, scene.name.Substring(7));
             if (scene.name == "Kampung")
             {
                 cahaya.kampung = dunia.AddComponent<VisualKampung>();
