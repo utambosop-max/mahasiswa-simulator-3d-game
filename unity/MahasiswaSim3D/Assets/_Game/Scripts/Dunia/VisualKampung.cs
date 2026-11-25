@@ -35,16 +35,7 @@ namespace MS.Dunia
             var bangunan = GameObject.Find("Bangunan");
             if (bangunan != null)
             {
-                foreach (Transform gedung in bangunan.transform)
-                    if (gedung.Find("Badan") is Transform badan)
-                    {
-                        var renderer = badan.GetComponent<Renderer>();
-                        if (renderer == null) continue;
-                        var warna = renderer.sharedMaterial.color;
-                        bahan.Permukaan(badan, gedung.name.Contains("Petak") ? "brick_wall_02" : "plastered_wall_02",
-                            Color.Lerp(warna, Color.white, .25f), new Vector2(4, 2));
-                    }
-                PasangFasad(bangunan.transform, bahan);
+                foreach (Transform gedung in bangunan.transform) PasangFasad(gedung, bahan);
             }
 
             var prop = GameObject.Find("Prop");
@@ -67,43 +58,38 @@ namespace MS.Dunia
                 bahan.Tanaman(prop.transform, prop.transform.InverseTransformPoint(parkir.transform.position) + new Vector3(1.8f, 0, 1.6f), .80f);
         }
 
-        static void PasangFasad(Transform bangunan, BahanRealistis bahan)
+        static void PasangFasad(Transform gedung, BahanRealistis bahan)
         {
-            var plester = bahan.Ambil("plastered_wall_02", new Color(.82f, .78f, .67f), new Vector2(2, 1));
-            var rangka = bahan.Ambil(null, new Color(.25f, .29f, .28f), Vector2.one);
-            var kaca = bahan.Ambil(null, new Color(.32f, .48f, .48f), Vector2.one);
-            kaca.SetFloat("_Smoothness", .72f);
-            foreach (var id in new[] { "kos", "warteg", "warkop" })
+            var nama = gedung.name;
+            int mulai = nama.LastIndexOf('(');
+            if (mulai < 0 || !nama.EndsWith(")")) return;
+            string id = nama.Substring(mulai + 1, nama.Length - mulai - 2);
+            string jalur = "Fasad/" + id;
+            var model = Resources.Load<GameObject>(jalur + "/" + id);
+            if (model == null) return;
+
+            var sebelumnya = gedung.GetComponentsInChildren<MeshRenderer>();
+            var visual = Instantiate(model, gedung);
+            visual.name = "Fasad " + id;
+            visual.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+            var pengganti = visual.GetComponentsInChildren<MeshRenderer>();
+            if (pengganti.Length == 0)
             {
-                var pintu = bangunan.Find("Pintu " + id);
-                if (pintu == null) continue;
-                foreach (Transform gedung in bangunan)
-                {
-                    if (!gedung.name.EndsWith("(" + id + ")") || !gedung.TryGetComponent<BoxCollider>(out var collider)) continue;
-                    var batas = collider.bounds;
-                    var kePintu = pintu.position - batas.center;
-                    Vector3 depan = Mathf.Abs(kePintu.x) > Mathf.Abs(kePintu.z)
-                        ? Vector3.right * Mathf.Sign(kePintu.x) : Vector3.forward * Mathf.Sign(kePintu.z);
-                    Vector3 sisi = Vector3.Cross(Vector3.up, depan);
-                    float kedalaman = Mathf.Abs(Vector3.Dot(depan, batas.extents));
-                    float lebar = Mathf.Abs(Vector3.Dot(sisi, batas.size));
-                    if (lebar < 2f || batas.size.y < 3f) break;
-                    Vector3 tengah = batas.center + depan * (kedalaman + .045f);
-                    tengah.y = batas.min.y + 2.1f;
-                    var rak = new GameObject("Detail fasad " + id).transform;
-                    rak.SetParent(gedung, true);
-                    rak.SetPositionAndRotation(tengah, Quaternion.LookRotation(depan));
-                    bahan.Detail(rak, "Teritisan", new Vector3(0, .62f, .11f), new Vector3(lebar * .88f, .10f, .42f), plester);
-                    bahan.Detail(rak, "Talang", new Vector3(0, .55f, .29f), new Vector3(lebar * .88f, .10f, .055f), rangka);
-                    for (int arah = -1; arah <= 1; arah += 2)
-                    {
-                        var letak = new Vector3(arah * lebar * .28f, 0, 0);
-                        bahan.Detail(rak, "Kusen luar", letak, new Vector3(.83f, .68f, .095f), rangka);
-                        bahan.Detail(rak, "Kaca luar", letak + Vector3.forward * .065f, new Vector3(.72f, .58f, .05f), kaca);
-                    }
-                    break;
-                }
+                Destroy(visual);
+                return;
             }
+
+            var padat = bahan.Ambil(jalur, Color.white, Vector2.one);
+            var kaca = bahan.Ambil(null, new Color(.21f, .27f, .28f), Vector2.one);
+            kaca.SetFloat("_Smoothness", .86f);
+            kaca.SetFloat("_Metallic", .23f);
+            foreach (var renderer in pengganti)
+            {
+                bool jendela = renderer.name.StartsWith("Kaca");
+                renderer.sharedMaterial = jendela ? kaca : padat;
+                if (jendela) renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            }
+            foreach (var renderer in sebelumnya) renderer.enabled = false;
         }
 
         public void AturFase(Fase fase)

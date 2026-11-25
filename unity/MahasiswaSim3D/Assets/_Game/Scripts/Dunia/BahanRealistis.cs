@@ -19,9 +19,10 @@ namespace MS.Dunia
             hasil.SetFloat("_Smoothness", id == "Tiles074" ? .47f : .23f);
             if (id != null)
             {
-                hasil.mainTexture = Resources.Load<Texture2D>("Bahan/" + id + "/warna");
+                string path = id.StartsWith("Fasad/") ? id : "Bahan/" + id;
+                hasil.mainTexture = Resources.Load<Texture2D>(path + "/warna");
                 hasil.mainTextureScale = ubin;
-                var normal = Resources.Load<Texture2D>("Bahan/" + id + "/normal");
+                var normal = Resources.Load<Texture2D>(path + "/normal");
                 if (normal != null)
                 {
                     hasil.SetTexture("_BumpMap", normal);
@@ -29,7 +30,7 @@ namespace MS.Dunia
                     hasil.EnableKeyword("_NORMALMAP");
                 }
                 else hasil.DisableKeyword("_NORMALMAP");
-                var pbr = Resources.Load<Texture2D>("Bahan/" + id + "/pbr");
+                var pbr = Resources.Load<Texture2D>(path + "/pbr");
                 if (pbr != null)
                 {
                     hasil.SetTexture("_OcclusionMap", pbr);

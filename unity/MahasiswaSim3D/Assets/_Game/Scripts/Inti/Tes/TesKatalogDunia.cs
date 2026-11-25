@@ -32,5 +32,24 @@ namespace MS.Inti.Tes
             Assert.AreEqual("Universal Render Pipeline/Lit", lod[0].renderers[0].sharedMaterial.shader.name);
             Assert.NotNull(lod[0].renderers[0].sharedMaterial.mainTexture, id + " warna");
         }
+
+        [TestCase("kos")]
+        [TestCase("warteg")]
+        [TestCase("kampus")]
+        [TestCase("rumah12")]
+        public void FasadMemilikiBadanKacaDanAtlas(string id)
+        {
+            string jalur = "Fasad/" + id + "/";
+            var model = Resources.Load<GameObject>(jalur + id);
+            Assert.NotNull(model, id);
+            Assert.That(model.GetComponentsInChildren<MeshRenderer>().Length, Is.EqualTo(2));
+            foreach (var kanal in new[] { "warna", "normal", "pbr" })
+            {
+                var gambar = Resources.Load<Texture2D>(jalur + kanal);
+                Assert.NotNull(gambar, id + " " + kanal);
+                Assert.AreEqual(1024, gambar.width);
+                Assert.Greater(gambar.mipmapCount, 1);
+            }
+        }
     }
 }

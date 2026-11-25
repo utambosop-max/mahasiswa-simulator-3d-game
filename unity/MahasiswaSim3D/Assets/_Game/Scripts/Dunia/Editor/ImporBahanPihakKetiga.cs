@@ -7,7 +7,8 @@ namespace MS.Dunia.Editor
     {
         void OnPreprocessTexture()
         {
-            if (!assetPath.StartsWith("Assets/_Game/Pihak3/", StringComparison.Ordinal)) return;
+            if (!assetPath.StartsWith("Assets/_Game/Pihak3/", StringComparison.Ordinal)
+                && !assetPath.StartsWith("Assets/_Game/Models/Resources/Fasad/", StringComparison.Ordinal)) return;
             bool normal = assetPath.EndsWith("/normal.jpg", StringComparison.OrdinalIgnoreCase);
             bool langit = assetPath.EndsWith(".hdr", StringComparison.OrdinalIgnoreCase);
             bool linear = normal || langit || assetPath.EndsWith("/arm.jpg", StringComparison.OrdinalIgnoreCase)
