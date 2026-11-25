@@ -26,8 +26,10 @@ namespace MS.UI
 
         void Simpan(Transform motor)
         {
-            foreach (var renderer in motor.GetComponentsInChildren<Renderer>(true))
+            var baru = motor.Find("Bebek visual");
+            foreach (var renderer in (baru != null ? baru : motor).GetComponentsInChildren<Renderer>(true))
             {
+                if (baru != null && renderer.name != "Cat") continue;
                 var material = renderer.sharedMaterials;
                 for (int i = 0; i < material.Length; i++)
                 {

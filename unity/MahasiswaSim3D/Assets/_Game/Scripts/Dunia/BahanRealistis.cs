@@ -19,7 +19,7 @@ namespace MS.Dunia
             hasil.SetFloat("_Smoothness", id == "Tiles074" ? .47f : .23f);
             if (id != null)
             {
-                string path = id.StartsWith("Fasad/") ? id : "Bahan/" + id;
+                string path = id.IndexOf('/') >= 0 ? id : "Bahan/" + id;
                 hasil.mainTexture = Resources.Load<Texture2D>(path + "/warna");
                 hasil.mainTextureScale = ubin;
                 var normal = Resources.Load<Texture2D>(path + "/normal");

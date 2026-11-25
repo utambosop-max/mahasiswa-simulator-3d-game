@@ -51,5 +51,22 @@ namespace MS.Inti.Tes
                 Assert.Greater(gambar.mipmapCount, 1);
             }
         }
+
+        [TestCase("motor_bebek", 2)]
+        [TestCase("angkot", 4)]
+        [TestCase("gerobak", 2)]
+        public void KendaraanMemilikiRodaTerpisah(string id, int jumlah)
+        {
+            var model = Resources.Load<GameObject>($"Kendaraan/{id}/{id}");
+            Assert.NotNull(model, id);
+            int roda = 0;
+            foreach (var bagian in model.GetComponentsInChildren<MeshFilter>())
+                if (bagian.name.StartsWith("Roda_"))
+                {
+                    Assert.Greater(bagian.sharedMesh.vertexCount, 72);
+                    roda++;
+                }
+            Assert.AreEqual(jumlah, roda);
+        }
     }
 }
