@@ -8,7 +8,7 @@ namespace MS.UI
     internal sealed class PanelEvent
     {
         readonly RectTransform akar;
-        readonly RectTransform kartu, konten;
+        readonly RectTransform kartu, konten, viewport, tutupDialog;
         readonly CanvasGroup animasi;
         readonly HudKamar hud;
         readonly GameObject bukaLagi;
@@ -23,6 +23,7 @@ namespace MS.UI
         IEventAcak layanan;
         Coroutine sedangMuncul;
         bool disembunyikan;
+        float ruangBawah = 120;
 
         internal bool Terbuka => akar.gameObject.activeSelf;
         internal void KeDepan()
@@ -60,7 +61,7 @@ namespace MS.UI
             latarKartu = hud.Gambar(kartu, TemaAntarmuka.Kertas, true);
             animasi = kartu.gameObject.AddComponent<CanvasGroup>();
 
-            var viewport = HudKamar.BuatKotak("Viewport event", kartu);
+            viewport = HudKamar.BuatKotak("Viewport event", kartu);
             HudKamar.Rentangkan(viewport, Vector2.zero, new Vector2(1, 1));
             viewport.offsetMin = new Vector2(30, 120);
             viewport.offsetMax = new Vector2(-30, -24);
@@ -104,10 +105,10 @@ namespace MS.UI
                 HudKamar.Rentangkan(label[i].rectTransform, new Vector2(.05f, .04f), new Vector2(.95f, .96f));
                 alasan[i] = Teks(konten, "Alasan pilihan " + (i + 1), 34, FontStyles.Normal);
             }
-            var tutup = BuatKontrol(kartu, "Tutup dialog", () => AturRingkas(true));
-            HudKamar.Rentangkan(tutup, new Vector2(.07f, 0), new Vector2(.93f, 0));
-            tutup.offsetMin = new Vector2(0, 18);
-            tutup.offsetMax = new Vector2(0, 109);
+            tutupDialog = BuatKontrol(kartu, "Tutup dialog", () => AturRingkas(true));
+            HudKamar.Rentangkan(tutupDialog, new Vector2(.07f, 0), new Vector2(.93f, 0));
+            tutupDialog.offsetMin = new Vector2(0, 18);
+            tutupDialog.offsetMax = new Vector2(0, 109);
             var buka = BuatKontrol(akar, "Lanjut dialog", () => AturRingkas(false));
             HudKamar.Rentangkan(buka, new Vector2(.37f, .57f), new Vector2(.63f, .57f));
             buka.sizeDelta = new Vector2(0, 125);
@@ -140,7 +141,7 @@ namespace MS.UI
         {
             Canvas.ForceUpdateCanvases();
             LayoutRebuilder.ForceRebuildLayoutImmediate(konten);
-            kartu.sizeDelta = new Vector2(0, Mathf.Min(akar.rect.height * .86f, konten.rect.height + 144));
+            kartu.sizeDelta = new Vector2(0, Mathf.Min(akar.rect.height * .86f, konten.rect.height + ruangBawah + 24));
         }
 
         System.Collections.IEnumerator Muncul()
@@ -177,7 +178,13 @@ namespace MS.UI
 
         internal void Ukur(float skala)
         {
-            foreach (var baris in ukuran) baris.minHeight = Mathf.Max(96f, 56f / skala);
+            float minimum = TemaAntarmuka.SentuhMinimum / Mathf.Max(.05f, skala);
+            foreach (var baris in ukuran) baris.minHeight = Mathf.Max(96f, minimum);
+            var lanjut = (RectTransform)bukaLagi.transform;
+            lanjut.sizeDelta = new Vector2(0, Mathf.Max(125, minimum));
+            tutupDialog.offsetMax = new Vector2(0, 18 + Mathf.Max(90, minimum));
+            ruangBawah = tutupDialog.offsetMax.y + 12;
+            viewport.offsetMin = new Vector2(30, ruangBawah);
             if (Terbuka && !disembunyikan) UkurKartu();
         }
 

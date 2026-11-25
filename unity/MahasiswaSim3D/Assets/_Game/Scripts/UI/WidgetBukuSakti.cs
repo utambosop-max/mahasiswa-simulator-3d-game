@@ -17,8 +17,8 @@ namespace MS.UI
         {
             var tombol = HudKamar.BuatKotak("Buku Sakti", area);
             tombol.anchorMin = tombol.anchorMax = tombol.pivot = Vector2.one;
-            tombol.anchoredPosition = new Vector2(-24, -306);
-            tombol.sizeDelta = new Vector2(268, 118);
+            tombol.anchoredPosition = new Vector2(-24, -326);
+            tombol.sizeDelta = new Vector2(285, 140);
             buka = tombol.gameObject.AddComponent<Button>();
             // Image and Button share the same hit target.
             buka.targetGraphic = hud.Gambar(tombol, TemaAntarmuka.Mentega, true);

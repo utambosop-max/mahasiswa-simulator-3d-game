@@ -15,7 +15,7 @@ namespace MS.Pemain
         [SerializeField] float langkahPutar = 45f;
         [SerializeField] float waktuPutar = 0.2f;
 
-        Vector3 _vel;
+        Vector3 _vel, _posisiHalus;
         float _sudut, _sudutTuju, _velSudut;
         float _jarakKini = -1f, _velJarak;
         readonly RaycastHit[] penghalang = new RaycastHit[16];
@@ -117,6 +117,7 @@ namespace MS.Pemain
             }
             _sudut = _sudutTuju;
             _jarakKini = jarak; _velJarak = 0;
+            _posisiHalus = posisi;
             transform.position = fokus + (posisi - fokus).normalized * jarak;
             transform.LookAt(fokus);
         }
@@ -155,7 +156,8 @@ namespace MS.Pemain
             if (target == null) return;
             _sudut = Mathf.SmoothDampAngle(_sudut, _sudutTuju, ref _velSudut, waktuPutar);
             Vector3 fokus = target.position + Vector3.up * tinggiLihat;
-            Vector3 posisi = Vector3.SmoothDamp(transform.position, HitungPosisi(_sudut), ref _vel, waktuHalus);
+            _posisiHalus = Vector3.SmoothDamp(_posisiHalus, HitungPosisi(_sudut), ref _vel, waktuHalus);
+            Vector3 posisi = _posisiHalus;
             PudarkanDinding(fokus, posisi);
             // Jarak kamera dihaluskan: maju cepat (agar tidak tembus dinding), mundur pelan.
             // Sebelumnya kamera melompat maju-mundur tiap frame saat lewat tiang/pohon -> layar berkedip.

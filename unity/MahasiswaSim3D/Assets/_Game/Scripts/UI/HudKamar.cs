@@ -493,13 +493,15 @@ namespace MS.UI
             bilah.offsetMin = new Vector2(18, 4);
             bilah.offsetMax = new Vector2(-18, -6);
             var waktu = Kapsul(bilah, "Kalender", 0, .33f, TemaAntarmuka.Kertas);
-            IkonHud.Pasang(waktu, IkonHud.Jenis.Jam, 42, new Vector2(.11f, .68f));
-            judulKalender = BarisStat(waktu, "Kalender", .74f, .99f, 34);
-            kalender = BarisStat(waktu, "-", .49f, .76f, 42);
-            statusAkademik = BarisStat(waktu, "", .24f, .49f, 32);
-            statusKondisi = BarisStat(waktu, "", .02f, .25f, 30);
-            statusKondisi.rectTransform.anchorMin = new Vector2(.22f, .02f);
-            IkonHud.Pasang(waktu, IkonHud.Jenis.Cuaca, 31, new Vector2(.11f, .14f));
+            IkonHud.Pasang(waktu, IkonHud.Jenis.Jam, 36, new Vector2(.10f, .78f));
+            judulKalender = BarisStat(waktu, "Kalender", .62f, .99f, 32);
+            Rentangkan(judulKalender.rectTransform, new Vector2(.17f, .62f), new Vector2(.47f, .99f));
+            kalender = BarisStat(waktu, "-", .62f, .99f, 36);
+            kalender.rectTransform.anchorMin = new Vector2(.47f, .62f);
+            statusAkademik = BarisStat(waktu, "", .30f, .64f, 32);
+            statusKondisi = BarisStat(waktu, "", .02f, .34f, 30);
+            statusKondisi.rectTransform.anchorMin = new Vector2(.17f, .02f);
+            IkonHud.Pasang(waktu, IkonHud.Jenis.Cuaca, 31, new Vector2(.10f, .18f));
             uang = BuatStat(bilah, "Uang", .33f, .555f, TemaAntarmuka.Mentega, IkonHud.Jenis.Uang);
             ipk = BuatStat(bilah, "IPK", .555f, .70f, TemaAntarmuka.Langit, IkonHud.Jenis.Ipk);
             energi = BuatStat(bilah, "Energi", .70f, .85f, TemaAntarmuka.Mint, IkonHud.Jenis.Energi);
@@ -566,7 +568,7 @@ namespace MS.UI
             var wadah = BuatKotak("Buka rapor", areaAman);
             wadah.anchorMin = wadah.anchorMax = wadah.pivot = Vector2.one;
             wadah.anchoredPosition = new Vector2(-24, -174);
-            wadah.sizeDelta = new Vector2(268, 118);
+            wadah.sizeDelta = new Vector2(285, 140);
             var latar = Gambar(wadah, TemaAntarmuka.Langit, true);
             var tombol = wadah.gameObject.AddComponent<Button>();
             tombol.targetGraphic = latar;
@@ -621,7 +623,7 @@ namespace MS.UI
             susun.childControlWidth = susun.childControlHeight = true;
             susun.childForceExpandHeight = false;
             kotakPesan.gameObject.AddComponent<ContentSizeFitter>().verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-            var label = new TextMeshProUGUI[3];
+            var label = new TextMeshProUGUI[2];
             for (int i = 0; i < label.Length; i++)
             {
                 var kartu = BuatKotak("Toast", kotakPesan);
