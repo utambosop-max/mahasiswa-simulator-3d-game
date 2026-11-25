@@ -19,4 +19,6 @@ Game simulasi kehidupan mahasiswa rantau di Indonesia, bergaya 3D kartun. Pemain
 
 ## Lisensi aset
 
-Semua model, tekstur palet, dan efek suara dibuat sendiri (skrip Blender & sintesis suara di kode). Tidak memakai aset pihak ketiga.
+- Tekstur, HDRI, dan sebagian model dari [Poly Haven](https://polyhaven.com) dan [ambientCG](https://ambientcg.com) (CC0). Daftar lengkap ada di [CREDITS.md](CREDITS.md).
+- Karakter dan animasi dari [Mixamo](https://www.mixamo.com) (Adobe). File mentahnya tidak disertakan di repo ini sesuai lisensi Adobe. Unduh sendiri ke `unity/MahasiswaSim3D/Assets/_Game/Pihak3/Mixamo/` (daftar file ada di CREDITS.md).
+- Model lainnya dibuat dengan skrip Blender di `blender/skrip/`. Semua efek suara disintesis lewat kode.

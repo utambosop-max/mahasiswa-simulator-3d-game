@@ -29,3 +29,8 @@ unity/*/.utmp/
 __pycache__/
 unity/*/Assets/_Game/Materials/Editor/Audit47Temporer.cs*
 unity/hasil-tes.xml
+
+# Mixamo: file mentah tidak boleh dibagikan ulang (lisensi Adobe)
+unity/MahasiswaSim3D/Assets/_Game/Pihak3/Mixamo/
+unity/MahasiswaSim3D/Assets/_Game/Pihak3/Mixamo.meta
+unduhan/
