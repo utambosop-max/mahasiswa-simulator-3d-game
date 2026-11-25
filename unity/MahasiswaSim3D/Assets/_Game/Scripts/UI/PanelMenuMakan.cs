@@ -15,11 +15,11 @@ namespace MS.UI
     internal sealed class PanelMenuMakan
     {
         private static readonly CultureInfo Indonesia = CultureInfo.GetCultureInfo("id-ID");
-        private static readonly Color Kartu = new Color32(255, 250, 242, 255);
-        private static readonly Color Baris = new Color32(255, 236, 200, 255);
+        private static readonly Color Kartu = TemaAntarmuka.Kertas;
+        private static readonly Color Baris = TemaAntarmuka.Mentega;
         private static readonly Color BarisMati = new Color32(222, 214, 205, 255);
         private static readonly Color TeksMati = new Color32(140, 128, 118, 255);
-        private static readonly Color Kopi = new Color32(59, 42, 32, 255);
+        private static readonly Color Kopi = TemaAntarmuka.Tinta;
         private static readonly Color Alasan = new Color32(190, 90, 70, 255);
 
         private sealed class BarisUI

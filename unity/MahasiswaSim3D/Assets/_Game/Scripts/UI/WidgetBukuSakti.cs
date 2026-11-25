@@ -31,7 +31,7 @@ namespace MS.UI
             IkonHud.Pasang(tombol, IkonHud.Jenis.Buku);
 
             areaRingkas = HudKamar.BuatKotak("Ringkasan Buku Sakti", area);
-            hud.Gambar(areaRingkas, new Color32(255,245,226,245), true);
+            hud.Gambar(areaRingkas, TemaAntarmuka.Kertas, true);
             var lipat = areaRingkas.gameObject.AddComponent<Button>();
             lipat.onClick.AddListener(() => { disembunyikan = !disembunyikan; Segarkan(); });
             isi = HudKamar.Teks(areaRingkas, "", 36, 26, FontStyles.Bold);

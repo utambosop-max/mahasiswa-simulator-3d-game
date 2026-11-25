@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 using MS.Kontrak;
 using TMPro;
 using UnityEngine;
@@ -30,10 +30,10 @@ namespace MS.UI
             this.saatBuka = saatBuka;
             akar = HudKamar.BuatKotak("Panel upgrade", area);
             HudKamar.Rentangkan(akar, Vector2.zero, Vector2.one);
-            akar.gameObject.AddComponent<Image>().color = new Color(0, 0, 0, .5f);
+            akar.gameObject.AddComponent<Image>().color = TemaAntarmuka.Redup;
             var bingkai = HudKamar.BuatKotak("Upgrade kamar", akar);
             HudKamar.Rentangkan(bingkai, new Vector2(.10f, .05f), new Vector2(.90f, .87f));
-            hud.Gambar(bingkai, new Color32(255, 250, 242, 255), true);
+            hud.Gambar(bingkai, TemaAntarmuka.Kertas, true);
             var viewport = HudKamar.BuatKotak("Viewport upgrade", bingkai);
             HudKamar.Rentangkan(viewport, Vector2.zero, new Vector2(1, .82f));
             viewport.offsetMin = new Vector2(24, 24);
@@ -59,7 +59,7 @@ namespace MS.UI
             for (int i = 0; i < kartu.Length; i++)
             {
                 var item = new Kartu { Akar = HudKamar.BuatKotak("Perabot " + (i + 1), konten) };
-                hud.Gambar(item.Akar, new Color32(250, 238, 222, 255));
+                hud.Gambar(item.Akar, TemaAntarmuka.Kertas);
                 Susun(item.Akar, 8, 18);
                 item.Nama = BuatTeks(item.Akar, "", 43, true);
                 item.Info = BuatTeks(item.Akar, "", 36);
@@ -117,7 +117,7 @@ namespace MS.UI
                 item.Label.text = data.HargaBerikut >= 0 ? "Beli · Rp" + data.HargaBerikut.ToString("N0", Indonesia) : "Level maksimal";
                 bool boleh = layanan.BolehBeli(data.Id, out var alasan);
                 item.Beli.interactable = boleh;
-                item.Beli.targetGraphic.color = boleh ? new Color32(255, 216, 172, 255) : new Color32(218, 212, 206, 255);
+                item.Beli.targetGraphic.color = boleh ? TemaAntarmuka.Mentega : TemaAntarmuka.Pasif;
                 item.Alasan.gameObject.SetActive(!boleh);
                 if (!boleh) item.Alasan.text = string.IsNullOrWhiteSpace(alasan) ? "Upgrade belum tersedia." : HudKamar.BersihkanEmoji(alasan);
             }
@@ -163,7 +163,7 @@ namespace MS.UI
         {
             var rt = HudKamar.BuatKotak(nama, induk);
             ukuran = rt.gameObject.AddComponent<LayoutElement>();
-            var gambar = hud.Gambar(rt, new Color32(255, 216, 172, 255), true);
+            var gambar = hud.Gambar(rt, TemaAntarmuka.Mentega, true);
             var button = rt.gameObject.AddComponent<Button>();
             button.targetGraphic = gambar;
             button.transition = Selectable.Transition.None;

@@ -27,10 +27,10 @@ namespace MS.UI
             this.saatBuka = saatBuka;
             akar = HudKamar.BuatKotak("Buat karakter", area);
             HudKamar.Rentangkan(akar, Vector2.zero, Vector2.one);
-            akar.gameObject.AddComponent<Image>().color = new Color(0, 0, 0, .65f);
+            akar.gameObject.AddComponent<Image>().color = TemaAntarmuka.Redup;
             var kartu = HudKamar.BuatKotak("Kartu karakter", akar);
             HudKamar.Rentangkan(kartu, new Vector2(.06f, .03f), new Vector2(.94f, .92f));
-            hud.Gambar(kartu, new Color32(255, 250, 242, 255), true);
+            hud.Gambar(kartu, TemaAntarmuka.Kertas, true);
             var port = HudKamar.BuatKotak("Viewport karakter", kartu);
             HudKamar.Rentangkan(port, Vector2.zero, Vector2.one);
             port.offsetMin = new Vector2(24, 205); port.offsetMax = new Vector2(-24, -20);
@@ -129,9 +129,9 @@ namespace MS.UI
             if (validasi != null)
                 validasi.text = idJurusan != null && idAsal != null ? "Pilihan siap. Nama kosong memakai Mahasiswa." : "Pilih jurusan dan asal untuk mulai.";
             for (int i = 0; i < jurusan.Count; i++)
-                jurusan[i].targetGraphic.color = profil.DaftarJurusan[i].Id == idJurusan ? new Color32(155, 211, 183, 255) : new Color32(255, 226, 194, 255);
+                jurusan[i].targetGraphic.color = profil.DaftarJurusan[i].Id == idJurusan ? TemaAntarmuka.Mint : TemaAntarmuka.Mentega;
             for (int i = 0; i < asal.Count; i++)
-                asal[i].targetGraphic.color = profil.DaftarAsal[i].Id == idAsal ? new Color32(155, 211, 183, 255) : new Color32(255, 226, 194, 255);
+                asal[i].targetGraphic.color = profil.DaftarAsal[i].Id == idAsal ? TemaAntarmuka.Mint : TemaAntarmuka.Mentega;
         }
 
         static string Ringkas(InfoPilihan item) =>

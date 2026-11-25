@@ -1,3 +1,4 @@
+using MS.Kontrak;
 using System;
 using System.Collections.Generic;
 using TMPro;
@@ -22,10 +23,10 @@ namespace MS.UI
             this.hud = hud;
             akar = HudKamar.BuatKotak(nama, induk);
             HudKamar.Rentangkan(akar, Vector2.zero, Vector2.one);
-            akar.gameObject.AddComponent<Image>().color = new Color(0, 0, 0, .55f);
+            akar.gameObject.AddComponent<Image>().color = TemaAntarmuka.Redup;
             var kartu = HudKamar.BuatKotak("Kartu", akar);
             HudKamar.Rentangkan(kartu, new Vector2(.09f,.05f), new Vector2(.91f,.9f));
-            hud.Gambar(kartu, new Color32(255,250,242,255), true);
+            hud.Gambar(kartu, TemaAntarmuka.Kertas, true);
             var port = HudKamar.BuatKotak("Viewport", kartu);
             HudKamar.Rentangkan(port, Vector2.zero, new Vector2(1, .82f));
             port.offsetMin = new Vector2(24,24);
@@ -84,7 +85,7 @@ namespace MS.UI
                 var ukuran = rt.gameObject.AddComponent<LayoutElement>();
                 ukuran.minHeight = tinggi;
                 targetSentuh.Add(ukuran);
-                var gambar = hud.Gambar(rt, boleh ? new Color32(255,222,185,255) : new Color32(219,213,207,255), true);
+                var gambar = hud.Gambar(rt, boleh ? TemaAntarmuka.Mentega : TemaAntarmuka.Pasif, true);
                 var tombol = rt.gameObject.AddComponent<Button>();
                 tombol.targetGraphic = gambar;
                 tombol.transition = Selectable.Transition.None;

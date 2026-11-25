@@ -1,4 +1,4 @@
-﻿using MS.Kontrak;
+using MS.Kontrak;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +8,7 @@ namespace MS.UI
     internal sealed class PanelRapor
     {
         readonly RectTransform akar;
+        readonly ScrollRect gulir;
         readonly TextMeshProUGUI isi;
         readonly System.Action saatBuka;
         internal bool Terbuka => akar.gameObject.activeSelf;
@@ -17,19 +18,33 @@ namespace MS.UI
             this.saatBuka = saatBuka;
             akar = HudKamar.BuatKotak("Panel rapor", induk);
             HudKamar.Rentangkan(akar, Vector2.zero, Vector2.one);
-            akar.gameObject.AddComponent<Image>().color = new Color(0, 0, 0, .5f);
+            akar.gameObject.AddComponent<Image>().color = TemaAntarmuka.Redup;
             var kartu = HudKamar.BuatKotak("Kartu rapor", akar);
             HudKamar.Rentangkan(kartu, new Vector2(.12f, .10f), new Vector2(.88f, .84f));
-            hud.Gambar(kartu, new Color32(255, 250, 242, 255), true);
+            hud.Gambar(kartu, TemaAntarmuka.Kertas, true);
             var judul = HudKamar.Teks(kartu, "Rapor dan status", 54, 32, FontStyles.Bold);
             HudKamar.Rentangkan(judul.rectTransform, new Vector2(.05f, .78f), new Vector2(.95f, .98f));
-            isi = HudKamar.Teks(kartu, "", 44, 26, FontStyles.Normal);
+            var viewport = HudKamar.BuatKotak("Viewport rapor", kartu);
+            HudKamar.Rentangkan(viewport, new Vector2(.06f, .23f), new Vector2(.94f, .77f));
+            viewport.gameObject.AddComponent<RectMask2D>();
+            viewport.gameObject.AddComponent<Image>().color = Color.clear;
+            isi = HudKamar.Teks(viewport, "", 38, 28, FontStyles.Normal);
+            isi.enableAutoSizing = false;
+            isi.fontSize = 38;
+            isi.alignment = TextAlignmentOptions.Top;
             isi.textWrappingMode = TextWrappingModes.Normal;
             isi.overflowMode = TextOverflowModes.Overflow;
-            HudKamar.Rentangkan(isi.rectTransform, new Vector2(.06f, .23f), new Vector2(.94f, .77f));
+            HudKamar.Rentangkan(isi.rectTransform, Vector2.up, Vector2.one);
+            isi.rectTransform.pivot = new Vector2(.5f, 1);
+            isi.gameObject.AddComponent<ContentSizeFitter>().verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+            gulir = viewport.gameObject.AddComponent<ScrollRect>();
+            gulir.viewport = viewport;
+            gulir.content = isi.rectTransform;
+            gulir.horizontal = false;
+            gulir.movementType = ScrollRect.MovementType.Clamped;
             var rt = HudKamar.BuatKotak("Tutup rapor", kartu);
             HudKamar.Rentangkan(rt, new Vector2(.3f, .025f), new Vector2(.7f, .21f));
-            var gambar = hud.Gambar(rt, new Color32(255, 216, 172, 255), true);
+            var gambar = hud.Gambar(rt, TemaAntarmuka.Mentega, true);
             var tombol = rt.gameObject.AddComponent<Button>();
             tombol.targetGraphic = gambar;
             tombol.onClick.AddListener(Tutup);
@@ -46,6 +61,8 @@ namespace MS.UI
             akar.gameObject.SetActive(true);
             akar.SetAsLastSibling();
             Perbarui();
+            Canvas.ForceUpdateCanvases();
+            gulir.verticalNormalizedPosition = 1;
         }
 
         internal void Perbarui()

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -26,7 +26,7 @@ namespace MS.MiniGame
 
         enum Tahap { Tutup, Pembuka, Racik, Hasil, DataRusak }
         static readonly CultureInfo Indonesia = CultureInfo.GetCultureInfo("id-ID");
-        static readonly Color Gelap = new Color32(59, 42, 32, 255);
+        static readonly Color Gelap = TemaAntarmuka.Tinta;
         readonly RectTransform akar, konten;
         readonly ScrollRect gulir;
         readonly TextMeshProUGUI judul, isi, umpanBalik, waktu;
@@ -52,9 +52,9 @@ namespace MS.MiniGame
         {
             this.saatBuka = saatBuka;
             akar = Kotak("Panel racik", induk, Vector2.zero, Vector2.one);
-            akar.gameObject.AddComponent<Image>().color = new Color(0, 0, 0, .5f);
+            akar.gameObject.AddComponent<Image>().color = TemaAntarmuka.Redup;
             var kartu = Kotak("Kartu racik", akar, new Vector2(.08f, .035f), new Vector2(.92f, .87f));
-            kartu.gameObject.AddComponent<Image>().color = new Color32(255, 250, 242, 255);
+            var latar = kartu.gameObject.AddComponent<Image>(); latar.color = TemaAntarmuka.Kertas; latar.sprite = TemaAntarmuka.Bentuk(); latar.type = Image.Type.Sliced;
             var port = Kotak("Viewport", kartu, Vector2.zero, Vector2.one);
             port.offsetMin = new Vector2(24, 20);
             port.offsetMax = new Vector2(-24, -20);
@@ -79,7 +79,7 @@ namespace MS.MiniGame
             var bar = Kotak("Kesabaran", konten, Vector2.zero, Vector2.one);
             tinggiWaktu = bar.gameObject.AddComponent<LayoutElement>();
             tinggiWaktu.minHeight = 48;
-            bar.gameObject.AddComponent<Image>().color = new Color32(232, 220, 204, 255);
+            bar.gameObject.AddComponent<Image>().color = TemaAntarmuka.Pasif;
             sisaBar = Kotak("Isi kesabaran", bar, Vector2.zero, Vector2.one).gameObject.AddComponent<Image>();
             sisaBar.raycastTarget = false;
             waktu = Teks("Detik kesabaran", bar, 34, true);
@@ -304,7 +304,7 @@ namespace MS.MiniGame
             {
                 var kotak = Kotak("Tombol racik " + i, grid && i == jumlah - 1 ? konten : wadah, Vector2.zero, Vector2.one);
                 var gambar = kotak.gameObject.AddComponent<Image>();
-                gambar.color = new Color32(255, 216, 172, 255);
+                gambar.color = TemaAntarmuka.Mentega; gambar.sprite = TemaAntarmuka.Bentuk(); gambar.type = Image.Type.Sliced;
                 var button = kotak.gameObject.AddComponent<Button>();
                 button.targetGraphic = gambar;
                 kotak.gameObject.AddComponent<LayoutElement>();
