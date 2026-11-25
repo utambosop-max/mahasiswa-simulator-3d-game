@@ -2,6 +2,14 @@
 
 Riwayat versi Unity dan web.
 
+## Unity v0.2.0 — Rombak visual realistis (2026-11-26)
+
+- Kamar, Kampung, dan 17 interior memakai permukaan bertekstur, pencahayaan baru, dan detail lingkungan tambahan.
+- Versi uji memuat enam pilihan model humanoid dengan animasi jalan, lari, duduk, tidur, minum, mengobrol, dan melambai.
+- Pengaturan menyimpan volume, mutu grafis, ukuran teks, laju putar kamera, dan getar. Energi dan stres bergerak bertahap, dan Buku Sakti menampilkan ringkasan tujuan.
+- Tekan Klakson saat naik motor untuk mendapat tanggapan warga terdekat. Minum Air tersedia dekat galon di kamar.
+- Kamera kamar mulai menghadap dari sisi dinding rendah agar perabot dan pemain lebih mudah terlihat.
+
 ## Unity v0.1.1 — Antarmuka baru (2026-11-25)
 
 - Lihat jam, uang, IPK, energi, stres, dan cuaca di HUD baru. Tombol aksi dan joystick lebih mudah dikenali di layar kecil.
