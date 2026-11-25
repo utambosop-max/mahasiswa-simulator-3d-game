@@ -2,6 +2,14 @@
 
 Riwayat versi Unity dan web.
 
+## Unity v0.3.0 — Kampung dan kos yang lebih hidup (2026-11-26)
+
+- Bangunan Kampung mendapat fasad baru, jendela berbingkai, teras, dan papan nama. Tanah dan jalan memakai paving, got, genangan, serta polisi tidur.
+- Motor bebek pemain dan warga tampil dengan roda terpisah. Roda pemain berputar sesuai gerak. Ada angkot dan gerobak baru.
+- Kamar dan 17 interior mendapat perabot tambahan. Kamera gedung sekarang mulai dari sisi dinding rendah agar isi ruang lebih mudah dilihat.
+- Pengaturan punya ikon di kanan atas. Toast mengikuti panjang pesan, dan Buku Sakti menampilkan jumlah tujuan yang selesai.
+- Kabut dan warna langit mengikuti waktu. Mode Tinggi memberi bayangan lembut dan partikel udara.
+
 ## Unity v0.2.0 — Rombak visual realistis (2026-11-26)
 
 - Kamar, Kampung, dan 17 interior memakai permukaan bertekstur, pencahayaan baru, dan detail lingkungan tambahan.

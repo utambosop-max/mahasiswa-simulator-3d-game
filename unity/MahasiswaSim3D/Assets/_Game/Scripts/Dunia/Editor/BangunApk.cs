@@ -14,22 +14,19 @@ namespace MS.Dunia.Editor
 {
     public static class BangunApk
     {
-        const string VersiNama = "0.2.0";
-        const int VersiKode = 200;
-
         [MenuItem("Mahasiswa Sim/Bangun APK Android")]
         public static void Bangun()
         {
             bool uji = Array.IndexOf(Environment.GetCommandLineArgs(), "-uji") >= 0; // Development Build + layar error merah
-            string keluar = Argumen("-keluar") ?? "D:/Mahasiswa_simulator/rilis/unity/MahasiswaSim3D-v" + VersiNama + (uji ? "-uji" : "-unity") + ".apk";
+            string versi = PlayerSettings.bundleVersion;
+            int kodeVersi = PlayerSettings.Android.bundleVersionCode;
+            string keluar = Argumen("-keluar") ?? "D:/Mahasiswa_simulator/rilis/unity/MahasiswaSim3D-v" + versi + (uji ? "-uji" : "-unity") + ".apk";
             Directory.CreateDirectory(Path.GetDirectoryName(keluar));
 
             // --- Identitas & versi ---
             PlayerSettings.companyName = "Studio Mahasiswa";
             PlayerSettings.productName = "Mahasiswa Simulator 3D";
             PlayerSettings.SetApplicationIdentifier(NamedBuildTarget.Android, "com.studiomahasiswa.sim3d.unity"); // beda dari versi web agar bisa dipasang berdampingan
-            PlayerSettings.bundleVersion = VersiNama;
-            PlayerSettings.Android.bundleVersionCode = VersiKode;
 
             // --- Layar: landscape, boleh diputar 180° (sensorLandscape) ---
             PlayerSettings.defaultInterfaceOrientation = UIOrientation.AutoRotation;
@@ -50,7 +47,7 @@ namespace MS.Dunia.Editor
 
             var scene = EditorBuildSettings.scenes.Where(s => s.enabled).Select(s => s.path).ToArray();
             if (scene.Length == 0) throw new Exception("[MS] Tidak ada scene di Build Settings.");
-            Debug.Log("[MS] Bangun APK " + VersiNama + " (" + scene.Length + " scene) → " + keluar);
+            Debug.Log($"[MS] Bangun APK {versi} kode {kodeVersi} ({scene.Length} scene) → {keluar}");
 
             var hasil = BuildPipeline.BuildPlayer(new BuildPlayerOptions
             {
