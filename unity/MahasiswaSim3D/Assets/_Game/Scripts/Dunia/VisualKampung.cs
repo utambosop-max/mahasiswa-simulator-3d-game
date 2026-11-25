@@ -6,6 +6,16 @@ namespace MS.Dunia
     internal sealed class VisualKampung : MonoBehaviour
     {
         Material lampu;
+        IPenerimaAksi aksi;
+        TextMesh celetukan;
+        Transform wargaBicara;
+        float tutupPada;
+        static readonly string[] Tanggapan =
+        {
+            "Saya minggir, Pak Bos!",
+            "Kaget, kirain alarm kos!",
+            "Pelan, gorengan saya!"
+        };
 
         public void Pasang()
         {
@@ -59,6 +69,63 @@ namespace MS.Dunia
             if (lampu != null)
                 lampu.SetColor("_EmissionColor", fase == Fase.Malam || fase == Fase.Begadang
                     ? new Color(1f, .56f, .16f) * 2.4f : Color.black);
+        }
+
+        void LateUpdate()
+        {
+            if (!ReferenceEquals(aksi, Layanan.Aksi))
+            {
+                if (aksi != null) aksi.AksiMulai -= Dengar;
+                aksi = Layanan.Aksi;
+                if (aksi != null) aksi.AksiMulai += Dengar;
+            }
+            if (celetukan == null || !celetukan.gameObject.activeSelf) return;
+            if (wargaBicara == null || Time.unscaledTime >= tutupPada)
+            {
+                celetukan.gameObject.SetActive(false);
+                return;
+            }
+            var kamera = Camera.main;
+            if (kamera != null)
+                celetukan.transform.SetPositionAndRotation(wargaBicara.position + Vector3.up * 2.15f, kamera.transform.rotation);
+        }
+
+        void Dengar(string id)
+        {
+            if (id != "klakson") return;
+            var pemain = GameObject.FindWithTag("Player");
+            if (pemain == null || Layanan.Jam?.Fase == Fase.Begadang) return;
+            WargaJalan dekat = null;
+            float jarak = 25;
+            foreach (var warga in FindObjectsByType<WargaJalan>(FindObjectsSortMode.None))
+            {
+                float kuadrat = (pemain.transform.position - warga.transform.position).sqrMagnitude;
+                if (kuadrat >= jarak) continue;
+                jarak = kuadrat;
+                dekat = warga;
+            }
+            if (dekat == null) return;
+            dekat.ReaksiKlakson(pemain.transform.position);
+            if (celetukan == null)
+            {
+                celetukan = new GameObject("Celetukan warga").AddComponent<TextMesh>();
+                celetukan.transform.SetParent(transform);
+                celetukan.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+                celetukan.GetComponent<MeshRenderer>().sharedMaterial = celetukan.font.material;
+                celetukan.fontSize = 58;
+                celetukan.characterSize = .065f;
+                celetukan.anchor = TextAnchor.MiddleCenter;
+                celetukan.color = new Color(1, .91f, .7f);
+            }
+            celetukan.text = Tanggapan[Random.Range(0, Tanggapan.Length)];
+            celetukan.gameObject.SetActive(true);
+            wargaBicara = dekat.transform;
+            tutupPada = Time.unscaledTime + 1.8f;
+        }
+
+        void OnDestroy()
+        {
+            if (aksi != null) aksi.AksiMulai -= Dengar;
         }
     }
 }

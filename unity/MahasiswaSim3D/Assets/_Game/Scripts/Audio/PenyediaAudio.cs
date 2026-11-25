@@ -101,7 +101,7 @@ namespace MS.Audio
             sumber.Stop();
             sumber.pitch = id == "klik" || id == "langkah" ? UnityEngine.Random.Range(.9f, 1.1f) : 1f;
             sumber.clip = clip;
-            sumber.volume = id == "langkah" ? .12f : id == "klik" ? .16f : .22f;
+            sumber.volume = id == "klakson" ? .13f : id == "langkah" ? .12f : id == "klik" ? .16f : .22f;
             sumber.Play();
         }
 
@@ -110,6 +110,7 @@ namespace MS.Audio
         static string PilihSuara(string id)
         {
             if (string.IsNullOrEmpty(id)) return "aksi";
+            if (id is "klakson" or "minum") return id;
             if (id == "bersin") return id;
             if (id is "razia" or "bengkel" or "bukuSakti") return id;
             if (id is "jadian" or "kencan" or "nabung" or "hantu" or "lomba") return id;
@@ -134,6 +135,15 @@ namespace MS.Audio
         void BuatKlip()
         {
             Buat("klik", .10f, (t, d) => Nada(t, 659, 880, d) * Bungkus(t, d));
+            Buat("klakson", .28f, (t, _) =>
+            {
+                float lokal = t % .14f;
+                float dasar = t < .14f ? 415f : 391f;
+                var nada = Nada(lokal, dasar, dasar - 8, .11f) + .34f * Nada(lokal, dasar * 3, dasar * 2.95f, .11f);
+                return .60f * nada * Mathf.Clamp01(lokal * 150) * Bungkus(lokal, .10f);
+            });
+            Buat("minum", .34f, (t, d) => .44f * Nada(t, 310f, 730f, d) * Bungkus(t, d)
+                * (.5f + .5f * Mathf.Sin(t * 71f)));
             Buat("razia", .32f, (t, _) =>
             {
                 float lokal = t % .16f;

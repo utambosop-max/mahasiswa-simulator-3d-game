@@ -34,6 +34,7 @@ namespace MS.Inti
         readonly StatPemain stat;
         readonly JamGame jam;
         readonly Efek efek = new Efek(); // dipakai ulang, tanpa alokasi per aksi
+        float klaksonBerikut = float.NegativeInfinity;
 
         string _pesan;
         public string PesanTerakhir { get => _pesan; private set { _pesan = value; if (!string.IsNullOrEmpty(value)) PesanMasuk?.Invoke(value); } }
@@ -49,7 +50,7 @@ namespace MS.Inti
         // Butuh sistem yang belum diport (motor, barang, toko, kebun, lomba, UKM, ojol)
         static readonly string[] BelumAda =
         {
-            "keluar", "klakson", "minum",
+            "keluar",
         };
 
         bool Didukung(string id)
@@ -62,7 +63,7 @@ namespace MS.Inti
         }
 
         DataAkademik Ak => data.Akademik;
-        static readonly string[] AksiHidup = { "naikMotor", "turunMotor", "isiBensin", "narikOjol", "belanjaBarang", "seduhKopi" };
+        static readonly string[] AksiHidup = { "naikMotor", "turunMotor", "isiBensin", "narikOjol", "belanjaBarang", "seduhKopi", "klakson" };
 
         /// <summary>Syarat aksi motor/toko/kopi (null = boleh).</summary>
         string CekHidup(string id)
@@ -71,6 +72,9 @@ namespace MS.Inti
             {
                 case "naikMotor": return Hidup.NaikMotor ? "🛵 Sudah di atas motor." : null;
                 case "turunMotor": return Hidup.NaikMotor ? null : "Kamu tidak sedang naik motor.";
+                case "klakson":
+                    if (!Hidup.NaikMotor) return "Naik motor dulu untuk memakai klakson.";
+                    return Time.unscaledTime >= klaksonBerikut ? null : "Beri jeda sebelum membunyikan klakson.";
                 case "isiBensin":
                     if (Hidup.Bensin >= 97f) return "⛽ Tangki masih penuh.";
                     return stat.Uang - Hidup.HargaIsiBensin < data.Bal.batas.uangMin ? "💸 Uangnya nggak cukup buat bensin." : null;
@@ -130,7 +134,7 @@ namespace MS.Inti
             if (a.hari != null && a.hari.Count > 0 && !a.hari.Contains(AturanHarian.HariMinggu(s.hari)))
             { alasan = a.alasanTutup ?? "Belum waktunya."; return false; }
             if (id == "kuliah" && !CekKuliah(out alasan)) return false;
-            if ((a.jenis == "makan" || a.jenis == "menu") && s.porsiFase >= data.Bal.kenyang.porsiPerFase)
+            if ((a.jenis == "makan" || a.jenis == "menu" || id == "minum") && s.porsiFase >= data.Bal.kenyang.porsiPerFase)
             { alasan = "🤰 Masih kenyang! Tunggu fase berikutnya."; return false; }
             if (a.jenis == "kerja" && s.kerjaHari == s.hari && data.Bal.kerja.maksShiftPerHari <= 1)
             { alasan = "💼 Hari ini sudah kerja. Besok lagi ya!"; return false; }
@@ -191,6 +195,11 @@ namespace MS.Inti
                 s.porsiFase++;
                 PesanTerakhir = perutProtes ? "🤢 Perutmu protes, kebanyakan mi instan!" : a.pesan;
             }
+            else if (id == "minum")
+            {
+                s.porsiFase++;
+                PesanTerakhir = string.IsNullOrWhiteSpace(a?.pesan) ? "Segelas air. Energi bertambah, stres berkurang." : a.pesan;
+            }
             else PesanTerakhir = a?.pesan;
             if (id == "mandi") s.mandiHari = s.hari;
             var ujian = id == "kuliah" ? Ak.UjianAktif(s) : null;
@@ -218,6 +227,10 @@ namespace MS.Inti
             {
                 case "naikMotor": Hidup.Naik(); PesanTerakhir = "🛵 Brum brum! Hati-hati di jalan."; break;
                 case "turunMotor": Hidup.Turun(); PesanTerakhir = "🅿️ Motor diparkir."; break;
+                case "klakson":
+                    klaksonBerikut = Time.unscaledTime + 1.25f;
+                    PesanTerakhir = "Tin tin!";
+                    break;
                 case "isiBensin":
                     int harga = Hidup.HargaIsiBensin;
                     stat.TambahUang(-harga); Hidup.IsiBensin();
@@ -388,6 +401,11 @@ namespace MS.Inti
             if (id == "tidur" || id == "tidurSiang") { HitungEfekTidur(); return; }
             if (a == null) return;
             if (a.efek != null) efek.Isi(a.efek);
+            if (id == "minum" && efek.energi == 0 && efek.stres == 0)
+            {
+                efek.energi = 2;
+                efek.stres = -1;
+            }
 
             if (!string.IsNullOrEmpty(a.menuId))
             {

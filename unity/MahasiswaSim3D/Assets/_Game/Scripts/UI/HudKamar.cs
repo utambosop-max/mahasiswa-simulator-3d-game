@@ -46,7 +46,7 @@ namespace MS.UI
         private Canvas kanvas;
         private Image tiraiTransisi;
         private RectTransform areaAman, kotakPesan;
-        private Button tombolUtama, tombolTambahan, tombolKamera;
+        private Button tombolUtama, tombolTambahan, tombolKamera, tombolKlakson;
         private TextMeshProUGUI labelUtama, labelTambahan;
         private TextMeshProUGUI uang, ipk, energi, stres, kalender, judulKalender;
         private TextMeshProUGUI statusAkademik;
@@ -165,6 +165,9 @@ namespace MS.UI
                 panelMenu.Segarkan();
             }
             toast.Tick();
+            if (!Layanan.InputDitahan && tombolKlakson.gameObject.activeSelf &&
+                UnityEngine.InputSystem.Keyboard.current?.hKey.wasPressedThisFrame == true)
+                MintaAksi(new PerintahAksi("klakson"), false);
             AnimasiStat();
             TutorialKonteks();
             if (!panelEvent.Terbuka) panelRacik.Tick(Time.unscaledDeltaTime);
@@ -369,13 +372,19 @@ namespace MS.UI
             var layanan = Layanan.Aksi;
             WarnaiTombol(tombolUtama, aksiUtama.HasValue && layanan != null && layanan.BolehDilakukan(aksiUtama.Value, out _), Aksen);
             WarnaiTombol(tombolTambahan, aksiTambahan.HasValue && layanan != null && layanan.BolehDilakukan(aksiTambahan.Value, out _), Netral);
+            if (tombolKlakson != null)
+            {
+                bool naik = Layanan.Kendaraan?.NaikMotor == true;
+                if (tombolKlakson.gameObject.activeSelf != naik) tombolKlakson.gameObject.SetActive(naik);
+                if (naik) WarnaiTombol(tombolKlakson, layanan != null && layanan.BolehDilakukan(new PerintahAksi("klakson"), out _), Netral);
+            }
         }
 
         private void PerbaruiKonteks()
         {
             var pakaiAksiUji = konteks == null && tampilkanAksiUji;
-            aksiUtama = pakaiAksiUji ? Tidur : AksiTersediaDiPort(konteks?.Utama);
-            aksiTambahan = pakaiAksiUji ? Belajar : AksiTersediaDiPort(konteks?.Tambahan);
+            aksiUtama = pakaiAksiUji ? Tidur : konteks?.Utama;
+            aksiTambahan = pakaiAksiUji ? Belajar : konteks?.Tambahan;
             labelUtama.text = LabelRingkas(aksiUtama, pakaiAksiUji ? "Tidur" : konteks?.NamaUtama);
             labelTambahan.text = LabelRingkas(aksiTambahan, pakaiAksiUji ? "Belajar" : konteks?.NamaTambahan);
             // Pemain menjauh / konteks berganti -> tutup panel bila aksinya sudah tidak ada
@@ -392,9 +401,6 @@ namespace MS.UI
             foreach (Match cocok in Regex.Matches(aksiJson.text, pola))
                 namaAksi[cocok.Groups["id"].Value] = (cocok.Groups["label"].Value, cocok.Groups["ikon"].Value);
         }
-
-        static PerintahAksi? AksiTersediaDiPort(PerintahAksi? aksi)
-            => aksi?.Id is "klakson" or "minum" ? null : aksi;
 
         private string LabelAksi(PerintahAksi? aksi, string nama)
         {
@@ -660,6 +666,8 @@ namespace MS.UI
         {
             (tombolUtama, labelUtama) = BuatTombol("Aksi utama", () => MintaAksi(aksiUtama, true));
             (tombolTambahan, labelTambahan) = BuatTombol("Aksi tambahan", () => MintaAksi(aksiTambahan, false));
+            (tombolKlakson, _) = BuatTombol("Klakson", () => MintaAksi(new PerintahAksi("klakson"), false));
+            tombolKlakson.gameObject.SetActive(false);
             IkonHud.Pasang((RectTransform)tombolUtama.transform, IkonHud.Jenis.Aksi, 42);
             IkonHud.Pasang((RectTransform)tombolTambahan.transform, IkonHud.Jenis.Aksi, 38);
             if (Application.isMobilePlatform)
@@ -751,6 +759,9 @@ namespace MS.UI
                 kotakKamera.sizeDelta = new Vector2(lebar, Mathf.Max(112, 56 / skala));
                 kotakKamera.anchoredPosition = new Vector2(-32, 32 + tinggi + jarak);
             }
+            var klakson = (RectTransform)tombolKlakson.transform;
+            klakson.sizeDelta = new Vector2(lebar, tinggi);
+            klakson.anchoredPosition = new Vector2(-32 - lebar - jarak, 32 + tinggi + jarak);
             if (panelMenu != null && panelMenu.Terbuka) kotakPesan.SetAsLastSibling();
         }
 

@@ -85,6 +85,30 @@ namespace MS.Inti.Tes
         }
 
         [Test]
+        public void MinumAirMemulihkanDanMenghabiskanPorsi()
+        {
+            s.porsiFase = data.Bal.kenyang.porsiPerFase - 1;
+            float energi = stat.Energi, stres = stat.Stres;
+            var air = new PerintahAksi("minum");
+            Assert.IsTrue(aksi.BolehDilakukan(air, out _));
+            aksi.Lakukan(air);
+            Assert.AreEqual(energi + 2, stat.Energi);
+            Assert.AreEqual(stres - 1, stat.Stres);
+            Assert.IsFalse(aksi.BolehDilakukan(air, out _));
+        }
+
+        [Test]
+        public void KlaksonHanyaDiMotorDanMemilikiJeda()
+        {
+            var klakson = new PerintahAksi("klakson");
+            Assert.IsFalse(aksi.BolehDilakukan(klakson, out _));
+            hidup.Naik();
+            Assert.IsTrue(aksi.BolehDilakukan(klakson, out _));
+            aksi.Lakukan(klakson);
+            Assert.IsFalse(aksi.BolehDilakukan(klakson, out _));
+        }
+
+        [Test]
         public void CuacaTetapPerHari()
         {
             Assert.AreEqual("cerah", data.Fitur.CuacaHari(1).id);

@@ -31,6 +31,14 @@ namespace MS.Dunia
         float faseLangkah;
         Vector3 posisiDatar;     // posisi di jalur tanpa bobbing
 
+        internal void ReaksiKlakson(Vector3 posisiPemain)
+        {
+            Vector3 arah = posisiPemain - transform.position;
+            arah.y = 0;
+            if (arah.sqrMagnitude > .01f) transform.rotation = Quaternion.LookRotation(arah);
+            timerJeda = Mathf.Max(timerJeda, .65f);
+        }
+
         void Start()
         {
             TerapkanWarnaBaju();
