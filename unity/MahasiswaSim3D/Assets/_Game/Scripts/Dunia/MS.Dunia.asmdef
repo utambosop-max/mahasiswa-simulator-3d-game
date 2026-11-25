@@ -1,0 +1,6 @@
+{
+  "name": "MS.Dunia",
+  "rootNamespace": "MS.Dunia",
+  "references": ["MS.Kontrak","MS.Inti"],
+  "autoReferenced": true
+}

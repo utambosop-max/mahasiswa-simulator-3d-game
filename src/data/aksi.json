@@ -1,0 +1,1203 @@
+{
+  "kuliah": {
+    "label": "Kuliah",
+    "ikon": "🎒",
+    "fase": [
+      "pagi",
+      "siang"
+    ],
+    "hariKerja": true,
+    "jenis": "belajar",
+    "pakaiMeja": false,
+    "efek": {
+      "ipk": 0.01,
+      "energi": -15,
+      "stres": 5
+    },
+    "majuFase": 1,
+    "transisi": "🏫 Kuliah dulu...",
+    "pesan": "Kuliah selesai!",
+    "alasanTutup": "🏫 Kampus cuma ada kuliah Pagi & Siang.",
+    "durasiJam": 2
+  },
+  "belajar": {
+    "label": "Belajar",
+    "ikon": "📖",
+    "fase": [
+      "pagi",
+      "siang",
+      "sore",
+      "malam"
+    ],
+    "jenis": "belajar",
+    "pakaiMeja": true,
+    "efek": {
+      "ipk": 0.009,
+      "energi": -12,
+      "stres": 4
+    },
+    "majuFase": 1,
+    "transisi": "📖 Belajar dulu...",
+    "pesan": "Belajar mandiri",
+    "durasiJam": 2
+  },
+  "nugas": {
+    "label": "Nugas",
+    "ikon": "💻",
+    "fase": [
+      "malam",
+      "begadang"
+    ],
+    "jenis": "belajar",
+    "pakaiMeja": true,
+    "efek": {
+      "ipk": 0.02,
+      "energi": -30,
+      "stres": 15
+    },
+    "majuFase": 1,
+    "transisi": "💻 Ngebut nugas...",
+    "pesan": "Tugas beres!",
+    "durasiJam": 3
+  },
+  "tidur": {
+    "label": "Tidur",
+    "ikon": "😴",
+    "fase": [
+      "pagi",
+      "siang",
+      "sore",
+      "malam",
+      "begadang"
+    ],
+    "jenis": "tidur",
+    "efek": {},
+    "majuFase": 0,
+    "transisi": "😴 Zzz...",
+    "pesan": "Tidur"
+  },
+  "rebahan": {
+    "label": "Rebahan",
+    "ikon": "📱",
+    "fase": [
+      "pagi",
+      "siang",
+      "sore",
+      "malam",
+      "begadang"
+    ],
+    "jenis": "santai",
+    "efek": {
+      "energi": 3,
+      "stres": -12
+    },
+    "majuFase": 1,
+    "transisi": "📱 Scroll medsos...",
+    "pesan": "Rebahan sambil scroll HP",
+    "durasiJam": 1
+  },
+  "masakMi": {
+    "label": "Masak Mi",
+    "ikon": "🍜",
+    "fase": [
+      "pagi",
+      "siang",
+      "sore",
+      "malam",
+      "begadang"
+    ],
+    "jenis": "makan",
+    "menuId": "mi_instan",
+    "efek": {},
+    "majuFase": 0,
+    "pesan": "Mi instan matang!"
+  },
+  "keluar": {
+    "label": "Keluar",
+    "ikon": "🚪",
+    "fase": [
+      "pagi",
+      "siang",
+      "sore",
+      "malam",
+      "begadang"
+    ],
+    "jenis": "pindah",
+    "tujuan": "dunia",
+    "efek": {},
+    "majuFase": 0,
+    "transisi": "🚶 Keluar kos...",
+    "pesan": "Udara luar segar!"
+  },
+  "masukKos": {
+    "label": "Masuk",
+    "ikon": "🏠",
+    "fase": [
+      "pagi",
+      "siang",
+      "sore",
+      "malam",
+      "begadang"
+    ],
+    "jenis": "pindah",
+    "tujuan": "kamar",
+    "efek": {},
+    "majuFase": 0,
+    "transisi": "🏠 Pulang ke kamar...",
+    "pesan": "Kembali ke kamar kos"
+  },
+  "makanWarteg": {
+    "label": "Makan",
+    "ikon": "🍛",
+    "fase": [
+      "pagi",
+      "siang",
+      "sore",
+      "malam"
+    ],
+    "jenis": "menu",
+    "tempat": "warteg",
+    "efek": {},
+    "majuFase": 0,
+    "pesan": "",
+    "alasanTutup": "🍛 Warteg sudah tutup. Besok pagi lagi ya!"
+  },
+  "ngopi": {
+    "label": "Pesan",
+    "ikon": "☕",
+    "fase": [
+      "pagi",
+      "siang",
+      "sore",
+      "malam",
+      "begadang"
+    ],
+    "jenis": "menu",
+    "tempat": "warkop",
+    "efek": {},
+    "majuFase": 0,
+    "pesan": ""
+  },
+  "nongkrong": {
+    "label": "Nongkrong",
+    "ikon": "🗣️",
+    "fase": [
+      "sore",
+      "malam",
+      "begadang"
+    ],
+    "jenis": "santai",
+    "efek": {
+      "uang": -10000,
+      "energi": -5,
+      "stres": -15
+    },
+    "majuFase": 1,
+    "transisi": "🗣️ Ngobrol ngalor-ngidul...",
+    "pesan": "Nongkrong bareng teman",
+    "alasanTutup": "🗣️ Belum ada yang nongkrong. Ramainya mulai sore!",
+    "durasiJam": 2
+  },
+  "santaiTaman": {
+    "label": "Duduk Santai",
+    "ikon": "🌳",
+    "fase": [
+      "pagi",
+      "siang",
+      "sore",
+      "malam"
+    ],
+    "jenis": "santai",
+    "efek": {
+      "energi": 2,
+      "stres": -8
+    },
+    "majuFase": 1,
+    "transisi": "🌳 Menikmati angin sepoi-sepoi...",
+    "pesan": "Santai di taman",
+    "alasanTutup": "👻 Taman gelap banget, serem ah...",
+    "durasiJam": 1
+  },
+  "kerjaWarteg": {
+    "label": "Kerja",
+    "ikon": "💼",
+    "fase": [
+      "pagi",
+      "siang",
+      "sore"
+    ],
+    "jenis": "kerja",
+    "kerja": "warteg",
+    "efek": {
+      "energi": -20,
+      "stres": 6
+    },
+    "majuFase": 1,
+    "transisi": "💼 Selesai shift di warteg...",
+    "pesan": "Kerja di Warteg selesai!",
+    "alasanTutup": "💼 Mbak Sri: \"Shift warteg cuma Pagi sampai Sore, Dek!\"",
+    "durasiJam": 4
+  },
+  "kerjaWarkop": {
+    "label": "Kerja",
+    "ikon": "💼",
+    "fase": [
+      "sore",
+      "malam",
+      "begadang"
+    ],
+    "jenis": "kerja",
+    "kerja": "warkop",
+    "efek": {
+      "energi": -18,
+      "stres": 4
+    },
+    "majuFase": 1,
+    "transisi": "💼 Selesai jaga warkop...",
+    "pesan": "Jaga Warkop selesai!",
+    "alasanTutup": "💼 Bang Udin: \"Warkop ramenya Sore sampai Begadang, Bro!\"",
+    "durasiJam": 4
+  },
+  "bukaUpgrade": {
+    "label": "Upgrade Kamar",
+    "ikon": "🛋️",
+    "fase": [
+      "pagi",
+      "siang",
+      "sore",
+      "malam",
+      "begadang"
+    ],
+    "jenis": "toko",
+    "efek": {},
+    "majuFase": 0,
+    "pesan": ""
+  },
+  "belanja": {
+    "label": "Belanja",
+    "ikon": "🛒",
+    "fase": [
+      "pagi",
+      "siang",
+      "sore",
+      "malam",
+      "begadang"
+    ],
+    "jenis": "menu",
+    "tempat": "minimarket",
+    "efek": {},
+    "majuFase": 0,
+    "pesan": ""
+  },
+  "gerobakNasgor": {
+    "label": "Pesan",
+    "ikon": "🍳",
+    "fase": [
+      "malam",
+      "begadang"
+    ],
+    "jenis": "menu",
+    "tempat": "gerobak",
+    "efek": {},
+    "majuFase": 0,
+    "pesan": "",
+    "alasanTutup": "🍳 Abang nasi goreng baru mangkal malam hari."
+  },
+  "belajarPerpus": {
+    "label": "Belajar",
+    "ikon": "📚",
+    "fase": [
+      "pagi",
+      "siang",
+      "sore"
+    ],
+    "jenis": "belajar",
+    "pakaiMeja": false,
+    "efek": {
+      "ipk": 0.01,
+      "energi": -12,
+      "stres": 3
+    },
+    "majuFase": 1,
+    "transisi": "📚 Sunyi... fokus maksimal...",
+    "pesan": "Belajar di perpustakaan",
+    "alasanTutup": "📚 Perpustakaan buka Pagi sampai Sore.",
+    "durasiJam": 2
+  },
+  "mainFutsal": {
+    "label": "Main Futsal",
+    "ikon": "⚽",
+    "fase": [
+      "sore",
+      "malam"
+    ],
+    "jenis": "santai",
+    "efek": {
+      "energi": -18,
+      "stres": -20
+    },
+    "majuFase": 1,
+    "transisi": "⚽ GOOOL!",
+    "pesan": "Futsal bareng anak kos",
+    "alasanTutup": "⚽ Anak-anak baru kumpul main futsal Sore & Malam.",
+    "durasiJam": 2
+  },
+  "printTugas": {
+    "label": "Print Tugas",
+    "ikon": "🖨️",
+    "fase": [
+      "pagi",
+      "siang",
+      "sore",
+      "malam"
+    ],
+    "jenis": "santai",
+    "efek": {
+      "uang": -5000,
+      "stres": -4
+    },
+    "majuFase": 0,
+    "pesan": "Tugas tercetak rapi, lega!",
+    "alasanTutup": "🖨️ Fotokopian sudah tutup."
+  },
+  "laundry": {
+    "label": "Laundry",
+    "ikon": "🧺",
+    "fase": [
+      "pagi",
+      "siang",
+      "sore",
+      "malam"
+    ],
+    "jenis": "santai",
+    "efek": {
+      "uang": -15000,
+      "stres": -6
+    },
+    "majuFase": 0,
+    "pesan": "Baju wangi, hati senang",
+    "alasanTutup": "🧺 Laundry sudah tutup."
+  },
+  "mainGame": {
+    "label": "Main Game",
+    "ikon": "🎮",
+    "fase": [
+      "pagi",
+      "siang",
+      "sore",
+      "malam",
+      "begadang"
+    ],
+    "jenis": "santai",
+    "efek": {
+      "uang": -10000,
+      "energi": -8,
+      "stres": -18
+    },
+    "majuFase": 1,
+    "transisi": "🎮 Push rank...",
+    "pesan": "Main game di warnet",
+    "durasiJam": 2
+  },
+  "periksa": {
+    "label": "Periksa",
+    "ikon": "🩺",
+    "fase": [
+      "pagi",
+      "siang",
+      "sore"
+    ],
+    "jenis": "santai",
+    "efek": {
+      "uang": -35000,
+      "energi": 25,
+      "stres": -10
+    },
+    "majuFase": 1,
+    "transisi": "🩺 Diperiksa dokter...",
+    "pesan": "Dokter: \"Kurang tidur & kebanyakan mi ya?\"",
+    "alasanTutup": "🩺 Klinik buka Pagi sampai Sore.",
+    "durasiJam": 1
+  },
+  "naikAngkot": {
+    "label": "Naik Angkot",
+    "ikon": "🚐",
+    "fase": [
+      "pagi",
+      "siang",
+      "sore",
+      "malam"
+    ],
+    "jenis": "angkot",
+    "efek": {
+      "uang": -4000
+    },
+    "majuFase": 0,
+    "transisi": "🚐 Kiri, Bang!",
+    "pesan": "Sampai di halte seberang",
+    "alasanTutup": "🚐 Angkot sudah tidak beroperasi jam segini."
+  },
+  "naikMotor": {
+    "label": "Naik Motor",
+    "ikon": "🛵",
+    "fase": [
+      "pagi",
+      "siang",
+      "sore",
+      "malam",
+      "begadang"
+    ],
+    "jenis": "kendaraan",
+    "efek": {},
+    "majuFase": 0,
+    "pesan": "Brum brum! Hati-hati di jalan"
+  },
+  "turunMotor": {
+    "label": "Turun",
+    "ikon": "🅿️",
+    "fase": [
+      "pagi",
+      "siang",
+      "sore",
+      "malam",
+      "begadang"
+    ],
+    "jenis": "kendaraan",
+    "efek": {},
+    "majuFase": 0,
+    "pesan": "Motor diparkir"
+  },
+  "mandi": {
+    "label": "Mandi",
+    "ikon": "🚿",
+    "fase": [
+      "pagi",
+      "siang",
+      "sore",
+      "malam",
+      "begadang"
+    ],
+    "jenis": "santai",
+    "efek": {
+      "energi": 6,
+      "stres": -4
+    },
+    "majuFase": 0,
+    "pesan": "Byur! Segar & wangi"
+  },
+  "bersihKamar": {
+    "label": "Bersih-bersih",
+    "ikon": "🧹",
+    "fase": [
+      "pagi",
+      "siang",
+      "sore",
+      "malam",
+      "begadang"
+    ],
+    "jenis": "santai",
+    "efek": {
+      "energi": -8,
+      "stres": -2
+    },
+    "majuFase": 0,
+    "pesan": "Kamar kinclong lagi!"
+  },
+  "mainGitar": {
+    "label": "Main Gitar",
+    "ikon": "🎸",
+    "fase": [
+      "pagi",
+      "siang",
+      "sore",
+      "malam",
+      "begadang"
+    ],
+    "jenis": "santai",
+    "efek": {
+      "energi": -3,
+      "stres": -14
+    },
+    "majuFase": 1,
+    "transisi": "🎸 Genjreng-genjreng...",
+    "pesan": "Main gitar sambil nyanyi lagu galau",
+    "durasiJam": 1
+  },
+  "elusKucing": {
+    "label": "Elus Oyen",
+    "ikon": "🐱",
+    "fase": [
+      "pagi",
+      "siang",
+      "sore",
+      "malam",
+      "begadang"
+    ],
+    "jenis": "santai",
+    "efek": {
+      "stres": -3
+    },
+    "majuFase": 0,
+    "pesan": "Oyen: \"Meooong~\" (mendengkur)"
+  },
+  "freelance": {
+    "label": "Freelance",
+    "ikon": "🖥️",
+    "fase": [
+      "malam",
+      "begadang"
+    ],
+    "jenis": "kerjaLepas",
+    "pakaiMeja": false,
+    "efek": {
+      "uang": 40000,
+      "energi": -22,
+      "stres": 10
+    },
+    "majuFase": 1,
+    "transisi": "🖥️ Ngerjain proyek klien...",
+    "pesan": "Proyek freelance beres, transferan masuk!",
+    "alasanTutup": "🖥️ Klien baru kirim brief Malam hari.",
+    "durasiJam": 3
+  },
+  "lesPrivat": {
+    "label": "Les Privat",
+    "ikon": "👩‍🏫",
+    "fase": [
+      "sore"
+    ],
+    "jenis": "kerjaLepas",
+    "efek": {
+      "uang": 50000,
+      "energi": -15,
+      "stres": 4
+    },
+    "majuFase": 1,
+    "transisi": "👩‍🏫 Ngajarin adik SMA...",
+    "pesan": "Les privat selesai, dapat honor!",
+    "alasanTutup": "👩‍🏫 Murid lesnya baru pulang sekolah Sore hari.",
+    "durasiJam": 2
+  },
+  "narikOjol": {
+    "label": "Narik Ojol",
+    "ikon": "📦",
+    "fase": [
+      "pagi",
+      "siang",
+      "sore",
+      "malam"
+    ],
+    "jenis": "ojol",
+    "efek": {
+      "energi": -12,
+      "stres": 5
+    },
+    "majuFase": 1,
+    "pesan": "Narik ojol selesai",
+    "alasanTutup": "📦 Order ojol sepi kalau sudah begadang.",
+    "durasiJam": 2
+  },
+  "belanjaBarang": {
+    "label": "Beli Barang",
+    "ikon": "🛍️",
+    "fase": [
+      "pagi",
+      "siang",
+      "sore",
+      "malam",
+      "begadang"
+    ],
+    "jenis": "barang",
+    "efek": {},
+    "majuFase": 0,
+    "pesan": ""
+  },
+  "nulisSkripsi": {
+    "label": "Nulis Skripsi",
+    "ikon": "📄",
+    "fase": [
+      "siang",
+      "sore",
+      "malam",
+      "begadang"
+    ],
+    "jenis": "skripsi",
+    "efek": {
+      "energi": -20,
+      "stres": 12
+    },
+    "majuFase": 1,
+    "transisi": "📄 Bab demi bab...",
+    "pesan": "Skripsi bertambah",
+    "alasanTutup": "📄 Pagi-pagi otak belum panas buat skripsi.",
+    "durasiJam": 3
+  },
+  "bimbingan": {
+    "label": "Bimbingan",
+    "ikon": "🧑‍🏫",
+    "fase": [
+      "sore"
+    ],
+    "hariKerja": true,
+    "jenis": "skripsi",
+    "efek": {
+      "energi": -10,
+      "stres": 6
+    },
+    "majuFase": 1,
+    "transisi": "🧑‍🏫 Revisi lagi...",
+    "pesan": "Bimbingan skripsi dengan dosen",
+    "alasanTutup": "🧑‍🏫 Dosen pembimbing cuma ada Sore (Sen–Jum).",
+    "durasiJam": 1
+  },
+  "sidang": {
+    "label": "Sidang Skripsi",
+    "ikon": "🎓",
+    "fase": [
+      "pagi"
+    ],
+    "hariKerja": true,
+    "jenis": "skripsi",
+    "efek": {
+      "energi": -25,
+      "stres": 20
+    },
+    "majuFase": 1,
+    "transisi": "🎓 Sidang... deg-degan...",
+    "pesan": "Sidang skripsi selesai",
+    "alasanTutup": "🎓 Sidang dijadwalkan Pagi (Sen–Jum).",
+    "durasiJam": 2
+  },
+  "rapatUKM": {
+    "label": "Rapat UKM",
+    "ikon": "🎪",
+    "fase": [
+      "sore"
+    ],
+    "hari": [
+      2
+    ],
+    "jenis": "santai",
+    "efek": {
+      "energi": -5,
+      "stres": -10
+    },
+    "majuFase": 1,
+    "transisi": "🎪 Rapat UKM...",
+    "pesan": "Kegiatan UKM seru",
+    "alasanTutup": "🎪 Rapat UKM tiap Rabu Sore.",
+    "durasiJam": 2
+  },
+  "jogging": {
+    "label": "Jogging",
+    "ikon": "🏃",
+    "fase": [
+      "pagi"
+    ],
+    "jenis": "santai",
+    "efek": {
+      "energi": -10,
+      "stres": -10
+    },
+    "majuFase": 1,
+    "transisi": "🏃 Lari pagi keliling taman...",
+    "pesan": "Jogging pagi",
+    "alasanTutup": "🏃 Jogging enaknya Pagi hari.",
+    "durasiJam": 1
+  },
+  "jajanPasarMalam": {
+    "label": "Jajan",
+    "ikon": "🍡",
+    "fase": [
+      "malam",
+      "begadang"
+    ],
+    "hari": [
+      5
+    ],
+    "jenis": "menu",
+    "tempat": "pasarMalam",
+    "efek": {},
+    "majuFase": 0,
+    "pesan": "",
+    "alasanTutup": "🎡 Pasar malam cuma ada Sabtu malam."
+  },
+  "naikKomidi": {
+    "label": "Komidi Putar",
+    "ikon": "🎡",
+    "fase": [
+      "malam"
+    ],
+    "hari": [
+      5
+    ],
+    "jenis": "santai",
+    "efek": {
+      "uang": -15000,
+      "energi": -4,
+      "stres": -20
+    },
+    "majuFase": 1,
+    "transisi": "🎡 Wuuuush~",
+    "pesan": "Naik komidi putar",
+    "alasanTutup": "🎡 Pasar malam cuma ada Sabtu malam.",
+    "durasiJam": 1
+  },
+  "ngobrolBuKos": {
+    "label": "Ngobrol",
+    "ikon": "💬",
+    "fase": [
+      "pagi",
+      "siang",
+      "sore",
+      "malam",
+      "begadang"
+    ],
+    "jenis": "ngobrol",
+    "npc": "buKos",
+    "efek": {
+      "stres": -2
+    },
+    "majuFase": 0,
+    "pesan": "Ngobrol dengan Bu Kos"
+  },
+  "ngobrolSri": {
+    "label": "Ngobrol",
+    "ikon": "💬",
+    "fase": [
+      "pagi",
+      "siang",
+      "sore",
+      "malam"
+    ],
+    "jenis": "ngobrol",
+    "npc": "mbakSri",
+    "efek": {
+      "stres": -2
+    },
+    "majuFase": 0,
+    "pesan": "Ngobrol dengan Mbak Sri",
+    "alasanTutup": "🍛 Warteg sudah tutup."
+  },
+  "ngobrolUdin": {
+    "label": "Ngobrol",
+    "ikon": "💬",
+    "fase": [
+      "pagi",
+      "siang",
+      "sore",
+      "malam",
+      "begadang"
+    ],
+    "jenis": "ngobrol",
+    "npc": "bangUdin",
+    "efek": {
+      "stres": -2
+    },
+    "majuFase": 0,
+    "pesan": "Ngobrol dengan Bang Udin"
+  },
+  "ngobrolDosen": {
+    "label": "Sapa Dosen",
+    "ikon": "💬",
+    "fase": [
+      "pagi",
+      "siang",
+      "sore"
+    ],
+    "hariKerja": true,
+    "jenis": "ngobrol",
+    "npc": "pakDosen",
+    "efek": {
+      "stres": 1
+    },
+    "majuFase": 0,
+    "pesan": "Menyapa Pak Dosen Budiman",
+    "alasanTutup": "👨‍🏫 Dosen ada di kampus Pagi–Sore (Sen–Jum)."
+  },
+  "kasihMakanOyen": {
+    "label": "Beri Makan",
+    "ikon": "🐟",
+    "fase": [
+      "pagi",
+      "siang",
+      "sore",
+      "malam",
+      "begadang"
+    ],
+    "jenis": "ngobrol",
+    "npc": "oyen",
+    "butuhBarang": "makananKucing",
+    "efek": {
+      "stres": -3
+    },
+    "majuFase": 0,
+    "pesan": "Oyen makan dengan lahap! 😻"
+  },
+  "kasihMakanIkan": {
+    "label": "Beri Makan Ikan",
+    "ikon": "🐠",
+    "fase": [
+      "pagi",
+      "siang",
+      "sore",
+      "malam",
+      "begadang"
+    ],
+    "jenis": "santai",
+    "efek": {
+      "stres": -4
+    },
+    "majuFase": 0,
+    "pesan": "Ikan cupang berenang riang"
+  },
+  "siramTanaman": {
+    "label": "Siram",
+    "ikon": "🪴",
+    "fase": [
+      "pagi",
+      "siang",
+      "sore",
+      "malam",
+      "begadang"
+    ],
+    "jenis": "santai",
+    "efek": {
+      "stres": -3
+    },
+    "majuFase": 0,
+    "pesan": "Tanaman segar, hati pun segar"
+  },
+  "isiBensin": {
+    "label": "Isi Bensin",
+    "ikon": "⛽",
+    "fase": [
+      "pagi",
+      "siang",
+      "sore",
+      "malam",
+      "begadang"
+    ],
+    "jenis": "santai",
+    "efek": {},
+    "majuFase": 0,
+    "pesan": "Tangki bensin penuh!"
+  },
+  "bukaBengkel": {
+    "label": "Bengkel",
+    "ikon": "🔧",
+    "fase": [
+      "pagi",
+      "siang",
+      "sore",
+      "malam"
+    ],
+    "jenis": "barang",
+    "toko": "bengkel",
+    "efek": {},
+    "majuFase": 0,
+    "pesan": "",
+    "alasanTutup": "🔧 Bengkel Pak Jo sudah tutup."
+  },
+  "klakson": {
+    "label": "Klakson",
+    "ikon": "📯",
+    "fase": [
+      "pagi",
+      "siang",
+      "sore",
+      "malam",
+      "begadang"
+    ],
+    "jenis": "kendaraan",
+    "efek": {},
+    "majuFase": 0,
+    "pesan": "Tin tin!"
+  },
+  "buangAir": {
+    "label": "Ke Toilet",
+    "ikon": "🚽",
+    "fase": ["pagi", "siang", "sore", "malam", "begadang"],
+    "jenis": "santai",
+    "efek": { "stres": -3 },
+    "majuFase": 1,
+    "pesan": "Lega rasanya...",
+    "durasiJam": 0.25
+  },
+  "masukGedung": {
+    "label": "Masuk",
+    "ikon": "🚪",
+    "fase": ["pagi", "siang", "sore", "malam", "begadang"],
+    "jenis": "segera",
+    "efek": {},
+    "majuFase": 0,
+    "pesan": "Masuk ke dalam"
+  },
+  "keluarGedung": {
+    "label": "Keluar",
+    "ikon": "🚪",
+    "fase": ["pagi", "siang", "sore", "malam", "begadang"],
+    "jenis": "segera",
+    "efek": {},
+    "majuFase": 0,
+    "pesan": "Keluar"
+  },
+  "wfhKafe": {
+    "label": "WFH / Kerja Remote",
+    "ikon": "💻",
+    "fase": ["pagi", "siang", "sore", "malam"],
+    "jenis": "kerjaLepas",
+    "efek": { "uang": 55000, "energi": -18, "stres": 4 },
+    "majuFase": 1,
+    "transisi": "💻 Kerja remote di kafe...",
+    "pesan": "Kerjaan remote beres sambil ngopi cantik!",
+    "alasanTutup": "☕ Kafe tutup jam 23.00.",
+    "durasiJam": 3
+  },
+  "nugasKafe": {
+    "label": "Nugas di Kafe",
+    "ikon": "📝",
+    "fase": ["pagi", "siang", "sore", "malam"],
+    "jenis": "belajar",
+    "efek": { "ipk": 0.012, "energi": -12, "stres": 1, "uang": -15000 },
+    "majuFase": 1,
+    "transisi": "📝 Nugas ditemani musik kafe...",
+    "pesan": "Nugas di kafe (minimal order Rp15.000)",
+    "alasanTutup": "☕ Kafe tutup jam 23.00.",
+    "durasiJam": 2
+  },
+  "makanKafe": {
+    "label": "Pesan",
+    "ikon": "☕",
+    "fase": ["pagi", "siang", "sore", "malam"],
+    "jenis": "menu",
+    "tempat": "kafe",
+    "efek": {},
+    "majuFase": 0,
+    "pesan": "",
+    "alasanTutup": "☕ Kafe tutup jam 23.00."
+  },
+  "bukaBank": {
+    "label": "Layanan Bank",
+    "ikon": "🏦",
+    "fase": ["pagi", "siang", "sore"],
+    "jenis": "barang",
+    "toko": "bank",
+    "efek": {},
+    "majuFase": 0,
+    "pesan": "",
+    "alasanTutup": "🏦 Bank buka Pagi sampai Sore. Pakai Tab Bank di HP saja ya."
+  },
+  "bukaKarier": {
+    "label": "Lomba & Karier",
+    "ikon": "🎓",
+    "fase": ["pagi", "siang", "sore"],
+    "jenis": "barang",
+    "toko": "karier",
+    "efek": {},
+    "majuFase": 0,
+    "pesan": "",
+    "alasanTutup": "🎓 Pusat Karier buka Pagi sampai Sore."
+  },
+  "bukaTokoTani": {
+    "label": "Belanja",
+    "ikon": "🌱",
+    "fase": ["pagi", "siang", "sore", "malam"],
+    "jenis": "barang",
+    "toko": "tani",
+    "efek": {},
+    "majuFase": 0,
+    "pesan": "",
+    "alasanTutup": "🌱 Toko Tani sudah tutup, besok pagi lagi."
+  },
+  "latihanGym": {
+    "label": "Latihan Gym",
+    "ikon": "🏋️",
+    "fase": ["pagi", "siang", "sore", "malam"],
+    "jenis": "santai",
+    "efek": { "uang": -10000, "energi": -15, "stres": -14 },
+    "majuFase": 1,
+    "transisi": "🏋️ Angkat beban... satu... dua... ugh!",
+    "pesan": "Latihan di GOR (tiket Rp10.000)",
+    "alasanTutup": "🏟️ GOR tutup jam begadang.",
+    "durasiJam": 1
+  },
+  "tendangPenalti": {
+    "label": "Adu Penalti",
+    "ikon": "🥅",
+    "fase": ["pagi", "siang", "sore", "malam"],
+    "jenis": "santai",
+    "efek": { "energi": -8, "stres": -10 },
+    "majuFase": 0,
+    "transisi": "🥅 Ambil ancang-ancang...",
+    "pesan": "Adu penalti bareng anak GOR",
+    "alasanTutup": "🏟️ GOR tutup jam begadang.",
+    "durasiJam": 1
+  },
+  "makanPasar": {
+    "label": "Jajan Pasar",
+    "ikon": "🥬",
+    "fase": ["pagi", "siang"],
+    "jenis": "menu",
+    "tempat": "pasar",
+    "efek": {},
+    "majuFase": 0,
+    "pesan": "",
+    "alasanTutup": "🥬 Pasar Pagi cuma buka Pagi & Siang. Namanya juga pasar pagi!"
+  },
+  "potongRambut": {
+    "label": "Potong Rambut",
+    "ikon": "💈",
+    "fase": ["pagi", "siang", "sore", "malam"],
+    "jenis": "barang",
+    "toko": "salon",
+    "efek": {},
+    "majuFase": 0,
+    "pesan": "",
+    "alasanTutup": "💈 Bang Cukur sudah pulang."
+  },
+  "bukaPosPolisi": {
+    "label": "Layanan SIM & Tilang",
+    "ikon": "👮",
+    "fase": ["pagi", "siang", "sore", "malam", "begadang"],
+    "jenis": "barang",
+    "toko": "polisi",
+    "efek": {},
+    "majuFase": 0,
+    "pesan": "",
+    "alasanTutup": ""
+  },
+  "minum": {
+    "label": "Minum Air",
+    "ikon": "💧",
+    "fase": ["pagi", "siang", "sore", "malam", "begadang"],
+    "jenis": "santai",
+    "efek": {},
+    "majuFase": 0,
+    "pesan": ""
+  },
+  "siramCabai": {
+    "label": "Siram Cabai",
+    "ikon": "🌱",
+    "fase": ["pagi", "siang", "sore", "malam", "begadang"],
+    "jenis": "santai",
+    "efek": {},
+    "majuFase": 0,
+    "pesan": ""
+  },
+  "panenCabai": {
+    "label": "Panen Cabai",
+    "ikon": "🌶️",
+    "fase": ["pagi", "siang", "sore", "malam", "begadang"],
+    "jenis": "santai",
+    "efek": {},
+    "majuFase": 0,
+    "pesan": ""
+  },
+  "kerjakanLomba": {
+    "label": "Kerjakan Lomba",
+    "ikon": "🏆",
+    "fase": ["pagi", "siang", "sore", "malam", "begadang"],
+    "jenis": "santai",
+    "pakaiMeja": true,
+    "efek": { "energi": -15, "stres": 6 },
+    "majuFase": 1,
+    "transisi": "🏆 Ngebut ngerjain karya lomba...",
+    "pesan": "Satu sesi karya lomba selesai",
+    "durasiJam": 2
+  },
+  "beliCilok": {
+    "label": "Beli Cilok",
+    "ikon": "🍡",
+    "fase": ["siang", "sore", "malam"],
+    "jenis": "menu",
+    "tempat": "cilok",
+    "efek": {},
+    "majuFase": 0,
+    "pesan": "",
+    "alasanTutup": "🍡 Mang Cilok keliling Siang sampai Malam."
+  },
+  "jajanPasarKaget": {
+    "label": "Jajan",
+    "ikon": "🏮",
+    "fase": ["malam"],
+    "jenis": "menu",
+    "tempat": "pasarKaget",
+    "efek": {},
+    "majuFase": 0,
+    "pesan": "",
+    "alasanTutup": "🏮 Lapaknya masih ditutup terpal. Pasar Kaget baru buka jam 6 sore sampai 11 malam!"
+  },
+  "ngopiTepiKali": {
+    "label": "Ngopi Santai",
+    "ikon": "☕",
+    "fase": ["pagi", "siang", "sore", "malam"],
+    "jenis": "santai",
+    "efek": { "uang": -6000, "energi": 4, "stres": -10 },
+    "majuFase": 1,
+    "transisi": "☕ Nyeruput kopi sambil lihat bebek lewat...",
+    "pesan": "Ngopi di tepi kali, hati adem",
+    "alasanTutup": "☕ Mbok Darmi sudah tutup warung. Kopi Tepi Kali buka jam 5 pagi sampai 11 malam.",
+    "durasiJam": 1
+  },
+  "jajanKopiKali": {
+    "label": "Pesan",
+    "ikon": "🫖",
+    "fase": ["pagi", "siang", "sore", "malam"],
+    "jenis": "menu",
+    "tempat": "kopiKali",
+    "efek": {},
+    "majuFase": 0,
+    "pesan": "",
+    "alasanTutup": "☕ Mbok Darmi sudah tutup warung. Kopi Tepi Kali buka jam 5 pagi sampai 11 malam."
+  },
+  "mancing": {
+    "label": "Mancing",
+    "ikon": "🎣",
+    "fase": ["pagi", "siang", "sore"],
+    "jenis": "santai",
+    "efek": { "uang": -3000, "energi": -6, "stres": -8 },
+    "majuFase": 1,
+    "transisi": "🎣 Lempar kail... nunggu... nunggu... (jangan ketiduran)",
+    "pesan": "Mancing di kali (umpan cacing Rp3.000)",
+    "alasanTutup": "🎣 Gelap, pelampungnya nggak kelihatan. Mancing Pagi sampai Sore aja.",
+    "durasiJam": 2
+  },
+  "bantuPanen": {
+    "label": "Bantu Panen",
+    "ikon": "🌾",
+    "fase": ["pagi", "siang"],
+    "jenis": "santai",
+    "efek": { "uang": 20000, "energi": -15, "stres": 3 },
+    "majuFase": 1,
+    "transisi": "🌾 Arit... ikat... angkut... pinggang bunyi 'krek'...",
+    "pesan": "Bantu Pak Tani panen (upah harian)",
+    "alasanTutup": "🌾 Pak Tani cuma butuh bantuan pas akhir pekan (Sabtu–Minggu), Pagi & Siang sebelum panas terik.",
+    "durasiJam": 2,
+    "hari": [5, 6],
+    "_catatan": "Penyesuaian M13 (09, 2026-11-23): panen hanya Sabtu–Minggu (hariMinggu 5–6). Dulu tiap hari + bisa digabung shift = ± Rp600 rb/bulan ekstra; kini maks ± 8–9× × Rp20.000 ≈ Rp170 rb/bulan."
+  },
+  "jajanEsDegan": {
+    "label": "Beli Es Degan",
+    "ikon": "🥥",
+    "fase": ["pagi", "siang", "sore"],
+    "jenis": "menu",
+    "tempat": "esDegan",
+    "efek": {},
+    "majuFase": 0,
+    "pesan": "",
+    "alasanTutup": "🥥 Degan habis, penjualnya sudah pulang. Buka lagi besok pagi!"
+  },
+  "mainBolaKampung": {
+    "label": "Main Bola",
+    "ikon": "⚽",
+    "fase": ["pagi", "sore"],
+    "jenis": "santai",
+    "efek": { "energi": -16, "stres": -18 },
+    "majuFase": 1,
+    "transisi": "⚽ Gawangnya sandal, wasitnya bapak-bapak ronda...",
+    "pesan": "Main bola bareng bocah kampung",
+    "alasanTutup": "⚽ Lapangan kampung nggak ada lampunya, dan siang terlalu panas. Main Pagi atau Sore!",
+    "durasiJam": 2
+  }
+}

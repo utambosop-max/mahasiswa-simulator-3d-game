@@ -1,0 +1,31 @@
+node_modules/
+dist/
+*.log
+.DS_Store
+android/app/build/
+android/.gradle/
+android/local.properties
+dist-server/
+data-online.json
+rilis/
+.qa-artifacts/
+tsconfig.tsbuildinfo
+# Unity (file buatan otomatis, tidak perlu disimpan)
+unity/*/[Ll]ibrary/
+unity/*/[Tt]emp/
+unity/*/[Ll]ogs/
+unity/*/[Oo]bj/
+unity/*/[Bb]uild/
+unity/*/[Bb]uilds/
+unity/*/UserSettings/
+unity/*/*.csproj
+unity/*/*.sln
+unity/*/*.slnx
+# Blender: file cadangan otomatis
+*.blend1
+
+# Build sementara Android & cache Python
+unity/*/.utmp/
+__pycache__/
+unity/*/Assets/_Game/Materials/Editor/Audit47Temporer.cs*
+unity/hasil-tes.xml

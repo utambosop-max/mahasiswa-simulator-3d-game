@@ -1,0 +1,6 @@
+{
+  "name": "MS.Pemain",
+  "rootNamespace": "MS.Pemain",
+  "references": ["MS.Kontrak","MS.Inti","Unity.InputSystem","UnityEngine.UI"],
+  "autoReferenced": true
+}

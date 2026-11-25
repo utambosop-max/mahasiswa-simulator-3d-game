@@ -1,0 +1,827 @@
+{
+  "jurusan": [
+    {
+      "id": "teknik",
+      "nama": "Teknik Informatika",
+      "ikon": "💻",
+      "deskripsi": "Nugas & belajar IPK ×1.1, freelance +30%",
+      "pengali": {
+        "ipkBelajar": 1.1,
+        "gajiFreelance": 1.3
+      }
+    },
+    {
+      "id": "ekonomi",
+      "nama": "Ekonomi",
+      "ikon": "📈",
+      "deskripsi": "Gaji kerja sambilan +10%, bunga tabungan 2×",
+      "pengali": {
+        "gajiKerja": 1.1,
+        "bungaTabungan": 2
+      }
+    },
+    {
+      "id": "kedokteran",
+      "nama": "Kedokteran",
+      "ikon": "🩺",
+      "deskripsi": "Kuliah IPK ×1.2 tapi lebih bikin stres, klinik diskon 50%",
+      "pengali": {
+        "ipkKuliah": 1.2,
+        "stresKuliah": 3,
+        "hargaKlinik": 0.5
+      }
+    },
+    {
+      "id": "seni",
+      "nama": "Seni & Desain",
+      "ikon": "🎨",
+      "deskripsi": "Santai & main gitar lebih menenangkan, freelance +30%",
+      "pengali": {
+        "stresSantai": 1.3,
+        "gajiFreelance": 1.3
+      }
+    }
+  ],
+  "asal": [
+    {
+      "id": "jawa",
+      "nama": "Jawa",
+      "ikon": "🌋",
+      "kiriman": 1500000,
+      "ongkosPulang": 50000
+    },
+    {
+      "id": "sumatra",
+      "nama": "Sumatra",
+      "ikon": "🐯",
+      "kiriman": 1700000,
+      "ongkosPulang": 150000
+    },
+    {
+      "id": "kalimantan",
+      "nama": "Kalimantan",
+      "ikon": "🌳",
+      "kiriman": 1650000,
+      "ongkosPulang": 130000
+    },
+    {
+      "id": "sulawesi",
+      "nama": "Sulawesi",
+      "ikon": "⛵",
+      "kiriman": 1800000,
+      "ongkosPulang": 200000
+    },
+    {
+      "id": "lokal",
+      "nama": "Warga lokal",
+      "ikon": "🏘️",
+      "kiriman": 1200000,
+      "ongkosPulang": 10000
+    }
+  ],
+  "rambut": [
+    "#3b2a20",
+    "#6b4430",
+    "#1f1a24",
+    "#b5651d",
+    "#7a5cc2"
+  ],
+  "baju": [
+    "#ff9aa2",
+    "#a0c4ff",
+    "#7cc6a4",
+    "#ffb36b",
+    "#bdb2ff",
+    "#f2d15c"
+  ],
+  "kehidupan": {
+    "kebersihanTurunPerHari": 12,
+    "kebersihanKotor": 35,
+    "stresKamarKotorPerFase": 1,
+    "bajuKotorBatas": 5,
+    "stresBajuKotor": 3,
+    "mandi": {
+      "energi": 6,
+      "stres": -4,
+      "bonusPagiEnergi": 4
+    },
+    "bersih": {
+      "energi": -8,
+      "stres": -2
+    },
+    "elusKucing": {
+      "stres": -3
+    },
+    "ulangTahun": {
+      "uang": 100000,
+      "stres": -20
+    },
+    "sakitHari": 2,
+    "peluangSakitLemas": 0.25,
+    "peluangSakitHujan": 0.3,
+    "sakitPengaliIpk": 0.7,
+    "sakitPengaliTidur": 0.7,
+    "stresKehujanan": 5
+  },
+  "cuaca": [
+    {
+      "id": "cerah",
+      "nama": "Cerah",
+      "ikon": "☀️",
+      "peluang": 0.55
+    },
+    {
+      "id": "berawan",
+      "nama": "Berawan",
+      "ikon": "⛅",
+      "peluang": 0.25
+    },
+    {
+      "id": "hujan",
+      "nama": "Hujan",
+      "ikon": "🌧️",
+      "peluang": 0.2
+    }
+  ],
+  "barang": [
+    {
+      "id": "payung",
+      "nama": "Payung Lipat",
+      "ikon": "☂️",
+      "harga": 25000,
+      "permanen": true,
+      "deskripsi": "Tidak kehujanan saat keluar kos (sekali beli)"
+    },
+    {
+      "id": "vitamin",
+      "nama": "Vitamin C",
+      "ikon": "💊",
+      "harga": 8000,
+      "deskripsi": "⚡+10, kebal masuk angin hari ini",
+      "efek": {
+        "energi": 10
+      }
+    },
+    {
+      "id": "obat",
+      "nama": "Obat Masuk Angin",
+      "ikon": "🧴",
+      "harga": 12000,
+      "deskripsi": "Langsung sembuh dari sakit",
+      "efek": {
+        "stres": -3
+      }
+    },
+    {
+      "id": "kopiSachet",
+      "nama": "Kopi Sachet (5 bungkus)",
+      "ikon": "☕",
+      "harga": 10000,
+      "isi": 5,
+      "deskripsi": "Seduh di kamar: ⚡+8 😵−2 (dihitung 1 porsi)",
+      "efek": {
+        "energi": 8,
+        "stres": -2
+      }
+    }
+  ],
+  "akademik": {
+    "hariPerSemester": 120,
+    "ujian": [
+      {
+        "id": "uts",
+        "nama": "UTS",
+        "bulanSemester": 2,
+        "tanggalMulai": 15,
+        "tanggalSelesai": 19
+      },
+      {
+        "id": "uas",
+        "nama": "UAS",
+        "bulanSemester": 4,
+        "tanggalMulai": 15,
+        "tanggalSelesai": 19
+      }
+    ],
+    "ujianIpkMin": -0.03,
+    "ujianIpkMaks": 0.06,
+    "ujianBelajarPenuh": 6,
+    "ujianStres": 8,
+    "absenUjianIpk": -0.05,
+    "beasiswaIpk": 3.5,
+    "beasiswaUang": 300000,
+    "cumLaudeHadiah": 500000,
+    "predikat": [
+      {
+        "min": 3.75,
+        "nama": "Cum Laude",
+        "ikon": "🏅"
+      },
+      {
+        "min": 3.5,
+        "nama": "Sangat Memuaskan",
+        "ikon": "🌟"
+      },
+      {
+        "min": 3,
+        "nama": "Memuaskan",
+        "ikon": "👍"
+      },
+      {
+        "min": 0,
+        "nama": "Perlu Belajar Lagi",
+        "ikon": "📚"
+      }
+    ],
+    "lesIpkMin": 3.2
+  },
+  "tabungan": {
+    "bungaPerBulan": 0.01,
+    "setor": [
+      50000,
+      100000,
+      250000
+    ]
+  },
+  "ojol": {
+    "jumlahOrder": 3,
+    "waktuPerOrder": 70,
+    "bayarDasar": 6000,
+    "bayarPerMeter": 150,
+    "radiusSampai": 3,
+    "tip5Bintang": 3000
+  },
+  "misiBonusLengkap": 10000,
+  "misiPertama": [
+    {
+      "id": "t_keluar",
+      "teks": "Keluar kos & jalan-jalan ke Kampung Mahasiswa",
+      "stat": "keluar",
+      "target": 1,
+      "hadiah": {
+        "uang": 5000
+      }
+    },
+    {
+      "id": "t_makan",
+      "teks": "Makan apa saja (warteg, warkop, toko)",
+      "stat": "makan",
+      "target": 1,
+      "hadiah": {
+        "uang": 5000
+      }
+    },
+    {
+      "id": "t_kuliah",
+      "teks": "Ikut kuliah di Kampus",
+      "stat": "kuliah",
+      "target": 1,
+      "hadiah": {
+        "uang": 10000
+      }
+    }
+  ],
+  "misi": [
+    {
+      "id": "m_kuliah2",
+      "teks": "Kuliah 2 sesi hari ini",
+      "stat": "kuliah",
+      "target": 2,
+      "hadiah": {
+        "uang": 10000
+      },
+      "hariKerja": true
+    },
+    {
+      "id": "m_belajar",
+      "teks": "Belajar / nugas 1 kali",
+      "stat": "belajarApa",
+      "target": 1,
+      "hadiah": {
+        "uang": 8000
+      }
+    },
+    {
+      "id": "m_kerja",
+      "teks": "Selesaikan 1 shift kerja sambilan",
+      "stat": "kerja",
+      "target": 1,
+      "hadiah": {
+        "uang": 15000
+      }
+    },
+    {
+      "id": "m_makan2",
+      "teks": "Makan 2 kali",
+      "stat": "makan",
+      "target": 2,
+      "hadiah": {
+        "uang": 5000
+      }
+    },
+    {
+      "id": "m_mandi",
+      "teks": "Mandi biar wangi",
+      "stat": "mandi",
+      "target": 1,
+      "hadiah": {
+        "stres": -3
+      }
+    },
+    {
+      "id": "m_kucing",
+      "teks": "Elus Oyen si kucing kos",
+      "stat": "elusKucing",
+      "target": 1,
+      "hadiah": {
+        "stres": -3
+      }
+    },
+    {
+      "id": "m_santai",
+      "teks": "Santai sejenak (taman, futsal, gitar, nongkrong)",
+      "stat": "santai",
+      "target": 1,
+      "hadiah": {
+        "uang": 5000
+      }
+    },
+    {
+      "id": "m_ojol",
+      "teks": "Antar 2 order ojol",
+      "stat": "ojol",
+      "target": 2,
+      "hadiah": {
+        "uang": 12000
+      }
+    },
+    {
+      "id": "m_hemat",
+      "teks": "Masak sendiri di kamar",
+      "stat": "masakMi",
+      "target": 1,
+      "hadiah": {
+        "uang": 4000
+      }
+    },
+    {
+      "id": "m_bersih",
+      "teks": "Bersih-bersih kamar",
+      "stat": "bersihKamar",
+      "target": 1,
+      "hadiah": {
+        "stres": -4
+      }
+    },
+    {
+      "id": "m_gitar",
+      "teks": "Main gitar di kamar",
+      "stat": "mainGitar",
+      "target": 1,
+      "hadiah": {
+        "uang": 5000
+      }
+    },
+    {
+      "id": "m_perpus",
+      "teks": "Belajar di Perpustakaan",
+      "stat": "belajarPerpus",
+      "target": 1,
+      "hadiah": {
+        "uang": 8000
+      }
+    },
+    {
+      "id": "m_jogging",
+      "teks": "Jogging di taman",
+      "stat": "jogging",
+      "target": 1,
+      "hadiah": {
+        "stres": -4
+      }
+    },
+    {
+      "id": "m_ngobrol2",
+      "teks": "Ngobrol dengan 2 orang (Bu Kos, Mbak Sri, Bang Udin, Dosen)",
+      "stat": "ngobrol",
+      "target": 2,
+      "hadiah": {
+        "uang": 6000
+      }
+    },
+    {
+      "id": "m_posting",
+      "teks": "Posting di medsos (📱 HP)",
+      "stat": "posting",
+      "target": 1,
+      "hadiah": {
+        "uang": 4000
+      }
+    },
+    {
+      "id": "m_telepon",
+      "teks": "Telepon ortu (📱 HP)",
+      "stat": "teleponOrtu",
+      "target": 1,
+      "hadiah": {
+        "stres": -3
+      }
+    },
+    {
+      "id": "m_skripsi",
+      "teks": "Nulis skripsi atau bimbingan",
+      "stat": "skripsiApa",
+      "target": 1,
+      "hadiah": {
+        "uang": 10000
+      }
+    },
+    {
+      "id": "m_freelance",
+      "teks": "Selesaikan 1 proyek freelance",
+      "stat": "freelance",
+      "target": 1,
+      "hadiah": {
+        "uang": 8000
+      }
+    },
+    {
+      "id": "m_ikan",
+      "teks": "Kasih makan ikan cupang",
+      "stat": "kasihMakanIkan",
+      "target": 1,
+      "hadiah": {
+        "stres": -2
+      }
+    },
+    {
+      "id": "m_tabung",
+      "teks": "Menabung di Dompet HP",
+      "stat": "menabung",
+      "target": 1,
+      "hadiah": {
+        "uang": 5000
+      }
+    },
+    {
+      "id": "m_bensin",
+      "teks": "Isi bensin motor",
+      "stat": "isiBensin",
+      "target": 1,
+      "hadiah": {
+        "uang": 3000
+      }
+    },
+    {
+      "id": "m_ojol3",
+      "teks": "Selesaikan 3 order ojol",
+      "stat": "ojol",
+      "target": 3,
+      "hadiah": {
+        "uang": 15000
+      }
+    }
+  ],
+  "pencapaian": [
+    {
+      "id": "p_kuliah1",
+      "ikon": "🎒",
+      "nama": "Mahasiswa Baru",
+      "deskripsi": "Ikut kuliah pertama kali",
+      "jenis": "stat",
+      "kunci": "kuliah",
+      "min": 1
+    },
+    {
+      "id": "p_kuliah30",
+      "ikon": "🏫",
+      "nama": "Anak Rajin",
+      "deskripsi": "Kuliah 30 kali",
+      "jenis": "stat",
+      "kunci": "kuliah",
+      "min": 30
+    },
+    {
+      "id": "p_nugas10",
+      "ikon": "💻",
+      "nama": "Pejuang Deadline",
+      "deskripsi": "Nugas 10 kali",
+      "jenis": "stat",
+      "kunci": "nugas",
+      "min": 10
+    },
+    {
+      "id": "p_kerja1",
+      "ikon": "💼",
+      "nama": "Gaji Pertama",
+      "deskripsi": "Selesaikan shift kerja pertama",
+      "jenis": "stat",
+      "kunci": "kerja",
+      "min": 1
+    },
+    {
+      "id": "p_sempurna5",
+      "ikon": "🌟",
+      "nama": "Karyawan Teladan",
+      "deskripsi": "5 shift kerja sempurna",
+      "jenis": "stat",
+      "kunci": "shiftSempurna",
+      "min": 5
+    },
+    {
+      "id": "p_ojol10",
+      "ikon": "🛵",
+      "nama": "Driver Bintang 5",
+      "deskripsi": "Antar 10 order ojol",
+      "jenis": "stat",
+      "kunci": "ojol",
+      "min": 10
+    },
+    {
+      "id": "p_freelance5",
+      "ikon": "🖥️",
+      "nama": "Freelancer Handal",
+      "deskripsi": "Kerjakan 5 proyek freelance",
+      "jenis": "stat",
+      "kunci": "freelance",
+      "min": 5
+    },
+    {
+      "id": "p_mi20",
+      "ikon": "🍜",
+      "nama": "Raja Mi Instan",
+      "deskripsi": "Makan mi instan 20 kali",
+      "jenis": "stat",
+      "kunci": "masakMi",
+      "min": 20
+    },
+    {
+      "id": "p_kucing10",
+      "ikon": "🐱",
+      "nama": "Sahabat Oyen",
+      "deskripsi": "Elus Oyen 10 kali",
+      "jenis": "stat",
+      "kunci": "elusKucing",
+      "min": 10
+    },
+    {
+      "id": "p_gitar10",
+      "ikon": "🎸",
+      "nama": "Musisi Kos",
+      "deskripsi": "Main gitar 10 kali",
+      "jenis": "stat",
+      "kunci": "mainGitar",
+      "min": 10
+    },
+    {
+      "id": "p_misi10",
+      "ikon": "✅",
+      "nama": "Tukang Checklist",
+      "deskripsi": "Selesaikan 10 misi harian",
+      "jenis": "stat",
+      "kunci": "misi",
+      "min": 10
+    },
+    {
+      "id": "p_hari30",
+      "ikon": "📅",
+      "nama": "Bertahan Sebulan",
+      "deskripsi": "Hidup 30 hari di kos",
+      "jenis": "hari",
+      "min": 30
+    },
+    {
+      "id": "p_ipk35",
+      "ikon": "🎓",
+      "nama": "Mahasiswa Berprestasi",
+      "deskripsi": "IPK mencapai 3.50",
+      "jenis": "ipk",
+      "min": 3.5
+    },
+    {
+      "id": "p_ipk375",
+      "ikon": "🏅",
+      "nama": "Calon Cum Laude",
+      "deskripsi": "IPK mencapai 3.75",
+      "jenis": "ipk",
+      "min": 3.75
+    },
+    {
+      "id": "p_kaya",
+      "ikon": "💰",
+      "nama": "Sultan Kos",
+      "deskripsi": "Punya uang Rp3.000.000",
+      "jenis": "uang",
+      "min": 3000000
+    },
+    {
+      "id": "p_tabung",
+      "ikon": "🐷",
+      "nama": "Rajin Menabung",
+      "deskripsi": "Tabungan Rp1.000.000",
+      "jenis": "tabungan",
+      "min": 1000000
+    },
+    {
+      "id": "p_perabot",
+      "ikon": "🛋️",
+      "nama": "Kamar Impian",
+      "deskripsi": "Semua perabot level 3",
+      "jenis": "perabot",
+      "min": 3
+    },
+    {
+      "id": "p_bersih10",
+      "ikon": "🧹",
+      "nama": "Anak Kos Rapi",
+      "deskripsi": "Bersih-bersih kamar 10 kali",
+      "jenis": "stat",
+      "kunci": "bersihKamar",
+      "min": 10
+    },
+    {
+      "id": "p_pulang",
+      "ikon": "🚌",
+      "nama": "Kangen Rumah",
+      "deskripsi": "Pulang kampung karena stres",
+      "jenis": "stat",
+      "kunci": "pulangKampung",
+      "min": 1
+    },
+    {
+      "id": "p_ultah",
+      "ikon": "🎂",
+      "nama": "Tambah Tua",
+      "deskripsi": "Merayakan ulang tahun di kos",
+      "jenis": "stat",
+      "kunci": "ulangTahun",
+      "min": 1
+    },
+    {
+      "id": "p_ujian",
+      "ikon": "📝",
+      "nama": "Lulus Ujian",
+      "deskripsi": "Ikut UTS atau UAS",
+      "jenis": "stat",
+      "kunci": "ujian",
+      "min": 1
+    },
+    {
+      "id": "p_hujan",
+      "ikon": "☔",
+      "nama": "Basah Kuyup",
+      "deskripsi": "Kehujanan tanpa payung",
+      "jenis": "stat",
+      "kunci": "kehujanan",
+      "min": 1
+    },
+    {
+      "id": "p_sks",
+      "ikon": "📘",
+      "nama": "Setengah Jalan",
+      "deskripsi": "Kumpulkan 72 SKS",
+      "jenis": "sks",
+      "min": 72
+    },
+    {
+      "id": "p_wisuda",
+      "ikon": "🎓",
+      "nama": "Sarjana!",
+      "deskripsi": "Lulus sidang & wisuda",
+      "jenis": "stat",
+      "kunci": "wisuda",
+      "min": 1
+    },
+    {
+      "id": "p_skripsi50",
+      "ikon": "📄",
+      "nama": "Bab 3 Kelar",
+      "deskripsi": "Skripsi mencapai 50%",
+      "jenis": "skripsi",
+      "min": 50
+    },
+    {
+      "id": "p_kuis3",
+      "ikon": "💯",
+      "nama": "Jawab Semua Benar",
+      "deskripsi": "Benar 3/3 di soal ujian",
+      "jenis": "stat",
+      "kunci": "kuisSempurna",
+      "min": 1
+    },
+    {
+      "id": "p_skill",
+      "ikon": "⭐",
+      "nama": "Ahli",
+      "deskripsi": "Satu skill mencapai level 4",
+      "jenis": "skillMaks",
+      "min": 4
+    },
+    {
+      "id": "p_ukm",
+      "ikon": "🎪",
+      "nama": "Aktivis Kampus",
+      "deskripsi": "Ikut rapat UKM 5 kali",
+      "jenis": "stat",
+      "kunci": "rapatUKM",
+      "min": 5
+    },
+    {
+      "id": "p_sahabat",
+      "ikon": "🤝",
+      "nama": "Kenal Semua Orang",
+      "deskripsi": "Satu warga jadi sahabat (pertemanan 100)",
+      "jenis": "relasiMaks",
+      "min": 100
+    },
+    {
+      "id": "p_follower",
+      "ikon": "📸",
+      "nama": "Selebgram Kos",
+      "deskripsi": "1.000 follower medsos",
+      "jenis": "follower",
+      "min": 1000
+    },
+    {
+      "id": "p_viral",
+      "ikon": "🔥",
+      "nama": "Viral!",
+      "deskripsi": "Postinganmu viral",
+      "jenis": "stat",
+      "kunci": "viral",
+      "min": 1
+    },
+    {
+      "id": "p_cfd",
+      "ikon": "🏃",
+      "nama": "Anak CFD",
+      "deskripsi": "Jogging 10 kali",
+      "jenis": "stat",
+      "kunci": "jogging",
+      "min": 10
+    },
+    {
+      "id": "p_pasarmalam",
+      "ikon": "🎡",
+      "nama": "Malam Mingguan",
+      "deskripsi": "Naik komidi putar di pasar malam",
+      "jenis": "stat",
+      "kunci": "naikKomidi",
+      "min": 1
+    },
+    {
+      "id": "p_motor",
+      "ikon": "🏍️",
+      "nama": "Motor Kencang",
+      "deskripsi": "Upgrade motor ke level 3",
+      "jenis": "motor",
+      "min": 3
+    },
+    {
+      "id": "p_gaya",
+      "ikon": "😎",
+      "nama": "Fashionista",
+      "deskripsi": "Punya 3 aksesoris",
+      "jenis": "aksesoris",
+      "min": 3
+    },
+    {
+      "id": "p_target",
+      "ikon": "🎯",
+      "nama": "Target Tercapai",
+      "deskripsi": "Mencapai target tabungan",
+      "jenis": "stat",
+      "kunci": "targetTercapai",
+      "min": 1
+    },
+    {
+      "id": "p_mogok",
+      "ikon": "⛽",
+      "nama": "Dorong Motor",
+      "deskripsi": "Kehabisan bensin di jalan",
+      "jenis": "stat",
+      "kunci": "mogok",
+      "min": 1
+    }
+  ],
+  "tips": [
+    "💡 Belajar 2 hari sebelum kuis = nilai aman!",
+    "💡 Kamar kotor bikin stres pelan-pelan naik. Sapu dulu!",
+    "💡 Beli payung di Toko Serba Ada sebelum musim hujan.",
+    "💡 Narik ojol butuh motor: naik motor lalu tekan 📦.",
+    "💡 Tabungan di HP dapat bunga tiap awal bulan.",
+    "💡 UTS & UAS tanggal 15–19 di bulan ke-2 dan ke-4 tiap semester.",
+    "💡 IPK ≥ 3.50 di awal bulan = beasiswa cair!",
+    "💡 Mandi pagi bikin segar: energi tambahan!",
+    "💡 Laundry minimal 5 hari sekali, kalau nggak bau apek 😷",
+    "💡 Elus Oyen di depan kos kalau lagi suntuk 🐱",
+    "💡 Kerja sambilan tanpa salah = stres malah turun.",
+    "💡 Cek misi harian di 📱 HP untuk uang tambahan.",
+    "💡 Kumpulkan 144 SKS + skripsi 100% untuk wisuda!",
+    "💡 Ngobrol tiap hari dengan Mbak Sri & Bang Udin = diskon makan.",
+    "💡 Bensin motor habis = mogok. Isi di Pertamini depan kos.",
+    "💡 Sabtu malam ada pasar malam di lapangan futsal!",
+    "💡 Minggu pagi Car Free Day: jogging di taman lebih segar.",
+    "💡 Posting medsos rutin → follower → endorse tiap awal bulan."
+  ]
+}

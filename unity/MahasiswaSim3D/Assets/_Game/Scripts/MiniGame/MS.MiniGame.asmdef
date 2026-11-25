@@ -1,0 +1,8 @@
+{
+  "name": "MS.MiniGame",
+  "rootNamespace": "MS.MiniGame",
+  "references": ["MS.Kontrak","UnityEngine.UI","Unity.TextMeshPro"],
+  "overrideReferences": true,
+  "precompiledReferences": ["Newtonsoft.Json.dll"],
+  "autoReferenced": true
+}

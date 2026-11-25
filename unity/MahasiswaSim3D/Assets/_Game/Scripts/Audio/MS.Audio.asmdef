@@ -1,0 +1,6 @@
+{
+  "name": "MS.Audio",
+  "rootNamespace": "MS.Audio",
+  "references": ["MS.Kontrak"],
+  "autoReferenced": true
+}

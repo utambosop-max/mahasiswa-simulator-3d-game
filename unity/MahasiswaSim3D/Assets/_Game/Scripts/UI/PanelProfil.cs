@@ -1,0 +1,160 @@
+using System.Collections.Generic;
+using MS.Kontrak;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace MS.UI
+{
+    internal sealed class PanelProfil
+    {
+        readonly RectTransform akar, konten;
+        readonly TMP_InputField nama;
+        TextMeshProUGUI validasi;
+        readonly List<Button> jurusan = new(), asal = new();
+        readonly System.Action saatBuka;
+        IProfil profil;
+        string idJurusan, idAsal;
+        bool dibuat;
+        internal bool Terbuka => akar.gameObject.activeSelf;
+        internal void KeDepan()
+        {
+            if (Terbuka && akar.GetSiblingIndex() != akar.parent.childCount - 1) akar.SetAsLastSibling();
+        }
+
+        internal PanelProfil(HudKamar hud, RectTransform area, System.Action saatBuka)
+        {
+            this.saatBuka = saatBuka;
+            akar = HudKamar.BuatKotak("Buat karakter", area);
+            HudKamar.Rentangkan(akar, Vector2.zero, Vector2.one);
+            akar.gameObject.AddComponent<Image>().color = new Color(0, 0, 0, .65f);
+            var kartu = HudKamar.BuatKotak("Kartu karakter", akar);
+            HudKamar.Rentangkan(kartu, new Vector2(.06f, .03f), new Vector2(.94f, .92f));
+            hud.Gambar(kartu, new Color32(255, 250, 242, 255), true);
+            var port = HudKamar.BuatKotak("Viewport karakter", kartu);
+            HudKamar.Rentangkan(port, Vector2.zero, Vector2.one);
+            port.offsetMin = new Vector2(24, 205); port.offsetMax = new Vector2(-24, -20);
+            port.gameObject.AddComponent<RectMask2D>();
+            port.gameObject.AddComponent<Image>().color = Color.clear;
+            konten = HudKamar.BuatKotak("Isi karakter", port);
+            HudKamar.Rentangkan(konten, Vector2.up, Vector2.one);
+            konten.pivot = new Vector2(.5f, 1);
+            var susun = konten.gameObject.AddComponent<VerticalLayoutGroup>();
+            susun.spacing = 12; susun.childControlHeight = susun.childControlWidth = true; susun.childForceExpandHeight = false;
+            konten.gameObject.AddComponent<ContentSizeFitter>().verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+            var scroll = kartu.gameObject.AddComponent<ScrollRect>();
+            scroll.viewport = port; scroll.content = konten; scroll.horizontal = false; scroll.movementType = ScrollRect.MovementType.Clamped;
+            Label(konten, "Buat Karakter", 52);
+            Label(konten, "Gulir untuk memilih jurusan dan asal", 32);
+            var kotak = HudKamar.BuatKotak("Nama mahasiswa", konten);
+            kotak.gameObject.AddComponent<LayoutElement>().minHeight = 145;
+            var latar = hud.Gambar(kotak, Color.white, true);
+            nama = kotak.gameObject.AddComponent<TMP_InputField>();
+            nama.targetGraphic = latar; nama.characterLimit = 16; nama.lineType = TMP_InputField.LineType.SingleLine;
+            var view = HudKamar.BuatKotak("Area teks", kotak);
+            HudKamar.Rentangkan(view, new Vector2(.04f, .1f), new Vector2(.96f, .9f));
+            view.gameObject.AddComponent<RectMask2D>();
+            nama.textViewport = view;
+            var teks = Label(view, "", 42); HudKamar.Rentangkan(teks.rectTransform, Vector2.zero, Vector2.one);
+            teks.alignment = TextAlignmentOptions.MidlineLeft;
+            nama.textComponent = teks;
+            var placeholder = Label(view, "Nama mahasiswa", 42); HudKamar.Rentangkan(placeholder.rectTransform, Vector2.zero, Vector2.one);
+            placeholder.color = Color.gray; placeholder.alignment = TextAlignmentOptions.MidlineLeft;
+            nama.placeholder = placeholder;
+            var footer = HudKamar.BuatKotak("Mulai kuliah", kartu);
+            HudKamar.Rentangkan(footer, Vector2.zero, Vector2.right);
+            footer.offsetMin = new Vector2(24, 12);
+            footer.offsetMax = new Vector2(-24, 192);
+            var layoutFooter = footer.gameObject.AddComponent<VerticalLayoutGroup>();
+            layoutFooter.childControlHeight = layoutFooter.childControlWidth = true;
+            layoutFooter.childForceExpandHeight = false;
+            validasi = Label(footer, "Pilih jurusan dan asal untuk mulai.", 32);
+            BuatTombol(footer, "Mulai Kuliah!", Mulai, 136);
+            akar.gameObject.SetActive(false);
+        }
+
+        internal void Hubungkan(IProfil baru)
+        {
+            if (ReferenceEquals(profil, baru)) return;
+            if (profil != null) profil.Berubah -= Segarkan;
+            profil = baru;
+            if (profil != null) profil.Berubah += Segarkan;
+            Segarkan();
+        }
+
+        void Segarkan()
+        {
+            bool tampil = profil?.PerluDibuat == true;
+            akar.gameObject.SetActive(tampil);
+            if (!tampil) return;
+            if (!dibuat) BangunPilihan();
+            saatBuka();
+            akar.SetAsLastSibling();
+        }
+
+        void BangunPilihan()
+        {
+            dibuat = true;
+            Label(konten, "Pilih jurusan", 44);
+            foreach (var item in profil.DaftarJurusan)
+            {
+                var pilihan = item;
+                var tombol = BuatTombol(konten, Ringkas(item), () => { idJurusan = pilihan.Id; Warnai(); });
+                IkonHud.Pasang((RectTransform)tombol.transform, IkonHud.Jenis.Buku);
+                jurusan.Add(tombol);
+            }
+            Label(konten, "Pilih asal", 44);
+            foreach (var item in profil.DaftarAsal)
+            {
+                var pilihan = item;
+                var tombol = BuatTombol(konten, Ringkas(item), () => { idAsal = pilihan.Id; Warnai(); });
+                IkonHud.Pasang((RectTransform)tombol.transform, IkonHud.Jenis.Rumah);
+                asal.Add(tombol);
+            }
+            Warnai();
+        }
+
+        void Mulai()
+        {
+            if (idJurusan == null || idAsal == null)
+            {
+                validasi.text = "Pilih jurusan dan asal untuk mulai.";
+                return;
+            }
+            profil.Buat(nama.text, idJurusan, idAsal);
+        }
+
+        void Warnai()
+        {
+            if (validasi != null)
+                validasi.text = idJurusan != null && idAsal != null ? "Pilihan siap. Nama kosong memakai Mahasiswa." : "Pilih jurusan dan asal untuk mulai.";
+            for (int i = 0; i < jurusan.Count; i++)
+                jurusan[i].targetGraphic.color = profil.DaftarJurusan[i].Id == idJurusan ? new Color32(155, 211, 183, 255) : new Color32(255, 226, 194, 255);
+            for (int i = 0; i < asal.Count; i++)
+                asal[i].targetGraphic.color = profil.DaftarAsal[i].Id == idAsal ? new Color32(155, 211, 183, 255) : new Color32(255, 226, 194, 255);
+        }
+
+        static string Ringkas(InfoPilihan item) =>
+            $"{item.Nama}\n{HudKamar.BersihkanEmoji(item.Deskripsi ?? "")}";
+
+        static TextMeshProUGUI Label(Transform induk, string isi, float ukuran)
+        {
+            var t = HudKamar.Teks(induk, isi, ukuran, ukuran, FontStyles.Normal);
+            t.enableAutoSizing = false; t.fontSize = ukuran; t.textWrappingMode = TextWrappingModes.Normal; t.overflowMode = TextOverflowModes.Overflow;
+            return t;
+        }
+
+        static Button BuatTombol(Transform induk, string isi, UnityEngine.Events.UnityAction aksi, float tinggi = 110)
+        {
+            var rt = HudKamar.BuatKotak("Pilihan profil", induk);
+            rt.gameObject.AddComponent<LayoutElement>().minHeight = tinggi;
+            var gambar = rt.gameObject.AddComponent<Image>();
+            var b = rt.gameObject.AddComponent<Button>(); b.targetGraphic = gambar; b.onClick.AddListener(aksi);
+            var teks = Label(rt, isi, 36); HudKamar.Rentangkan(teks.rectTransform, new Vector2(.03f, .04f), new Vector2(.97f, .96f));
+            teks.enableAutoSizing = true;
+            teks.fontSizeMin = 25;
+            teks.fontSizeMax = 36;
+            return b;
+        }
+    }
+}

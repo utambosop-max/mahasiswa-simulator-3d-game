@@ -1,0 +1,960 @@
+[
+  {
+    "id": "ibu_kos_tagih",
+    "ikon": "👩‍🦱",
+    "judul": "WA dari Ibu Kos",
+    "teks": "\"Dek, uang kos bulan ini sudah siap ya? Ibu tunggu sampai tanggal 5 lho 😊\" (pakai emoji senyum, tapi terasa serius)",
+    "syarat": {
+      "tanggalMin": 1,
+      "tanggalMax": 5,
+      "kosBelumLunas": true
+    },
+    "peluang": 0.6,
+    "pilihan": [
+      {
+        "label": "💸 Bayar sekarang (Rp500.000)",
+        "efek": {
+          "uang": -500000,
+          "stres": -5
+        },
+        "bayarKos": true,
+        "hasil": "Ibu Kos: \"Makasih ya, Dek. Kamu memang anak baik!\""
+      },
+      {
+        "label": "😴 Pura-pura tidur",
+        "efek": {
+          "stres": 10
+        },
+        "hasil": "Deg-degan... Ibu Kos pasti nanya lagi. Lewat tanggal 5 kena denda!"
+      }
+    ]
+  },
+  {
+    "id": "ibu_kos_makanan",
+    "ikon": "🍲",
+    "judul": "Rezeki Anak Kos",
+    "teks": "Ibu Kos lewat bawa rantang: \"Ini ada sisa opor, buat kamu aja. Kamu kelihatan kurusan.\"",
+    "syarat": {
+      "fase": [
+        "siang",
+        "malam"
+      ]
+    },
+    "peluang": 0.1,
+    "pilihan": [
+      {
+        "label": "🙏 Terima kasih, Bu!",
+        "efek": {
+          "energi": 20,
+          "stres": -5
+        },
+        "hasil": "Opornya enak banget. Rasanya kayak masakan rumah..."
+      }
+    ]
+  },
+  {
+    "id": "dosen_tugas_dadakan",
+    "ikon": "📢",
+    "judul": "Notif Grup Kelas",
+    "teks": "Dosen: \"Tugas makalah dikumpulkan BESOK pagi ya. Minimal 10 halaman, font Times New Roman 12.\"",
+    "syarat": {
+      "hariKerja": true,
+      "fase": [
+        "siang",
+        "sore"
+      ]
+    },
+    "peluang": 0.2,
+    "pilihan": [
+      {
+        "label": "💪 Langsung kerjain",
+        "efek": {
+          "ipk": 0.02,
+          "energi": -20,
+          "stres": 5
+        },
+        "hasil": "Ngebut nulis makalah... selesai juga! Tangan pegal."
+      },
+      {
+        "label": "🙈 Nanti aja deh",
+        "efek": {
+          "ipk": -0.01,
+          "stres": 8
+        },
+        "hasil": "Makalahnya dikerjakan jam 3 pagi, hasilnya seadanya."
+      }
+    ]
+  },
+  {
+    "id": "dosen_batal",
+    "ikon": "🎉",
+    "judul": "Kabar Gembira!",
+    "teks": "Ketua kelas: \"Gaes, dosennya berhalangan hadir. Kuliah hari ini kosong!\"",
+    "syarat": {
+      "hariKerja": true,
+      "fase": [
+        "pagi"
+      ]
+    },
+    "peluang": 0.12,
+    "pilihan": [
+      {
+        "label": "🥳 Alhamdulillah!",
+        "efek": {
+          "energi": 10,
+          "stres": -10
+        },
+        "liburKuliah": true,
+        "hasil": "Hari ini bebas kuliah (tidak dihitung bolos)."
+      }
+    ]
+  },
+  {
+    "id": "kuis_mendadak",
+    "ikon": "📝",
+    "judul": "Kuis Mendadak!",
+    "teks": "Dosen masuk kelas: \"Simpan HP kalian. Keluarkan selembar kertas...\"",
+    "syarat": {
+      "hariKerja": true,
+      "fase": [
+        "pagi"
+      ]
+    },
+    "peluang": 0.12,
+    "pilihan": [
+      {
+        "label": "✍️ Kerjakan!",
+        "efek": {},
+        "kuis": true,
+        "hasil": ""
+      }
+    ]
+  },
+  {
+    "id": "teman_traktir",
+    "ikon": "🍗",
+    "judul": "Teman Lagi Gajian",
+    "teks": "Temanmu baru dapat honor desain: \"Yuk, aku traktir makan! Mumpung ada rezeki.\"",
+    "syarat": {
+      "tanggalMin": 21,
+      "tanggalMax": 30,
+      "fase": [
+        "siang",
+        "sore",
+        "malam"
+      ]
+    },
+    "peluang": 0.12,
+    "pilihan": [
+      {
+        "label": "🍗 Gas!",
+        "efek": {
+          "energi": 25,
+          "stres": -8
+        },
+        "hasil": "Kenyang gratis di tanggal tua. Teman sejati!"
+      },
+      {
+        "label": "🙅 Nggak enak ah",
+        "efek": {
+          "stres": -2
+        },
+        "hasil": "Kamu menolak dengan sopan. Gengsi tetap terjaga."
+      }
+    ]
+  },
+  {
+    "id": "uang_di_celana",
+    "ikon": "💵",
+    "judul": "Harta Karun!",
+    "teks": "Pas mau nyuci celana jeans, ketemu uang Rp20.000 terlipat rapi di saku belakang.",
+    "syarat": {
+      "tanggalMin": 21,
+      "tanggalMax": 30
+    },
+    "peluang": 0.08,
+    "pilihan": [
+      {
+        "label": "💸 Rezeki anak soleh!",
+        "efek": {
+          "uang": 20000,
+          "stres": -3
+        },
+        "hasil": "Lumayan buat makan warteg dua kali!"
+      }
+    ]
+  },
+  {
+    "id": "hp_retak",
+    "ikon": "📱",
+    "judul": "Prak!",
+    "teks": "HP jatuh dari kasur dengan posisi layar di bawah. Layarnya retak seribu.",
+    "syarat": {},
+    "peluang": 0.03,
+    "pilihan": [
+      {
+        "label": "🔧 Ganti LCD (Rp150.000)",
+        "efek": {
+          "uang": -150000,
+          "stres": -2
+        },
+        "hasil": "HP mulus lagi. Dompet yang retak sekarang."
+      },
+      {
+        "label": "🤷 Biarin, masih nyala",
+        "efek": {
+          "stres": 8
+        },
+        "hasil": "Tiap buka HP, jari kena serpihan. Sabar..."
+      }
+    ]
+  },
+  {
+    "id": "grup_kelas_ramai",
+    "ikon": "🔔",
+    "judul": "Ting! Ting! Ting!",
+    "teks": "Jam 2 pagi grup kelas ramai bahas pembagian kelompok. 147 pesan belum dibaca.",
+    "syarat": {
+      "fase": [
+        "begadang"
+      ]
+    },
+    "peluang": 0.25,
+    "pilihan": [
+      {
+        "label": "🔕 Mute grup",
+        "efek": {
+          "stres": 3
+        },
+        "hasil": "Besok pagi kamu baru tahu masuk kelompok mana."
+      },
+      {
+        "label": "📖 Baca semua",
+        "efek": {
+          "energi": -5,
+          "stres": 6
+        },
+        "hasil": "Setelah 147 pesan... ternyata kamu belum dapat kelompok."
+      }
+    ]
+  },
+  {
+    "id": "listrik_padam",
+    "ikon": "🕯️",
+    "judul": "Mati Lampu!",
+    "teks": "Tiba-tiba listrik se-kampung padam. Gelap gulita, kipas berhenti, HP tinggal 12%.",
+    "syarat": {
+      "fase": [
+        "malam"
+      ]
+    },
+    "peluang": 0.05,
+    "pilihan": [
+      {
+        "label": "🕯️ Ngobrol sama anak kos",
+        "efek": {
+          "stres": -4
+        },
+        "hasil": "Malah seru, cerita horor bareng di teras kos."
+      },
+      {
+        "label": "😤 Gerah, kesal",
+        "efek": {
+          "stres": 5
+        },
+        "hasil": "Keringetan sampai listrik nyala lagi."
+      }
+    ]
+  },
+  {
+    "id": "paket_ortu",
+    "ikon": "📦",
+    "judul": "Paket dari Rumah!",
+    "teks": "Kurir: \"Paket atas nama kamu!\" Isinya rendang, kerupuk, dan surat dari Ibu.",
+    "syarat": {
+      "tanggalMin": 8,
+      "tanggalMax": 18
+    },
+    "peluang": 0.05,
+    "pilihan": [
+      {
+        "label": "🥹 Kangen rumah...",
+        "efek": {
+          "energi": 15,
+          "stres": -12
+        },
+        "hasil": "\"Belajar yang rajin ya, Nak.\" — Ibu"
+      }
+    ]
+  },
+  {
+    "id": "wifi_lemot",
+    "ikon": "📶",
+    "judul": "WiFi Kos Lemot",
+    "teks": "Lagi upload tugas, WiFi kos tiba-tiba lemot parah. Loading... loading...",
+    "syarat": {
+      "fase": [
+        "malam",
+        "begadang"
+      ]
+    },
+    "peluang": 0.08,
+    "pilihan": [
+      {
+        "label": "📱 Pakai kuota sendiri (−Rp10.000)",
+        "efek": {
+          "uang": -10000
+        },
+        "hasil": "Tugas terkirim, kuota menipis."
+      },
+      {
+        "label": "😤 Tunggu sabar",
+        "efek": {
+          "stres": 8
+        },
+        "hasil": "Akhirnya terkirim jam 23.58. Deg-degan!"
+      }
+    ]
+  },
+  {
+    "id": "dompet_jatuh",
+    "ikon": "👛",
+    "judul": "Nemu Dompet di Jalan",
+    "teks": "Ada dompet tergeletak di trotoar. Isinya KTP & uang.",
+    "syarat": {
+      "fase": [
+        "pagi",
+        "siang",
+        "sore"
+      ]
+    },
+    "peluang": 0.03,
+    "pilihan": [
+      {
+        "label": "👮 Antar ke pemiliknya",
+        "efek": {
+          "stres": -10,
+          "uang": 30000
+        },
+        "hasil": "Pemiliknya terharu & kasih imbalan Rp30.000. Hati adem!"
+      },
+      {
+        "label": "🙈 Pura-pura nggak lihat",
+        "efek": {
+          "stres": 5
+        },
+        "hasil": "Kepikiran terus sepanjang hari..."
+      }
+    ]
+  },
+  {
+    "id": "teman_pinjam",
+    "ikon": "🙏",
+    "judul": "Teman Pinjam Uang",
+    "teks": "Teman sekelas: \"Bro/Sis, pinjem 50 ribu dong, nanti tanggal 1 diganti.\"",
+    "syarat": {
+      "tanggalMin": 15
+    },
+    "peluang": 0.05,
+    "pilihan": [
+      {
+        "label": "🤝 Pinjamkan (−Rp50.000)",
+        "efek": {
+          "uang": -50000,
+          "stres": -3
+        },
+        "hasil": "Dia janji ganti. Semoga ingat ya..."
+      },
+      {
+        "label": "😅 Maaf, lagi bokek",
+        "efek": {
+          "stres": 2
+        },
+        "hasil": "Dia mengerti. Sama-sama anak kos."
+      }
+    ]
+  },
+  {
+    "id": "hujan_genteng",
+    "ikon": "💧",
+    "judul": "Atap Bocor!",
+    "teks": "Air menetes dari atap tepat di atas kasur!",
+    "syarat": {
+      "fase": [
+        "malam",
+        "begadang"
+      ]
+    },
+    "peluang": 0.04,
+    "pilihan": [
+      {
+        "label": "🪣 Taruh ember & lapor Bu Kos",
+        "efek": {
+          "stres": 4
+        },
+        "hasil": "Bu Kos janji besok dibetulkan."
+      },
+      {
+        "label": "🛌 Geser kasur, tidur di lantai",
+        "efek": {
+          "energi": -8,
+          "stres": 6
+        },
+        "hasil": "Punggung pegal..."
+      }
+    ]
+  },
+  {
+    "id": "diskon_warteg",
+    "ikon": "🏷️",
+    "judul": "Promo Warteg",
+    "teks": "Mbak Sri: \"Hari ini ulang tahun warteg, makan gratis gorengan!\"",
+    "syarat": {
+      "fase": [
+        "pagi",
+        "siang"
+      ]
+    },
+    "peluang": 0.04,
+    "pilihan": [
+      {
+        "label": "😋 Gas ke warteg!",
+        "efek": {
+          "energi": 8,
+          "stres": -4
+        },
+        "hasil": "Gorengan gratis memang paling enak."
+      }
+    ]
+  },
+  {
+    "id": "kucing_bawa",
+    "ikon": "🐭",
+    "judul": "Hadiah dari Oyen",
+    "teks": "Oyen meletakkan \"hadiah\" di depan pintu kamarmu... seekor cicak (masih hidup).",
+    "syarat": {
+      "fase": [
+        "pagi"
+      ]
+    },
+    "peluang": 0.04,
+    "pilihan": [
+      {
+        "label": "😂 Terima kasih, Oyen",
+        "efek": {
+          "stres": -4
+        },
+        "hasil": "Cicaknya kabur. Oyen bangga."
+      },
+      {
+        "label": "😱 Teriak",
+        "efek": {
+          "stres": 3
+        },
+        "hasil": "Tetangga kos kaget semua."
+      }
+    ]
+  },
+  {
+    "id": "presentasi",
+    "ikon": "📊",
+    "judul": "Presentasi Dadakan",
+    "teks": "Dosen: \"Kelompok kamu presentasi duluan ya, sekarang!\"",
+    "syarat": {
+      "fase": [
+        "siang"
+      ],
+      "hariKerja": true
+    },
+    "peluang": 0.06,
+    "pilihan": [
+      {
+        "label": "🎤 Maju dengan percaya diri",
+        "efek": {
+          "ipk": 0.01,
+          "stres": 8
+        },
+        "hasil": "Dosen mengangguk puas!"
+      },
+      {
+        "label": "🫣 Biar teman yang ngomong",
+        "efek": {
+          "stres": 3
+        },
+        "hasil": "Kamu cuma ganti slide. Aman."
+      }
+    ]
+  },
+  {
+    "id": "lomba_kampus",
+    "ikon": "🏆",
+    "judul": "Lomba Esai Kampus",
+    "teks": "Ada poster lomba esai berhadiah Rp200.000. Deadline besok!",
+    "syarat": {
+      "hariKerja": true,
+      "fase": [
+        "siang",
+        "sore"
+      ]
+    },
+    "peluang": 0.03,
+    "pilihan": [
+      {
+        "label": "✍️ Ikut! (⚡ −25)",
+        "efek": {
+          "energi": -25,
+          "stres": 6,
+          "uang": 100000
+        },
+        "hasil": "Juara harapan! Dapat Rp100.000."
+      },
+      {
+        "label": "🙅 Lain kali",
+        "efek": {},
+        "hasil": "Mungkin tahun depan."
+      }
+    ]
+  },
+  {
+    "id": "ortu_video",
+    "ikon": "📹",
+    "judul": "Video Call dari Rumah",
+    "teks": "Ibu video call: \"Kamu kurusan ya? Sudah makan belum?\"",
+    "syarat": {
+      "fase": [
+        "malam"
+      ]
+    },
+    "peluang": 0.05,
+    "pilihan": [
+      {
+        "label": "🥰 Ngobrol lama",
+        "efek": {
+          "stres": -10
+        },
+        "hasil": "Kangen rumah terobati."
+      }
+    ]
+  },
+  {
+    "id": "ban_bocor",
+    "ikon": "🛞",
+    "judul": "Ban Motor Kempes",
+    "teks": "Pagi-pagi ban motormu kempes. Tukang tambal ban di ujung gang.",
+    "syarat": {
+      "fase": [
+        "pagi"
+      ]
+    },
+    "peluang": 0.03,
+    "pilihan": [
+      {
+        "label": "🔧 Tambal (−Rp15.000)",
+        "efek": {
+          "uang": -15000
+        },
+        "hasil": "Ban aman lagi."
+      },
+      {
+        "label": "🚶 Jalan kaki saja hari ini",
+        "efek": {
+          "energi": -5,
+          "stres": 3
+        },
+        "hasil": "Olahraga gratis."
+      }
+    ]
+  },
+  {
+    "id": "temu_mantan",
+    "ikon": "😳",
+    "judul": "Ketemu Mantan",
+    "teks": "Di warkop kamu berpapasan dengan mantan. Dia menyapa duluan.",
+    "syarat": {
+      "fase": [
+        "sore",
+        "malam"
+      ]
+    },
+    "peluang": 0.02,
+    "pilihan": [
+      {
+        "label": "😎 Sapa santai",
+        "efek": {
+          "stres": -2
+        },
+        "hasil": "Ternyata biasa saja. Kamu sudah move on!"
+      },
+      {
+        "label": "🏃 Kabur",
+        "efek": {
+          "stres": 6
+        },
+        "hasil": "Kopi tumpah separuh..."
+      }
+    ]
+  },
+  {
+    "id": "begadang_teman",
+    "ikon": "🎮",
+    "judul": "Ajakan Mabar",
+    "teks": "Grup kos: \"Mabar yuk, satu ronde aja!\" (pasti lebih dari satu)",
+    "syarat": {
+      "fase": [
+        "begadang"
+      ]
+    },
+    "peluang": 0.1,
+    "pilihan": [
+      {
+        "label": "🎮 Ikut",
+        "efek": {
+          "energi": -10,
+          "stres": -8
+        },
+        "hasil": "Menang 3 kali, kalah 7 kali. Seru!"
+      },
+      {
+        "label": "😴 Tidur saja",
+        "efek": {},
+        "hasil": "Bijak."
+      }
+    ]
+  },
+  {
+    "id": "seminar",
+    "ikon": "🎤",
+    "judul": "Seminar Gratis + Sertifikat",
+    "teks": "Ada seminar karier gratis dapat sertifikat & snack.",
+    "syarat": {
+      "hariKerja": true,
+      "fase": [
+        "sore"
+      ]
+    },
+    "peluang": 0.05,
+    "pilihan": [
+      {
+        "label": "📜 Ikut (⚡ −2)",
+        "efek": {
+          "energi": -2,
+          "stres": -2,
+          "ipk": 0.003
+        },
+        "hasil": "Dapat ilmu, sertifikat, dan risol."
+      },
+      {
+        "label": "🙅 Skip",
+        "efek": {},
+        "hasil": "Snack-nya terlewat..."
+      }
+    ]
+  },
+  {
+    "id": "kiriman_teman",
+    "ikon": "🎁",
+    "judul": "Oleh-oleh dari Teman",
+    "teks": "Teman kos baru pulang kampung dan bagi-bagi oleh-oleh!",
+    "syarat": {
+      "tanggalMin": 8,
+      "tanggalMax": 25
+    },
+    "peluang": 0.04,
+    "pilihan": [
+      {
+        "label": "😋 Terima dengan senang",
+        "efek": {
+          "energi": 12,
+          "stres": -6
+        },
+        "hasil": "Keripiknya renyah banget!"
+      }
+    ]
+  },
+  {
+    "id": "nyamuk",
+    "ikon": "🦟",
+    "judul": "Serangan Nyamuk",
+    "teks": "Nngggg... nyamuk berdengung di telinga saat mau tidur.",
+    "syarat": {
+      "fase": [
+        "malam",
+        "begadang"
+      ]
+    },
+    "peluang": 0.06,
+    "pilihan": [
+      {
+        "label": "🧴 Beli obat nyamuk (−Rp7.000)",
+        "efek": {
+          "uang": -7000,
+          "stres": -2
+        },
+        "hasil": "Tidur tenang."
+      },
+      {
+        "label": "👋 Tepuk sendiri",
+        "efek": {
+          "stres": 5,
+          "energi": -3
+        },
+        "hasil": "Skor: nyamuk 5, kamu 0."
+      }
+    ]
+  },
+  {
+    "id": "jual_buku",
+    "ikon": "📚",
+    "judul": "Jual Buku Bekas",
+    "teks": "Kakak tingkat mau beli buku kuliahmu yang sudah tidak dipakai.",
+    "syarat": {
+      "tanggalMin": 18
+    },
+    "peluang": 0.04,
+    "pilihan": [
+      {
+        "label": "💵 Jual (+Rp40.000)",
+        "efek": {
+          "uang": 40000
+        },
+        "hasil": "Lumayan buat tanggal tua!"
+      },
+      {
+        "label": "📖 Simpan, buat belajar",
+        "efek": {
+          "ipk": 0.002
+        },
+        "hasil": "Siapa tahu keluar di ujian."
+      }
+    ]
+  },
+  {
+    "id": "hari_olahraga",
+    "ikon": "🏃",
+    "judul": "Senam Pagi Kampus",
+    "teks": "Ada senam pagi bersama di lapangan kampus. Musiknya kencang!",
+    "syarat": {
+      "fase": [
+        "pagi"
+      ]
+    },
+    "peluang": 0.04,
+    "pilihan": [
+      {
+        "label": "💃 Ikut senam",
+        "efek": {
+          "energi": -5,
+          "stres": -10
+        },
+        "hasil": "Badan segar, ketawa-ketawa."
+      },
+      {
+        "label": "🛌 Lanjut rebahan",
+        "efek": {},
+        "hasil": "Kasur lebih memanggil."
+      }
+    ]
+  },
+  {
+    "id": "paket_salah",
+    "ikon": "📦",
+    "judul": "Paket Nyasar",
+    "teks": "Kurir menitipkan paket atas nama tetangga kos ke kamu.",
+    "syarat": {
+      "fase": [
+        "siang",
+        "sore"
+      ]
+    },
+    "peluang": 0.04,
+    "pilihan": [
+      {
+        "label": "🤝 Simpan & kabari tetangga",
+        "efek": {
+          "stres": -3
+        },
+        "hasil": "Tetangga berterima kasih, kamu dapat cokelat."
+      }
+    ]
+  },
+  {
+    "id": "hantu_ketukan",
+    "ikon": "👻",
+    "judul": "Tok... Tok... Tok...",
+    "teks": "Jam segini ada yang mengetuk pintu kamarmu pelan-pelan. Pas dibuka... lorongnya kosong. Bulu kuduk berdiri!",
+    "syarat": {
+      "fase": [
+        "malam",
+        "begadang"
+      ],
+      "berhantu": true,
+      "diKamar": true
+    },
+    "peluang": 0.35,
+    "pilihan": [
+      {
+        "label": "🙏 Baca doa & tidur",
+        "efek": {
+          "stres": 4
+        },
+        "hasil": "Hati jadi lebih tenang. Ketukannya berhenti."
+      },
+      {
+        "label": "🔦 Cek ke lorong",
+        "efek": {
+          "stres": 12,
+          "energi": -5
+        },
+        "hasil": "Ternyata... kucing Oyen nabrak pintu? Atau bukan? 😱"
+      }
+    ]
+  },
+  {
+    "id": "hantu_kamar_mandi",
+    "ikon": "🚿",
+    "judul": "Keran Nyala Sendiri",
+    "teks": "Dari kamar mandi terdengar suara air mengalir, padahal kamu sendirian di kamar...",
+    "syarat": {
+      "fase": [
+        "malam",
+        "begadang"
+      ],
+      "berhantu": true,
+      "diKamar": true
+    },
+    "peluang": 0.3,
+    "pilihan": [
+      {
+        "label": "🔧 Matikan kerannya",
+        "efek": {
+          "stres": 6
+        },
+        "hasil": "Kerannya memang longgar. Untung bukan apa-apa... semoga."
+      },
+      {
+        "label": "📞 Telepon Mbah Karto",
+        "efek": {
+          "stres": -2
+        },
+        "hasil": "Mbah Karto: \"Oh, itu biasa, Nak. Si Mbak penunggu suka mandi malam.\" ...HAH?"
+      }
+    ]
+  },
+  {
+    "id": "hantu_bayangan",
+    "ikon": "🕯️",
+    "judul": "Bayangan di Jendela",
+    "teks": "Lampu kamar berkedip-kedip dan ada bayangan putih lewat di depan jendela...",
+    "syarat": {
+      "fase": [
+        "begadang"
+      ],
+      "berhantu": true,
+      "diKamar": true
+    },
+    "peluang": 0.3,
+    "pilihan": [
+      {
+        "label": "📸 Rekam buat konten",
+        "efek": {
+          "stres": 8
+        },
+        "hasil": "Videonya buram, tapi netizen heboh! Follower nambah sedikit.",
+        "follower": 60
+      },
+      {
+        "label": "🛏️ Sembunyi di balik selimut",
+        "efek": {
+          "stres": 5,
+          "energi": 3
+        },
+        "hasil": "Teknik bertahan hidup anak kos nomor satu: selimut sakti."
+      }
+    ]
+  },
+  {
+    "id": "kos_bebas_pesta",
+    "ikon": "🎉",
+    "judul": "Pesta Kamar Sebelah",
+    "teks": "Anak kamar sebelah ulang tahun & bikin pesta kecil sampai larut. Kamu diajak gabung!",
+    "syarat": {
+      "fase": [
+        "malam",
+        "begadang"
+      ],
+      "kosBebas": true,
+      "diKamar": true
+    },
+    "peluang": 0.15,
+    "pilihan": [
+      {
+        "label": "🥳 Ikut pesta",
+        "efek": {
+          "stres": -15,
+          "energi": -10,
+          "uang": -15000
+        },
+        "hasil": "Seru banget! Patungan beli martabak."
+      },
+      {
+        "label": "🎧 Pakai headset & belajar",
+        "efek": {
+          "stres": 5
+        },
+        "hasil": "Fokus... fokus... kenapa lagu dangdutnya enak sih."
+      }
+    ]
+  },
+  {
+    "id": "pacar_ngambek",
+    "ikon": "😤",
+    "judul": "Pacar Ngambek",
+    "teks": "Pacarmu chat: \"Kamu kok balesnya lama banget sih? Sibuk sama siapa?\"",
+    "syarat": {
+      "punyaPacar": true
+    },
+    "peluang": 0.08,
+    "pilihan": [
+      {
+        "label": "🧋 Kirim boba (Rp25.000)",
+        "efek": {
+          "uang": -25000,
+          "stres": -3
+        },
+        "hasil": "\"Iiih, makasih! Maafin aku ya 🥰\""
+      },
+      {
+        "label": "📱 Video call & jelasin",
+        "efek": {
+          "stres": 4,
+          "energi": -3
+        },
+        "hasil": "Setelah 1 jam ngobrol, akhirnya baikan lagi."
+      }
+    ]
+  },
+  {
+    "id": "pacar_surprise",
+    "ikon": "💝",
+    "judul": "Kejutan dari Pacar",
+    "teks": "Ada paket di depan pintu: kotak makan siang + surat kecil \"Jangan lupa makan ya!\"",
+    "syarat": {
+      "punyaPacar": true,
+      "fase": [
+        "pagi",
+        "siang"
+      ]
+    },
+    "peluang": 0.07,
+    "pilihan": [
+      {
+        "label": "😍 Makan & foto",
+        "efek": {
+          "energi": 20,
+          "stres": -10
+        },
+        "hasil": "Masakannya enak banget! Kamu langsung posting story."
+      }
+    ]
+  }
+]

@@ -1,0 +1,227 @@
+{
+  "_catatan": "Cerita utama 'Buku Sakti Ibu' (arah A, keputusan CEO 2026-11-23). Bab = halaman Buku Sakti. Pemicu 'pull': tempat + fase + relasi, dengan JENDELA beberapa hari (batasHari). Tenggat lewat -> Rencana B tanpa hukuman. Kiriman ortu TIDAK dipotong; diganti misi sukarela nabung. Angka efek = usulan 10/14, wajib dicek 09. Kunci stat 'a+b' = jumlah beberapa statistik.",
+  "nabung": { "target": 300000, "durasiHari": 60, "setor": 50000, "hadiah": { "energi": 15, "stres": -12 } },
+  "bab": [
+    {
+      "id": "prolog", "urutan": 0, "judul": "Berangkat", "ikon": "🧳",
+      "halaman": "Kasur lipat itu jangan dilipat terus, Nak. Ditidurin.",
+      "pemicu": { "pembukaSelesai": true },
+      "batasHari": 3,
+      "tujuan": [
+        { "id": "belajar", "teks": "Belajar di meja 1×", "stat": { "belajar": 1 } },
+        { "id": "mi", "teks": "Masak mi 1× (darurat aja ya)", "stat": { "masakMi": 1 } },
+        { "id": "tidur", "teks": "Tidur di kasur lipat 1×", "stat": { "tidur": 1 } }
+      ],
+      "dialogAwal": "d_prolog_wa",
+      "dialogSelesai": "d_prolog_selesai",
+      "hadiah": { "efek": { "stres": -3 } },
+      "rencanaB": { "teks": "Nggak apa-apa telat. Ibu dulu masak nasi aja sering gosong." }
+    },
+    {
+      "id": "bab1", "urutan": 1, "judul": "Anak Baru", "ikon": "🐣",
+      "halaman": "Di warteg ambil sayur. Gorengan itu teman, bukan makanan pokok.",
+      "pemicu": { "hariMin": 2, "fase": ["pagi", "siang"] },
+      "batasHari": 10,
+      "tujuan": [
+        { "id": "kuliah", "teks": "Kuliah 3×", "stat": { "kuliah": 1 }, "jumlah": 3 },
+        { "id": "warteg", "teks": "Makan di Warteg Barokah", "stat": { "makan_warteg": 1 } },
+        { "id": "ngobrol", "teks": "Ngobrol dengan 3 orang", "stat": { "ngobrolWarga+ngobrol": 3 } }
+      ],
+      "adegan": [ { "id": "a_raka_warteg", "progres": { "makan_warteg": 1 }, "dialog": "d_raka_warteg" } ],
+      "dialogAwal": "d_bab1_awal",
+      "dialogSelesai": "d_bab1_selesai",
+      "hadiah": { "efek": { "stres": -5 }, "relasi": { "mbakSri": 5 } },
+      "rencanaB": { "teks": "Kenalan itu nggak ada tenggatnya. Senyum aja dulu, Nak." }
+    },
+    {
+      "id": "bab2", "urutan": 2, "judul": "Tanggal Tua Perdana", "ikon": "📅",
+      "halaman": "Tanggal tua pasti datang. Siapkan diri. Atau minimal stok mi.",
+      "pemicu": { "atau": [ { "tanggalMin": 21 }, { "uangMaks": 400000 } ], "lokasi": ["kamar"], "fase": ["sore", "malam"] },
+      "batasHari": 20,
+      "tujuan": [
+        { "id": "kerja", "teks": "Kerja 1 shift di warteg/warkop", "stat": { "kerja": 1 } },
+        { "id": "selamat", "teks": "Tembus ke bulan baru dengan uang ≥ Rp0", "syarat": { "bulanBaru": true, "uangMin": 0 } }
+      ],
+      "dialogAwal": "d_raka_pinjam",
+      "dialogSelesai": "d_bab2_selesai",
+      "hadiah": { "efek": { "stres": -8 }, "relasi": { "mbakSri": 5 } },
+      "rencanaB": { "teks": "Bulan ini berat? Bulan depan masih ada. Ibu doakan dari sini." }
+    },
+    {
+      "id": "bab3", "urutan": 3, "judul": "Kabar dari Rumah", "ikon": "📞",
+      "halaman": "Langganan itu keluarga. Kalau warungnya susah, bantu sebisanya.",
+      "pemicu": { "bulanMin": 2, "tanggalMin": 3, "tanggalMaks": 14 },
+      "batasHari": 40,
+      "tujuan": [
+        { "id": "uts", "teks": "Ikut ujian (UTS/UAS)", "stat": { "ujian": 1 } },
+        { "id": "rencana", "teks": "Punya rencana uang: beasiswa / tabungan ≥ Rp200 rb / celengan Ibu ≥ Rp100 rb", "syarat": { "atau": [ { "punyaBeasiswa": true }, { "tabunganMin": 200000 }, { "celenganMin": 100000 } ] } }
+      ],
+      "adegan": [ { "id": "a_laras_perpus", "progres": { "belajarPerpus": 1 }, "dialog": "d_laras_tips" } ],
+      "dialogAwal": "d_ibu_telepon",
+      "dialogSelesai": "d_bab3_selesai",
+      "hadiah": { "efek": { "stres": -6 }, "relasi": { "laras": 5 } },
+      "rencanaB": { "teks": "Nggak apa-apa, Nak. Pelan-pelan. Yang penting kamu sehat." }
+    },
+    {
+      "id": "bab4", "urutan": 4, "judul": "Warkop di Ujung Gang", "ikon": "☕",
+      "halaman": "Kopi enak bisa dicari. Tempat yang kenal namamu, itu langka.",
+      "pemicu": { "hariMin": 61, "lokasi": ["dunia", "gedung"], "fase": ["sore", "malam", "begadang"], "atau": [ { "statMin": { "ngopi+nongkrong+kerja_warkop+ngobrolUdin": 1 } }, { "hariMin": 75 } ] },
+      "batasHari": 30,
+      "tujuan": [
+        { "id": "shift", "teks": "Racik pesanan di warkop 3 shift", "stat": { "kerja_warkop": 1 }, "jumlah": 3 },
+        { "id": "ramai", "teks": "Nongkrong di warkop 2× biar kelihatan ramai", "stat": { "nongkrong": 1 }, "jumlah": 2 },
+        { "id": "ide", "teks": "Pilih ide penyelamatan warkop", "syarat": { "flag": ["ideWarkop"] } }
+      ],
+      "adegan": [ { "id": "a_warkop_pelanggan", "progres": { "kerja_warkop": 1 }, "dialog": "d_pelanggan_warkop" } ],
+      "dialogAwal": "d_udin_sepi",
+      "dialogSelesai": "d_bab4_selesai",
+      "flagSelesai": "warkopSelamat",
+      "hadiah": { "efek": { "stres": -10 }, "relasi": { "bangUdin": 15 } },
+      "rencanaB": { "teks": "Warung itu kayak orang: kadang sepi, kadang rame. Yang penting nggak ditinggal.", "flag": "warkopSetengah", "dialog": "d_bab4_rencanaB" }
+    },
+    {
+      "id": "bab5", "urutan": 5, "judul": "Rapor Pertama", "ikon": "📜",
+      "halaman": "Nilai jelek bukan akhir dunia. Akhir dunia itu kalau kamu lupa makan.",
+      "pemicu": { "atau": [ { "bulanMin": 4, "tanggalMin": 20 }, { "bulanMin": 5 } ] },
+      "batasHari": 25,
+      "tujuan": [ { "id": "rapor", "teks": "Terima rapor semester", "syarat": { "raporMin": 1 } } ],
+      "dialogAwal": "d_dosen_rapor",
+      "dialogSelesai": "d_bab5_selesai",
+      "hadiah": { "efek": { "stres": -5 }, "relasi": { "pakDosen": 5 } },
+      "rencanaB": { "teks": "Rapornya nanti juga datang. Kayak jodoh." }
+    },
+    {
+      "id": "bab6", "urutan": 6, "judul": "Senior Dadakan", "ikon": "🤝",
+      "halaman": "Teman yang mau pulang jangan ditahan, tapi temani dulu ngobrolnya.",
+      "pemicu": { "hariMin": 121, "lokasi": ["dunia"], "fase": ["malam"] },
+      "batasHari": 21,
+      "tujuan": [
+        { "id": "ngobrol", "teks": "Ngobrol dengan Raka di 3 hari berbeda", "stat": { "ngobrol_raka": 1 }, "jumlah": 3 },
+        { "id": "bareng", "teks": "Satu kegiatan bareng: belajar / futsal / main bola / kerja / bantu panen", "stat": { "belajar+belajarPerpus+mainFutsal+mainBolaKampung+kerja+bantuPanen": 1 } }
+      ],
+      "dialogAwal": "d_raka_pulang",
+      "dialogSelesai": "d_bab6_selesai",
+      "flagSelesai": "rakaBertahan",
+      "hadiah": { "efek": { "stres": -10 }, "relasi": { "raka": 15 } },
+      "rencanaB": { "teks": "Pulang itu bukan kalah. Kadang orang perlu isi bensin dulu.", "flag": "rakaCuti", "dialog": "d_bab6_rencanaB" }
+    },
+    {
+      "id": "bab7", "urutan": 7, "judul": "Malam-malam Skripsi", "ikon": "📄",
+      "halaman": "Skripsi itu maraton. Ibu lari pagi aja ngos-ngosan, apalagi kamu.",
+      "pemicu": { "sksMin": 110 },
+      "batasHari": 45,
+      "tujuan": [
+        { "id": "bimbingan", "teks": "Bimbingan 3×", "stat": { "bimbingan": 1 }, "jumlah": 3 },
+        { "id": "skripsi", "teks": "Skripsi tembus 50%", "syarat": { "skripsiMin": 50 } },
+        { "id": "tidur", "teks": "Tidur cukup 2 kali (dengerin Sinta)", "stat": { "tidur": 1 }, "jumlah": 2 }
+      ],
+      "adegan": [
+        { "id": "a_sinta_stres", "pemicu": { "stresMin": 70 }, "dialog": "d_sinta_ingat" },
+        { "id": "a_mbah_karto", "pemicu": { "kos": ["kenanga"], "lokasi": ["kamar"], "fase": ["malam"] }, "dialog": "d_mbah_karto" }
+      ],
+      "dialogAwal": "d_bab7_awal",
+      "dialogSelesai": "d_bab7_selesai",
+      "hadiah": { "efek": { "stres": -10 }, "relasi": { "w_sinta": 5 } },
+      "rencanaB": { "teks": "Skripsi telat itu biasa. Yang nggak biasa itu nyerah." }
+    },
+    {
+      "id": "bab8", "urutan": 8, "judul": "Toga & Rantang", "ikon": "🎓",
+      "halaman": "Sekarang kamu yang nulis.",
+      "pemicu": { "lulus": true },
+      "ending": true,
+      "batasHari": 1,
+      "tujuan": []
+    }
+  ],
+  "sampingan": [
+    { "id": "s_raka_bayar", "pemicu": { "flagUmur": { "rakaHutang": 7 }, "tanggalMin": 3, "tanggalMaks": 15 }, "dialog": "d_raka_bayar" },
+    { "id": "s_paket_rumah", "pemicu": { "flagUmur": { "jujur": 6 }, "lokasi": ["kamar"] }, "dialog": "d_paket_rumah" },
+    { "id": "s_abadi", "pemicu": { "hariMin": 300, "lulus": false }, "dialog": "d_ibu_abadi" }
+  ],
+  "dialog": [
+    { "id": "d_prolog_wa", "ikon": "💬", "judul": "Grup Keluarga Bahagia 🏠", "teks": "Ibu: \"Udah sampe kos, {nama}? Buka buku dari Ibu ya. Halaman 1 dulu! 📒❤️🙏\"", "pilihan": [ { "teks": "📒 Buka Buku Sakti", "hasil": "📒 Halaman 1: belajar, masak mi, tidur. Cek di HP → Buku Sakti." } ] },
+    { "id": "d_prolog_selesai", "ikon": "👨", "judul": "Grup Keluarga Bahagia 🏠", "teks": "Ayah: \"Ok.\" · Ibu: \"Ayahmu bangga itu. Dia ngetik 'Ok' sampai 3 menit.\"", "pilihan": [ { "teks": "😅 Siap, Yah", "hasil": "" } ] },
+
+    { "id": "d_bab1_awal", "ikon": "👩", "judul": "Pesan dari Ibu", "teks": "Ibu: \"Hari pertama kuliah! Kenalan sama orang ya. Jangan cuma kenal Oyen.\"", "pilihan": [ { "teks": "👍 Iya, Bu", "hasil": "📒 Halaman 2 terbuka: kuliah, makan di warteg, kenalan." } ] },
+    { "id": "d_raka_warteg", "ikon": "🧑", "judul": "Anak Baru di Warteg", "teks": "Di pojok warteg ada Raka, anak rantau juga. Piringnya cuma nasi + kerupuk.", "pilihan": [
+      { "teks": "🍳 Traktir telur", "efek": { "uang": -5000 }, "relasi": { "raka": 15 }, "setFlag": ["rakaTeman"], "hasil": "🧑 Raka: \"Serius?! Kamu orang baik, Bro. Kita senasib.\"" },
+      { "teks": "👋 Sapa aja", "relasi": { "raka": 8 }, "hasil": "🧑 Raka: \"Anak rantau juga? Kerupuknya mau?\"" }
+    ] },
+    { "id": "d_bab1_selesai", "ikon": "👩‍🍳", "judul": "Halaman 2 Beres!", "teks": "Mbak Sri: \"Dek, kamu udah kayak langganan lama. Tempe hari ini Mbak lebihin ya!\"", "pilihan": [ { "teks": "😋 Makasih, Mbak!", "hasil": "" } ] },
+
+    { "id": "d_raka_pinjam", "ikon": "🧑", "judul": "Tok Tok Tok...", "teks": "Raka di depan pintu: \"Bro... kirimanku telat. Boleh pinjam dulu? Nanti kubalikin.\"", "pilihan": [
+      { "teks": "💸 Pinjami Rp50.000", "efek": { "uang": -50000 }, "relasi": { "raka": 20 }, "setFlag": ["rakaHutang"], "hasil": "🧑 \"Kamu penyelamat! Tanggal 3 kubalikin, sumpah!\"" },
+      { "teks": "🧑‍🍳 Ayo kerja bareng", "relasi": { "raka": 12, "mbakSri": 5 }, "hasil": "🧑 \"Cuci piring di Mbak Sri? Gas! Daripada ngelamun.\"" },
+      { "teks": "😅 Maaf, aku juga tipis", "efek": { "stres": -2 }, "relasi": { "raka": 3 }, "hasil": "🍜 Kalian makan mi berdua. Satu bungkus. Dibagi dua." }
+    ] },
+    { "id": "d_bab2_selesai", "ikon": "👩", "judul": "Tembus Tanggal Tua!", "teks": "Ibu: \"Kamu selamat dari tanggal tua pertama! Ibu sampai syukuran. Masak tempe.\"", "pilihan": [ { "teks": "🥲 Terharu, Bu", "hasil": "" } ] },
+    { "id": "d_raka_bayar", "ikon": "🧑", "judul": "Raka Bayar Utang", "teks": "Raka nyengir: \"Nih Rp50 ribu. Plus bunga: sebungkus kerupuk.\"", "pilihan": [ { "teks": "🤝 Mantap, Bro", "efek": { "uang": 50000 }, "relasi": { "raka": 5 }, "setFlag": ["rakaHutangLunas"], "hasil": "🍘 Bunganya renyah." } ] },
+
+    { "id": "d_ibu_telepon", "ikon": "📞", "judul": "Telepon dari Ibu", "teks": "Ibu: \"Warung lagi sepi, Nak, jalan depan rumah dibenerin. Kamu di sana gimana?\"", "pilihan": [
+      { "teks": "😊 Aman kok, Bu!", "efek": { "stres": 8 }, "setFlag": ["gengsi"], "hasil": "📸 Kamu kirim foto makan enak ke grup. Itu foto makanan Laras.", "ke": "d_ibu_nabung" },
+      { "teks": "🙏 Jujur: lumayan berat", "efek": { "stres": -10 }, "setFlag": ["jujur"], "hasil": "👩 \"Makasih udah cerita, Nak. Ibu kirim sesuatu ya.\"", "ke": "d_ibu_nabung" }
+    ] },
+    { "id": "d_ibu_nabung", "ikon": "🐷", "judul": "Celengan Warung", "teks": "Ibu: \"Ibu lagi nabung buat etalase baru. Kalau ada lebih, boleh bantu. Kalau nggak, nggak apa-apa!\"", "pilihan": [
+      { "teks": "🐷 Ikut nabung (Rp300 rb)", "aksi": "mulaiNabung", "hasil": "🐷 Celengan dibuka! Sisihkan uang lewat HP → Buku Sakti (60 hari)." },
+      { "teks": "🙏 Belum bisa, Bu", "setFlag": ["belumBisaBantu"], "hasil": "👩 \"Nggak apa-apa, Nak. Fokus kuliah. Doa juga bantuan ❤️\"" }
+    ] },
+    { "id": "d_laras_tips", "ikon": "👩", "judul": "Tips Laras", "teks": "Laras di perpus: \"Catat pengeluaran, biar nggak kaget. Kopi 4 ribu × 30 itu 120 ribu lho.\"", "pilihan": [ { "teks": "😳 Baru sadar...", "relasi": { "laras": 8 }, "hasil": "📝 Kamu mulai menghitung kopi. Lalu sedih." } ] },
+    { "id": "d_paket_rumah", "ikon": "📦", "judul": "Paket dari Rumah!", "teks": "Kardus bertali rafia datang. Isinya bumbu, rendang, dan surat: \"Jangan lupa sayur.\"", "pilihan": [ { "teks": "🥹 Rendaaang!", "efek": { "energi": 20, "stres": -6 }, "hasil": "🍛 Rendangnya cuma tahan 2 hari. Seperti dugaan." } ] },
+    { "id": "d_bab3_selesai", "ikon": "👩", "judul": "Halaman 4 Beres!", "teks": "Ibu: \"Ibu bangga kamu bisa ngatur sendiri. Ibu dulu umur segitu ngatur arisan aja pusing.\"", "pilihan": [ { "teks": "😊 Makasih, Bu", "hasil": "" } ] },
+    { "id": "d_nabung_terkirim", "ikon": "🏪", "judul": "Kiriman Balik ke Rumah", "teks": "Ibu kirim foto etalase baru + 14 emoji. Ayah: \"Ok. Makasih.\" (Ayah jarang bilang makasih.)", "pilihan": [ { "teks": "🥹 Sama-sama", "hasil": "📦 Ibu bales kirim rendang. Lingkaran rendang abadi." } ] },
+    { "id": "d_nabung_lewat", "ikon": "👩", "judul": "Celengan Dikembalikan", "teks": "Ibu: \"Etalasenya udah dicicil Ayah kok. Uangnya pakai buat kamu dulu ya, Nak.\"", "pilihan": [ { "teks": "🙏 Iya, Bu", "hasil": "🐷 Isi celengan kembali ke dompetmu." } ] },
+
+    { "id": "d_udin_sepi", "ikon": "🧔", "judul": "Warkop Sepi", "teks": "Bang Udin ngelap meja kosong: \"Pelanggan pindah ke kafe baru, Bro. Bulan depan mungkin tutup.\"", "pilihan": [
+      { "teks": "🎸 Ajak Kevin manggung", "syarat": { "relasiMin": { "kevin": 25 } }, "kunci": "😎 Belum akrab sama Kevin (relasi 25).", "relasi": { "kevin": 5 }, "setFlag": ["ideWarkop", "ideKevin"], "hasil": "🎸 Kevin: \"Lagu galau tiap Sabtu? Siap!\"" },
+      { "teks": "🎨 Minta Putri bikin mural", "syarat": { "relasiMin": { "putri": 25 } }, "kunci": "👧 Belum akrab sama Putri (relasi 25).", "relasi": { "putri": 5 }, "setFlag": ["ideWarkop", "idePutri"], "hasil": "🎨 Putri: \"Dinding polos gini bikin gatel. Serahkan!\"" },
+      { "teks": "📱 Promosi di medsos", "setFlag": ["ideWarkop", "ideMedsos"], "keJika": [ { "syarat": { "followerMaks": 99 }, "ke": "d_promosi_ibu" } ], "hasil": "📱 Postinganmu soal warkop mulai dibagikan." }
+    ] },
+    { "id": "d_promosi_ibu", "ikon": "📱", "judul": "Postingan Warkop", "teks": "Postinganmu dapat 1 like. Dari Ibu. Komentarnya: \"Ini warung siapa Nak? 😍\"", "pilihan": [ { "teks": "😂 Tetap semangat", "hasil": "☕ Untung masih ada cara lain: kerja & nongkrong di sana." } ] },
+    { "id": "d_pelanggan_warkop", "ikon": "☕", "judul": "Pelanggan Lama Balik", "teks": "Selesai shift, Bayu mampir: \"Kopi racikanmu pas, Dek. Besok kuajak anak ojol ngopi sini.\"", "pilihan": [ { "teks": "🙌 Ditunggu, Bang", "relasi": { "bayu": 6, "bangUdin": 4 }, "hasil": "☕ Satu meja terisi lagi." } ] },
+    { "id": "d_bab4_selesai", "ikon": "🧔", "judul": "Warkop Selamat!", "teks": "Bang Udin: \"Warkop rame lagi, Bro! Kopimu kudiskon seumur hidup. Seumur warkop, maksudnya.\"", "pilihan": [ { "teks": "☕ Mantap, Bang!", "hasil": "" } ] },
+    { "id": "d_bab4_rencanaB", "ikon": "🛵", "judul": "Bang Udin Nyambi Ojol", "teks": "Warkop tetap buka. Siangnya Bang Udin narik ojol bareng Bayu. Helmnya bertuliskan 'KOPI'.", "pilihan": [ { "teks": "😂 Tetap jalan", "hasil": "☕ Warkop nggak pernah benar-benar tutup." } ] },
+
+    { "id": "d_dosen_rapor", "ikon": "👨‍🏫", "judul": "Pak Budiman Bercerita", "teks": "Pak Budiman: \"Saya dulu juga ngekos. Mi tiga kali sehari. Jangan ditiru. Libur nanti kamu ke mana?\"", "pilihan": [
+      { "teks": "🚌 Pulang kampung", "aksi": "ongkosPulang", "efek": { "stres": -20 }, "setFlag": ["pulangLibur"], "hasil": "🏡 Ibu masak 5 lauk. Kamu pulang bawa 3 kg tambahan." },
+      { "teks": "💼 Tetap di kota, kerja", "setFlag": ["tetapKota"], "hasil": "📸 Ibu kirim foto: \"Kamarmu rapi. Kucing tetangga tidur di situ.\"" }
+    ] },
+    { "id": "d_bab5_selesai", "ikon": "📜", "judul": "Rapor Diterima", "teks": "Ibu memajang foto rapormu di grup keluarga. Om-om mulai komentar \"Kapan wisuda?\"", "pilihan": [ { "teks": "😅 Sabar, Om", "hasil": "" } ] },
+
+    { "id": "d_raka_pulang", "ikon": "🧑", "judul": "Raka di Taman", "teks": "Raka duduk sendiri malam-malam: \"Kayaknya aku pulang aja, Bro. Nggak kuat.\"", "pilihan": [
+      { "teks": "💪 Bertahan, kita barengan", "relasi": { "raka": 5 }, "hasil": "🧑 \"...Oke. Temenin aku beberapa hari ya.\"" },
+      { "teks": "🤝 Apa pun pilihanmu, aku dukung", "relasi": { "raka": 5 }, "hasil": "🧑 \"Makasih, Bro. Aku pikir-pikir dulu.\"" }
+    ] },
+    { "id": "d_bab6_selesai", "ikon": "🧑", "judul": "Raka Bertahan", "teks": "Raka: \"Aku jadi nggak pulang. Ibuku bilang aku kebanyakan ngeluh di telepon. Kamu juga sih.\"", "pilihan": [ { "teks": "😂 Sama-sama, Bro", "hasil": "" } ] },
+    { "id": "d_bab6_rencanaB", "ikon": "🚌", "judul": "Raka Cuti Dulu", "teks": "Raka cuti 1 semester: \"Aku isi bensin dulu di rumah. Nanti balik bawa oleh-oleh!\"", "pilihan": [ { "teks": "👋 Hati-hati, Bro", "hasil": "🧑 Raka melambai dari bus. Bawa kardus tali rafia juga." } ] },
+
+    { "id": "d_bab7_awal", "ikon": "📄", "judul": "Skripsi Terbuka!", "teks": "Ibu: \"Katanya kamu udah boleh skripsi? Ibu nggak ngerti, tapi Ibu bangga! 🎓🎓🎓\"", "pilihan": [ { "teks": "📚 Bismillah", "hasil": "📒 Halaman 8: bimbingan, nulis, dan... tidur." } ] },
+    { "id": "d_sinta_ingat", "ikon": "👩‍🦰", "judul": "Sinta Mengingatkan", "teks": "Sinta: \"Begadang lagi? Kantong matamu itu bisa dipakai belanja.\"", "pilihan": [
+      { "teks": "😴 Dengerin Sinta", "efek": { "stres": -5 }, "relasi": { "sinta": 10 }, "hasil": "👩‍🦰 \"Bagus. Air putih juga ya.\"" },
+      { "teks": "☕ Gas begadang", "hasil": "⌨️ Kamu ketiduran di perpus. Pipimu bergaris keyboard." }
+    ] },
+    { "id": "d_mbah_karto", "ikon": "👴", "judul": "Cerita Mbah Karto", "teks": "Mbah Karto: \"Dulu ada mahasiswa di kamar ujung, sekarang jadi dosen. Namanya Budiman.\"", "pilihan": [ { "teks": "😮 Pak Budiman?!", "hasil": "🤫 Mbah Karto cuma tersenyum, lalu pergi." } ] },
+    { "id": "d_bab7_selesai", "ikon": "👨‍🏫", "judul": "Setengah Jalan", "teks": "Pak Budiman: \"Lumayan. Referensinya minimal lima tahun terakhir ya. Yang ini dari 1998.\"", "pilihan": [ { "teks": "😅 Siap, Pak", "hasil": "" } ] },
+    { "id": "d_ibu_abadi", "ikon": "📞", "judul": "Telepon Ibu", "teks": "Ibu: \"Nak, nggak apa-apa lama. Ibu tunggu toganya. Asal jangan sampai Ibu yang wisuda duluan.\"", "pilihan": [ { "teks": "🥹 Siap, Bu", "efek": { "stres": -8 }, "hasil": "" } ] }
+  ],
+  "ending": [
+    { "id": "end_toga_rantang", "judul": "Toga & Rantang", "ikon": "🍱",
+      "syarat": { "flag": ["jujur", "warkopSelamat"], "flagSalahSatu": ["rakaBertahan", "rakaCuti"], "wargaRelasiMin": { "nilai": 60, "jumlah": 3 } },
+      "teks": "Ibu & Ayah datang naik bus bawa rantang rendang untuk satu kampung. Ayah: \"Bagus.\" Ibu: \"Ayahmu nangis di bus tadi.\"" },
+    { "id": "end_cumlaude_sepi", "judul": "Cum Laude, Tapi Sepi", "ikon": "🏅",
+      "syarat": { "ipkMin": 3.75, "wargaRelasiMaks": { "nilai": 60, "jumlah": 1 } },
+      "teks": "Pidato wisudamu megah. Saat foto bersama, yang ikut cuma Oyen. \"Meong.\" Lalu Raka & Mbak Sri datang telat bawa gorengan." },
+    { "id": "end_juragan_warkop", "judul": "Juragan Warkop", "ikon": "☕",
+      "syarat": { "flag": ["warkopSelamat"], "statMin": { "kerja": 40 }, "ipkMaks": 3.249 },
+      "teks": "Bang Udin menawarimu jadi rekan usaha cabang kedua. \"IPK pas-pasan, kopi tak tertandingi.\"" },
+    { "id": "end_wisuda_juga", "judul": "Akhirnya Wisuda Juga", "ikon": "🎓",
+      "syarat": {},
+      "teks": "Wisuda sederhana. Ibu video call, layarnya goyang karena dipegang Ayah. \"Yang penting lulus, Nak!\"" }
+  ],
+  "epilog": [
+    { "syarat": { "punyaPacar": true }, "teks": "💑 Ada foto berdua di halaman terakhir." },
+    { "syarat": { "flag": ["gengsi"], "tanpaFlag": ["jujur"] }, "teks": "👩 \"Lain kali cerita ya, Nak. Ibu tahu kok foto makanan itu bukan punyamu.\"" },
+    { "syarat": { "flag": ["pulangLibur"] }, "teks": "📱 Tetangga kampung ikut nonton wisudamu lewat HP Ibu." },
+    { "syarat": { "flag": ["bantuWarung"] }, "teks": "🏪 Etalase warung Ibu kini ada stiker kecil: \"Sumbangan anak kuliahan.\"" }
+  ],
+  "halamanTerakhir": "Sekarang kamu yang nulis."
+}

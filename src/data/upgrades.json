@@ -1,0 +1,42 @@
+[
+  {
+    "id": "kasur",
+    "nama": "Kasur",
+    "ikon": "🛏️",
+    "levels": [
+      { "level": 1, "label": "Kasur Lipat Tipis", "harga": 0, "deskripsi": "Tidur malam ⚡+55", "efek": { "energiTidurMalam": 55, "energiTidurSiang": 20, "stresTidur": -8 } },
+      { "level": 2, "label": "Kasur Busa", "harga": 350000, "deskripsi": "Tidur malam ⚡+70, 😵−11", "efek": { "energiTidurMalam": 70, "energiTidurSiang": 28, "stresTidur": -11 } },
+      { "level": 3, "label": "Springbed Empuk", "harga": 1200000, "deskripsi": "Tidur malam ⚡+85, 😵−15", "efek": { "energiTidurMalam": 85, "energiTidurSiang": 35, "stresTidur": -15 } }
+    ]
+  },
+  {
+    "id": "meja",
+    "nama": "Meja Belajar",
+    "ikon": "📚",
+    "levels": [
+      { "level": 1, "label": "Meja Lipat Lesehan", "harga": 0, "deskripsi": "Belajar & nugas 🎓×1", "efek": { "pengaliBelajar": 1.0 } },
+      { "level": 2, "label": "Meja Kayu + Lampu", "harga": 250000, "deskripsi": "Belajar & nugas 🎓×1,25", "efek": { "pengaliBelajar": 1.25 } },
+      { "level": 3, "label": "Meja Gaming", "harga": 900000, "deskripsi": "Belajar & nugas 🎓×1,5", "efek": { "pengaliBelajar": 1.5 } }
+    ]
+  },
+  {
+    "id": "kipas",
+    "nama": "Kipas / AC",
+    "ikon": "🌀",
+    "levels": [
+      { "level": 1, "label": "Kipas Tangan", "harga": 0, "deskripsi": "Gerah: 😵+1 tiap fase", "efek": { "stresPerFase": 1 } },
+      { "level": 2, "label": "Kipas Berdiri", "harga": 200000, "deskripsi": "Sejuk: 😵 tidak naik tiap fase", "efek": { "stresPerFase": 0 } },
+      { "level": 3, "label": "AC Dinding", "harga": 1500000, "deskripsi": "Adem: 😵−1 tiap fase", "efek": { "stresPerFase": -1 } }
+    ]
+  },
+  {
+    "id": "dekorasi",
+    "nama": "Dekorasi",
+    "ikon": "🖼️",
+    "levels": [
+      { "level": 1, "label": "Dinding Polos", "harga": 0, "deskripsi": "Belum ada bonus", "efek": { "stresTidur": 0 } },
+      { "level": 2, "label": "Poster + Rak Buku", "harga": 150000, "deskripsi": "Tidur: 😵−3 tambahan", "efek": { "stresTidur": -3 } },
+      { "level": 3, "label": "Tanaman + Karpet + Lampu Tumblr", "harga": 600000, "deskripsi": "Tidur: 😵−6 tambahan", "efek": { "stresTidur": -6 } }
+    ]
+  }
+]

@@ -1,0 +1,8 @@
+{
+  "name": "MS.UI",
+  "rootNamespace": "MS.UI",
+  "references": ["MS.Kontrak","MS.MiniGame","MS.Pemain","Unity.InputSystem","Unity.TextMeshPro","UnityEngine.UI"],
+  "overrideReferences": true,
+  "precompiledReferences": ["Newtonsoft.Json.dll"],
+  "autoReferenced": true
+}

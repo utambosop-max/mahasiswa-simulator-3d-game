@@ -1,0 +1,244 @@
+{
+  "_catatan": "M11: kos (pindah, tipe, pemilik, jam malam, hantu, toilet), warga & pacaran, beasiswa, rambut & tas, kafe WFH. Jam memakai menit-hari (0 = 05.00, 1020 = 22.00, 1080 = 23.00).",
+
+  "kos": {
+    "biayaPindah": 100000,
+    "jedaPindahHari": 7,
+    "daftar": [
+      {
+        "id": "melati",
+        "nama": "Kos Melati",
+        "ikon": "🌼",
+        "tipe": "Biasa",
+        "harga": 500000,
+        "pemilik": "Bu Ratna",
+        "sifat": "baik",
+        "jamMalam": 1080,
+        "bebas": false,
+        "tinggalBareng": false,
+        "berhantu": false,
+        "toilet": "ember",
+        "dinding": "#fde8c8",
+        "efek": { "stresPasif": 0, "pengaliBelajar": 1, "mandiEnergi": 0, "energiTidur": 0, "sarapan": 0, "kebersihanTurun": 1 },
+        "telat": { "uang": 0, "stres": 3, "relasi": -3 },
+        "deskripsi": "Kos keluarga yang nyaman. Bu Ratna ramah, gerbang dikunci jam 23.00 (telat cuma diomeli)."
+      },
+      {
+        "id": "bebas",
+        "nama": "Kos Bebas Merdeka",
+        "ikon": "🎸",
+        "tipe": "Bebas",
+        "harga": 450000,
+        "pemilik": "Pak Bambang",
+        "sifat": "cuek",
+        "jamMalam": null,
+        "bebas": true,
+        "tinggalBareng": true,
+        "berhantu": false,
+        "toilet": "ember",
+        "dinding": "#e9e1fb",
+        "efek": { "stresPasif": 0, "stresMalam": 1, "pengaliBelajar": 0.95, "mandiEnergi": 0, "energiTidur": -3, "sarapan": 0, "kebersihanTurun": 1.5 },
+        "telat": null,
+        "deskripsi": "Bebas pulang jam berapa pun, boleh bawa pasangan tinggal bareng. Tapi tetangga suka genjrengan sampai malam."
+      },
+      {
+        "id": "hemat",
+        "nama": "Kos Hemat Pak Darto",
+        "ikon": "🪙",
+        "tipe": "Murah & ketat",
+        "harga": 300000,
+        "pemilik": "Pak Darto",
+        "sifat": "galak",
+        "jamMalam": 1020,
+        "bebas": false,
+        "tinggalBareng": false,
+        "berhantu": false,
+        "toilet": "jongkok",
+        "dinding": "#ece3d2",
+        "efek": { "stresPasif": 1, "pengaliBelajar": 1, "mandiEnergi": -2, "energiTidur": -3, "sarapan": 0, "kebersihanTurun": 1 },
+        "telat": { "uang": -20000, "stres": 10, "relasi": -8 },
+        "deskripsi": "Paling murah! Tapi Pak Darto galak: gerbang dikunci jam 22.00, telat didenda Rp20.000. Kamar sempit & panas."
+      },
+      {
+        "id": "kenanga",
+        "nama": "Wisma Kenanga",
+        "ikon": "👻",
+        "tipe": "Murah (katanya angker)",
+        "harga": 250000,
+        "pemilik": "Mbah Karto",
+        "sifat": "baik",
+        "jamMalam": null,
+        "bebas": true,
+        "tinggalBareng": true,
+        "berhantu": true,
+        "toilet": "jongkok",
+        "dinding": "#d9e0d4",
+        "efek": { "stresPasif": 0, "stresMalam": 2, "pengaliBelajar": 1, "mandiEnergi": 0, "energiTidur": -5, "sarapan": 0, "kebersihanTurun": 1 },
+        "telat": null,
+        "deskripsi": "Murah meriah & bebas. Konon kamar ujung ada 'penghuni lama'... suara ketukan jam 12 malam."
+      },
+      {
+        "id": "skyline",
+        "nama": "Skyline Residence",
+        "ikon": "🏙️",
+        "tipe": "Mewah & bebas",
+        "harga": 1500000,
+        "pemilik": "Mas Kevin (pengelola)",
+        "sifat": "profesional",
+        "jamMalam": null,
+        "bebas": true,
+        "tinggalBareng": true,
+        "berhantu": false,
+        "toilet": "shower",
+        "dinding": "#dfeef7",
+        "efek": { "stresPasif": -1, "pengaliBelajar": 1.1, "mandiEnergi": 6, "energiTidur": 6, "sarapan": 0, "kebersihanTurun": 0.5 },
+        "telat": null,
+        "deskripsi": "Apartemen kos elit: AC sentral, shower air panas, WiFi kencang, ada cleaning service. Bebas 24 jam."
+      },
+      {
+        "id": "griya",
+        "nama": "Griya Asri Eksklusif",
+        "ikon": "🏛️",
+        "tipe": "Mewah & ketat",
+        "harga": 1200000,
+        "pemilik": "Bu Hartini",
+        "sifat": "tegas",
+        "jamMalam": 1020,
+        "bebas": false,
+        "tinggalBareng": false,
+        "berhantu": false,
+        "toilet": "shower",
+        "dinding": "#f3ecdc",
+        "efek": { "stresPasif": -1, "pengaliBelajar": 1.2, "mandiEnergi": 6, "energiTidur": 8, "sarapan": 12, "kebersihanTurun": 0.5 },
+        "telat": { "uang": -50000, "stres": 8, "relasi": -10 },
+        "deskripsi": "Mewah, tenang & disiplin: sarapan tiap pagi, suasana belajar terbaik. Jam malam 22.00, telat didenda Rp50.000."
+      }
+    ]
+  },
+
+  "toilet": {
+    "buangAir": { "stres": -3 },
+    "antreJongkokPeluang": 0.3,
+    "antreStres": 2
+  },
+
+  "hantu": {
+    "peluangMuncul": 0.35,
+    "stresLihat": 6,
+    "beraniSetelah": 5
+  },
+
+  "warga": [
+    { "id": "rina", "gaya": "panjang", "nama": "Rina", "ikon": "👩‍🎓", "peran": "mahasiswi Sastra", "pacar": true, "suka": "buku", "dialog": ["\"Lagi baca novel apa? Aku lagi suka puisi Chairil.\"", "\"Kantin kampus enak, tapi warteg Mbak Sri juara!\"", "\"Eh, kamu sering lewat sini ya?\""] },
+    { "id": "dimas", "gaya": "jabrik", "nama": "Dimas", "ikon": "🧑‍🎓", "peran": "mahasiswa Teknik", "pacar": true, "suka": "game", "dialog": ["\"Laptopku nge-hang pas ngoding. Sedih.\"", "\"Main futsal sore ini? Kurang satu orang!\"", "\"Kopi hitam itu bahan bakar anak teknik.\""] },
+    { "id": "bayu", "gaya": "pendek", "nama": "Bayu", "ikon": "🧢", "peran": "ojol senior", "pacar": false, "suka": "kopi", "dialog": ["\"Narik pagi-pagi rezekinya lancar, Dek.\"", "\"Jalan depan kampus macet terus jam 7.\"", "\"Isi bensin di Pak Jo aja, takarannya jujur.\""] },
+    { "id": "laras", "gaya": "kuncir", "nama": "Laras", "ikon": "👩", "peran": "mahasiswi Ekonomi", "pacar": true, "suka": "kopi", "dialog": ["\"Aku lagi nabung buat beli laptop baru!\"", "\"Tips hemat: masak sendiri, jangan jajan terus.\"", "\"Kafe baru itu enak buat nugas loh.\""] },
+    { "id": "pakRT", "gaya": "botak", "nama": "Pak RT Slamet", "ikon": "👴", "peran": "ketua RT", "pacar": false, "suka": "buah", "dialog": ["\"Jangan lupa ronda malam Minggu ya, Mas!\"", "\"Anak kos di sini sopan-sopan, Bapak senang.\"", "\"Kerja bakti minggu depan, ikut ya!\""] },
+    { "id": "sinta", "gaya": "hijab", "nama": "Sinta", "ikon": "👩‍🦰", "peran": "mahasiswi Kedokteran", "pacar": true, "suka": "buah", "dialog": ["\"Jangan begadang terus, nanti gampang sakit!\"", "\"Minum air putih minimal 8 gelas ya.\"", "\"Aku baru pulang praktikum, capek banget.\""] },
+    { "id": "kevin", "gaya": "keriting", "nama": "Kevin", "ikon": "😎", "peran": "anak band", "pacar": true, "suka": "musik", "dialog": ["\"Band kita manggung di pasar malam Sabtu ini!\"", "\"Kamu bisa main gitar? Gabung UKM musik dong.\"", "\"Lagu galau paling laku, percaya deh.\""] },
+    { "id": "ani", "gaya": "cepol", "nama": "Bu Ani", "ikon": "👵", "peran": "penjual jamu", "pacar": false, "suka": "buah", "dialog": ["\"Jamu kunyit asam, biar segar, Nak!\"", "\"Wajahmu pucat, kurang tidur ya?\"", "\"Zaman Ibu muda, kuliah naik sepeda.\""] },
+    { "id": "yoga", "gaya": "pendek", "nama": "Yoga", "ikon": "🏃", "peran": "atlet lari kampus", "pacar": true, "suka": "buah", "dialog": ["\"Jogging tiap pagi bikin pikiran jernih!\"", "\"Minggu pagi ada Car Free Day, ikut yuk!\"", "\"Pemanasan dulu sebelum lari ya.\""] },
+    { "id": "putri", "gaya": "poni", "nama": "Putri", "ikon": "👧", "peran": "mahasiswi Seni", "pacar": true, "suka": "musik", "dialog": ["\"Aku lagi gambar mural di dinding kampus.\"", "\"Warna pastel itu bikin hati adem.\"", "\"Mau kugambar potretmu? Gratis kok!\""] },
+    { "id": "joko", "gaya": "belah", "nama": "Mas Joko", "ikon": "🛵", "peran": "kurir paket", "pacar": false, "suka": "kopi", "dialog": ["\"Paket buat anak kos numpuk tanggal muda!\"", "\"Checkout terus, bayarnya tanggal tua, hehe.\"", "\"Hati-hati, ada anjing galak di gang sebelah.\""] },
+    { "id": "nadia", "gaya": "hijab", "nama": "Nadia", "ikon": "🙋‍♀️", "peran": "ketua BEM", "pacar": true, "suka": "buku", "dialog": ["\"Ada seminar nasional minggu depan, daftar ya!\"", "\"Mahasiswa harus kritis tapi tetap sopan.\"", "\"Rapat terus, kapan tidurnya ya...\""] },
+    { "id": "raka", "gaya": "belah", "nama": "Raka", "ikon": "🧑", "peran": "mahasiswa rantau", "pacar": true, "suka": "game", "dialog": ["\"Kangen masakan ibu di kampung...\"", "\"Kiriman belum masuk, makan mi dulu deh.\"", "\"Kita senasib, sama-sama anak rantau!\""] }
+  ],
+
+  "sosial": {
+    "ngobrolRelasi": 8,
+    "ngobrolStres": -3,
+    "hadiahHarga": 20000,
+    "hadiahRelasi": 15,
+    "hadiahSukaRelasi": 25,
+    "tembakMinRelasi": 60,
+    "tembakPeluangLv2": 0.55,
+    "tembakGagal": { "stres": 12, "relasi": -15 },
+    "jadian": { "stres": -15 },
+    "kencan": { "uang": -50000, "energi": -5, "stres": -25, "relasi": 6 },
+    "kencanMenit": 120,
+    "tinggalMinRelasi": 100,
+    "pengaliKosTinggalBareng": 0.5,
+    "tidurBarengStres": -5,
+    "chatPagiStres": -3,
+    "rinduHari": 4,
+    "rinduRelasi": -10,
+    "putusBatas": 30,
+    "putus": { "stres": 20 }
+  },
+
+  "beasiswa": [
+    {
+      "id": "kip",
+      "nama": "KIP Kuliah",
+      "ikon": "🎗️",
+      "uang": 700000,
+      "syarat": { "ipkMin": 2.75, "hartaMaks": 1500000 },
+      "jagaIpk": 2.75,
+      "deskripsi": "Bantuan biaya hidup untuk mahasiswa yang dompetnya tipis (uang + tabungan < Rp1,5 juta)."
+    },
+    {
+      "id": "cendekia",
+      "nama": "Beasiswa Yayasan Cendekia",
+      "ikon": "📘",
+      "uang": 1000000,
+      "syarat": { "ipkMin": 3.4, "sksMin": 20 },
+      "jagaIpk": 3.25,
+      "deskripsi": "Untuk mahasiswa berprestasi akademik. IPK ≥ 3.40 & sudah 20 SKS."
+    },
+    {
+      "id": "teknologi",
+      "nama": "Beasiswa Nusantara Tech",
+      "ikon": "💻",
+      "uang": 1500000,
+      "syarat": { "ipkMin": 3.6, "jurusan": ["teknik", "ekonomi"], "ukm": true },
+      "jagaIpk": 3.5,
+      "deskripsi": "Beasiswa perusahaan teknologi: IPK ≥ 3.60, jurusan Teknik/Ekonomi, aktif UKM."
+    },
+    {
+      "id": "bakat",
+      "nama": "Beasiswa Bakat Seni & Olahraga",
+      "ikon": "🏅",
+      "uang": 500000,
+      "syarat": { "ipkMin": 2.5, "skillMin": { "musik": 3, "olahraga": 3 } },
+      "jagaIpk": 2.5,
+      "deskripsi": "Punya skill Musik atau Olahraga level 3? Bakatmu dihargai!"
+    }
+  ],
+
+  "gayaRambut": [
+    { "id": "pendek", "nama": "Pendek Rapi", "harga": 15000 },
+    { "id": "jabrik", "nama": "Jabrik", "harga": 20000 },
+    { "id": "poni", "nama": "Poni Depan", "harga": 20000 },
+    { "id": "belah", "nama": "Belah Pinggir", "harga": 20000 },
+    { "id": "panjang", "nama": "Panjang Terurai", "harga": 25000 },
+    { "id": "kuncir", "nama": "Kuncir Kuda", "harga": 25000 },
+    { "id": "cepol", "nama": "Cepol Atas", "harga": 25000 },
+    { "id": "keriting", "nama": "Keriting Mengembang", "harga": 35000 },
+    { "id": "botak", "nama": "Plontos", "harga": 10000 },
+    { "id": "hijab", "nama": "Kerudung", "harga": 0 }
+  ],
+  "warnaRambut": ["#2a1d15", "#3b2a20", "#6b4430", "#a0522d", "#d9a066", "#e9605a", "#7fb3e0", "#b39ddb"],
+  "hargaCatRambut": 30000,
+
+  "aksesorisBaru": [
+    { "id": "tasSelempang", "nama": "Tas Selempang", "ikon": "👜", "harga": 55000 },
+    { "id": "totebag", "nama": "Totebag Kanvas", "ikon": "🛍️", "harga": 30000 },
+    { "id": "tasPinggang", "nama": "Tas Pinggang", "ikon": "👝", "harga": 45000 },
+    { "id": "headphone", "nama": "Headphone", "ikon": "🎧", "harga": 90000 },
+    { "id": "kupluk", "nama": "Kupluk Rajut", "ikon": "🧶", "harga": 35000 },
+    { "id": "syal", "nama": "Syal Hangat", "ikon": "🧣", "harga": 40000 },
+    { "id": "jamTangan", "nama": "Jam Tangan", "ikon": "⌚", "harga": 75000 },
+    { "id": "pita", "nama": "Pita Rambut", "ikon": "🎀", "harga": 20000 }
+  ],
+
+  "kafe": {
+    "wfh": { "uang": 55000, "energi": -18, "stres": 4 },
+    "nugasKafe": { "ipk": 0.012, "energi": -12, "stres": 1, "uang": -15000 },
+    "menu": [
+      { "id": "kf_latte", "nama": "Kopi Latte", "ikon": "☕", "harga": 22000, "efek": { "energi": 12, "stres": -8 }, "resep": [] },
+      { "id": "kf_matcha", "nama": "Es Matcha", "ikon": "🍵", "harga": 25000, "efek": { "energi": 8, "stres": -10 }, "resep": [] },
+      { "id": "kf_croissant", "nama": "Croissant", "ikon": "🥐", "harga": 18000, "efek": { "energi": 15, "stres": -4 }, "resep": [] },
+      { "id": "kf_pasta", "nama": "Pasta Carbonara", "ikon": "🍝", "harga": 35000, "efek": { "energi": 32, "stres": -8 }, "resep": [] }
+    ]
+  }
+}

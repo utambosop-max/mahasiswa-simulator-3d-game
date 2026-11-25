@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &100000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 400000}
+  - component: {fileID: 11400000}
+  m_Layer: 0
+  m_Name: HUD_Kamar
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &400000
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100000}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5740a9c5061a9ae4488b20c71e53aef8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animasiMahasiswa:
+  - {fileID: 3956688143426049428, guid: 82830a266a7e480499d5f92e642c162d, type: 3}
+  - {fileID: 8992736381059254851, guid: 82830a266a7e480499d5f92e642c162d, type: 3}
+  - {fileID: -6647769156654058043, guid: 82830a266a7e480499d5f92e642c162d, type: 3}
+  - {fileID: -3668180792346943392, guid: 82830a266a7e480499d5f92e642c162d, type: 3}
+  tampilkanAksiUji: 0
+  aksiJson: {fileID: 4900000, guid: da30ce0916a086e48b50c3c83ac2f8c1, type: 3}
+  menuJson: {fileID: 4900000, guid: a3839a09de63e1541a32418b4adf758c, type: 3}
+  balanceJson: {fileID: 4900000, guid: efdd454c55a6cd641a2981ba3acfa314, type: 3}

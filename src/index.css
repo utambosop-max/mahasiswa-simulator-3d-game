@@ -1,0 +1,282 @@
+@import "tailwindcss";
+
+/* ===== Design token tema "HP mahasiswa" (docs/GDD/rombak-ui.md §2) =====
+   Tailwind v4: --color-x → kelas bg-x/text-x, --radius-x → rounded-x, --shadow-x → shadow-x, --text-x → text-x */
+@theme {
+  --color-hp-casing: #3b2a20;
+  --color-hp-layar: #fffaf2;
+  --color-hp-krem: #fff1dc;
+  --color-kartu: #ffffff;
+  --color-teks: #3b2a20;
+  --color-teks-2: #6b5a4c; /* ± 6.3:1 di #fffaf2 (lulus WCAG 4.5:1) */
+  --color-aksen: #ff9f4a; /* tombol utama, teks #3b2a20 → ± 6.7:1 (putih hanya ± 2.2:1) */
+  --color-aksen-tepi: #d9702c;
+  --color-netral: #efe6dc;
+  --color-bahaya: #fbd5c8;
+  --color-bahaya-teks: #a3361f;
+  --color-sukses: #c9f2e0;
+  --color-sukses-teks: #1f6b4a;
+  --color-peringatan: #ffe08a;
+  --color-info: #bfe6ff;
+  --color-stat-energi: #7cc6a4;
+  --color-stat-stres: #bdb2ff;
+  --color-stat-bahaya: #e98a6b;
+  --color-redup: rgb(41 26 18 / 0.45);
+
+  --radius-casing: 2.25rem;
+  --radius-layar: 1.75rem;
+  --radius-kartu: 1.25rem;
+  --radius-tombol: 1rem;
+  --radius-ikon: 1.125rem;
+
+  --shadow-tipis: 0 1px 2px rgb(59 42 32 / 0.12);
+  --shadow-tombol: 0 3px 0 #d9702c;
+  --shadow-ikon: 0 2px 0 rgb(59 42 32 / 0.18);
+  --shadow-hp: 0 14px 36px rgb(0 0 0 / 0.35);
+
+  --text-mini: 0.8125rem;
+  --text-mini--line-height: 1.25;
+  --text-ket: 0.875rem;
+  --text-ket--line-height: 1.3;
+  --text-isi: 0.9375rem;
+  --text-isi--line-height: 1.35;
+  --text-judul: 1.125rem;
+  --text-judul--line-height: 1.25;
+  --text-angka: 1.5rem;
+  --text-angka--line-height: 1.1;
+}
+
+/* ===== Aturan layar sentuh (lihat skill android-capacitor-builder) ===== */
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  overflow: hidden; /* tidak ada scroll halaman */
+  overscroll-behavior: none; /* cegah pull-to-refresh */
+  background: #2a2a2a;
+}
+
+body {
+  font-family: ui-rounded, "Segoe UI Rounded", "Segoe UI", system-ui, sans-serif;
+  touch-action: pan-x pan-y; /* izinkan gulir panel; kontrol permainan membatasi gestur sendiri */
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none; /* cegah menu tekan lama */
+  -webkit-tap-highlight-color: transparent;
+}
+
+canvas {
+  touch-action: none;
+  display: block;
+}
+
+/* Kolom isian (nama, alamat server) tetap bisa diketik & dipilih */
+input {
+  -webkit-user-select: text;
+  user-select: text;
+  touch-action: manipulation;
+}
+
+/* Safe area: di landscape poni/notch ada di kiri atau kanan */
+.safe-x {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+.layar-judul {
+  padding-inline: max(4%, env(safe-area-inset-left)) max(4%, env(safe-area-inset-right));
+}
+
+/* Layar "putar HP" hanya muncul di layar sentuh yang sedang tegak */
+.rotate-hint {
+  display: none;
+}
+@media (orientation: portrait) and (pointer: coarse) {
+  .rotate-hint {
+    display: flex;
+  }
+}
+
+/* Animasi UI */
+@keyframes toast-masuk {
+  from { opacity: 0; transform: translateY(-8px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.toast-masuk {
+  animation: toast-masuk 0.25s ease-out;
+}
+
+@keyframes transisi-fade {
+  0% { opacity: 0; }
+  20% { opacity: 1; }
+  75% { opacity: 1; }
+  100% { opacity: 0; }
+}
+.transisi-fade {
+  animation: transisi-fade 1.3s ease-in-out forwards;
+}
+
+/* Mini-game: muncul membal (squash & stretch) & goyang saat salah */
+@keyframes datang {
+  0% { opacity: 0; transform: scale(0.4); }
+  60% { opacity: 1; transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+.anim-datang {
+  animation: datang 0.3s ease-out;
+}
+@keyframes goyang {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px) rotate(-4deg); }
+  75% { transform: translateX(6px) rotate(4deg); }
+}
+.animate-goyang {
+  animation: goyang 0.3s ease-in-out;
+}
+
+/* Konfeti: meledak dari tengah, jatuh sedikit karena "gravitasi", lalu memudar */
+@keyframes konfeti {
+  0% { transform: translate(0, 0) rotate(0deg) scale(0.6); opacity: 1; }
+  70% { opacity: 1; }
+  100% { transform: translate(var(--dx), calc(var(--dy) + 140px)) rotate(var(--putar)) scale(1); opacity: 0; }
+}
+.konfeti {
+  animation: konfeti 1.2s cubic-bezier(0.2, 0.7, 0.4, 1) forwards;
+}
+
+/* Panel modal muncul halus (skala kecil → normal) */
+@keyframes panel-masuk {
+  from { opacity: 0; transform: translateY(6px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+.anim-panel {
+  animation: panel-masuk 0.16s ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .anim-panel { animation: none; }
+}
+
+/* ===== Animasi tema HP (rombak-ui §2.7) ===== */
+@keyframes hp-masuk {
+  from { opacity: 0; transform: translateY(60%) rotate(-3deg); }
+  to { opacity: 1; transform: none; }
+}
+.anim-hp-masuk { animation: hp-masuk 0.22s cubic-bezier(0.2, 0.8, 0.2, 1.05); }
+@keyframes app-buka {
+  from { opacity: 0.4; transform: scale(0.92); }
+  to { opacity: 1; transform: none; }
+}
+.anim-app-buka { animation: app-buka 0.16s ease-out; }
+@keyframes notif-masuk {
+  from { opacity: 0; transform: translateY(-120%); }
+  to { opacity: 1; transform: none; }
+}
+.anim-notif-masuk { animation: notif-masuk 0.2s ease-out; }
+@keyframes chat-masuk {
+  from { opacity: 0; transform: translateY(8px) scale(0.9); }
+  to { opacity: 1; transform: none; }
+}
+.anim-chat-masuk { animation: chat-masuk 0.18s ease-out; }
+@keyframes badge-goyang {
+  0%, 100% { transform: rotate(0); }
+  25%, 75% { transform: rotate(-8deg); }
+  50% { transform: rotate(8deg); }
+}
+.anim-goyang-badge { animation: badge-goyang 0.3s ease-in-out 2; }
+@keyframes putar-hp {
+  0%, 20% { transform: rotate(0); }
+  60%, 100% { transform: rotate(-90deg); }
+}
+.anim-putar-hp { animation: putar-hp 1.8s ease-in-out infinite alternate; }
+
+/* Kurangi animasi: sistem (prefers-reduced-motion) ATAU saklar di Pengaturan (kelas di <html>) → sisa fade singkat */
+@keyframes fade-saja {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .anim-hp-masuk, .anim-app-buka, .anim-notif-masuk, .anim-chat-masuk, .anim-datang, .toast-masuk { animation: fade-saja 0.12s ease-out; }
+  .anim-goyang-badge, .anim-putar-hp, .animate-goyang, .animate-bounce, .animate-pulse { animation: none; }
+}
+html.kurangi-animasi .anim-hp-masuk,
+html.kurangi-animasi .anim-app-buka,
+html.kurangi-animasi .anim-notif-masuk,
+html.kurangi-animasi .anim-chat-masuk,
+html.kurangi-animasi .anim-panel,
+html.kurangi-animasi .anim-datang,
+html.kurangi-animasi .toast-masuk { animation: none !important; } /* BUG-04: langsung tampil penuh */
+html.kurangi-animasi .transisi-fade { animation-duration: 0.4s !important; }
+html.kurangi-animasi .anim-goyang-badge,
+html.kurangi-animasi .anim-putar-hp,
+html.kurangi-animasi .animate-goyang,
+html.kurangi-animasi .animate-bounce,
+html.kurangi-animasi .animate-pulse,
+html.kurangi-animasi .maskot-anim svg,
+html.kurangi-animasi .maskot-anim svg * { animation: none !important; }
+html.kurangi-animasi * { transition-duration: 0s !important; }
+
+/* HP lebih panjang dari 16:9 (mis. 20:9): area game memenuhi layar penuh (aturan layar proyek) */
+@media (pointer: coarse) and (min-aspect-ratio: 16/9) {
+  .kotak-game {
+    width: 100vw !important;
+    height: 100dvh !important;
+    aspect-ratio: auto !important;
+  }
+}
+
+/* Petunjuk keyboard hanya untuk PC (mouse) */
+@media (pointer: coarse) {
+  .hint-desktop {
+    display: none;
+  }
+}
+
+/* ===== Maskot Si Utan (layar judul): membal, melambai, berkedip ===== */
+.maskot-anim svg .m-badan,
+.maskot-anim svg .m-kepala,
+.maskot-anim svg .m-lengan,
+.maskot-anim svg .m-mata {
+  transform-box: view-box;
+}
+.maskot-anim svg {
+  animation: m-membal 1.6s ease-in-out infinite;
+  transform-origin: 50% 100%;
+  overflow: visible;
+}
+.maskot-anim svg .m-kepala {
+  animation: m-angguk 3.2s ease-in-out infinite;
+  transform-origin: 100px 128px;
+}
+.maskot-anim svg .m-lengan {
+  animation: m-lambai 1.2s ease-in-out infinite;
+  transform-origin: 142px 136px;
+}
+.maskot-anim svg .m-mata {
+  animation: m-kedip 4.5s infinite;
+  transform-origin: 100px 82px;
+}
+@keyframes m-membal {
+  0%, 100% { transform: translateY(0) scale(1, 1); }
+  45% { transform: translateY(-6%) scale(0.98, 1.03); }
+  55% { transform: translateY(-6%) scale(0.98, 1.03); }
+  90% { transform: translateY(0) scale(1.04, 0.96); }
+}
+@keyframes m-lambai {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-120deg); }
+  60% { transform: rotate(-100deg); }
+  70% { transform: rotate(-125deg); }
+}
+@keyframes m-angguk {
+  0%, 100% { transform: rotate(0deg); }
+  30% { transform: rotate(-4deg); }
+  70% { transform: rotate(4deg); }
+}
+@keyframes m-kedip {
+  0%, 92%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .maskot-anim svg, .maskot-anim svg * { animation: none !important; }
+}

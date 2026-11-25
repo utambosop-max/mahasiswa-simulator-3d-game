@@ -1,0 +1,361 @@
+{
+  "warteg": [
+    {
+      "id": "nasi_tempe",
+      "nama": "Nasi + Tempe + Sayur",
+      "ikon": "🥬",
+      "harga": 8000,
+      "efek": {
+        "energi": 22,
+        "stres": -2
+      },
+      "resep": [
+        "nasi",
+        "tempe",
+        "sayur"
+      ]
+    },
+    {
+      "id": "nasi_telur",
+      "nama": "Nasi + Telur Balado",
+      "ikon": "🍳",
+      "harga": 10000,
+      "efek": {
+        "energi": 25,
+        "stres": -3
+      },
+      "resep": [
+        "nasi",
+        "telur_balado"
+      ]
+    },
+    {
+      "id": "nasi_ayam",
+      "nama": "Nasi + Ayam + Sayur",
+      "ikon": "🍗",
+      "harga": 18000,
+      "efek": {
+        "energi": 35,
+        "stres": -6
+      },
+      "resep": [
+        "nasi",
+        "ayam",
+        "sayur"
+      ]
+    },
+    {
+      "id": "gorengan",
+      "nama": "Gorengan 3 Biji",
+      "ikon": "🍤",
+      "harga": 3000,
+      "efek": {
+        "energi": 6,
+        "stres": -2
+      },
+      "resep": [
+        "gorengan"
+      ]
+    },
+    {
+      "id": "nasi_rames",
+      "nama": "Nasi Rames Komplit",
+      "ikon": "🍱",
+      "harga": 15000,
+      "efek": {
+        "energi": 30,
+        "stres": -5
+      },
+      "resep": []
+    }
+  ],
+  "warkop": [
+    {
+      "id": "kopi_hitam",
+      "nama": "Kopi Hitam",
+      "ikon": "☕",
+      "harga": 4000,
+      "efek": {
+        "energi": 8,
+        "stres": -3
+      },
+      "resep": [
+        "kopi",
+        "air_panas"
+      ]
+    },
+    {
+      "id": "kopi_susu",
+      "nama": "Kopi Susu",
+      "ikon": "🥛",
+      "harga": 6000,
+      "efek": {
+        "energi": 10,
+        "stres": -5
+      },
+      "resep": [
+        "kopi",
+        "susu",
+        "air_panas"
+      ]
+    },
+    {
+      "id": "es_kopi_susu",
+      "nama": "Es Kopi Susu",
+      "ikon": "🧊",
+      "harga": 8000,
+      "efek": {
+        "energi": 10,
+        "stres": -7
+      },
+      "resep": [
+        "kopi",
+        "susu",
+        "es"
+      ]
+    },
+    {
+      "id": "mi_rebus_telur",
+      "nama": "Mi Rebus Telur",
+      "ikon": "🍜",
+      "harga": 12000,
+      "efek": {
+        "energi": 20,
+        "stres": -4
+      },
+      "resep": [
+        "mi",
+        "telur",
+        "air_panas"
+      ]
+    },
+    {
+      "id": "roti_bakar",
+      "nama": "Roti Bakar Cokelat Keju",
+      "ikon": "🍞",
+      "harga": 10000,
+      "efek": {
+        "energi": 15,
+        "stres": -5
+      },
+      "resep": []
+    }
+  ],
+  "minimarket": [
+    {
+      "id": "roti",
+      "nama": "Roti Isi Cokelat",
+      "ikon": "🍞",
+      "harga": 5000,
+      "efek": {
+        "energi": 10,
+        "stres": -1
+      },
+      "resep": []
+    },
+    {
+      "id": "susu_kotak",
+      "nama": "Susu Kotak",
+      "ikon": "🥛",
+      "harga": 6000,
+      "efek": {
+        "energi": 8,
+        "stres": -2
+      },
+      "resep": []
+    },
+    {
+      "id": "kopi_kaleng",
+      "nama": "Kopi Kaleng",
+      "ikon": "🥫",
+      "harga": 9000,
+      "efek": {
+        "energi": 15,
+        "stres": 1
+      },
+      "resep": []
+    },
+    {
+      "id": "es_krim",
+      "nama": "Es Krim Cone",
+      "ikon": "🍦",
+      "harga": 7000,
+      "efek": {
+        "energi": 3,
+        "stres": -6
+      },
+      "resep": []
+    },
+    {
+      "id": "nasi_kepal",
+      "nama": "Nasi Kepal Isi Tuna",
+      "ikon": "🍙",
+      "harga": 9000,
+      "efek": {
+        "energi": 16,
+        "stres": -2
+      },
+      "resep": []
+    },
+    {
+      "id": "teh_kotak",
+      "nama": "Teh Kotak Dingin",
+      "ikon": "🧃",
+      "harga": 4000,
+      "efek": {
+        "energi": 4,
+        "stres": -3
+      },
+      "resep": []
+    }
+  ],
+  "gerobak": [
+    {
+      "id": "nasgor",
+      "nama": "Nasi Goreng Spesial",
+      "ikon": "🍳",
+      "harga": 15000,
+      "efek": {
+        "energi": 30,
+        "stres": -5
+      },
+      "resep": []
+    },
+    {
+      "id": "mi_goreng",
+      "nama": "Mi Goreng Jawa",
+      "ikon": "🍝",
+      "harga": 14000,
+      "efek": {
+        "energi": 28,
+        "stres": -4
+      },
+      "resep": []
+    },
+    {
+      "id": "kwetiau",
+      "nama": "Kwetiau Goreng",
+      "ikon": "🥡",
+      "harga": 16000,
+      "efek": {
+        "energi": 30,
+        "stres": -6
+      },
+      "resep": []
+    },
+    {
+      "id": "es_teh",
+      "nama": "Es Teh Manis",
+      "ikon": "🧋",
+      "harga": 4000,
+      "efek": {
+        "energi": 4,
+        "stres": -3
+      },
+      "resep": []
+    }
+  ],
+  "kamar": [
+    {
+      "id": "mi_instan",
+      "nama": "Mi Instan",
+      "ikon": "🍜",
+      "harga": 3500,
+      "efek": {
+        "energi": 12,
+        "stres": 2
+      },
+      "resep": []
+    },
+    {
+      "id": "mi_telur",
+      "nama": "Mi Instan + Telur",
+      "ikon": "🍳",
+      "harga": 6000,
+      "efek": {
+        "energi": 16,
+        "stres": 0
+      },
+      "resep": []
+    }
+  ],
+  "catatan": {
+    "kenaikanHargaTanggalTua": 2000
+  },
+  "pasar": [
+    { "id": "nasi_uduk", "nama": "Nasi Uduk Bungkus", "ikon": "🍚", "harga": 7000, "efek": { "energi": 24, "stres": -2 }, "resep": [] },
+    { "id": "lontong_sayur", "nama": "Lontong Sayur", "ikon": "🥣", "harga": 8000, "efek": { "energi": 26, "stres": -3 }, "resep": [] },
+    { "id": "kue_basah", "nama": "Kue Basah 3 Biji", "ikon": "🍮", "harga": 5000, "efek": { "energi": 10, "stres": -5 }, "resep": [] },
+    { "id": "pisang_goreng", "nama": "Pisang Goreng", "ikon": "🍌", "harga": 3000, "efek": { "energi": 8, "stres": -3 }, "resep": [] },
+    { "id": "es_cendol", "nama": "Es Cendol", "ikon": "🥤", "harga": 5000, "efek": { "energi": 5, "stres": -6 }, "resep": [] }
+  ],
+  "cilok": [
+    { "id": "cilok_kacang", "nama": "Cilok Bumbu Kacang", "ikon": "🍡", "harga": 5000, "efek": { "energi": 8, "stres": -4 }, "resep": [] },
+    { "id": "cilok_pedas", "nama": "Cilok Pedas Level 5", "ikon": "🌶️", "harga": 6000, "efek": { "energi": 9, "stres": -6 }, "resep": [] },
+    { "id": "cireng", "nama": "Cireng Rujak", "ikon": "🥟", "harga": 5000, "efek": { "energi": 7, "stres": -4 }, "resep": [] }
+  ],
+  "pasarKaget": [
+    { "id": "telur_gulung", "nama": "Telur Gulung Tusuk", "ikon": "🍢", "harga": 3000, "efek": { "energi": 5, "stres": -3 }, "resep": [] },
+    { "id": "martabak_mini", "nama": "Martabak Manis Mini", "ikon": "🥞", "harga": 10000, "efek": { "energi": 16, "stres": -6 }, "resep": [] },
+    { "id": "sate_taichan", "nama": "Sate Taichan 10 Tusuk", "ikon": "🍡", "harga": 15000, "efek": { "energi": 26, "stres": -5 }, "resep": [] },
+    { "id": "seblak", "nama": "Seblak Level Mantan", "ikon": "🌶️", "harga": 12000, "efek": { "energi": 18, "stres": -6 }, "resep": [] },
+    { "id": "es_kepal", "nama": "Es Kepal Milo", "ikon": "🍧", "harga": 8000, "efek": { "energi": 4, "stres": -7 }, "resep": [] }
+  ],
+  "kopiKali": [
+    { "id": "kopi_tubruk", "nama": "Kopi Tubruk Ampas Mantap", "ikon": "☕", "harga": 4000, "efek": { "energi": 8, "stres": -3 }, "resep": [] },
+    { "id": "wedang_jahe", "nama": "Wedang Jahe Anget", "ikon": "🫖", "harga": 5000, "efek": { "energi": 6, "stres": -5 }, "resep": [] },
+    { "id": "pisang_goreng_kali", "nama": "Pisang Goreng Kriuk", "ikon": "🍌", "harga": 3000, "efek": { "energi": 8, "stres": -3 }, "resep": [] },
+    { "id": "indomi_kali", "nama": "Mi Rebus Pinggir Kali", "ikon": "🍜", "harga": 10000, "efek": { "energi": 20, "stres": -4 }, "resep": [] }
+  ],
+  "esDegan": [
+    { "id": "es_degan", "nama": "Es Degan Segelas", "ikon": "🥥", "harga": 7000, "efek": { "energi": 6, "stres": -7 }, "resep": [] },
+    { "id": "es_degan_aren", "nama": "Es Degan Gula Aren", "ikon": "🧉", "harga": 9000, "efek": { "energi": 8, "stres": -8 }, "resep": [] },
+    { "id": "degan_utuh", "nama": "Degan Utuh + Sendok Kerok", "ikon": "🌴", "harga": 12000, "efek": { "energi": 12, "stres": -8 }, "resep": [] }
+  ],
+  "pasarMalam": [
+    {
+      "id": "cilok",
+      "nama": "Cilok Bumbu Kacang",
+      "ikon": "🍡",
+      "harga": 5000,
+      "efek": {
+        "energi": 8,
+        "stres": -4
+      },
+      "resep": []
+    },
+    {
+      "id": "kerak_telor",
+      "nama": "Kerak Telor",
+      "ikon": "🥚",
+      "harga": 12000,
+      "efek": {
+        "energi": 18,
+        "stres": -6
+      },
+      "resep": []
+    },
+    {
+      "id": "gulali",
+      "nama": "Gulali Warna-warni",
+      "ikon": "🍭",
+      "harga": 4000,
+      "efek": {
+        "energi": 3,
+        "stres": -7
+      },
+      "resep": []
+    },
+    {
+      "id": "jagung_bakar",
+      "nama": "Jagung Bakar",
+      "ikon": "🌽",
+      "harga": 8000,
+      "efek": {
+        "energi": 12,
+        "stres": -5
+      },
+      "resep": []
+    }
+  ]
+}

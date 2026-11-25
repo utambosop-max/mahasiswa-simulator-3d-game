@@ -1,0 +1,77 @@
+{
+  "aplikasi": [
+    { "id": "todo", "ikon": "✅", "nama": "To-Do", "judul": "To-Do Hari Ini", "warna": "#a8e6cf", "tab": [
+      { "id": "misi", "ikon": "✅", "nama": "Misi" },
+      { "id": "kalender", "ikon": "🗓️", "nama": "Kalender" },
+      { "id": "jadwal", "ikon": "📅", "nama": "Jadwal" }
+    ] },
+    { "id": "buku", "ikon": "📒", "nama": "Buku Sakti", "judul": "Buku Sakti Ibu", "warna": "#ffd6a5", "tab": [
+      { "id": "buku", "ikon": "📒", "nama": "Buku Sakti" }
+    ] },
+    { "id": "siakad", "ikon": "🎓", "nama": "SIAKAD", "judul": "SIAKAD Kampus", "warna": "#bfe6ff", "tab": [
+      { "id": "kampus", "ikon": "🏫", "nama": "Kampus" },
+      { "id": "khs", "ikon": "📋", "nama": "KHS" },
+      { "id": "rapor", "ikon": "📜", "nama": "Rapor" },
+      { "id": "beasiswa", "ikon": "🎗️", "nama": "Beasiswa" }
+    ] },
+    { "id": "karier", "ikon": "💼", "nama": "Karierku", "judul": "Karierku", "warna": "#bdb2ff", "tab": [
+      { "id": "karier", "ikon": "💼", "nama": "Karier" }
+    ] },
+    { "id": "bank", "ikon": "🏦", "nama": "m-Bank", "judul": "m-Bank Mahasiswa", "warna": "#ffe08a", "tab": [
+      { "id": "dompet", "ikon": "🐷", "nama": "Dompet" },
+      { "id": "bank", "ikon": "🏦", "nama": "Investasi" },
+      { "id": "uang", "ikon": "📈", "nama": "Keuangan" }
+    ] },
+    { "id": "tas", "ikon": "🎒", "nama": "Tas", "judul": "Isi Tas", "warna": "#ffb36b", "tab": [
+      { "id": "tas", "ikon": "🎒", "nama": "Tas" }
+    ] },
+    { "id": "chat", "ikon": "💬", "nama": "ChatYuk", "judul": "ChatYuk", "warna": "#7cc6a4", "tab": [
+      { "id": "pesan", "ikon": "🔔", "nama": "Notif" },
+      { "id": "warga", "ikon": "💗", "nama": "Warga" },
+      { "id": "teman", "ikon": "🤝", "nama": "Teman" },
+      { "id": "grup", "ikon": "🌐", "nama": "Grup", "online": true }
+    ] },
+    { "id": "kgram", "ikon": "📸", "nama": "Kampusgram", "judul": "Kampusgram", "warna": "#e98a6b", "tab": [
+      { "id": "medsos", "ikon": "📸", "nama": "Medsos" }
+    ] },
+    { "id": "peta", "ikon": "🗺️", "nama": "Peta", "judul": "Peta Kampung", "warna": "#a6d785", "tab": [
+      { "id": "peta", "ikon": "🗺️", "nama": "Peta" }
+    ] },
+    { "id": "kos", "ikon": "🏠", "nama": "Anak Kos", "judul": "Anak Kos", "warna": "#f6cfa0", "tab": [
+      { "id": "kos", "ikon": "🏠", "nama": "Kos" }
+    ] },
+    { "id": "galeri", "ikon": "🖼️", "nama": "Galeri", "judul": "Galeri Prestasi", "warna": "#a0c4ff", "tab": [
+      { "id": "pencapaian", "ikon": "🏆", "nama": "Prestasi" },
+      { "id": "statistik", "ikon": "📊", "nama": "Statistik" },
+      { "id": "foto", "ikon": "📷", "nama": "Foto" }
+    ] },
+    { "id": "ktm", "ikon": "🪪", "nama": "KTM", "judul": "Kartu Mahasiswa", "warna": "#ff9aa2", "tab": [
+      { "id": "profil", "ikon": "🪪", "nama": "KTM" },
+      { "id": "peringkat", "ikon": "👑", "nama": "Peringkat", "online": true }
+    ] },
+    { "id": "pengaturan", "ikon": "⚙️", "nama": "Pengaturan", "judul": "Pengaturan", "warna": "#e7e0d8", "tab": [
+      { "id": "pengaturan", "ikon": "⚙️", "nama": "Pengaturan" }
+    ] }
+  ],
+  "alasanOnline": {
+    "peringkat": "👑 Main online dulu biar masuk papan juara (📱 Layar judul → Main Online).",
+    "grup": "🌐 Grup cuma ramai kalau main online bareng teman. Sekarang kamu lagi sendirian, sabar ya."
+  },
+  "notifSumber": [
+    { "awalan": ["📒"], "app": "buku" },
+    { "awalan": ["💰", "💸", "🏦", "🪙", "💳", "🐷", "📈"], "app": "bank" },
+    { "awalan": ["🎓", "📚", "📝", "📜", "🎗️", "🏫"], "app": "siakad" },
+    { "awalan": ["💼", "🏆"], "app": "karier" },
+    { "awalan": ["✅", "🎯"], "app": "todo" },
+    { "awalan": ["📸", "📷", "❤️"], "app": "kgram" },
+    { "awalan": ["💬", "💗", "🤝", "💑", "💘", "💔", "🏡"], "app": "chat" },
+    { "awalan": ["🏠", "🛏️"], "app": "kos" },
+    { "awalan": ["🗺️", "🚏", "🧭"], "app": "peta" },
+    { "awalan": ["🎒", "🛍️"], "app": "tas" }
+  ],
+  "notifBaterai": [
+    "🔋 Baterai badan tinggal dikit. Colok ke kasur dulu!",
+    "🔋 Energi sekarat, Dek. Tidur atau ngopi, pilih satu.",
+    "🔋 Mode hemat daya aktif: jalanmu jadi pelan kayak siput."
+  ]
+}

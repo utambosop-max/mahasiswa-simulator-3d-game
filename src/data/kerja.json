@@ -1,0 +1,55 @@
+{
+  "warteg": {
+    "nama": "Warteg Barokah",
+    "ikon": "🍛",
+    "bos": "Mbak Sri",
+    "sapaan": "Dek, bantu ambilin lauk ya! Pelanggan lagi rame nih.",
+    "gajiDasar": 28000,
+    "bayarPerPesanan": 2000,
+    "tipMaks": 1000,
+    "jumlahPelanggan": 8,
+    "kesabaranAwal": 9,
+    "kesabaranTurun": 0.5,
+    "kesabaranMin": 5,
+    "penaltiSalah": 1.5,
+    "stresPerGagal": 2,
+    "stresSempurna": -3,
+    "bahan": [
+      { "id": "nasi", "nama": "Nasi", "ikon": "🍚" },
+      { "id": "tempe", "nama": "Tempe", "ikon": "🟫" },
+      { "id": "sayur", "nama": "Sayur", "ikon": "🥬" },
+      { "id": "telur_balado", "nama": "Telur Balado", "ikon": "🥚" },
+      { "id": "ayam", "nama": "Ayam", "ikon": "🍗" },
+      { "id": "gorengan", "nama": "Gorengan", "ikon": "🍤" }
+    ],
+    "pesanan": ["nasi_tempe", "nasi_telur", "nasi_ayam", "gorengan"]
+  },
+  "warkop": {
+    "nama": "Warkop Begadang",
+    "ikon": "☕",
+    "bos": "Bang Udin",
+    "sapaan": "Bro, jagain bar ya! Racik pesanan sesuai resep.",
+    "gajiDasar": 25000,
+    "bayarPerPesanan": 2000,
+    "tipMaks": 1000,
+    "jumlahPelanggan": 7,
+    "kesabaranAwal": 9,
+    "kesabaranTurun": 0.5,
+    "kesabaranMin": 5,
+    "penaltiSalah": 1.5,
+    "stresPerGagal": 2,
+    "stresSempurna": -3,
+    "bahan": [
+      { "id": "kopi", "nama": "Bubuk Kopi", "ikon": "☕" },
+      { "id": "susu", "nama": "Susu", "ikon": "🥛" },
+      { "id": "air_panas", "nama": "Air Panas", "ikon": "♨️" },
+      { "id": "es", "nama": "Es Batu", "ikon": "🧊" },
+      { "id": "mi", "nama": "Mi", "ikon": "🍜" },
+      { "id": "telur", "nama": "Telur", "ikon": "🥚" }
+    ],
+    "pesanan": ["kopi_hitam", "kopi_susu", "es_kopi_susu", "mi_rebus_telur"]
+  },
+  "wajahPelanggan": ["🧑", "👩", "👨", "👧", "👦", "👴", "👵", "🧑‍🎓", "👩‍🎓", "👨‍🔧"],
+  "pengaliGajiSaatLemas": 0.5,
+  "_catatan": "Penyesuaian M13 (09, 2026-11-23, keputusan CEO opsi TENGAH, DIRASAKAN PEMAIN): warteg gajiDasar 40.000→28.000, warkop 35.000→25.000, bayarPerPesanan 4.000→2.000. Shift warteg wajar ± Rp55 rb, warkop ± Rp50 rb. Target bot pekerja < Rp12 jt/semester. Lihat docs/PRODUKSI/fitur/ekonomi-semester/06-penyesuaian-m13.md."
+}

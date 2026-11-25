@@ -1,0 +1,218 @@
+{
+  "_catatan": "M12: fisika, matahari, cuaca Markov, tubuh & otak, ekonomi, kampus & karier, kota, sosial, kamar. Rumus di src/game/fisika.ts, aturan di src/game/m12.ts. Satuan SI (m, s, kg).",
+
+  "fisika": {
+    "muKering": 0.8,
+    "muBasah": 0.5,
+    "motor": { "massa": 150, "dorong": 600, "hambatanUdara": 8.9, "gesekGulir": 0.02, "radiusMin": 1.9, "rem": 0.8 },
+    "sepeda": { "massa": 85, "dorong": 150, "hambatanUdara": 7.0, "gesekGulir": 0.01, "radiusMin": 1.6, "rem": 0.7 },
+    "bensinPerJoule": 0.00034,
+    "energiSepedaPerMeter": 0.012,
+    "restitusiTabrak": 0.3,
+    "energiJatuh": 2400,
+    "jatuh": { "energi": -8, "stres": 10, "servis": 40000 },
+    "jalan": { "percepatan": 14, "perlambatan": 18 },
+    "sprint": { "pengali": 1.55, "energiPer100m": 1.2 },
+    "motorSuara": { "jariRoda": 0.3, "rasioGigi": [2.8, 1.85, 1.4, 1.1], "rasioAkhir": 25, "rpmPindah": 8000, "rpmIdle": 1400 }
+  },
+
+  "matahari": { "lintang": -7.8, "hariTahunAwal": 213, "jamMulaiHari": 5 },
+
+  "suhu": { "rata": 28.5, "amplitudo": 4.5, "jamPuncak": 14, "dinginHujan": 3, "panasAmbang": 31, "stresPanasPerFase": 2 },
+
+  "cuaca": {
+    "_catatan": "Baris = keadaan sekarang (cerah, berawan, hujan); kolom = peluang keadaan 3 jam berikutnya.",
+    "transisiHujan": [[0.7, 0.25, 0.05], [0.25, 0.5, 0.25], [0.1, 0.35, 0.55]],
+    "transisiKemarau": [[0.85, 0.14, 0.01], [0.4, 0.5, 0.1], [0.25, 0.45, 0.3]],
+    "matiListrikPeluang": 0.25,
+    "matiListrikMenit": 60
+  },
+
+  "tubuh": {
+    "_catatan": "Borbély 1982 / Daan dkk 1984: τw ≈ 18,2 jam, τs ≈ 4,2 jam. Yerkes–Dodson optimum stres sedang.",
+    "tauBangunJam": 18.2,
+    "tauTidurJam": 4.2,
+    "amplitudoSirkadian": 0.12,
+    "puncakWaspadaJam": 18,
+    "tekananAwal": 0.3,
+    "kantukBatas": 0.72,
+    "kantukTurunEfisiensi": 1.5,
+    "tauPulihMenit": 180,
+    "skalaTidur": 1.08,
+    "yerkes": { "optimum": 35, "turun": 0.6, "minimum": 0.4 },
+    "jenuhPerSesi": 0.35,
+    "gainMemori": 1.6,
+    "gainMinimum": 0.15,
+    "kekuatanAwal": 1,
+    "paruhKafeinMenit": 300,
+    "kafeinPerKopi": 80,
+    "kafeinCrash": { "dari": 70, "ke": 35, "energi": -6 },
+    "kafeinTidurBatas": 60,
+    "kafeinTidurPengali": 0.85,
+    "hidrasiTurunPerJam": 4,
+    "hidrasiPanasPengali": 1.5,
+    "hidrasiRendah": 25,
+    "hidrasiRendahEnergiPerFase": -2,
+    "minumAir": 35,
+    "minumanAir": 15,
+    "kebugaranNaik": 6,
+    "kebugaranTurunPerHari": 1,
+    "kebugaranEnergiTidurPer10": 1
+  },
+
+  "ekonomi": {
+    "inflasiBulanan": 0.004,
+    "emas": { "hargaAwal": 120000, "mu": 0.0003, "sigma": 0.012, "spread": 0.03, "satuan": "0,1 gram" },
+    "deposito": { "minimal": 100000, "bungaBulanan": 0.004, "tenorHari": 30 },
+    "paylater": { "limit": 500000, "bunga": 0.03, "tempoHari": 30, "denda": 50000, "stresTelat": 15 },
+    "pinjamWarga": { "jumlah": 100000, "minRelasi": 60, "tempoHari": 14, "relasiTelat": -30 },
+    "gajiLog": { "a": 0.07, "b": 5, "_catatan": "Keputusan CEO 2026-11-22 (ekonomi-semester lanjutan): 0,15 → 0,07 — bonus pengalaman ± +66% → ± +30% setelah 100 shift." },
+    "jamRamai": [[420, 480], [780, 840]],
+    "naikRamai": 0.1,
+    "diskonTanggalMuda": { "sampaiTanggal": 3, "persen": 0.1 },
+    "autoTabung": 0.1,
+    "anggaranPeringatan": 0.8
+  },
+
+  "listrik": {
+    "_catatan": "Energi listrik = daya (kW) × waktu (jam) → kWh. Tarif ± Rp1.500/kWh.",
+    "dayaKw": { "lampu": 0.02, "kipas": 0.05, "ac": 0.35, "laptop": 0.06 },
+    "tokenKwh": 20,
+    "tokenHarga": 30000,
+    "awalKwh": 15
+  },
+
+  "galon": { "liter": 19, "literPerMinum": 0.5, "harga": 20000 },
+
+  "cabai": { "hargaBibit": 10000, "laju": 0.9, "lajuTanpaSiram": 0.25, "titikTengahHari": 4, "panen": 4 },
+
+  "seprai": { "bersihHari": 7, "turunPerHari": 0.006, "maksTurun": 0.2 },
+
+  "miniFisika": {
+    "_catatan": "8 mini-game fisika (M12). Skor 0..1 → bonus kecil. Tombol Lewati = aksi biasa tanpa bonus.",
+    "penalti": { "tembakan": 5, "stresPerGol": -3, "jarak": 11, "lebarGawang": 7.32, "tinggiGawang": 2.44, "vIdeal": 26 },
+    "beban": { "detik": 12, "kebugaranMaks": 6, "stresMaks": -6, "labil": 2.2, "redaman": 1.1, "dorongan": 6, "batasMiring": 0.18 },
+    "gitar": { "senar": [["E", 82.41], ["A", 110.0], ["D", 146.83]], "panjang": 0.65, "massaPerMeter": 0.0062, "stresMaks": -10 },
+    "batu": { "restitusi": 0.55, "gesek": 0.82, "sudutMaks": 22, "kecepatanMin": 3, "stresPerPantul": -2, "target": 6 },
+    "bensin": { "tumpahUang": -5000, "tumpahStres": 3, "pasStres": -3 },
+    "mi": { "suhuApi": 112, "laju": 0.32, "detikMasak": 3, "energiMaks": 8, "lembekStres": 4 },
+    "juggling": { "detik": 20, "target": 12, "stresMaks": -12, "gravitasi": 9.81 },
+    "sim": { "percobaan": 3, "lulusMin": 2, "efisiensiRem": 0.8, "toleransi": 1.2 }
+  },
+
+  "lalin": {
+    "_catatan": "Lampu lalu lintas: siklus detik nyata. Tilang saat motor pemain masuk perempatan ketika lampu arahnya merah.",
+    "simpang": [[0, 0], [-32, 26]],
+    "hijau": 9,
+    "kuning": 2.5,
+    "semuaMerah": 1,
+    "garisHenti": 5.2,
+    "kecepatanMinTilang": 2.5,
+    "peluangTilang": 0.6,
+    "denda": 50000,
+    "dendaTanpaSim": 100000,
+    "stresTilang": 8,
+    "hargaSim": 150000
+  },
+
+  "cilok": {
+    "_catatan": "Gerobak cilok bolak-balik di trotoar selatan jalan utama (z = 2,2 — tidak menabrak tiang lampu lalu lintas), mangkal sebentar di tiap titik. Posisi dihitung dari jam dunia nyata agar sama di semua pemain online. berhentiDetik dibuat cukup lama agar sempat membeli.",
+    "jalur": [[-28, 2.2], [-12, 2.2], [10, 2.2], [28, 2.2]],
+    "kecepatan": 1.1,
+    "berhentiDetik": 12
+  },
+
+  "kampus": {
+    "matkul": {
+      "teknik": ["Kalkulus", "Fisika Dasar", "Algoritma & Pemrograman", "Rangkaian Listrik", "Bahasa Inggris"],
+      "ekonomi": ["Pengantar Ekonomi", "Akuntansi Dasar", "Matematika Bisnis", "Statistika", "Bahasa Inggris"],
+      "kedokteran": ["Anatomi", "Biokimia", "Fisiologi", "Histologi", "Bahasa Inggris"],
+      "seni": ["Nirmana", "Gambar Bentuk", "Sejarah Seni", "Tipografi", "Bahasa Inggris"]
+    },
+    "maksBolosMatkul": 3,
+    "bukuPengali": 1.25,
+    "hargaBuku": 45000,
+    "tugas": { "tiapHari": 14, "mulaiHari": 3, "tenggatHari": 5, "progresBelajar": 25, "progresPerpus": 30, "selesai": { "ipk": 0.01, "stres": -5 }, "telat": { "ipk": -0.02, "stres": 8 } },
+    "lomba": { "tanggalBuka": 5, "tanggalTutup": 20, "tanggalUmum": 25, "biaya": 25000, "sesi": 3, "hadiah": [300000, 150000, 75000], "cv": [3, 2, 1], "kesulitan": 6, "_kesulitan": "2,5 → 7 (juara 4/4 terlalu mudah) → 6 setelah ekonomi-semester A1 membuat IPK lebih sulit naik (rajin jadi 0/4)." },
+    "magang": { "minSks": 30, "minIpk": 3.0, "gaji": 90000, "cv": 1, "reputasi": 1 },
+    "asisten": { "minIpk": 3.5, "minRelasiLv": 2, "honor": 60000, "cv": 1 },
+    "seminar": { "biaya": 20000, "cv": 1, "stres": -5 },
+    "reputasi": { "awal": 50, "kuliah": 0.3, "bolos": -2, "juara": 8, "asisten": 1, "magang": 1 },
+    "karier": [
+      { "id": "startup", "nama": "Startup Teknologi", "ikon": "🚀", "pengali": 1.2, "stresBulanan": 8, "ket": "Gaji tinggi, kerja cepat & menantang" },
+      { "id": "bumn", "nama": "Perusahaan Negara", "ikon": "🏢", "pengali": 1.0, "stresBulanan": 2, "ket": "Stabil, jam kerja jelas" },
+      { "id": "kreatif", "nama": "Freelancer Kreatif", "ikon": "🎨", "pengali": 0.9, "stresBulanan": -2, "ket": "Bebas waktu, penghasilan cukup" }
+    ],
+    "gajiDasar": 3500000,
+    "gajiPerIpk": 1500000,
+    "gajiPerCv": 150000,
+    "gajiPerReputasi": 10000,
+    "rival": { "id": "dimas", "ipkAwal": 3.1, "naikPerHari": 0.003, "maks": 3.85 }
+  },
+
+  "kota": {
+    "stiker": [
+      [-14.5, -3.6], [-3.4, -6.2], [8, -6.4], [22, -4.4], [29.5, -3.6], [47, -4.5], [-46, -4.6], [-46, 4.6], [-29.6, -29.6], [-16, -31.3],
+      [10, -31.6], [22, -31.6], [17.2, 5.2], [27.6, 19.4], [37.4, 21.8], [-20, 31.4], [-9, 32], [3.6, 29.6], [-48, 31.4], [48, 31.4]
+    ],
+    "stikerHadiahTiap": 5,
+    "stikerHadiah": 25000,
+    "radiusStiker": 1.3,
+    "gridJelajah": [6, 4],
+    "spotFoto": [
+      { "id": "bendera", "nama": "Tiang Bendera Kampus", "x": 8.5, "z": -5.2 },
+      { "id": "kolam", "nama": "Kolam Taman", "x": 24, "z": 12.4 },
+      { "id": "lapangan", "nama": "Lapangan Futsal", "x": 47, "z": 6 },
+      { "id": "kafe", "nama": "Depan Kafe", "x": 5, "z": 30.6 },
+      { "id": "perpus", "nama": "Tangga Perpustakaan", "x": 47, "z": -5.6 },
+      { "id": "simpang", "nama": "Simpang Lampu Merah", "x": 4, "z": 4 }
+    ],
+    "radiusSpot": 4,
+    "pengaliFollowerSpot": 2,
+    "lampuLaluLintas": { "x": 0, "z": 0, "hijau": 10, "kuning": 2 },
+    "cilok": { "rute": [[3.6, 3.6], [28.6, 3.6], [28.6, 22.6], [3.6, 22.6]], "kecepatan": 1.0, "harga": 5000, "efek": { "energi": 8, "stres": -4 } },
+    "bioskop": { "film": ["Kos Hantu Kamar 13", "Cinta di Warung Kopi", "Skripsi: The Final Boss", "Ojol Racing 3", "Anak Rantau Pulang"] },
+    "ronda": { "uang": 15000, "relasi": 10, "energi": -8 }
+  },
+
+  "sosial": {
+    "rutinitas": { "mahasiswa": ["begadang"], "warga": ["malam", "begadang"] },
+    "moodPeluang": { "bete": 0.2, "biasa": 0.6 },
+    "moodPengali": { "senang": 1.5, "biasa": 1, "bete": 0.5 },
+    "ultahPengali": 2,
+    "traktir": { "harga": 25000, "relasi": 12 },
+    "fotoBareng": { "follower": 25, "detik": 3, "jarak": 4 },
+    "grupKelas": [
+      "📢 Ketua kelas: Tugas kelompok dikumpul H-1 ya guys, jangan mepet!",
+      "😭 Ada yang punya catatan pertemuan kemarin? Aku ketiduran.",
+      "🍜 Info warteg Barokah lagi ada promo nasi rames!",
+      "📚 Dosen bilang kuis minggu depan, materi bab 1–3.",
+      "🤣 Siapa yang tadi presentasi sambil gemeteran? Semangat bro!",
+      "🌧️ Hujan deres, yang kuliah pagi hati-hati licin ya.",
+      "🎉 Selamat buat tim lomba kemarin, keren banget!",
+      "🛵 Ada yang mau nebeng ke kampus jam 7? Bensin patungan.",
+      "😴 Begadang lagi gara-gara laporan praktikum...",
+      "💡 Tips: belajar dicicil tiap hari lebih nempel daripada SKS (Sistem Kebut Semalam).",
+      "📸 Foto angkatan Sabtu jam 9 di depan kampus, pakai almamater!",
+      "🧾 Iuran kas kelas Rp5.000, transfer ke bendahara ya.",
+      "🐱 Kucing kos sebelah melahirkan, ada yang mau adopsi?",
+      "⚽ Futsal angkatan Jumat sore, kurang 2 orang!",
+      "🔌 Listrik kampus mati, kelas siang mungkin pindah ruangan."
+    ]
+  },
+
+  "kamar": {
+    "poster": [
+      { "id": "posterBand", "nama": "Poster Band Indie", "ikon": "🎸", "harga": 15000, "warna": "#e9605a" },
+      { "id": "posterFilm", "nama": "Poster Film Klasik", "ikon": "🎬", "harga": 15000, "warna": "#3b4673" },
+      { "id": "posterPeta", "nama": "Peta Indonesia", "ikon": "🗺️", "harga": 20000, "warna": "#7cc6a4" }
+    ]
+  },
+
+  "audio": {
+    "reverbDetik": { "kamar": 0.45, "gedung": 0.9, "dunia": 0 },
+    "reverbBasah": { "kamar": 0.12, "gedung": 0.22, "dunia": 0 },
+    "dopplerJarak": 7,
+    "petirJarak": [300, 2500]
+  }
+}

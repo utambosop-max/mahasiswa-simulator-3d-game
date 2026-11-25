@@ -1,0 +1,174 @@
+{
+  "statAwal": {
+    "uang": 1000000,
+    "ipk": 3,
+    "energi": 80,
+    "stres": 20,
+    "tanggal": 1
+  },
+  "batas": {
+    "uangMin": -100000
+  },
+  "bulanan": {
+    "hariPerBulan": 30,
+    "kirimanOrtu": 1500000,
+    "biayaKos": 500000,
+    "batasBayarKos": 5,
+    "dendaKos": 25000,
+    "tanggalTuaMulai": 21
+  },
+  "ipkAtas": {
+    "mulai": 3.3,
+    "minimal": 0.05,
+    "_catatan": "ekonomi-semester A1 (keputusan CEO 2026-11-22): di atas IPK `mulai` kenaikan IPK dikali (4 − IPK)/(4 − mulai). Tes bot: standar sebelumnya mentok 4,00/semester; mulai 3,0 → IPK bulan-1 3,25 (terlalu lambat), jadi digeser ke 3,3."
+  },
+  "hargaMakan": {
+    "pengali": 1.2,
+    "_catatan": "ekonomi-semester B1: semua menu ×1,2 (mi instan kamar tidak — tetap jalan keluar darurat). Tes bot: pemain irit tanpa kerja sebelumnya tidak pernah kehabisan uang."
+  },
+  "kerja": {
+    "maksShiftPerHari": 1,
+    "_catatan": "ekonomi-semester C1: maks 1 shift warteg/warkop per hari. Tes bot: pekerja sebelumnya ± Rp17,8 jt/semester."
+  },
+  "event": {
+    "maksPerHari": 3,
+    "jedaHariSama": 7,
+    "_jedaHariSama": "Event yang sama tidak muncul lagi dalam 7 hari (tes keseimbangan: 'HP retak' sempat muncul 3× dalam 4 hari)."
+  },
+  "kuis": {
+    "rajinDalamHari": 2,
+    "lulus": {
+      "ipk": 0.01,
+      "stres": -2
+    },
+    "gagal": {
+      "ipk": -0.01,
+      "stres": 6
+    }
+  },
+  "ambang": {
+    "energiLemas": 20,
+    "stresTinggi": 70
+  },
+  "pengali": {
+    "ipkSaatLemas": 0.5,
+    "ipkSaatStres": 0.7,
+    "kecepatanSaatLemas": 0.6
+  },
+  "upgrade": {
+    "bolehUtang": false
+  },
+  "bolos": {
+    "ipk": -0.01
+  },
+  "tidurSiang": {
+    "stres": -3
+  },
+  "miInstan": {
+    "batasBeruntun": 3,
+    "pengaliEnergi": 0.5,
+    "stresTambahan": 5
+  },
+  "kenyang": {
+    "porsiPerFase": 3
+  },
+  "pulangKampung": {
+    "stres": 50,
+    "energi": 80,
+    "ongkos": 50000
+  },
+  "online": {
+    "maksPemain": 4,
+    "kamarBerdua": {
+      "pengaliKos": 0.5
+    },
+    "bareng": {
+      "belajar": {
+        "aksi": [
+          "belajar",
+          "nugas",
+          "belajarPerpus",
+          "kuliah"
+        ],
+        "efek": {
+          "ipk": 0.004,
+          "stres": -3
+        },
+        "pesan": "📚 Belajar bareng! Saling jelasin, lebih nyantol"
+      },
+      "nongkrong": {
+        "aksi": [
+          "nongkrong",
+          "santaiTaman",
+          "mainFutsal",
+          "mainGame",
+          "mainBolaKampung",
+          "ngopiTepiKali",
+          "mancing"
+        ],
+        "efek": {
+          "stres": -6,
+          "energi": 3
+        },
+        "pesan": "🤝 Seru-seruan bareng teman, stres hilang!"
+      },
+      "tidur": {
+        "aksi": [
+          "tidur",
+          "rebahan"
+        ],
+        "efek": {
+          "stres": -5
+        },
+        "pesan": "🌙 Curhat sama teman sekamar sebelum tidur..."
+      }
+    },
+    "kerjaBareng": {
+      "tambahPelanggan": 3,
+      "tambahSabar": 2
+    },
+    "traktir": [
+      10000,
+      20000,
+      50000
+    ]
+  },
+  "jam": {
+    "_catatan": "1 detik nyata = 1 menit game. Menit hari dihitung dari jam 05.00 (menit 0) sampai 05.00 besok (1440).",
+    "menitPerDetik": 1,
+    "lajuSibuk": 15,
+    "lajuTidur": 40,
+    "mulaiHariJam": 5,
+    "batasFase": {
+      "pagi": 360,
+      "siang": 600,
+      "sore": 780,
+      "malam": 1080,
+      "begadang": 1440
+    },
+    "mulaiFase": {
+      "pagi": 60,
+      "siang": 360,
+      "sore": 600,
+      "malam": 780,
+      "begadang": 1080
+    },
+    "kuliah": {
+      "pagi": [
+        120,
+        300
+      ],
+      "siang": [
+        420,
+        600
+      ]
+    },
+    "bangunPagi": 60,
+    "bangunKesiangan": 300,
+    "bangunWeker": 120,
+    "tidurLarutMulai": 1200,
+    "tidurSiangMenit": 120,
+    "pulangKampungBangun": 120,
+    "tungguMenit": 60
+  }
+}

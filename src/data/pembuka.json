@@ -1,0 +1,239 @@
+{
+  "versi": 1,
+  "catatan": "Animasi pembuka 'Berangkat' (cerita arah A). Waktu dalam detik relatif ke awal shot. Posisi tokoh [x, z] dalam meter, hadap dalam derajat (0 = menghadap +z). 'jalan' = jendela waktu bergerak (pecahan 0..1 dari durasi shot).",
+  "penampilan": {
+    "ibu": { "nama": "Ibu", "kulit": "#f1c08f", "baju": "#ff9aa2", "rambut": "#2a1d15", "gaya": "cepol", "celana": "#c48d55", "aksesoris": [], "warnaNama": "#e9605a" },
+    "ayah": { "nama": "Ayah", "kulit": "#d9a074", "baju": "#7fb3e0", "rambut": "#8a8f99", "gaya": "pendek", "celana": "#5a6b8c", "aksesoris": ["kacamata"], "warnaNama": "#3f7fbf" },
+    "bayu": { "nama": "Bayu", "kulit": "#d9a074", "baju": "#5cbf7a", "rambut": "#2a1d15", "gaya": "pendek", "celana": "#4a3a33", "aksesoris": ["topi"], "warnaNama": "#2f9a55" },
+    "sri": { "nama": "Mbak Sri", "kulit": "#f1c08f", "baju": "#7cc6a4", "rambut": "#2a1d15", "gaya": "kuncir", "celana": "#6b8f7a", "aksesoris": [], "warnaNama": "#2f9a6f" },
+    "udin": { "nama": "Bang Udin", "kulit": "#b97f57", "baju": "#e6d3b3", "rambut": "#2a1d15", "gaya": "jabrik", "celana": "#6b4430", "aksesoris": ["bandana"], "warnaNama": "#8a5a3a" },
+    "ratna": { "nama": "Bu Ratna", "kulit": "#ffd7b5", "baju": "#fde8c8", "rambut": "#bdb2ff", "gaya": "hijab", "celana": "#a0c4ff", "aksesoris": [], "warnaNama": "#7a62c9" },
+    "oyen": { "nama": "Oyen", "warnaNama": "#d9853b" },
+    "pemain": { "nama": "{nama}", "warnaNama": "#e07a1f" }
+  },
+  "shot": [
+    {
+      "id": "fajar",
+      "lokasi": "kampung",
+      "durasi": 4,
+      "musik": "b1",
+      "kamera": { "pos": [[1, 15, 24], [5, 4.6, 12.5]], "target": [[0, 10, 0], [0, 1.4, 0]], "kurva": "halus" },
+      "langit": ["#ffb98a", "#ffe2b8"],
+      "cahaya": [0.55, 0.9],
+      "efek": ["asap"],
+      "tokoh": [
+        { "id": "ibu", "dari": [-0.7, 1.4], "hadap": 30 },
+        { "id": "ayah", "dari": [-2.4, 2.9], "hadap": 0, "gestur": "ikat" }
+      ],
+      "props": [{ "id": "kardus", "pos": [-2.4, 0.18, 3.55] }],
+      "teks": [{ "t": 0.4, "jenis": "subtitle", "isi": "Di sebuah kampung, jauh dari kota kampus..." }],
+      "audio": [{ "t": 0.1, "cue": "jangkrik" }, { "t": 1.0, "cue": "kokok" }]
+    },
+    {
+      "id": "rantang",
+      "lokasi": "kampung",
+      "durasi": 5,
+      "musik": "b1",
+      "kamera": { "pos": [[3.8, 3.4, 7.4], [3.1, 3.0, 6.4]], "target": [[0.4, 1.0, 1.6], [0.4, 1.0, 1.7]], "kurva": "halus" },
+      "langit": ["#ffe2b8", "#fff1dc"],
+      "cahaya": [0.9, 1],
+      "efek": ["asap"],
+      "tokoh": [
+        { "id": "ibu", "dari": [-0.6, 1.6], "hadap": 90, "bawa": "rantang", "gestur": "serah", "gesturWaktu": [0.15, 0.45] },
+        { "id": "pemain", "dari": [0.7, 1.6], "hadap": -90 },
+        { "id": "ayah", "dari": [-2.4, 2.9], "hadap": 0, "gestur": "ikat" }
+      ],
+      "props": [{ "id": "kardus", "pos": [-2.4, 0.18, 3.55] }],
+      "teks": [
+        { "t": 0.3, "jenis": "dialog", "tokoh": "ibu", "isi": "Rendangnya buat seminggu, ya." },
+        { "t": 2.7, "jenis": "dialog", "tokoh": "pemain", "isi": "Iya, Bu... paling dua hari." }
+      ],
+      "audio": [{ "t": 0.4, "cue": "gemerisik" }, { "t": 1.4, "cue": "tek" }]
+    },
+    {
+      "id": "buku",
+      "lokasi": "kampung",
+      "durasi": 5,
+      "musik": "b1",
+      "kamera": { "pos": [[1.7, 1.9, 4.7], [1.1, 1.7, 3.9]], "target": [[0.05, 1.1, 1.6], [0.05, 1.15, 1.6]], "kurva": "halus" },
+      "langit": ["#fff1dc", "#fff1dc"],
+      "cahaya": [1, 1],
+      "efek": ["bukuBersinar"],
+      "tokoh": [
+        { "id": "ibu", "dari": [-0.6, 1.6], "hadap": 90, "bawa": "buku", "gestur": "serah", "gesturWaktu": [0.05, 0.4] },
+        { "id": "pemain", "dari": [0.7, 1.6], "hadap": -90, "bawa": "rantang" }
+      ],
+      "teks": [
+        { "t": 0.3, "jenis": "dialog", "tokoh": "ibu", "isi": "Kalau bingung, buka ini." },
+        { "t": 2.6, "jenis": "dialog", "tokoh": "ibu", "isi": "Masih bingung? Telepon Ibu." }
+      ],
+      "audio": [{ "t": 0.7, "cue": "ting" }]
+    },
+    {
+      "id": "ayah",
+      "lokasi": "kampung",
+      "durasi": 4.5,
+      "musik": "b1",
+      "kamera": { "pos": [[3.9, 2.3, 5.2], [2.8, 2.0, 4.7]], "target": [[0.8, 1.05, 1.8], [1.2, 1.05, 1.9]], "kurva": "halus" },
+      "langit": ["#fff1dc", "#fff1dc"],
+      "cahaya": [1, 1],
+      "tokoh": [
+        { "id": "ibu", "dari": [-0.6, 1.6], "hadap": 70 },
+        { "id": "pemain", "dari": [0.7, 1.6], "hadap": 60, "bawa": "buku", "gestur": "ambles", "gesturWaktu": [0.3, 0.55] },
+        { "id": "ayah", "dari": [-1.2, 2.7], "ke": [1.45, 2.15], "jalan": [0, 0.22], "hadap": -120, "lambai": [0.26, 0.5] }
+      ],
+      "props": [{ "id": "kardus", "pos": [-2.4, 0.18, 3.55] }],
+      "teks": [
+        { "t": 0.4, "jenis": "dialog", "tokoh": "ayah", "isi": "Pulang bawa toga." },
+        { "t": 2.4, "jenis": "dialog", "tokoh": "ayah", "isi": "Bukan cuma cucian kotor." }
+      ],
+      "audio": [{ "t": 1.4, "cue": "puk" }]
+    },
+    {
+      "id": "pamit",
+      "lokasi": "kampung",
+      "durasi": 3.5,
+      "musik": "b2",
+      "kamera": { "pos": [[2.5, 3.2, 6.5], [7, 9, 17]], "target": [[0.6, 1.0, 2.5], [1.8, 0.8, 5.5]], "kurva": "halus" },
+      "langit": ["#fff1dc", "#ffe9c9"],
+      "cahaya": [1, 1],
+      "tokoh": [
+        { "id": "ibu", "dari": [-0.6, 1.6], "hadap": 20, "lambai": [0, 1] },
+        { "id": "ayah", "dari": [1.4, 1.9], "hadap": 20, "lambai": [0.35, 1] },
+        { "id": "pemain", "dari": [0.7, 2.4], "ke": [1.6, 7.6], "jalan": [0, 1], "hadap": 180, "bawa": "kardus", "lambai": [0.55, 0.9] }
+      ],
+      "teks": [],
+      "audio": []
+    },
+    {
+      "id": "bus",
+      "lokasi": "jalan",
+      "durasi": 6,
+      "musik": "b2",
+      "mesin": true,
+      "kamera": { "pos": [[1.6, 2.5, 10], [-0.6, 2.2, 8.6]], "target": [[0.8, 1.7, 0], [0.4, 1.7, 0]], "kurva": "linier" },
+      "langit": ["#bfe6ff", "#cdeeff"],
+      "cahaya": [1, 1],
+      "efek": ["jalanLoop"],
+      "tokoh": [{ "id": "pemain", "dari": [1.1, 0.55], "y": 0.62, "hadap": 0, "gestur": "tidur" }],
+      "teks": [{ "t": 1.0, "jenis": "gelembung", "isi": "Zzz... rendang...", "pos": [55, 26] }],
+      "audio": []
+    },
+    {
+      "id": "waktu",
+      "lokasi": "jalan",
+      "durasi": 4.5,
+      "musik": "b2",
+      "mesin": true,
+      "kamera": { "pos": [[-2.2, 2.8, 12], [-2.8, 3.1, 13]], "target": [[0.3, 1.6, 0], [0.3, 1.6, 0]], "kurva": "linier" },
+      "langit": ["#bfe6ff", "#ffad7a", "#2b3566", "#2b3566", "#ffc58a"],
+      "cahaya": [1, 0.8, 0.3, 0.3, 0.9],
+      "efek": ["jalanLoop", "lampuBus"],
+      "tokoh": [{ "id": "pemain", "dari": [1.1, 0.55], "y": 0.62, "hadap": 0, "gestur": "tidur" }],
+      "teks": [
+        { "t": 0.4, "jenis": "wa", "tokoh": "ibu", "isi": "Udah sampe mana? 📍" },
+        { "t": 1.5, "jenis": "wa", "tokoh": "ibu", "isi": "Nak?" },
+        { "t": 2.4, "jenis": "wa", "tokoh": "ibu", "isi": "Kok cuma dibaca? 😢" },
+        { "t": 3.1, "jenis": "wa", "tokoh": "ayah", "isi": "Ok." }
+      ],
+      "audio": [{ "t": 0.4, "cue": "wa" }, { "t": 1.5, "cue": "wa" }, { "t": 2.4, "cue": "wa" }, { "t": 3.1, "cue": "wa" }]
+    },
+    {
+      "id": "halte",
+      "lokasi": "kota",
+      "durasi": 5,
+      "musik": "b3",
+      "kamera": { "pos": [[-2.5, 8.5, 9.5], [-3.5, 7.5, 8.5]], "target": [[-9.5, 0.8, -2.6], [-9.5, 0.8, -3]], "kurva": "halus" },
+      "langit": ["#cdeeff", "#bfe6ff"],
+      "cahaya": [1, 1],
+      "kendaraan": [
+        { "id": "bus", "dari": [-30, -1.5], "ke": [-9.8, -1.5], "waktu": [0, 0.42], "kurva": "keluar", "hadap": 90 },
+        { "id": "angkot", "dari": [22, 1.6], "ke": [-26, 1.6], "waktu": [0.45, 0.95], "kurva": "linier", "hadap": -90 }
+      ],
+      "tokoh": [
+        { "id": "pemain", "dari": [-8.6, -2.9], "ke": [-8.2, -3.8], "jalan": [0.5, 0.62], "hadap": 60, "muncul": 0.48, "bawa": "kardus" },
+        { "id": "bayu", "dari": [-5.6, -2.3], "hadap": -100, "naik": "motor", "lambai": [0.62, 0.78] }
+      ],
+      "teks": [
+        { "t": 2.6, "jenis": "dialog", "tokoh": "bayu", "isi": "Ojek, Dek?" },
+        { "t": 3.8, "jenis": "dialog", "tokoh": "bayu", "isi": "Kosnya deket? Jalan aja, hemat." }
+      ],
+      "audio": [{ "t": 1.5, "cue": "rem" }, { "t": 3.0, "cue": "klakson" }]
+    },
+    {
+      "id": "jalanKaki",
+      "lokasi": "kota",
+      "durasi": 6.5,
+      "musik": "b3",
+      "kamera": { "ikut": "pemain", "pos": [[2.6, 4.6, 8.4], [3.4, 4.4, 8]], "target": [[1.2, 1, -1], [1.6, 1, -1]], "kurva": "linier" },
+      "langit": ["#bfe6ff", "#bfe6ff"],
+      "cahaya": [1, 1],
+      "tokoh": [
+        { "id": "pemain", "dari": [-8, -3.8], "ke": [7, -3.8], "jalan": [0, 1], "hadap": 90, "bawa": "kardus" },
+        { "id": "sri", "dari": [-3.2, -5.4], "hadap": 10, "lambai": [0.12, 0.5] },
+        { "id": "udin", "dari": [2.6, -5.4], "hadap": -10, "bawa": "gelas", "gestur": "angkat", "gesturWaktu": [0.45, 0.85] },
+        { "id": "oyen", "dari": [0.3, -4.6], "ke": [6.0, -3.6], "jalan": [0.5, 1], "hadap": 0 }
+      ],
+      "teks": [
+        { "t": 0.5, "jenis": "dialog", "tokoh": "sri", "isi": "Mampir, Dek! Gorengan anget!" },
+        { "t": 3.3, "jenis": "dialog", "tokoh": "udin", "isi": "Ngopi dulu, Bro!" }
+      ],
+      "audio": [{ "t": 3.6, "cue": "meong" }]
+    },
+    {
+      "id": "kos",
+      "lokasi": "kota",
+      "durasi": 5,
+      "musik": "b3",
+      "kamera": { "pos": [[11.6, 3.3, 3.6], [11.0, 3.0, 2.6]], "target": [[8.6, 1.0, -4.3], [8.6, 1.0, -4.4]], "kurva": "halus" },
+      "langit": ["#bfe6ff", "#bfe6ff"],
+      "cahaya": [1, 1],
+      "tokoh": [
+        { "id": "pemain", "dari": [7.8, -3.9], "hadap": 70 },
+        { "id": "ratna", "dari": [9.4, -4.8], "hadap": -110, "bawa": "kunci", "lambai": [0.05, 0.3] },
+        { "id": "oyen", "dari": [7.2, -3.3], "y": 0.45, "hadap": 40, "gestur": "duduk" }
+      ],
+      "props": [{ "id": "kardus", "pos": [7.2, 0.23, -3.3] }],
+      "teks": [
+        { "t": 0.3, "jenis": "dialog", "tokoh": "ratna", "isi": "Selamat datang, Dek!" },
+        { "t": 2.5, "jenis": "dialog", "tokoh": "ratna", "isi": "Gerbang tutup jam 11 malam, ya." }
+      ],
+      "audio": [{ "t": 0.6, "cue": "kunci" }, { "t": 2.7, "cue": "kriet" }]
+    },
+    {
+      "id": "kamar",
+      "lokasi": "kamar",
+      "durasi": 5,
+      "musik": "gantung",
+      "kamera": { "pos": [[3.3, 2.6, 4.4], [2.1, 2.0, 3.0]], "target": [[0, 0.9, -0.6], [0, 0.9, -0.6]], "kurva": "halus" },
+      "langit": ["#fff1dc", "#fff1dc"],
+      "cahaya": [0.95, 0.95],
+      "tokoh": [{ "id": "pemain", "dari": [0.1, 0.3], "hadap": 35, "bawa": "hp", "gestur": "lihatHP" }],
+      "props": [{ "id": "kardus", "pos": [1.1, 0.23, -0.4] }],
+      "teks": [
+        { "t": 0.6, "jenis": "saldo", "isi": "{uang}" },
+        { "t": 0.9, "jenis": "dialog", "tokoh": "pemain", "isi": "{uang} buat sebulan." },
+        { "t": 3.0, "jenis": "dialog", "tokoh": "pemain", "isi": "Gampang lah..." }
+      ],
+      "audio": []
+    },
+    {
+      "id": "tanggalTua",
+      "lokasi": "kamar",
+      "durasi": 6,
+      "musik": "diam",
+      "kamera": { "pos": [[0.7, 1.8, 2.0], [-0.55, 1.62, 0.15]], "target": [[-0.6, 1.5, -2], [-0.75, 1.6, -2]], "kurva": "keluar" },
+      "langit": ["#fff1dc", "#fff1dc"],
+      "cahaya": [0.95, 0.95],
+      "efek": ["kalender"],
+      "tokoh": [{ "id": "oyen", "dari": [0.55, -2.25], "y": 1.0, "hadap": 0, "gestur": "duduk" }],
+      "props": [{ "id": "kardus", "pos": [1.1, 0.23, -0.4] }],
+      "teks": [
+        { "t": 1.9, "jenis": "besar", "isi": "TANGGAL TUA" },
+        { "t": 2.6, "jenis": "dialog", "tokoh": "oyen", "isi": "Meong. (ketawa)" },
+        { "t": 3.6, "jenis": "judul", "isi": "Mahasiswa Simulator 3D" }
+      ],
+      "audio": [{ "t": 0.2, "cue": "kalender" }, { "t": 1.85, "cue": "stinger" }, { "t": 2.6, "cue": "meong" }, { "t": 3.6, "cue": "judul" }]
+    }
+  ]
+}

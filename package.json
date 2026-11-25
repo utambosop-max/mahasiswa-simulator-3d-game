@@ -1,0 +1,42 @@
+{
+  "name": "mahasiswa-simulator-3d",
+  "private": true,
+  "version": "0.13.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "tsc --noEmit && vite build",
+    "android:sync": "npm run build && npx cap sync android",
+    "android:apk": "npm run android:sync && powershell -NoProfile -ExecutionPolicy Bypass -File scripts/gradle-apk.ps1",
+    "preview": "vite preview --host",
+    "ikon": "node scripts/buat-ikon.mjs",
+    "uji:asap": "node scripts/uji/asap.mjs",
+    "server:build": "tsc --noEmit -p tsconfig.server.json && vite build -c vite.server.config.ts",
+    "server": "npm run build && npm run server:build && node dist-server/server.mjs",
+    "server:paket": "npm run build && npm run server:build && powershell -NoProfile -ExecutionPolicy Bypass -File scripts/paket-server.ps1"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.6.2",
+    "@capacitor/app": "^8.1.2",
+    "@capacitor/core": "^8.6.2",
+    "@react-three/drei": "^10.7.9",
+    "@react-three/fiber": "^9.8.2",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "three": "^0.187.0",
+    "zustand": "^5.1.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.6.2",
+    "@tailwindcss/vite": "^4.3.5",
+    "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@types/three": "^0.187.0",
+    "@vitejs/plugin-react": "^6.3.0",
+    "playwright-core": "^1.65.1",
+    "tailwindcss": "^4.3.5",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.8"
+  }
+}

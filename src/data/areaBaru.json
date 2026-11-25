@@ -1,0 +1,30 @@
+{
+  "_catatan": "M13 aksi area baru (kali, sawah, pasar kaget, lapangan kampung). Efek dasar ada di aksi.json, menu di menu.json. Lihat docs/GDD/area-baru.md.",
+  "batasHarian": {
+    "mancing": 2,
+    "bantuPanen": 1,
+    "ngopiTepiKali": 2,
+    "mainBolaKampung": 1
+  },
+  "alasanBatas": {
+    "mancing": "🎣 Ikan-ikan sudah hafal mukamu. Cukup 2× sehari, besok lagi!",
+    "bantuPanen": "🌾 Pak Tani: \"Wis, Mas/Mbak, besok aja lagi. Sawahnya keburu habis dipanen kamu!\"",
+    "ngopiTepiKali": "☕ Mbok Darmi: \"Kopi ketiga? Nanti jantungmu ikut joget, Le.\"",
+    "mainBolaKampung": "⚽ Bocah-bocahnya sudah dipanggil pulang emaknya. Besok lagi!"
+  },
+  "ngopiKenyang": true,
+  "ngopiIdKonsumsi": "kopi_tubruk",
+  "mancing": {
+    "hasil": [
+      { "id": "ikan_besar", "peluang": 0.2, "efek": { "uang": 15000 }, "teks": "🐟 STRIKE! Ikan nila segede sandal! Langsung dibeli bapak pemancing sebelah." },
+      { "id": "ikan_kecil", "peluang": 0.35, "efek": { "energi": 8 }, "teks": "🐠 Dapat ikan wader seiprit. Dibakar di tepi kali, lumayan ganjel perut." },
+      { "id": "sandal", "peluang": 0.2, "efek": { "stres": -3 }, "teks": "🩴 Tarikannya berat! ...ternyata sandal jepit sebelah kiri. Yang kanan masih jadi misteri. Minimal ketawa." },
+      { "id": "nihil", "peluang": 0.25, "efek": {}, "teks": "🎣 Umpan habis, ikan kenyang, kamu pulang tangan kosong. Sabar itu sebagian dari mancing." }
+    ]
+  },
+  "panen": {
+    "statKerja": "kerja_sawah",
+    "_catatan": "Aturan adil (09, 2026-11-23): panen = kerja sampingan AKHIR PEKAN (aksi.json bantuPanen.hari [5,6]), 1×/hari, tidak memakai jatah 1 shift warteg/warkop. Ekstra maks ± Rp170 rb/bulan.",
+    "pesanSelesai": "🌾 Pak Tani: \"Matur nuwun! Ini upahnya, sama nasi bungkus... eh nasinya buat saya ding.\""
+  }
+}

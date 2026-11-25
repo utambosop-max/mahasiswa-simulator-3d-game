@@ -1,0 +1,5854 @@
+{
+ "catatan": "Dibuat otomatis oleh scripts/unity/ekspor-dunia.mts dari src/game/duniaLayout.ts. Koordinat Unity: zUnity = -zWeb. JANGAN edit manual.",
+ "dunia": {
+  "halfW": 84,
+  "halfD": 62,
+  "jalan": 2,
+  "trotoar": 1.2,
+  "jalanH": [
+   26,
+   0,
+   -26
+  ],
+  "jalanV": [
+   -32,
+   0,
+   32
+  ]
+ },
+ "bangunan": [
+  {
+   "id": "kos",
+   "jenis": "kos",
+   "x": -12,
+   "z": 10,
+   "w": 9,
+   "d": 8,
+   "hadap": "-z",
+   "rotY": 180,
+   "depan": 0.6,
+   "tinggi": 7,
+   "warna": "#fde8c8",
+   "atap": "#e98a6b",
+   "nama": "Kos Melati",
+   "papan": "",
+   "aksen": "",
+   "lantai": 1,
+   "atapLimas": false,
+   "kanopi": false,
+   "aksi": [
+    "masukKos",
+    "ngobrolBuKos"
+   ],
+   "pintu": {
+    "x": -12,
+    "z": 4.6
+   }
+  },
+  {
+   "id": "kampus",
+   "jenis": "kampus",
+   "x": 16,
+   "z": 13,
+   "w": 18,
+   "d": 12,
+   "hadap": "-z",
+   "rotY": 180,
+   "depan": 1.9,
+   "tinggi": 10.5,
+   "warna": "#f4e1c1",
+   "atap": "#7fb3e0",
+   "nama": "Kampus",
+   "papan": "",
+   "aksen": "",
+   "lantai": 1,
+   "atapLimas": false,
+   "kanopi": false,
+   "aksi": [
+    "kuliah",
+    "ngobrolDosen",
+    "bimbingan",
+    "sidang",
+    "rapatUKM"
+   ],
+   "pintu": {
+    "x": 16,
+    "z": 4.3
+   }
+  },
+  {
+   "id": "warteg",
+   "jenis": "warteg",
+   "x": -12,
+   "z": -8.5,
+   "w": 8,
+   "d": 6,
+   "hadap": "+z",
+   "rotY": 0,
+   "depan": 1,
+   "tinggi": 4.9,
+   "warna": "#fff6e5",
+   "atap": "#e98a6b",
+   "nama": "Warteg Barokah",
+   "papan": "",
+   "aksen": "",
+   "lantai": 1,
+   "atapLimas": false,
+   "kanopi": false,
+   "aksi": [
+    "makanWarteg",
+    "kerjaWarteg",
+    "ngobrolSri"
+   ],
+   "pintu": {
+    "x": -12,
+    "z": -3.7
+   }
+  },
+  {
+   "id": "warkop",
+   "jenis": "warkop",
+   "x": 10,
+   "z": -8,
+   "w": 7,
+   "d": 5,
+   "hadap": "+z",
+   "rotY": 0,
+   "depan": 0.7,
+   "tinggi": 4.1,
+   "warna": "#c48d55",
+   "atap": "#9aa3ad",
+   "nama": "Warkop Begadang",
+   "papan": "",
+   "aksen": "",
+   "lantai": 1,
+   "atapLimas": false,
+   "kanopi": false,
+   "aksi": [
+    "ngopi",
+    "nongkrong",
+    "kerjaWarkop",
+    "ngobrolUdin"
+   ],
+   "pintu": {
+    "x": 10,
+    "z": -4
+   }
+  },
+  {
+   "id": "minimarket",
+   "jenis": "toko",
+   "x": -46,
+   "z": 10,
+   "w": 10,
+   "d": 8,
+   "hadap": "-z",
+   "rotY": 180,
+   "depan": 0.4,
+   "tinggi": 4.8,
+   "warna": "#fff6e5",
+   "atap": "#e9605a",
+   "nama": "Toko Serba Ada 24",
+   "papan": "TOKO SERBA ADA 24",
+   "aksen": "#e9605a",
+   "lantai": 1,
+   "atapLimas": false,
+   "kanopi": false,
+   "aksi": [
+    "belanja",
+    "belanjaBarang"
+   ],
+   "pintu": {
+    "x": -46,
+    "z": 4.8
+   }
+  },
+  {
+   "id": "perpus",
+   "jenis": "toko",
+   "x": 47,
+   "z": 12,
+   "w": 14,
+   "d": 10,
+   "hadap": "-z",
+   "rotY": 180,
+   "depan": 0.4,
+   "tinggi": 8.6,
+   "warna": "#ece0cc",
+   "atap": "#a86b3c",
+   "nama": "Perpustakaan",
+   "papan": "PERPUSTAKAAN",
+   "aksen": "#7fb3e0",
+   "lantai": 2,
+   "atapLimas": true,
+   "kanopi": false,
+   "aksi": [
+    "belajarPerpus",
+    "lesPrivat"
+   ],
+   "pintu": {
+    "x": 47,
+    "z": 5.8
+   }
+  },
+  {
+   "id": "klinik",
+   "jenis": "toko",
+   "x": -46,
+   "z": -10,
+   "w": 10,
+   "d": 8,
+   "hadap": "+z",
+   "rotY": 0,
+   "depan": 0.4,
+   "tinggi": 4.8,
+   "warna": "#ffffff",
+   "atap": "#5cc8a8",
+   "nama": "Klinik Sehat",
+   "papan": "✚ KLINIK SEHAT",
+   "aksen": "#5cc8a8",
+   "lantai": 1,
+   "atapLimas": false,
+   "kanopi": false,
+   "aksi": [
+    "periksa"
+   ],
+   "pintu": {
+    "x": -46,
+    "z": -4.8
+   }
+  },
+  {
+   "id": "warnet",
+   "jenis": "toko",
+   "x": -16,
+   "z": 36,
+   "w": 10,
+   "d": 7,
+   "hadap": "-z",
+   "rotY": 180,
+   "depan": 0.4,
+   "tinggi": 4.8,
+   "warna": "#6f7fb8",
+   "atap": "#3b4673",
+   "nama": "Warnet Gaming",
+   "papan": "WARNET GAMING",
+   "aksen": "#ffb36b",
+   "lantai": 1,
+   "atapLimas": false,
+   "kanopi": false,
+   "aksi": [
+    "mainGame"
+   ],
+   "pintu": {
+    "x": -16,
+    "z": 31.3
+   }
+  },
+  {
+   "id": "fotokopi",
+   "jenis": "toko",
+   "x": 10,
+   "z": 36,
+   "w": 8,
+   "d": 6,
+   "hadap": "-z",
+   "rotY": 180,
+   "depan": 0.4,
+   "tinggi": 4.8,
+   "warna": "#fff1c4",
+   "atap": "#7cc6a4",
+   "nama": "Fotokopi & Print",
+   "papan": "FOTOKOPI & PRINT",
+   "aksen": "#7cc6a4",
+   "lantai": 1,
+   "atapLimas": false,
+   "kanopi": true,
+   "aksi": [
+    "printTugas"
+   ],
+   "pintu": {
+    "x": 10,
+    "z": 31.8
+   }
+  },
+  {
+   "id": "laundry",
+   "jenis": "toko",
+   "x": 22,
+   "z": 36,
+   "w": 8,
+   "d": 6,
+   "hadap": "-z",
+   "rotY": 180,
+   "depan": 0.4,
+   "tinggi": 4.8,
+   "warna": "#dff1ff",
+   "atap": "#7fb3e0",
+   "nama": "Laundry Kiloan",
+   "papan": "LAUNDRY KILOAN",
+   "aksen": "#7fb3e0",
+   "lantai": 1,
+   "atapLimas": false,
+   "kanopi": true,
+   "aksi": [
+    "laundry"
+   ],
+   "pintu": {
+    "x": 22,
+    "z": 31.8
+   }
+  },
+  {
+   "id": "kafe",
+   "jenis": "toko",
+   "x": 5,
+   "z": -35,
+   "w": 9,
+   "d": 7,
+   "hadap": "+z",
+   "rotY": 0,
+   "depan": 0.4,
+   "tinggi": 5.2,
+   "warna": "#f6e7d4",
+   "atap": "#6b4430",
+   "nama": "Kafe Ruang Kerja",
+   "papan": "KAFE RUANG KERJA",
+   "aksen": "#a86b3c",
+   "lantai": 1,
+   "atapLimas": false,
+   "kanopi": true,
+   "aksi": [
+    "makanKafe"
+   ],
+   "pintu": {
+    "x": 5,
+    "z": -30.3
+   }
+  },
+  {
+   "id": "bank",
+   "jenis": "toko",
+   "x": -20,
+   "z": 18.8,
+   "w": 9,
+   "d": 4.6,
+   "hadap": "+z",
+   "rotY": 0,
+   "depan": 0.4,
+   "tinggi": 5.6,
+   "warna": "#fff8e6",
+   "atap": "#b8892e",
+   "nama": "Bank Mahasiswa",
+   "papan": "BANK MAHASISWA",
+   "aksen": "#e9b949",
+   "lantai": 1,
+   "atapLimas": false,
+   "kanopi": false,
+   "aksi": [
+    "bukaBank"
+   ],
+   "pintu": {
+    "x": -20,
+    "z": 22.3
+   }
+  },
+  {
+   "id": "gor",
+   "jenis": "toko",
+   "x": 40,
+   "z": -35.5,
+   "w": 8,
+   "d": 9,
+   "hadap": "+z",
+   "rotY": 0,
+   "depan": 0.4,
+   "tinggi": 7.5,
+   "warna": "#ffe9dc",
+   "atap": "#c95a3c",
+   "nama": "GOR Serbaguna",
+   "papan": "GOR SERBAGUNA",
+   "aksen": "#ff7a59",
+   "lantai": 2,
+   "atapLimas": false,
+   "kanopi": false,
+   "aksi": [
+    "latihanGym",
+    "tendangPenalti"
+   ],
+   "pintu": {
+    "x": 40,
+    "z": -29.8
+   }
+  },
+  {
+   "id": "karier",
+   "jenis": "toko",
+   "x": 39.5,
+   "z": 35.5,
+   "w": 7,
+   "d": 6,
+   "hadap": "-z",
+   "rotY": 180,
+   "depan": 0.4,
+   "tinggi": 7.2,
+   "warna": "#f1eafb",
+   "atap": "#6c55a8",
+   "nama": "Pusat Karier & Kemahasiswaan",
+   "papan": "PUSAT KARIER",
+   "aksen": "#9b7fd1",
+   "lantai": 2,
+   "atapLimas": true,
+   "kanopi": false,
+   "aksi": [
+    "bukaKarier"
+   ],
+   "pintu": {
+    "x": 39.5,
+    "z": 31.3
+   }
+  },
+  {
+   "id": "tani",
+   "jenis": "toko",
+   "x": 13.5,
+   "z": -35.5,
+   "w": 5,
+   "d": 6,
+   "hadap": "+z",
+   "rotY": 0,
+   "depan": 0.4,
+   "tinggi": 4.5,
+   "warna": "#effae6",
+   "atap": "#4f9a45",
+   "nama": "Toko Tani & Depot Air",
+   "papan": "TANI & AIR",
+   "aksen": "#6cbf5a",
+   "lantai": 1,
+   "atapLimas": false,
+   "kanopi": true,
+   "aksi": [
+    "bukaTokoTani"
+   ],
+   "pintu": {
+    "x": 13.5,
+    "z": -31.3
+   }
+  },
+  {
+   "id": "pasar",
+   "jenis": "toko",
+   "x": -23,
+   "z": -18.2,
+   "w": 9,
+   "d": 5.6,
+   "hadap": "-z",
+   "rotY": 180,
+   "depan": 0.4,
+   "tinggi": 4.6,
+   "warna": "#fff0dc",
+   "atap": "#a5532a",
+   "nama": "Pasar Pagi",
+   "papan": "PASAR PAGI",
+   "aksen": "#c46a3a",
+   "lantai": 1,
+   "atapLimas": false,
+   "kanopi": true,
+   "aksi": [
+    "makanPasar"
+   ],
+   "pintu": {
+    "x": -23,
+    "z": -22.2
+   }
+  },
+  {
+   "id": "salon",
+   "jenis": "toko",
+   "x": -39.5,
+   "z": 35.5,
+   "w": 7,
+   "d": 6,
+   "hadap": "-z",
+   "rotY": 180,
+   "depan": 0.4,
+   "tinggi": 4.6,
+   "warna": "#fff0f6",
+   "atap": "#d0648f",
+   "nama": "Pangkas Rambut Bang Cukur",
+   "papan": "PANGKAS RAMBUT",
+   "aksen": "#ff9ac1",
+   "lantai": 1,
+   "atapLimas": false,
+   "kanopi": true,
+   "aksi": [
+    "potongRambut"
+   ],
+   "pintu": {
+    "x": -39.5,
+    "z": 31.3
+   }
+  },
+  {
+   "id": "polisi",
+   "jenis": "toko",
+   "x": -40,
+   "z": -18.2,
+   "w": 7,
+   "d": 5.6,
+   "hadap": "-z",
+   "rotY": 180,
+   "depan": 0.4,
+   "tinggi": 4.8,
+   "warna": "#eef2fb",
+   "atap": "#2f467a",
+   "nama": "Pos Polisi",
+   "papan": "POS POLISI",
+   "aksen": "#3d5a99",
+   "lantai": 1,
+   "atapLimas": false,
+   "kanopi": false,
+   "aksi": [
+    "bukaPosPolisi"
+   ],
+   "pintu": {
+    "x": -40,
+    "z": -22.2
+   }
+  },
+  {
+   "id": "rumah1",
+   "jenis": "rumah",
+   "x": -24,
+   "z": 11,
+   "w": 6,
+   "d": 6,
+   "hadap": "-z",
+   "rotY": 180,
+   "depan": 0,
+   "tinggi": 4.5,
+   "warna": "#ffd6a5",
+   "atap": "#e98a6b",
+   "nama": "Rumah Warga",
+   "papan": "",
+   "aksen": "",
+   "lantai": 1,
+   "atapLimas": false,
+   "kanopi": false,
+   "aksi": [],
+   "pintu": {
+    "x": -24,
+    "z": 7.2
+   }
+  },
+  {
+   "id": "rumah2",
+   "jenis": "rumah",
+   "x": -25,
+   "z": -10,
+   "w": 6,
+   "d": 6,
+   "hadap": "+z",
+   "rotY": 0,
+   "depan": 0,
+   "tinggi": 4.5,
+   "warna": "#caffbf",
+   "atap": "#7fb3e0",
+   "nama": "Rumah Warga",
+   "papan": "",
+   "aksen": "",
+   "lantai": 1,
+   "atapLimas": false,
+   "kanopi": false,
+   "aksi": [],
+   "pintu": {
+    "x": -25,
+    "z": -6.2
+   }
+  },
+  {
+   "id": "rumah3",
+   "jenis": "rumah",
+   "x": 7,
+   "z": -16,
+   "w": 6,
+   "d": 6,
+   "hadap": "+z",
+   "rotY": 0,
+   "depan": 0,
+   "tinggi": 4.5,
+   "warna": "#bdb2ff",
+   "atap": "#e98a6b",
+   "nama": "Rumah Warga",
+   "papan": "",
+   "aksen": "",
+   "lantai": 1,
+   "atapLimas": false,
+   "kanopi": false,
+   "aksi": [],
+   "pintu": {
+    "x": 7,
+    "z": -12.2
+   }
+  },
+  {
+   "id": "rumah4",
+   "jenis": "rumah",
+   "x": -12,
+   "z": -17.5,
+   "w": 6,
+   "d": 5,
+   "hadap": "+z",
+   "rotY": 0,
+   "depan": 0,
+   "tinggi": 4.5,
+   "warna": "#a0c4ff",
+   "atap": "#ffb36b",
+   "nama": "Rumah Warga",
+   "papan": "",
+   "aksen": "",
+   "lantai": 1,
+   "atapLimas": false,
+   "kanopi": false,
+   "aksi": [],
+   "pintu": {
+    "x": -12,
+    "z": -14.2
+   }
+  },
+  {
+   "id": "rumah5",
+   "jenis": "rumah",
+   "x": -20,
+   "z": -36,
+   "w": 6,
+   "d": 6,
+   "hadap": "+z",
+   "rotY": 0,
+   "depan": 0,
+   "tinggi": 4.5,
+   "warna": "#ffd6a5",
+   "atap": "#7cc6a4",
+   "nama": "Rumah Warga",
+   "papan": "",
+   "aksen": "",
+   "lantai": 1,
+   "atapLimas": false,
+   "kanopi": false,
+   "aksi": [],
+   "pintu": {
+    "x": -20,
+    "z": -32.2
+   }
+  },
+  {
+   "id": "rumah6",
+   "jenis": "rumah",
+   "x": -9,
+   "z": -36,
+   "w": 6,
+   "d": 5,
+   "hadap": "+z",
+   "rotY": 0,
+   "depan": 0,
+   "tinggi": 4.5,
+   "warna": "#fff1c4",
+   "atap": "#e98a6b",
+   "nama": "Rumah Warga",
+   "papan": "",
+   "aksen": "",
+   "lantai": 1,
+   "atapLimas": false,
+   "kanopi": false,
+   "aksi": [],
+   "pintu": {
+    "x": -9,
+    "z": -32.7
+   }
+  },
+  {
+   "id": "rumah7",
+   "jenis": "rumah",
+   "x": 20,
+   "z": -36,
+   "w": 6,
+   "d": 6,
+   "hadap": "+z",
+   "rotY": 0,
+   "depan": 0,
+   "tinggi": 4.5,
+   "warna": "#caffbf",
+   "atap": "#a86b3c",
+   "nama": "Rumah Warga",
+   "papan": "",
+   "aksen": "",
+   "lantai": 1,
+   "atapLimas": false,
+   "kanopi": false,
+   "aksi": [],
+   "pintu": {
+    "x": 20,
+    "z": -32.2
+   }
+  },
+  {
+   "id": "rumah8",
+   "jenis": "rumah",
+   "x": -48,
+   "z": 36,
+   "w": 6,
+   "d": 6,
+   "hadap": "-z",
+   "rotY": 180,
+   "depan": 0,
+   "tinggi": 4.5,
+   "warna": "#bdb2ff",
+   "atap": "#ffb36b",
+   "nama": "Rumah Warga",
+   "papan": "",
+   "aksen": "",
+   "lantai": 1,
+   "atapLimas": false,
+   "kanopi": false,
+   "aksi": [],
+   "pintu": {
+    "x": -48,
+    "z": 32.2
+   }
+  },
+  {
+   "id": "rumah9",
+   "jenis": "rumah",
+   "x": 48,
+   "z": 36,
+   "w": 7,
+   "d": 6,
+   "hadap": "-z",
+   "rotY": 180,
+   "depan": 0,
+   "tinggi": 4.5,
+   "warna": "#ffd6a5",
+   "atap": "#7fb3e0",
+   "nama": "Rumah Warga",
+   "papan": "",
+   "aksen": "",
+   "lantai": 1,
+   "atapLimas": false,
+   "kanopi": false,
+   "aksi": [],
+   "pintu": {
+    "x": 48,
+    "z": 32.2
+   }
+  },
+  {
+   "id": "rumah10",
+   "jenis": "rumah",
+   "x": -48,
+   "z": -36,
+   "w": 6,
+   "d": 6,
+   "hadap": "+z",
+   "rotY": 0,
+   "depan": 0,
+   "tinggi": 4.5,
+   "warna": "#a0c4ff",
+   "atap": "#e98a6b",
+   "nama": "Rumah Warga",
+   "papan": "",
+   "aksen": "",
+   "lantai": 1,
+   "atapLimas": false,
+   "kanopi": false,
+   "aksi": [],
+   "pintu": {
+    "x": -48,
+    "z": -32.2
+   }
+  },
+  {
+   "id": "rumah11",
+   "jenis": "rumah",
+   "x": 48,
+   "z": -36,
+   "w": 6,
+   "d": 6,
+   "hadap": "+z",
+   "rotY": 0,
+   "depan": 0,
+   "tinggi": 4.5,
+   "warna": "#fff1c4",
+   "atap": "#7cc6a4",
+   "nama": "Rumah Warga",
+   "papan": "",
+   "aksen": "",
+   "lantai": 1,
+   "atapLimas": false,
+   "kanopi": false,
+   "aksi": [],
+   "pintu": {
+    "x": 48,
+    "z": -32.2
+   }
+  },
+  {
+   "id": "rumah12",
+   "jenis": "rumah",
+   "x": -50,
+   "z": -20,
+   "w": 6,
+   "d": 5,
+   "hadap": "-z",
+   "rotY": 180,
+   "depan": 0,
+   "tinggi": 4.5,
+   "warna": "#ffd6a5",
+   "atap": "#a86b3c",
+   "nama": "Rumah Warga",
+   "papan": "",
+   "aksen": "",
+   "lantai": 1,
+   "atapLimas": false,
+   "kanopi": false,
+   "aksi": [],
+   "pintu": {
+    "x": -50,
+    "z": -23.3
+   }
+  }
+ ],
+ "taman": {
+  "minX": 16,
+  "maxX": 28,
+  "minZ": -20,
+  "maxZ": -6,
+  "kolam": {
+   "x": 24,
+   "z": -15,
+   "r": 1.8
+  },
+  "bangku": {
+   "x": 22,
+   "z": -10
+  }
+ },
+ "lapangan": {
+  "x": 47,
+  "z": -13,
+  "w": 20,
+  "d": 13
+ },
+ "lapanganKampung": {
+  "x": -46,
+  "z": -52,
+  "w": 18,
+  "d": 11
+ },
+ "halte": [
+  {
+   "id": "halteBarat",
+   "nama": "Halte Barat",
+   "x": -24,
+   "z": 4.4,
+   "hadap": "-z",
+   "rotY": 180
+  },
+  {
+   "id": "halteTimur",
+   "nama": "Halte Timur",
+   "x": 48,
+   "z": -4.4,
+   "hadap": "+z",
+   "rotY": 0
+  }
+ ],
+ "gerobak": {
+  "x": 8,
+  "z": -21.4,
+  "hadap": "-z",
+  "rotY": 180
+ },
+ "kosPetak": [
+  {
+   "x": -79,
+   "z": 41,
+   "w": 4.5,
+   "d": 5,
+   "hadap": "+x",
+   "rotY": 90,
+   "warna": "#ffd6a5",
+   "atap": "#e98a6b"
+  },
+  {
+   "x": -79,
+   "z": 34.8,
+   "w": 4.5,
+   "d": 5,
+   "hadap": "+x",
+   "rotY": 90,
+   "warna": "#caffbf",
+   "atap": "#a86b3c"
+  },
+  {
+   "x": -79,
+   "z": 16.2,
+   "w": 4.5,
+   "d": 5,
+   "hadap": "+x",
+   "rotY": 90,
+   "warna": "#bdb2ff",
+   "atap": "#7fb3e0"
+  },
+  {
+   "x": -79,
+   "z": 10,
+   "w": 4.5,
+   "d": 5,
+   "hadap": "+x",
+   "rotY": 90,
+   "warna": "#a0c4ff",
+   "atap": "#ffb36b"
+  },
+  {
+   "x": -79,
+   "z": -8.6,
+   "w": 4.5,
+   "d": 5,
+   "hadap": "+x",
+   "rotY": 90,
+   "warna": "#fff1c4",
+   "atap": "#7cc6a4"
+  },
+  {
+   "x": -79,
+   "z": -14.8,
+   "w": 4.5,
+   "d": 5,
+   "hadap": "+x",
+   "rotY": 90,
+   "warna": "#ffc8dd",
+   "atap": "#e98a6b"
+  },
+  {
+   "x": -79,
+   "z": -33.4,
+   "w": 4.5,
+   "d": 5,
+   "hadap": "+x",
+   "rotY": 90,
+   "warna": "#d8f3dc",
+   "atap": "#a86b3c"
+  },
+  {
+   "x": -79,
+   "z": -39.6,
+   "w": 4.5,
+   "d": 5,
+   "hadap": "+x",
+   "rotY": 90,
+   "warna": "#ffd6a5",
+   "atap": "#7fb3e0"
+  },
+  {
+   "x": -79,
+   "z": -45.8,
+   "w": 4.5,
+   "d": 5,
+   "hadap": "+x",
+   "rotY": 90,
+   "warna": "#caffbf",
+   "atap": "#ffb36b"
+  },
+  {
+   "x": -79,
+   "z": -52,
+   "w": 4.5,
+   "d": 5,
+   "hadap": "+x",
+   "rotY": 90,
+   "warna": "#bdb2ff",
+   "atap": "#7cc6a4"
+  },
+  {
+   "x": -79,
+   "z": -58.2,
+   "w": 4.5,
+   "d": 5,
+   "hadap": "+x",
+   "rotY": 90,
+   "warna": "#a0c4ff",
+   "atap": "#e98a6b"
+  },
+  {
+   "x": -67,
+   "z": 41,
+   "w": 4.5,
+   "d": 5,
+   "hadap": "-x",
+   "rotY": 270,
+   "warna": "#fff1c4",
+   "atap": "#a86b3c"
+  },
+  {
+   "x": -67,
+   "z": 34.8,
+   "w": 4.5,
+   "d": 5,
+   "hadap": "-x",
+   "rotY": 270,
+   "warna": "#ffc8dd",
+   "atap": "#7fb3e0"
+  },
+  {
+   "x": -67,
+   "z": 16.2,
+   "w": 4.5,
+   "d": 5,
+   "hadap": "-x",
+   "rotY": 270,
+   "warna": "#d8f3dc",
+   "atap": "#ffb36b"
+  },
+  {
+   "x": -67,
+   "z": 10,
+   "w": 4.5,
+   "d": 5,
+   "hadap": "-x",
+   "rotY": 270,
+   "warna": "#ffd6a5",
+   "atap": "#7cc6a4"
+  },
+  {
+   "x": -67,
+   "z": -8.6,
+   "w": 4.5,
+   "d": 5,
+   "hadap": "-x",
+   "rotY": 270,
+   "warna": "#caffbf",
+   "atap": "#e98a6b"
+  },
+  {
+   "x": -67,
+   "z": -14.8,
+   "w": 4.5,
+   "d": 5,
+   "hadap": "-x",
+   "rotY": 270,
+   "warna": "#bdb2ff",
+   "atap": "#a86b3c"
+  },
+  {
+   "x": -67,
+   "z": -33.4,
+   "w": 4.5,
+   "d": 5,
+   "hadap": "-x",
+   "rotY": 270,
+   "warna": "#a0c4ff",
+   "atap": "#7fb3e0"
+  },
+  {
+   "x": -67,
+   "z": -39.6,
+   "w": 4.5,
+   "d": 5,
+   "hadap": "-x",
+   "rotY": 270,
+   "warna": "#fff1c4",
+   "atap": "#ffb36b"
+  },
+  {
+   "x": -67,
+   "z": -45.8,
+   "w": 4.5,
+   "d": 5,
+   "hadap": "-x",
+   "rotY": 270,
+   "warna": "#ffc8dd",
+   "atap": "#7cc6a4"
+  },
+  {
+   "x": -67,
+   "z": -52,
+   "w": 4.5,
+   "d": 5,
+   "hadap": "-x",
+   "rotY": 270,
+   "warna": "#d8f3dc",
+   "atap": "#e98a6b"
+  },
+  {
+   "x": -67,
+   "z": -58.2,
+   "w": 4.5,
+   "d": 5,
+   "hadap": "-x",
+   "rotY": 270,
+   "warna": "#ffd6a5",
+   "atap": "#a86b3c"
+  }
+ ],
+ "sungai": {
+  "z": 50,
+  "setengah": 3,
+  "jembatanSetengah": 3.45
+ },
+ "jalurSungai": {
+  "z": 44.5,
+  "lebar": 1.8,
+  "x0": -80,
+  "x1": 80
+ },
+ "gang": {
+  "x": -73,
+  "lebar": 2.4,
+  "z0": -59,
+  "z1": 45.4
+ },
+ "gapura": [
+  {
+   "x": -73,
+   "z": 5.4,
+   "teks": "GANG KOS MAWAR"
+  },
+  {
+   "x": -73,
+   "z": -5.4,
+   "teks": "GANG KOS MAWAR"
+  }
+ ],
+ "gapuraTiang": 1.65,
+ "menaraAir": {
+  "x": -61.5,
+  "z": -47.5,
+  "tinggi": 9
+ },
+ "sawahBlok": [
+  {
+   "minX": 64,
+   "maxX": 82,
+   "minZ": 4.6,
+   "maxZ": 21.6
+  },
+  {
+   "minX": 64,
+   "maxX": 82,
+   "minZ": -21.6,
+   "maxZ": -4.6
+  }
+ ],
+ "petakSawah": [
+  {
+   "minX": 64,
+   "maxX": 69.267,
+   "minZ": 13.65,
+   "maxZ": 21.6
+  },
+  {
+   "minX": 64,
+   "maxX": 69.267,
+   "minZ": 4.6,
+   "maxZ": 12.55
+  },
+  {
+   "minX": 70.367,
+   "maxX": 75.633,
+   "minZ": 13.65,
+   "maxZ": 21.6
+  },
+  {
+   "minX": 70.367,
+   "maxX": 75.633,
+   "minZ": 4.6,
+   "maxZ": 12.55
+  },
+  {
+   "minX": 76.733,
+   "maxX": 82,
+   "minZ": 13.65,
+   "maxZ": 21.6
+  },
+  {
+   "minX": 76.733,
+   "maxX": 82,
+   "minZ": 4.6,
+   "maxZ": 12.55
+  },
+  {
+   "minX": 64,
+   "maxX": 69.267,
+   "minZ": -12.55,
+   "maxZ": -4.6
+  },
+  {
+   "minX": 64,
+   "maxX": 69.267,
+   "minZ": -21.6,
+   "maxZ": -13.65
+  },
+  {
+   "minX": 70.367,
+   "maxX": 75.633,
+   "minZ": -12.55,
+   "maxZ": -4.6
+  },
+  {
+   "minX": 70.367,
+   "maxX": 75.633,
+   "minZ": -21.6,
+   "maxZ": -13.65
+  },
+  {
+   "minX": 76.733,
+   "maxX": 82,
+   "minZ": -12.55,
+   "maxZ": -4.6
+  },
+  {
+   "minX": 76.733,
+   "maxX": 82,
+   "minZ": -21.6,
+   "maxZ": -13.65
+  }
+ ],
+ "kebun": [
+  {
+   "minX": 65,
+   "maxX": 82,
+   "minZ": -44,
+   "maxZ": -31
+  },
+  {
+   "minX": 38,
+   "maxX": 58,
+   "minZ": -57.5,
+   "maxZ": -46.5
+  }
+ ],
+ "bedengan": [
+  {
+   "minX": 65,
+   "maxX": 82,
+   "minZ": -32,
+   "maxZ": -31
+  },
+  {
+   "minX": 65,
+   "maxX": 82,
+   "minZ": -34,
+   "maxZ": -33
+  },
+  {
+   "minX": 65,
+   "maxX": 82,
+   "minZ": -36,
+   "maxZ": -35
+  },
+  {
+   "minX": 65,
+   "maxX": 82,
+   "minZ": -38,
+   "maxZ": -37
+  },
+  {
+   "minX": 65,
+   "maxX": 82,
+   "minZ": -40,
+   "maxZ": -39
+  },
+  {
+   "minX": 65,
+   "maxX": 82,
+   "minZ": -42,
+   "maxZ": -41
+  },
+  {
+   "minX": 65,
+   "maxX": 82,
+   "minZ": -44,
+   "maxZ": -43
+  },
+  {
+   "minX": 38,
+   "maxX": 58,
+   "minZ": -47.5,
+   "maxZ": -46.5
+  },
+  {
+   "minX": 38,
+   "maxX": 58,
+   "minZ": -49.5,
+   "maxZ": -48.5
+  },
+  {
+   "minX": 38,
+   "maxX": 58,
+   "minZ": -51.5,
+   "maxZ": -50.5
+  },
+  {
+   "minX": 38,
+   "maxX": 58,
+   "minZ": -53.5,
+   "maxZ": -52.5
+  },
+  {
+   "minX": 38,
+   "maxX": 58,
+   "minZ": -55.5,
+   "maxZ": -54.5
+  },
+  {
+   "minX": 38,
+   "maxX": 58,
+   "minZ": -57.5,
+   "maxZ": -56.5
+  }
+ ],
+ "kebunPisang": {
+  "minX": 64,
+  "maxX": 82,
+  "minZ": 31,
+  "maxZ": 44
+ },
+ "pasarKaget": {
+  "z": -52,
+  "lorong": 3.8,
+  "x0": 5.2,
+  "x1": 25
+ },
+ "lapak": [
+  {
+   "x": -8.1,
+   "z": -49,
+   "hadap": "-z",
+   "rotY": 180,
+   "atap": "#e9605a",
+   "w": 3,
+   "d": 2.2
+  },
+  {
+   "x": -8.1,
+   "z": -55,
+   "hadap": "+z",
+   "rotY": 0,
+   "atap": "#7fb3e0",
+   "w": 3,
+   "d": 2.2
+  },
+  {
+   "x": -11.7,
+   "z": -49,
+   "hadap": "-z",
+   "rotY": 180,
+   "atap": "#f2d15c",
+   "w": 3,
+   "d": 2.2
+  },
+  {
+   "x": -11.7,
+   "z": -55,
+   "hadap": "+z",
+   "rotY": 0,
+   "atap": "#7cc6a4",
+   "w": 3,
+   "d": 2.2
+  },
+  {
+   "x": -15.3,
+   "z": -49,
+   "hadap": "-z",
+   "rotY": 180,
+   "atap": "#ff9ac1",
+   "w": 3,
+   "d": 2.2
+  },
+  {
+   "x": -15.3,
+   "z": -55,
+   "hadap": "+z",
+   "rotY": 0,
+   "atap": "#e9605a",
+   "w": 3,
+   "d": 2.2
+  },
+  {
+   "x": -18.9,
+   "z": -49,
+   "hadap": "-z",
+   "rotY": 180,
+   "atap": "#7fb3e0",
+   "w": 3,
+   "d": 2.2
+  },
+  {
+   "x": -18.9,
+   "z": -55,
+   "hadap": "+z",
+   "rotY": 0,
+   "atap": "#f2d15c",
+   "w": 3,
+   "d": 2.2
+  },
+  {
+   "x": -22.5,
+   "z": -49,
+   "hadap": "-z",
+   "rotY": 180,
+   "atap": "#7cc6a4",
+   "w": 3,
+   "d": 2.2
+  },
+  {
+   "x": -22.5,
+   "z": -55,
+   "hadap": "+z",
+   "rotY": 0,
+   "atap": "#ff9ac1",
+   "w": 3,
+   "d": 2.2
+  },
+  {
+   "x": 8.1,
+   "z": -49,
+   "hadap": "-z",
+   "rotY": 180,
+   "atap": "#e9605a",
+   "w": 3,
+   "d": 2.2
+  },
+  {
+   "x": 8.1,
+   "z": -55,
+   "hadap": "+z",
+   "rotY": 0,
+   "atap": "#7fb3e0",
+   "w": 3,
+   "d": 2.2
+  },
+  {
+   "x": 11.7,
+   "z": -49,
+   "hadap": "-z",
+   "rotY": 180,
+   "atap": "#f2d15c",
+   "w": 3,
+   "d": 2.2
+  },
+  {
+   "x": 11.7,
+   "z": -55,
+   "hadap": "+z",
+   "rotY": 0,
+   "atap": "#7cc6a4",
+   "w": 3,
+   "d": 2.2
+  },
+  {
+   "x": 15.3,
+   "z": -49,
+   "hadap": "-z",
+   "rotY": 180,
+   "atap": "#ff9ac1",
+   "w": 3,
+   "d": 2.2
+  },
+  {
+   "x": 15.3,
+   "z": -55,
+   "hadap": "+z",
+   "rotY": 0,
+   "atap": "#e9605a",
+   "w": 3,
+   "d": 2.2
+  },
+  {
+   "x": 18.9,
+   "z": -49,
+   "hadap": "-z",
+   "rotY": 180,
+   "atap": "#7fb3e0",
+   "w": 3,
+   "d": 2.2
+  },
+  {
+   "x": 18.9,
+   "z": -55,
+   "hadap": "+z",
+   "rotY": 0,
+   "atap": "#f2d15c",
+   "w": 3,
+   "d": 2.2
+  },
+  {
+   "x": 22.5,
+   "z": -49,
+   "hadap": "-z",
+   "rotY": 180,
+   "atap": "#7cc6a4",
+   "w": 3,
+   "d": 2.2
+  },
+  {
+   "x": 22.5,
+   "z": -55,
+   "hadap": "+z",
+   "rotY": 0,
+   "atap": "#ff9ac1",
+   "w": 3,
+   "d": 2.2
+  }
+ ],
+ "saung": [
+  {
+   "x": 60.8,
+   "z": 13
+  },
+  {
+   "x": 62,
+   "z": -37.5
+  }
+ ],
+ "warung": [
+  {
+   "x": 6.2,
+   "z": 41.9,
+   "hadap": "-z",
+   "rotY": 180,
+   "teks": "KOPI TEPI KALI",
+   "warna": "#fff1c4",
+   "atap": "#6b4430",
+   "w": 3,
+   "d": 2.4
+  },
+  {
+   "x": -62.5,
+   "z": -31,
+   "hadap": "+z",
+   "rotY": 0,
+   "teks": "KELONTONG 24 JAM",
+   "warna": "#e8f6ff",
+   "atap": "#3d7fd1",
+   "w": 3,
+   "d": 2.4
+  },
+  {
+   "x": 60.5,
+   "z": 31.6,
+   "hadap": "-z",
+   "rotY": 180,
+   "teks": "ES DEGAN",
+   "warna": "#effae6",
+   "atap": "#4f9a45",
+   "w": 3,
+   "d": 2.4
+  }
+ ],
+ "spawn": {
+  "x": -12,
+  "z": 4.3,
+  "rotY": 180
+ },
+ "parkirMotor": {
+  "x": -8.6,
+  "z": 4.6,
+  "rotY": 157.082
+ },
+ "motor": [
+  {
+   "x": -6.6,
+   "z": -6.6,
+   "rotY": 197.189
+  },
+  {
+   "x": 5.4,
+   "z": -6.2,
+   "rotY": 111.245
+  },
+  {
+   "x": -39.5,
+   "z": 4.8,
+   "rotY": 168.541
+  },
+  {
+   "x": -9.5,
+   "z": 31,
+   "rotY": 208.648
+  }
+ ],
+ "pertamini": {
+  "x": -6,
+  "z": 5.8
+ },
+ "bendera": {
+  "x": 8.5,
+  "z": 5.2
+ },
+ "kursiWarkop": {
+  "x": 15.2,
+  "z": -7
+ },
+ "tiangLalin": [
+  {
+   "x": -2.7,
+   "z": 2.7,
+   "rotY": 270,
+   "sumbu": "x"
+  },
+  {
+   "x": 2.7,
+   "z": -2.7,
+   "rotY": 90,
+   "sumbu": "x"
+  },
+  {
+   "x": 2.7,
+   "z": 2.7,
+   "rotY": 0,
+   "sumbu": "z"
+  },
+  {
+   "x": -2.7,
+   "z": -2.7,
+   "rotY": 180,
+   "sumbu": "z"
+  },
+  {
+   "x": -34.7,
+   "z": -23.3,
+   "rotY": 270,
+   "sumbu": "x"
+  },
+  {
+   "x": -29.3,
+   "z": -28.7,
+   "rotY": 90,
+   "sumbu": "x"
+  },
+  {
+   "x": -29.3,
+   "z": -23.3,
+   "rotY": 0,
+   "sumbu": "z"
+  },
+  {
+   "x": -34.7,
+   "z": -28.7,
+   "rotY": 180,
+   "sumbu": "z"
+  }
+ ],
+ "lampu": [
+  {
+   "x": -70,
+   "z": 29
+  },
+  {
+   "x": -70,
+   "z": 23
+  },
+  {
+   "x": -56,
+   "z": 29
+  },
+  {
+   "x": -56,
+   "z": 23
+  },
+  {
+   "x": -42,
+   "z": 29
+  },
+  {
+   "x": -42,
+   "z": 23
+  },
+  {
+   "x": -14,
+   "z": 29
+  },
+  {
+   "x": -14,
+   "z": 23
+  },
+  {
+   "x": 14,
+   "z": 29
+  },
+  {
+   "x": 14,
+   "z": 23
+  },
+  {
+   "x": 42,
+   "z": 29
+  },
+  {
+   "x": 42,
+   "z": 23
+  },
+  {
+   "x": 56,
+   "z": 29
+  },
+  {
+   "x": 56,
+   "z": 23
+  },
+  {
+   "x": 70,
+   "z": 29
+  },
+  {
+   "x": 70,
+   "z": 23
+  },
+  {
+   "x": -70,
+   "z": 3
+  },
+  {
+   "x": -70,
+   "z": -3
+  },
+  {
+   "x": -56,
+   "z": 3
+  },
+  {
+   "x": -56,
+   "z": -3
+  },
+  {
+   "x": -42,
+   "z": 3
+  },
+  {
+   "x": -42,
+   "z": -3
+  },
+  {
+   "x": -14,
+   "z": 3
+  },
+  {
+   "x": -14,
+   "z": -3
+  },
+  {
+   "x": 14,
+   "z": 3
+  },
+  {
+   "x": 14,
+   "z": -3
+  },
+  {
+   "x": 42,
+   "z": 3
+  },
+  {
+   "x": 42,
+   "z": -3
+  },
+  {
+   "x": 56,
+   "z": 3
+  },
+  {
+   "x": 56,
+   "z": -3
+  },
+  {
+   "x": 70,
+   "z": 3
+  },
+  {
+   "x": 70,
+   "z": -3
+  },
+  {
+   "x": -70,
+   "z": -23
+  },
+  {
+   "x": -70,
+   "z": -29
+  },
+  {
+   "x": -56,
+   "z": -23
+  },
+  {
+   "x": -56,
+   "z": -29
+  },
+  {
+   "x": -42,
+   "z": -23
+  },
+  {
+   "x": -42,
+   "z": -29
+  },
+  {
+   "x": -14,
+   "z": -23
+  },
+  {
+   "x": -14,
+   "z": -29
+  },
+  {
+   "x": 14,
+   "z": -23
+  },
+  {
+   "x": 14,
+   "z": -29
+  },
+  {
+   "x": 42,
+   "z": -23
+  },
+  {
+   "x": 42,
+   "z": -29
+  },
+  {
+   "x": 56,
+   "z": -23
+  },
+  {
+   "x": 56,
+   "z": -29
+  },
+  {
+   "x": 70,
+   "z": -23
+  },
+  {
+   "x": 70,
+   "z": -29
+  },
+  {
+   "x": -35,
+   "z": 49
+  },
+  {
+   "x": -29,
+   "z": 49
+  },
+  {
+   "x": -35,
+   "z": 35
+  },
+  {
+   "x": -29,
+   "z": 35
+  },
+  {
+   "x": -35,
+   "z": 21
+  },
+  {
+   "x": -29,
+   "z": 21
+  },
+  {
+   "x": -35,
+   "z": 7
+  },
+  {
+   "x": -29,
+   "z": 7
+  },
+  {
+   "x": -35,
+   "z": -7
+  },
+  {
+   "x": -29,
+   "z": -7
+  },
+  {
+   "x": -35,
+   "z": -21
+  },
+  {
+   "x": -29,
+   "z": -21
+  },
+  {
+   "x": -35,
+   "z": -35
+  },
+  {
+   "x": -29,
+   "z": -35
+  },
+  {
+   "x": -35,
+   "z": -49
+  },
+  {
+   "x": -29,
+   "z": -49
+  },
+  {
+   "x": -3,
+   "z": 49
+  },
+  {
+   "x": 3,
+   "z": 49
+  },
+  {
+   "x": -3,
+   "z": 35
+  },
+  {
+   "x": 3,
+   "z": 35
+  },
+  {
+   "x": -3,
+   "z": 21
+  },
+  {
+   "x": 3,
+   "z": 21
+  },
+  {
+   "x": -3,
+   "z": 7
+  },
+  {
+   "x": 3,
+   "z": 7
+  },
+  {
+   "x": -3,
+   "z": -7
+  },
+  {
+   "x": 3,
+   "z": -7
+  },
+  {
+   "x": -3,
+   "z": -21
+  },
+  {
+   "x": 3,
+   "z": -21
+  },
+  {
+   "x": -3,
+   "z": -35
+  },
+  {
+   "x": 3,
+   "z": -35
+  },
+  {
+   "x": -3,
+   "z": -49
+  },
+  {
+   "x": 3,
+   "z": -49
+  },
+  {
+   "x": 29,
+   "z": 49
+  },
+  {
+   "x": 35,
+   "z": 49
+  },
+  {
+   "x": 29,
+   "z": 35
+  },
+  {
+   "x": 35,
+   "z": 35
+  },
+  {
+   "x": 29,
+   "z": 21
+  },
+  {
+   "x": 35,
+   "z": 21
+  },
+  {
+   "x": 29,
+   "z": 7
+  },
+  {
+   "x": 35,
+   "z": 7
+  },
+  {
+   "x": 29,
+   "z": -7
+  },
+  {
+   "x": 35,
+   "z": -7
+  },
+  {
+   "x": 29,
+   "z": -21
+  },
+  {
+   "x": 35,
+   "z": -21
+  },
+  {
+   "x": 29,
+   "z": -35
+  },
+  {
+   "x": 35,
+   "z": -35
+  },
+  {
+   "x": 29,
+   "z": -49
+  },
+  {
+   "x": 35,
+   "z": -49
+  }
+ ],
+ "pohon": [
+  {
+   "x": -82,
+   "z": 60.8,
+   "s": 1.119
+  },
+  {
+   "x": -76,
+   "z": 60.8,
+   "s": 0.97
+  },
+  {
+   "x": -70,
+   "z": 60.8,
+   "s": 1.162
+  },
+  {
+   "x": -64,
+   "z": 60.8,
+   "s": 1.182
+  },
+  {
+   "x": -58,
+   "z": 60.8,
+   "s": 1.14
+  },
+  {
+   "x": -58,
+   "z": -60.8,
+   "s": 1.117
+  },
+  {
+   "x": -52,
+   "z": 60.8,
+   "s": 1.282
+  },
+  {
+   "x": -52,
+   "z": -60.8,
+   "s": 1.237
+  },
+  {
+   "x": -46,
+   "z": 60.8,
+   "s": 1.077
+  },
+  {
+   "x": -46,
+   "z": -60.8,
+   "s": 1.071
+  },
+  {
+   "x": -40,
+   "z": 60.8,
+   "s": 1.003
+  },
+  {
+   "x": -40,
+   "z": -60.8,
+   "s": 1.161
+  },
+  {
+   "x": -22,
+   "z": 60.8,
+   "s": 1.09
+  },
+  {
+   "x": -22,
+   "z": -60.8,
+   "s": 0.951
+  },
+  {
+   "x": -16,
+   "z": 60.8,
+   "s": 0.96
+  },
+  {
+   "x": -16,
+   "z": -60.8,
+   "s": 1.062
+  },
+  {
+   "x": -10,
+   "z": 60.8,
+   "s": 1.1
+  },
+  {
+   "x": -10,
+   "z": -60.8,
+   "s": 1.171
+  },
+  {
+   "x": 8,
+   "z": 60.8,
+   "s": 1.178
+  },
+  {
+   "x": 8,
+   "z": -60.8,
+   "s": 1.125
+  },
+  {
+   "x": 14,
+   "z": 60.8,
+   "s": 1.005
+  },
+  {
+   "x": 14,
+   "z": -60.8,
+   "s": 1.156
+  },
+  {
+   "x": 20,
+   "z": 60.8,
+   "s": 1.206
+  },
+  {
+   "x": 20,
+   "z": -60.8,
+   "s": 1.048
+  },
+  {
+   "x": 26,
+   "z": 60.8,
+   "s": 1.024
+  },
+  {
+   "x": 26,
+   "z": -60.8,
+   "s": 1.045
+  },
+  {
+   "x": 38,
+   "z": 60.8,
+   "s": 1.145
+  },
+  {
+   "x": 38,
+   "z": -60.8,
+   "s": 0.973
+  },
+  {
+   "x": 44,
+   "z": 60.8,
+   "s": 0.984
+  },
+  {
+   "x": 44,
+   "z": -60.8,
+   "s": 0.968
+  },
+  {
+   "x": 50,
+   "z": 60.8,
+   "s": 0.995
+  },
+  {
+   "x": 50,
+   "z": -60.8,
+   "s": 1.163
+  },
+  {
+   "x": 56,
+   "z": 60.8,
+   "s": 1.283
+  },
+  {
+   "x": 56,
+   "z": -60.8,
+   "s": 0.958
+  },
+  {
+   "x": 62,
+   "z": 60.8,
+   "s": 1.115
+  },
+  {
+   "x": 62,
+   "z": -60.8,
+   "s": 1.252
+  },
+  {
+   "x": 68,
+   "z": 60.8,
+   "s": 1.009
+  },
+  {
+   "x": 68,
+   "z": -60.8,
+   "s": 1.152
+  },
+  {
+   "x": 74,
+   "z": 60.8,
+   "s": 1.071
+  },
+  {
+   "x": 74,
+   "z": -60.8,
+   "s": 1.057
+  },
+  {
+   "x": 80,
+   "z": 60.8,
+   "s": 1.027
+  },
+  {
+   "x": 80,
+   "z": -60.8,
+   "s": 0.986
+  },
+  {
+   "x": 82.8,
+   "z": -47,
+   "s": 1.219
+  },
+  {
+   "x": 82.8,
+   "z": -53,
+   "s": 1.145
+  },
+  {
+   "x": -72.148,
+   "z": 56.584,
+   "s": 0.948
+  },
+  {
+   "x": -67.335,
+   "z": 57.363,
+   "s": 0.845
+  },
+  {
+   "x": -65.971,
+   "z": -19.721,
+   "s": 1.162
+  },
+  {
+   "x": -58.633,
+   "z": 55.957,
+   "s": 1.203
+  },
+  {
+   "x": -58.019,
+   "z": 30.815,
+   "s": 1.075
+  },
+  {
+   "x": -60.746,
+   "z": 18.744,
+   "s": 1.111
+  },
+  {
+   "x": -60.333,
+   "z": 12.444,
+   "s": 1.014
+  },
+  {
+   "x": -58.63,
+   "z": -9.019,
+   "s": 0.813
+  },
+  {
+   "x": -58.64,
+   "z": -15.364,
+   "s": 1.152
+  },
+  {
+   "x": -59.259,
+   "z": -19.998,
+   "s": 1.051
+  },
+  {
+   "x": -59.702,
+   "z": -41.515,
+   "s": 0.842
+  },
+  {
+   "x": -60.391,
+   "z": -54.54,
+   "s": 1.135
+  },
+  {
+   "x": -52.168,
+   "z": 57.283,
+   "s": 1.254
+  },
+  {
+   "x": -51.593,
+   "z": 19.141,
+   "s": 1.15
+  },
+  {
+   "x": -53.855,
+   "z": 12.768,
+   "s": 1.255
+  },
+  {
+   "x": -54.001,
+   "z": -9.283,
+   "s": 1.237
+  },
+  {
+   "x": -53.499,
+   "z": -13.313,
+   "s": 1.013
+  },
+  {
+   "x": -53.263,
+   "z": -39.721,
+   "s": 0.887
+  },
+  {
+   "x": -45.222,
+   "z": 56.502,
+   "s": 0.973
+  },
+  {
+   "x": -46.122,
+   "z": 17.839,
+   "s": 0.995
+  },
+  {
+   "x": -41.288,
+   "z": 57.228,
+   "s": 0.847
+  },
+  {
+   "x": -40.075,
+   "z": 18.296,
+   "s": 1.199
+  },
+  {
+   "x": -39.658,
+   "z": -34.049,
+   "s": 0.804
+  },
+  {
+   "x": -38.749,
+   "z": -41.256,
+   "s": 1.265
+  },
+  {
+   "x": -25.553,
+   "z": 57.312,
+   "s": 0.824
+  },
+  {
+   "x": -26.897,
+   "z": -34.97,
+   "s": 0.863
+  },
+  {
+   "x": -27.102,
+   "z": -41.515,
+   "s": 0.831
+  },
+  {
+   "x": -20.161,
+   "z": -41.897,
+   "s": 1.031
+  },
+  {
+   "x": -12.932,
+   "z": 17.7,
+   "s": 0.885
+  },
+  {
+   "x": -14.323,
+   "z": -40.653,
+   "s": 1.223
+  },
+  {
+   "x": -6.489,
+   "z": 36.14,
+   "s": 1.127
+  },
+  {
+   "x": -8.827,
+   "z": 17.948,
+   "s": 1.121
+  },
+  {
+   "x": -6.451,
+   "z": -41.127,
+   "s": 1.008
+  },
+  {
+   "x": 4.932,
+   "z": 57.722,
+   "s": 0.989
+  },
+  {
+   "x": 10.731,
+   "z": 57.161,
+   "s": 1.231
+  },
+  {
+   "x": 11.696,
+   "z": -41.138,
+   "s": 0.903
+  },
+  {
+   "x": 19.696,
+   "z": -15.237,
+   "s": 1.032
+  },
+  {
+   "x": 17.318,
+   "z": -20.823,
+   "s": 1.25
+  },
+  {
+   "x": 26.355,
+   "z": -6.882,
+   "s": 1.16
+  },
+  {
+   "x": 24.16,
+   "z": -20.236,
+   "s": 0.871
+  },
+  {
+   "x": 26.252,
+   "z": -40.292,
+   "s": 0.951
+  },
+  {
+   "x": 37.409,
+   "z": 55.825,
+   "s": 1.242
+  },
+  {
+   "x": 36.538,
+   "z": 17.256,
+   "s": 1.165
+  },
+  {
+   "x": 37.244,
+   "z": 11.128,
+   "s": 1.235
+  },
+  {
+   "x": 44.485,
+   "z": 56.905,
+   "s": 1.05
+  },
+  {
+   "x": 51.062,
+   "z": 30.761,
+   "s": 0.893
+  },
+  {
+   "x": 58.155,
+   "z": 57.091,
+   "s": 1.122
+  },
+  {
+   "x": 58.435,
+   "z": 36.549,
+   "s": 1.098
+  },
+  {
+   "x": 56.86,
+   "z": 19.113,
+   "s": 1.176
+  },
+  {
+   "x": 56.386,
+   "z": 11.679,
+   "s": 1.236
+  },
+  {
+   "x": 57.97,
+   "z": 5.378,
+   "s": 0.825
+  },
+  {
+   "x": 57.025,
+   "z": -34.715,
+   "s": 1.161
+  },
+  {
+   "x": 62.62,
+   "z": -48.123,
+   "s": 0.915
+  },
+  {
+   "x": 65.026,
+   "z": -52.501,
+   "s": 0.833
+  },
+  {
+   "x": 71.67,
+   "z": -47.456,
+   "s": 0.961
+  },
+  {
+   "x": 77.412,
+   "z": 58.236,
+   "s": 0.919
+  },
+  {
+   "x": 76.634,
+   "z": -52.105,
+   "s": 1.278
+  }
+ ],
+ "pohonKelapa": [
+  {
+   "x": -77.926,
+   "z": 55.6,
+   "s": 1.066
+  },
+  {
+   "x": -15.018,
+   "z": 55.6,
+   "s": 1.159
+  },
+  {
+   "x": -5.441,
+   "z": 55.6,
+   "s": 1.063
+  },
+  {
+   "x": 21.673,
+   "z": 55.6,
+   "s": 1.125
+  },
+  {
+   "x": 47.833,
+   "z": 55.6,
+   "s": 1.08
+  },
+  {
+   "x": 66.417,
+   "z": 55.6,
+   "s": 0.95
+  },
+  {
+   "x": 74.245,
+   "z": 55.6,
+   "s": 1.16
+  },
+  {
+   "x": 61.084,
+   "z": 40,
+   "s": 0.921
+  },
+  {
+   "x": 61.56,
+   "z": 19,
+   "s": 1.023
+  },
+  {
+   "x": 61.665,
+   "z": 5,
+   "s": 1.014
+  },
+  {
+   "x": 61.253,
+   "z": -9,
+   "s": 0.998
+  },
+  {
+   "x": 61.361,
+   "z": -16,
+   "s": 1.018
+  },
+  {
+   "x": 61.409,
+   "z": -30,
+   "s": 0.981
+  },
+  {
+   "x": 61.611,
+   "z": -44,
+   "s": 1.001
+  },
+  {
+   "x": -27.5,
+   "z": -47.8,
+   "s": 1.042
+  },
+  {
+   "x": 27.5,
+   "z": -56.4,
+   "s": 1.067
+  },
+  {
+   "x": -58.5,
+   "z": 40,
+   "s": 1.177
+  },
+  {
+   "x": 50,
+   "z": 43,
+   "s": 1.121
+  }
+ ],
+ "pohonPisang": [
+  {
+   "x": 66.056,
+   "z": 42.947,
+   "s": 0.956
+  },
+  {
+   "x": 65.83,
+   "z": 38.559,
+   "s": 0.973
+  },
+  {
+   "x": 65.963,
+   "z": 34.247,
+   "s": 0.993
+  },
+  {
+   "x": 69.534,
+   "z": 42.399,
+   "s": 1.063
+  },
+  {
+   "x": 69.751,
+   "z": 38.605,
+   "s": 1.021
+  },
+  {
+   "x": 70.029,
+   "z": 34.935,
+   "s": 1.087
+  },
+  {
+   "x": 74.574,
+   "z": 42.558,
+   "s": 0.885
+  },
+  {
+   "x": 73.474,
+   "z": 38.567,
+   "s": 0.982
+  },
+  {
+   "x": 73.416,
+   "z": 34.886,
+   "s": 0.949
+  },
+  {
+   "x": 78.254,
+   "z": 41.98,
+   "s": 1.082
+  },
+  {
+   "x": 78.75,
+   "z": 39.139,
+   "s": 1.073
+  },
+  {
+   "x": 78.432,
+   "z": 34.618,
+   "s": 1.128
+  }
+ ],
+ "colliders": [
+  {
+   "minX": -86,
+   "maxX": 86,
+   "minZ": 62,
+   "maxZ": 64
+  },
+  {
+   "minX": -86,
+   "maxX": 86,
+   "minZ": -64,
+   "maxZ": -62
+  },
+  {
+   "minX": -86,
+   "maxX": -84,
+   "minZ": -64,
+   "maxZ": 64
+  },
+  {
+   "minX": 84,
+   "maxX": 86,
+   "minZ": -64,
+   "maxZ": 64
+  },
+  {
+   "minX": -16.5,
+   "maxX": -7.5,
+   "minZ": 5.4,
+   "maxZ": 14
+  },
+  {
+   "minX": 7,
+   "maxX": 25,
+   "minZ": 5.1,
+   "maxZ": 19
+  },
+  {
+   "minX": -16,
+   "maxX": -8,
+   "minZ": -11.5,
+   "maxZ": -4.5
+  },
+  {
+   "minX": 6.5,
+   "maxX": 13.5,
+   "minZ": -10.5,
+   "maxZ": -4.8
+  },
+  {
+   "minX": -51,
+   "maxX": -41,
+   "minZ": 5.6,
+   "maxZ": 14
+  },
+  {
+   "minX": 40,
+   "maxX": 54,
+   "minZ": 6.6,
+   "maxZ": 17
+  },
+  {
+   "minX": -51,
+   "maxX": -41,
+   "minZ": -14,
+   "maxZ": -5.6
+  },
+  {
+   "minX": -21,
+   "maxX": -11,
+   "minZ": 32.1,
+   "maxZ": 39.5
+  },
+  {
+   "minX": 6,
+   "maxX": 14,
+   "minZ": 32.6,
+   "maxZ": 39
+  },
+  {
+   "minX": 18,
+   "maxX": 26,
+   "minZ": 32.6,
+   "maxZ": 39
+  },
+  {
+   "minX": 0.5,
+   "maxX": 9.5,
+   "minZ": -38.5,
+   "maxZ": -31.1
+  },
+  {
+   "minX": -24.5,
+   "maxX": -15.5,
+   "minZ": 16.5,
+   "maxZ": 21.5
+  },
+  {
+   "minX": 36,
+   "maxX": 44,
+   "minZ": -40,
+   "maxZ": -30.6
+  },
+  {
+   "minX": 36,
+   "maxX": 43,
+   "minZ": 32.1,
+   "maxZ": 38.5
+  },
+  {
+   "minX": 11,
+   "maxX": 16,
+   "minZ": -38.5,
+   "maxZ": -32.1
+  },
+  {
+   "minX": -27.5,
+   "maxX": -18.5,
+   "minZ": -21.4,
+   "maxZ": -15.4
+  },
+  {
+   "minX": -43,
+   "maxX": -36,
+   "minZ": 32.1,
+   "maxZ": 38.5
+  },
+  {
+   "minX": -43.5,
+   "maxX": -36.5,
+   "minZ": -21.4,
+   "maxZ": -15.4
+  },
+  {
+   "minX": -27,
+   "maxX": -21,
+   "minZ": 8,
+   "maxZ": 14
+  },
+  {
+   "minX": -28,
+   "maxX": -22,
+   "minZ": -13,
+   "maxZ": -7
+  },
+  {
+   "minX": 4,
+   "maxX": 10,
+   "minZ": -19,
+   "maxZ": -13
+  },
+  {
+   "minX": -15,
+   "maxX": -9,
+   "minZ": -20,
+   "maxZ": -15
+  },
+  {
+   "minX": -23,
+   "maxX": -17,
+   "minZ": -39,
+   "maxZ": -33
+  },
+  {
+   "minX": -12,
+   "maxX": -6,
+   "minZ": -38.5,
+   "maxZ": -33.5
+  },
+  {
+   "minX": 17,
+   "maxX": 23,
+   "minZ": -39,
+   "maxZ": -33
+  },
+  {
+   "minX": -51,
+   "maxX": -45,
+   "minZ": 33,
+   "maxZ": 39
+  },
+  {
+   "minX": 44.5,
+   "maxX": 51.5,
+   "minZ": 33,
+   "maxZ": 39
+  },
+  {
+   "minX": -51,
+   "maxX": -45,
+   "minZ": -39,
+   "maxZ": -33
+  },
+  {
+   "minX": 45,
+   "maxX": 51,
+   "minZ": -39,
+   "maxZ": -33
+  },
+  {
+   "minX": -53,
+   "maxX": -47,
+   "minZ": -22.5,
+   "maxZ": -17.5
+  },
+  {
+   "minX": -82.35,
+   "maxX": -81.65,
+   "minZ": 60.45,
+   "maxZ": 61.15
+  },
+  {
+   "minX": -76.35,
+   "maxX": -75.65,
+   "minZ": 60.45,
+   "maxZ": 61.15
+  },
+  {
+   "minX": -70.35,
+   "maxX": -69.65,
+   "minZ": 60.45,
+   "maxZ": 61.15
+  },
+  {
+   "minX": -64.35,
+   "maxX": -63.65,
+   "minZ": 60.45,
+   "maxZ": 61.15
+  },
+  {
+   "minX": -58.35,
+   "maxX": -57.65,
+   "minZ": 60.45,
+   "maxZ": 61.15
+  },
+  {
+   "minX": -58.35,
+   "maxX": -57.65,
+   "minZ": -61.15,
+   "maxZ": -60.45
+  },
+  {
+   "minX": -52.35,
+   "maxX": -51.65,
+   "minZ": 60.45,
+   "maxZ": 61.15
+  },
+  {
+   "minX": -52.35,
+   "maxX": -51.65,
+   "minZ": -61.15,
+   "maxZ": -60.45
+  },
+  {
+   "minX": -46.35,
+   "maxX": -45.65,
+   "minZ": 60.45,
+   "maxZ": 61.15
+  },
+  {
+   "minX": -46.35,
+   "maxX": -45.65,
+   "minZ": -61.15,
+   "maxZ": -60.45
+  },
+  {
+   "minX": -40.35,
+   "maxX": -39.65,
+   "minZ": 60.45,
+   "maxZ": 61.15
+  },
+  {
+   "minX": -40.35,
+   "maxX": -39.65,
+   "minZ": -61.15,
+   "maxZ": -60.45
+  },
+  {
+   "minX": -22.35,
+   "maxX": -21.65,
+   "minZ": 60.45,
+   "maxZ": 61.15
+  },
+  {
+   "minX": -22.35,
+   "maxX": -21.65,
+   "minZ": -61.15,
+   "maxZ": -60.45
+  },
+  {
+   "minX": -16.35,
+   "maxX": -15.65,
+   "minZ": 60.45,
+   "maxZ": 61.15
+  },
+  {
+   "minX": -16.35,
+   "maxX": -15.65,
+   "minZ": -61.15,
+   "maxZ": -60.45
+  },
+  {
+   "minX": -10.35,
+   "maxX": -9.65,
+   "minZ": 60.45,
+   "maxZ": 61.15
+  },
+  {
+   "minX": -10.35,
+   "maxX": -9.65,
+   "minZ": -61.15,
+   "maxZ": -60.45
+  },
+  {
+   "minX": 7.65,
+   "maxX": 8.35,
+   "minZ": 60.45,
+   "maxZ": 61.15
+  },
+  {
+   "minX": 7.65,
+   "maxX": 8.35,
+   "minZ": -61.15,
+   "maxZ": -60.45
+  },
+  {
+   "minX": 13.65,
+   "maxX": 14.35,
+   "minZ": 60.45,
+   "maxZ": 61.15
+  },
+  {
+   "minX": 13.65,
+   "maxX": 14.35,
+   "minZ": -61.15,
+   "maxZ": -60.45
+  },
+  {
+   "minX": 19.65,
+   "maxX": 20.35,
+   "minZ": 60.45,
+   "maxZ": 61.15
+  },
+  {
+   "minX": 19.65,
+   "maxX": 20.35,
+   "minZ": -61.15,
+   "maxZ": -60.45
+  },
+  {
+   "minX": 25.65,
+   "maxX": 26.35,
+   "minZ": 60.45,
+   "maxZ": 61.15
+  },
+  {
+   "minX": 25.65,
+   "maxX": 26.35,
+   "minZ": -61.15,
+   "maxZ": -60.45
+  },
+  {
+   "minX": 37.65,
+   "maxX": 38.35,
+   "minZ": 60.45,
+   "maxZ": 61.15
+  },
+  {
+   "minX": 37.65,
+   "maxX": 38.35,
+   "minZ": -61.15,
+   "maxZ": -60.45
+  },
+  {
+   "minX": 43.65,
+   "maxX": 44.35,
+   "minZ": 60.45,
+   "maxZ": 61.15
+  },
+  {
+   "minX": 43.65,
+   "maxX": 44.35,
+   "minZ": -61.15,
+   "maxZ": -60.45
+  },
+  {
+   "minX": 49.65,
+   "maxX": 50.35,
+   "minZ": 60.45,
+   "maxZ": 61.15
+  },
+  {
+   "minX": 49.65,
+   "maxX": 50.35,
+   "minZ": -61.15,
+   "maxZ": -60.45
+  },
+  {
+   "minX": 55.65,
+   "maxX": 56.35,
+   "minZ": 60.45,
+   "maxZ": 61.15
+  },
+  {
+   "minX": 55.65,
+   "maxX": 56.35,
+   "minZ": -61.15,
+   "maxZ": -60.45
+  },
+  {
+   "minX": 61.65,
+   "maxX": 62.35,
+   "minZ": 60.45,
+   "maxZ": 61.15
+  },
+  {
+   "minX": 61.65,
+   "maxX": 62.35,
+   "minZ": -61.15,
+   "maxZ": -60.45
+  },
+  {
+   "minX": 67.65,
+   "maxX": 68.35,
+   "minZ": 60.45,
+   "maxZ": 61.15
+  },
+  {
+   "minX": 67.65,
+   "maxX": 68.35,
+   "minZ": -61.15,
+   "maxZ": -60.45
+  },
+  {
+   "minX": 73.65,
+   "maxX": 74.35,
+   "minZ": 60.45,
+   "maxZ": 61.15
+  },
+  {
+   "minX": 73.65,
+   "maxX": 74.35,
+   "minZ": -61.15,
+   "maxZ": -60.45
+  },
+  {
+   "minX": 79.65,
+   "maxX": 80.35,
+   "minZ": 60.45,
+   "maxZ": 61.15
+  },
+  {
+   "minX": 79.65,
+   "maxX": 80.35,
+   "minZ": -61.15,
+   "maxZ": -60.45
+  },
+  {
+   "minX": 82.45,
+   "maxX": 83.15,
+   "minZ": -47.35,
+   "maxZ": -46.65
+  },
+  {
+   "minX": 82.45,
+   "maxX": 83.15,
+   "minZ": -53.35,
+   "maxZ": -52.65
+  },
+  {
+   "minX": -72.498,
+   "maxX": -71.798,
+   "minZ": 56.234,
+   "maxZ": 56.934
+  },
+  {
+   "minX": -67.685,
+   "maxX": -66.985,
+   "minZ": 57.013,
+   "maxZ": 57.713
+  },
+  {
+   "minX": -66.321,
+   "maxX": -65.621,
+   "minZ": -20.071,
+   "maxZ": -19.371
+  },
+  {
+   "minX": -58.983,
+   "maxX": -58.283,
+   "minZ": 55.607,
+   "maxZ": 56.307
+  },
+  {
+   "minX": -58.369,
+   "maxX": -57.669,
+   "minZ": 30.465,
+   "maxZ": 31.165
+  },
+  {
+   "minX": -61.096,
+   "maxX": -60.396,
+   "minZ": 18.394,
+   "maxZ": 19.094
+  },
+  {
+   "minX": -60.683,
+   "maxX": -59.983,
+   "minZ": 12.094,
+   "maxZ": 12.794
+  },
+  {
+   "minX": -58.98,
+   "maxX": -58.28,
+   "minZ": -9.369,
+   "maxZ": -8.669
+  },
+  {
+   "minX": -58.99,
+   "maxX": -58.29,
+   "minZ": -15.714,
+   "maxZ": -15.014
+  },
+  {
+   "minX": -59.609,
+   "maxX": -58.909,
+   "minZ": -20.348,
+   "maxZ": -19.648
+  },
+  {
+   "minX": -60.052,
+   "maxX": -59.352,
+   "minZ": -41.865,
+   "maxZ": -41.165
+  },
+  {
+   "minX": -60.741,
+   "maxX": -60.041,
+   "minZ": -54.89,
+   "maxZ": -54.19
+  },
+  {
+   "minX": -52.518,
+   "maxX": -51.818,
+   "minZ": 56.933,
+   "maxZ": 57.633
+  },
+  {
+   "minX": -51.943,
+   "maxX": -51.243,
+   "minZ": 18.791,
+   "maxZ": 19.491
+  },
+  {
+   "minX": -54.205,
+   "maxX": -53.505,
+   "minZ": 12.418,
+   "maxZ": 13.118
+  },
+  {
+   "minX": -54.351,
+   "maxX": -53.651,
+   "minZ": -9.633,
+   "maxZ": -8.933
+  },
+  {
+   "minX": -53.849,
+   "maxX": -53.149,
+   "minZ": -13.663,
+   "maxZ": -12.963
+  },
+  {
+   "minX": -53.613,
+   "maxX": -52.913,
+   "minZ": -40.071,
+   "maxZ": -39.371
+  },
+  {
+   "minX": -45.572,
+   "maxX": -44.872,
+   "minZ": 56.152,
+   "maxZ": 56.852
+  },
+  {
+   "minX": -46.472,
+   "maxX": -45.772,
+   "minZ": 17.489,
+   "maxZ": 18.189
+  },
+  {
+   "minX": -41.638,
+   "maxX": -40.938,
+   "minZ": 56.878,
+   "maxZ": 57.578
+  },
+  {
+   "minX": -40.425,
+   "maxX": -39.725,
+   "minZ": 17.946,
+   "maxZ": 18.646
+  },
+  {
+   "minX": -40.008,
+   "maxX": -39.308,
+   "minZ": -34.399,
+   "maxZ": -33.699
+  },
+  {
+   "minX": -39.099,
+   "maxX": -38.399,
+   "minZ": -41.606,
+   "maxZ": -40.906
+  },
+  {
+   "minX": -25.903,
+   "maxX": -25.203,
+   "minZ": 56.962,
+   "maxZ": 57.662
+  },
+  {
+   "minX": -27.247,
+   "maxX": -26.547,
+   "minZ": -35.32,
+   "maxZ": -34.62
+  },
+  {
+   "minX": -27.452,
+   "maxX": -26.752,
+   "minZ": -41.865,
+   "maxZ": -41.165
+  },
+  {
+   "minX": -20.511,
+   "maxX": -19.811,
+   "minZ": -42.247,
+   "maxZ": -41.547
+  },
+  {
+   "minX": -13.282,
+   "maxX": -12.582,
+   "minZ": 17.35,
+   "maxZ": 18.05
+  },
+  {
+   "minX": -14.673,
+   "maxX": -13.973,
+   "minZ": -41.003,
+   "maxZ": -40.303
+  },
+  {
+   "minX": -6.839,
+   "maxX": -6.139,
+   "minZ": 35.79,
+   "maxZ": 36.49
+  },
+  {
+   "minX": -9.177,
+   "maxX": -8.477,
+   "minZ": 17.598,
+   "maxZ": 18.298
+  },
+  {
+   "minX": -6.801,
+   "maxX": -6.101,
+   "minZ": -41.477,
+   "maxZ": -40.777
+  },
+  {
+   "minX": 4.582,
+   "maxX": 5.282,
+   "minZ": 57.372,
+   "maxZ": 58.072
+  },
+  {
+   "minX": 10.381,
+   "maxX": 11.081,
+   "minZ": 56.811,
+   "maxZ": 57.511
+  },
+  {
+   "minX": 11.346,
+   "maxX": 12.046,
+   "minZ": -41.488,
+   "maxZ": -40.788
+  },
+  {
+   "minX": 19.346,
+   "maxX": 20.046,
+   "minZ": -15.587,
+   "maxZ": -14.887
+  },
+  {
+   "minX": 16.968,
+   "maxX": 17.668,
+   "minZ": -21.173,
+   "maxZ": -20.473
+  },
+  {
+   "minX": 26.005,
+   "maxX": 26.705,
+   "minZ": -7.232,
+   "maxZ": -6.532
+  },
+  {
+   "minX": 23.81,
+   "maxX": 24.51,
+   "minZ": -20.586,
+   "maxZ": -19.886
+  },
+  {
+   "minX": 25.902,
+   "maxX": 26.602,
+   "minZ": -40.642,
+   "maxZ": -39.942
+  },
+  {
+   "minX": 37.059,
+   "maxX": 37.759,
+   "minZ": 55.475,
+   "maxZ": 56.175
+  },
+  {
+   "minX": 36.188,
+   "maxX": 36.888,
+   "minZ": 16.906,
+   "maxZ": 17.606
+  },
+  {
+   "minX": 36.894,
+   "maxX": 37.594,
+   "minZ": 10.778,
+   "maxZ": 11.478
+  },
+  {
+   "minX": 44.135,
+   "maxX": 44.835,
+   "minZ": 56.555,
+   "maxZ": 57.255
+  },
+  {
+   "minX": 50.712,
+   "maxX": 51.412,
+   "minZ": 30.411,
+   "maxZ": 31.111
+  },
+  {
+   "minX": 57.805,
+   "maxX": 58.505,
+   "minZ": 56.741,
+   "maxZ": 57.441
+  },
+  {
+   "minX": 58.085,
+   "maxX": 58.785,
+   "minZ": 36.199,
+   "maxZ": 36.899
+  },
+  {
+   "minX": 56.51,
+   "maxX": 57.21,
+   "minZ": 18.763,
+   "maxZ": 19.463
+  },
+  {
+   "minX": 56.036,
+   "maxX": 56.736,
+   "minZ": 11.329,
+   "maxZ": 12.029
+  },
+  {
+   "minX": 57.62,
+   "maxX": 58.32,
+   "minZ": 5.028,
+   "maxZ": 5.728
+  },
+  {
+   "minX": 56.675,
+   "maxX": 57.375,
+   "minZ": -35.065,
+   "maxZ": -34.365
+  },
+  {
+   "minX": 62.27,
+   "maxX": 62.97,
+   "minZ": -48.473,
+   "maxZ": -47.773
+  },
+  {
+   "minX": 64.676,
+   "maxX": 65.376,
+   "minZ": -52.851,
+   "maxZ": -52.151
+  },
+  {
+   "minX": 71.32,
+   "maxX": 72.02,
+   "minZ": -47.806,
+   "maxZ": -47.106
+  },
+  {
+   "minX": 77.062,
+   "maxX": 77.762,
+   "minZ": 57.886,
+   "maxZ": 58.586
+  },
+  {
+   "minX": 76.284,
+   "maxX": 76.984,
+   "minZ": -52.455,
+   "maxZ": -51.755
+  },
+  {
+   "minX": -70.175,
+   "maxX": -69.825,
+   "minZ": 28.825,
+   "maxZ": 29.175
+  },
+  {
+   "minX": -70.175,
+   "maxX": -69.825,
+   "minZ": 22.825,
+   "maxZ": 23.175
+  },
+  {
+   "minX": -56.175,
+   "maxX": -55.825,
+   "minZ": 28.825,
+   "maxZ": 29.175
+  },
+  {
+   "minX": -56.175,
+   "maxX": -55.825,
+   "minZ": 22.825,
+   "maxZ": 23.175
+  },
+  {
+   "minX": -42.175,
+   "maxX": -41.825,
+   "minZ": 28.825,
+   "maxZ": 29.175
+  },
+  {
+   "minX": -42.175,
+   "maxX": -41.825,
+   "minZ": 22.825,
+   "maxZ": 23.175
+  },
+  {
+   "minX": -14.175,
+   "maxX": -13.825,
+   "minZ": 28.825,
+   "maxZ": 29.175
+  },
+  {
+   "minX": -14.175,
+   "maxX": -13.825,
+   "minZ": 22.825,
+   "maxZ": 23.175
+  },
+  {
+   "minX": 13.825,
+   "maxX": 14.175,
+   "minZ": 28.825,
+   "maxZ": 29.175
+  },
+  {
+   "minX": 13.825,
+   "maxX": 14.175,
+   "minZ": 22.825,
+   "maxZ": 23.175
+  },
+  {
+   "minX": 41.825,
+   "maxX": 42.175,
+   "minZ": 28.825,
+   "maxZ": 29.175
+  },
+  {
+   "minX": 41.825,
+   "maxX": 42.175,
+   "minZ": 22.825,
+   "maxZ": 23.175
+  },
+  {
+   "minX": 55.825,
+   "maxX": 56.175,
+   "minZ": 28.825,
+   "maxZ": 29.175
+  },
+  {
+   "minX": 55.825,
+   "maxX": 56.175,
+   "minZ": 22.825,
+   "maxZ": 23.175
+  },
+  {
+   "minX": 69.825,
+   "maxX": 70.175,
+   "minZ": 28.825,
+   "maxZ": 29.175
+  },
+  {
+   "minX": 69.825,
+   "maxX": 70.175,
+   "minZ": 22.825,
+   "maxZ": 23.175
+  },
+  {
+   "minX": -70.175,
+   "maxX": -69.825,
+   "minZ": 2.825,
+   "maxZ": 3.175
+  },
+  {
+   "minX": -70.175,
+   "maxX": -69.825,
+   "minZ": -3.175,
+   "maxZ": -2.825
+  },
+  {
+   "minX": -56.175,
+   "maxX": -55.825,
+   "minZ": 2.825,
+   "maxZ": 3.175
+  },
+  {
+   "minX": -56.175,
+   "maxX": -55.825,
+   "minZ": -3.175,
+   "maxZ": -2.825
+  },
+  {
+   "minX": -42.175,
+   "maxX": -41.825,
+   "minZ": 2.825,
+   "maxZ": 3.175
+  },
+  {
+   "minX": -42.175,
+   "maxX": -41.825,
+   "minZ": -3.175,
+   "maxZ": -2.825
+  },
+  {
+   "minX": -14.175,
+   "maxX": -13.825,
+   "minZ": 2.825,
+   "maxZ": 3.175
+  },
+  {
+   "minX": -14.175,
+   "maxX": -13.825,
+   "minZ": -3.175,
+   "maxZ": -2.825
+  },
+  {
+   "minX": 13.825,
+   "maxX": 14.175,
+   "minZ": 2.825,
+   "maxZ": 3.175
+  },
+  {
+   "minX": 13.825,
+   "maxX": 14.175,
+   "minZ": -3.175,
+   "maxZ": -2.825
+  },
+  {
+   "minX": 41.825,
+   "maxX": 42.175,
+   "minZ": 2.825,
+   "maxZ": 3.175
+  },
+  {
+   "minX": 41.825,
+   "maxX": 42.175,
+   "minZ": -3.175,
+   "maxZ": -2.825
+  },
+  {
+   "minX": 55.825,
+   "maxX": 56.175,
+   "minZ": 2.825,
+   "maxZ": 3.175
+  },
+  {
+   "minX": 55.825,
+   "maxX": 56.175,
+   "minZ": -3.175,
+   "maxZ": -2.825
+  },
+  {
+   "minX": 69.825,
+   "maxX": 70.175,
+   "minZ": 2.825,
+   "maxZ": 3.175
+  },
+  {
+   "minX": 69.825,
+   "maxX": 70.175,
+   "minZ": -3.175,
+   "maxZ": -2.825
+  },
+  {
+   "minX": -70.175,
+   "maxX": -69.825,
+   "minZ": -23.175,
+   "maxZ": -22.825
+  },
+  {
+   "minX": -70.175,
+   "maxX": -69.825,
+   "minZ": -29.175,
+   "maxZ": -28.825
+  },
+  {
+   "minX": -56.175,
+   "maxX": -55.825,
+   "minZ": -23.175,
+   "maxZ": -22.825
+  },
+  {
+   "minX": -56.175,
+   "maxX": -55.825,
+   "minZ": -29.175,
+   "maxZ": -28.825
+  },
+  {
+   "minX": -42.175,
+   "maxX": -41.825,
+   "minZ": -23.175,
+   "maxZ": -22.825
+  },
+  {
+   "minX": -42.175,
+   "maxX": -41.825,
+   "minZ": -29.175,
+   "maxZ": -28.825
+  },
+  {
+   "minX": -14.175,
+   "maxX": -13.825,
+   "minZ": -23.175,
+   "maxZ": -22.825
+  },
+  {
+   "minX": -14.175,
+   "maxX": -13.825,
+   "minZ": -29.175,
+   "maxZ": -28.825
+  },
+  {
+   "minX": 13.825,
+   "maxX": 14.175,
+   "minZ": -23.175,
+   "maxZ": -22.825
+  },
+  {
+   "minX": 13.825,
+   "maxX": 14.175,
+   "minZ": -29.175,
+   "maxZ": -28.825
+  },
+  {
+   "minX": 41.825,
+   "maxX": 42.175,
+   "minZ": -23.175,
+   "maxZ": -22.825
+  },
+  {
+   "minX": 41.825,
+   "maxX": 42.175,
+   "minZ": -29.175,
+   "maxZ": -28.825
+  },
+  {
+   "minX": 55.825,
+   "maxX": 56.175,
+   "minZ": -23.175,
+   "maxZ": -22.825
+  },
+  {
+   "minX": 55.825,
+   "maxX": 56.175,
+   "minZ": -29.175,
+   "maxZ": -28.825
+  },
+  {
+   "minX": 69.825,
+   "maxX": 70.175,
+   "minZ": -23.175,
+   "maxZ": -22.825
+  },
+  {
+   "minX": 69.825,
+   "maxX": 70.175,
+   "minZ": -29.175,
+   "maxZ": -28.825
+  },
+  {
+   "minX": -35.175,
+   "maxX": -34.825,
+   "minZ": 48.825,
+   "maxZ": 49.175
+  },
+  {
+   "minX": -29.175,
+   "maxX": -28.825,
+   "minZ": 48.825,
+   "maxZ": 49.175
+  },
+  {
+   "minX": -35.175,
+   "maxX": -34.825,
+   "minZ": 34.825,
+   "maxZ": 35.175
+  },
+  {
+   "minX": -29.175,
+   "maxX": -28.825,
+   "minZ": 34.825,
+   "maxZ": 35.175
+  },
+  {
+   "minX": -35.175,
+   "maxX": -34.825,
+   "minZ": 20.825,
+   "maxZ": 21.175
+  },
+  {
+   "minX": -29.175,
+   "maxX": -28.825,
+   "minZ": 20.825,
+   "maxZ": 21.175
+  },
+  {
+   "minX": -35.175,
+   "maxX": -34.825,
+   "minZ": 6.825,
+   "maxZ": 7.175
+  },
+  {
+   "minX": -29.175,
+   "maxX": -28.825,
+   "minZ": 6.825,
+   "maxZ": 7.175
+  },
+  {
+   "minX": -35.175,
+   "maxX": -34.825,
+   "minZ": -7.175,
+   "maxZ": -6.825
+  },
+  {
+   "minX": -29.175,
+   "maxX": -28.825,
+   "minZ": -7.175,
+   "maxZ": -6.825
+  },
+  {
+   "minX": -35.175,
+   "maxX": -34.825,
+   "minZ": -21.175,
+   "maxZ": -20.825
+  },
+  {
+   "minX": -29.175,
+   "maxX": -28.825,
+   "minZ": -21.175,
+   "maxZ": -20.825
+  },
+  {
+   "minX": -35.175,
+   "maxX": -34.825,
+   "minZ": -35.175,
+   "maxZ": -34.825
+  },
+  {
+   "minX": -29.175,
+   "maxX": -28.825,
+   "minZ": -35.175,
+   "maxZ": -34.825
+  },
+  {
+   "minX": -35.175,
+   "maxX": -34.825,
+   "minZ": -49.175,
+   "maxZ": -48.825
+  },
+  {
+   "minX": -29.175,
+   "maxX": -28.825,
+   "minZ": -49.175,
+   "maxZ": -48.825
+  },
+  {
+   "minX": -3.175,
+   "maxX": -2.825,
+   "minZ": 48.825,
+   "maxZ": 49.175
+  },
+  {
+   "minX": 2.825,
+   "maxX": 3.175,
+   "minZ": 48.825,
+   "maxZ": 49.175
+  },
+  {
+   "minX": -3.175,
+   "maxX": -2.825,
+   "minZ": 34.825,
+   "maxZ": 35.175
+  },
+  {
+   "minX": 2.825,
+   "maxX": 3.175,
+   "minZ": 34.825,
+   "maxZ": 35.175
+  },
+  {
+   "minX": -3.175,
+   "maxX": -2.825,
+   "minZ": 20.825,
+   "maxZ": 21.175
+  },
+  {
+   "minX": 2.825,
+   "maxX": 3.175,
+   "minZ": 20.825,
+   "maxZ": 21.175
+  },
+  {
+   "minX": -3.175,
+   "maxX": -2.825,
+   "minZ": 6.825,
+   "maxZ": 7.175
+  },
+  {
+   "minX": 2.825,
+   "maxX": 3.175,
+   "minZ": 6.825,
+   "maxZ": 7.175
+  },
+  {
+   "minX": -3.175,
+   "maxX": -2.825,
+   "minZ": -7.175,
+   "maxZ": -6.825
+  },
+  {
+   "minX": 2.825,
+   "maxX": 3.175,
+   "minZ": -7.175,
+   "maxZ": -6.825
+  },
+  {
+   "minX": -3.175,
+   "maxX": -2.825,
+   "minZ": -21.175,
+   "maxZ": -20.825
+  },
+  {
+   "minX": 2.825,
+   "maxX": 3.175,
+   "minZ": -21.175,
+   "maxZ": -20.825
+  },
+  {
+   "minX": -3.175,
+   "maxX": -2.825,
+   "minZ": -35.175,
+   "maxZ": -34.825
+  },
+  {
+   "minX": 2.825,
+   "maxX": 3.175,
+   "minZ": -35.175,
+   "maxZ": -34.825
+  },
+  {
+   "minX": -3.175,
+   "maxX": -2.825,
+   "minZ": -49.175,
+   "maxZ": -48.825
+  },
+  {
+   "minX": 2.825,
+   "maxX": 3.175,
+   "minZ": -49.175,
+   "maxZ": -48.825
+  },
+  {
+   "minX": 28.825,
+   "maxX": 29.175,
+   "minZ": 48.825,
+   "maxZ": 49.175
+  },
+  {
+   "minX": 34.825,
+   "maxX": 35.175,
+   "minZ": 48.825,
+   "maxZ": 49.175
+  },
+  {
+   "minX": 28.825,
+   "maxX": 29.175,
+   "minZ": 34.825,
+   "maxZ": 35.175
+  },
+  {
+   "minX": 34.825,
+   "maxX": 35.175,
+   "minZ": 34.825,
+   "maxZ": 35.175
+  },
+  {
+   "minX": 28.825,
+   "maxX": 29.175,
+   "minZ": 20.825,
+   "maxZ": 21.175
+  },
+  {
+   "minX": 34.825,
+   "maxX": 35.175,
+   "minZ": 20.825,
+   "maxZ": 21.175
+  },
+  {
+   "minX": 28.825,
+   "maxX": 29.175,
+   "minZ": 6.825,
+   "maxZ": 7.175
+  },
+  {
+   "minX": 34.825,
+   "maxX": 35.175,
+   "minZ": 6.825,
+   "maxZ": 7.175
+  },
+  {
+   "minX": 28.825,
+   "maxX": 29.175,
+   "minZ": -7.175,
+   "maxZ": -6.825
+  },
+  {
+   "minX": 34.825,
+   "maxX": 35.175,
+   "minZ": -7.175,
+   "maxZ": -6.825
+  },
+  {
+   "minX": 28.825,
+   "maxX": 29.175,
+   "minZ": -21.175,
+   "maxZ": -20.825
+  },
+  {
+   "minX": 34.825,
+   "maxX": 35.175,
+   "minZ": -21.175,
+   "maxZ": -20.825
+  },
+  {
+   "minX": 28.825,
+   "maxX": 29.175,
+   "minZ": -35.175,
+   "maxZ": -34.825
+  },
+  {
+   "minX": 34.825,
+   "maxX": 35.175,
+   "minZ": -35.175,
+   "maxZ": -34.825
+  },
+  {
+   "minX": 28.825,
+   "maxX": 29.175,
+   "minZ": -49.175,
+   "maxZ": -48.825
+  },
+  {
+   "minX": 34.825,
+   "maxX": 35.175,
+   "minZ": -49.175,
+   "maxZ": -48.825
+  },
+  {
+   "minX": -25.7,
+   "maxX": -22.3,
+   "minZ": 4.55,
+   "maxZ": 5.15
+  },
+  {
+   "minX": 46.3,
+   "maxX": 49.7,
+   "minZ": -5.15,
+   "maxZ": -4.55
+  },
+  {
+   "minX": 6.9,
+   "maxX": 9.1,
+   "minZ": -22,
+   "maxZ": -20.8
+  },
+  {
+   "minX": 20.9,
+   "maxX": 23.1,
+   "minZ": -10.35,
+   "maxZ": -9.65
+  },
+  {
+   "minX": 22.2,
+   "maxX": 25.8,
+   "minZ": -16.8,
+   "maxZ": -13.2
+  },
+  {
+   "minX": 14.3,
+   "maxX": 16.1,
+   "minZ": -7.8,
+   "maxZ": -6.2
+  },
+  {
+   "minX": -7.25,
+   "maxX": -5.95,
+   "minZ": -7.25,
+   "maxZ": -5.95
+  },
+  {
+   "minX": 4.75,
+   "maxX": 6.05,
+   "minZ": -6.85,
+   "maxZ": -5.55
+  },
+  {
+   "minX": -40.15,
+   "maxX": -38.85,
+   "minZ": 4.15,
+   "maxZ": 5.45
+  },
+  {
+   "minX": -10.15,
+   "maxX": -8.85,
+   "minZ": 30.35,
+   "maxZ": 31.65
+  },
+  {
+   "minX": 8.3,
+   "maxX": 8.7,
+   "minZ": 5,
+   "maxZ": 5.4
+  },
+  {
+   "minX": -2.85,
+   "maxX": -2.55,
+   "minZ": 2.55,
+   "maxZ": 2.85
+  },
+  {
+   "minX": 2.55,
+   "maxX": 2.85,
+   "minZ": -2.85,
+   "maxZ": -2.55
+  },
+  {
+   "minX": 2.55,
+   "maxX": 2.85,
+   "minZ": 2.55,
+   "maxZ": 2.85
+  },
+  {
+   "minX": -2.85,
+   "maxX": -2.55,
+   "minZ": -2.85,
+   "maxZ": -2.55
+  },
+  {
+   "minX": -34.85,
+   "maxX": -34.55,
+   "minZ": -23.45,
+   "maxZ": -23.15
+  },
+  {
+   "minX": -29.45,
+   "maxX": -29.15,
+   "minZ": -28.85,
+   "maxZ": -28.55
+  },
+  {
+   "minX": -29.45,
+   "maxX": -29.15,
+   "minZ": -23.45,
+   "maxZ": -23.15
+  },
+  {
+   "minX": -34.85,
+   "maxX": -34.55,
+   "minZ": -28.85,
+   "maxZ": -28.55
+  },
+  {
+   "minX": 37,
+   "maxX": 38,
+   "minZ": -14.6,
+   "maxZ": -11.4
+  },
+  {
+   "minX": 56,
+   "maxX": 57,
+   "minZ": -14.6,
+   "maxZ": -11.4
+  },
+  {
+   "minX": -86,
+   "maxX": -35.45,
+   "minZ": 47,
+   "maxZ": 53
+  },
+  {
+   "minX": -28.55,
+   "maxX": -3.45,
+   "minZ": 47,
+   "maxZ": 53
+  },
+  {
+   "minX": 3.45,
+   "maxX": 28.55,
+   "minZ": 47,
+   "maxZ": 53
+  },
+  {
+   "minX": 35.45,
+   "maxX": 86,
+   "minZ": 47,
+   "maxZ": 53
+  },
+  {
+   "minX": -35.5,
+   "maxX": -35.3,
+   "minZ": 46.4,
+   "maxZ": 53.6
+  },
+  {
+   "minX": -28.7,
+   "maxX": -28.5,
+   "minZ": 46.4,
+   "maxZ": 53.6
+  },
+  {
+   "minX": -3.5,
+   "maxX": -3.3,
+   "minZ": 46.4,
+   "maxZ": 53.6
+  },
+  {
+   "minX": 3.3,
+   "maxX": 3.5,
+   "minZ": 46.4,
+   "maxZ": 53.6
+  },
+  {
+   "minX": 28.5,
+   "maxX": 28.7,
+   "minZ": 46.4,
+   "maxZ": 53.6
+  },
+  {
+   "minX": 35.3,
+   "maxX": 35.5,
+   "minZ": 46.4,
+   "maxZ": 53.6
+  },
+  {
+   "minX": -81.25,
+   "maxX": -76.75,
+   "minZ": 38.5,
+   "maxZ": 43.5
+  },
+  {
+   "minX": -81.25,
+   "maxX": -76.75,
+   "minZ": 32.3,
+   "maxZ": 37.3
+  },
+  {
+   "minX": -81.25,
+   "maxX": -76.75,
+   "minZ": 13.7,
+   "maxZ": 18.7
+  },
+  {
+   "minX": -81.25,
+   "maxX": -76.75,
+   "minZ": 7.5,
+   "maxZ": 12.5
+  },
+  {
+   "minX": -81.25,
+   "maxX": -76.75,
+   "minZ": -11.1,
+   "maxZ": -6.1
+  },
+  {
+   "minX": -81.25,
+   "maxX": -76.75,
+   "minZ": -17.3,
+   "maxZ": -12.3
+  },
+  {
+   "minX": -81.25,
+   "maxX": -76.75,
+   "minZ": -35.9,
+   "maxZ": -30.9
+  },
+  {
+   "minX": -81.25,
+   "maxX": -76.75,
+   "minZ": -42.1,
+   "maxZ": -37.1
+  },
+  {
+   "minX": -81.25,
+   "maxX": -76.75,
+   "minZ": -48.3,
+   "maxZ": -43.3
+  },
+  {
+   "minX": -81.25,
+   "maxX": -76.75,
+   "minZ": -54.5,
+   "maxZ": -49.5
+  },
+  {
+   "minX": -81.25,
+   "maxX": -76.75,
+   "minZ": -60.7,
+   "maxZ": -55.7
+  },
+  {
+   "minX": -69.25,
+   "maxX": -64.75,
+   "minZ": 38.5,
+   "maxZ": 43.5
+  },
+  {
+   "minX": -69.25,
+   "maxX": -64.75,
+   "minZ": 32.3,
+   "maxZ": 37.3
+  },
+  {
+   "minX": -69.25,
+   "maxX": -64.75,
+   "minZ": 13.7,
+   "maxZ": 18.7
+  },
+  {
+   "minX": -69.25,
+   "maxX": -64.75,
+   "minZ": 7.5,
+   "maxZ": 12.5
+  },
+  {
+   "minX": -69.25,
+   "maxX": -64.75,
+   "minZ": -11.1,
+   "maxZ": -6.1
+  },
+  {
+   "minX": -69.25,
+   "maxX": -64.75,
+   "minZ": -17.3,
+   "maxZ": -12.3
+  },
+  {
+   "minX": -69.25,
+   "maxX": -64.75,
+   "minZ": -35.9,
+   "maxZ": -30.9
+  },
+  {
+   "minX": -69.25,
+   "maxX": -64.75,
+   "minZ": -42.1,
+   "maxZ": -37.1
+  },
+  {
+   "minX": -69.25,
+   "maxX": -64.75,
+   "minZ": -48.3,
+   "maxZ": -43.3
+  },
+  {
+   "minX": -69.25,
+   "maxX": -64.75,
+   "minZ": -54.5,
+   "maxZ": -49.5
+  },
+  {
+   "minX": -69.25,
+   "maxX": -64.75,
+   "minZ": -60.7,
+   "maxZ": -55.7
+  },
+  {
+   "minX": -74.875,
+   "maxX": -74.425,
+   "minZ": 5.175,
+   "maxZ": 5.625
+  },
+  {
+   "minX": -71.575,
+   "maxX": -71.125,
+   "minZ": 5.175,
+   "maxZ": 5.625
+  },
+  {
+   "minX": -74.875,
+   "maxX": -74.425,
+   "minZ": -5.625,
+   "maxZ": -5.175
+  },
+  {
+   "minX": -71.575,
+   "maxX": -71.125,
+   "minZ": -5.625,
+   "maxZ": -5.175
+  },
+  {
+   "minX": -62.7,
+   "maxX": -60.3,
+   "minZ": -48.7,
+   "maxZ": -46.3
+  },
+  {
+   "minX": 64,
+   "maxX": 69.267,
+   "minZ": 13.65,
+   "maxZ": 21.6
+  },
+  {
+   "minX": 64,
+   "maxX": 69.267,
+   "minZ": 4.6,
+   "maxZ": 12.55
+  },
+  {
+   "minX": 70.367,
+   "maxX": 75.633,
+   "minZ": 13.65,
+   "maxZ": 21.6
+  },
+  {
+   "minX": 70.367,
+   "maxX": 75.633,
+   "minZ": 4.6,
+   "maxZ": 12.55
+  },
+  {
+   "minX": 76.733,
+   "maxX": 82,
+   "minZ": 13.65,
+   "maxZ": 21.6
+  },
+  {
+   "minX": 76.733,
+   "maxX": 82,
+   "minZ": 4.6,
+   "maxZ": 12.55
+  },
+  {
+   "minX": 64,
+   "maxX": 69.267,
+   "minZ": -12.55,
+   "maxZ": -4.6
+  },
+  {
+   "minX": 64,
+   "maxX": 69.267,
+   "minZ": -21.6,
+   "maxZ": -13.65
+  },
+  {
+   "minX": 70.367,
+   "maxX": 75.633,
+   "minZ": -12.55,
+   "maxZ": -4.6
+  },
+  {
+   "minX": 70.367,
+   "maxX": 75.633,
+   "minZ": -21.6,
+   "maxZ": -13.65
+  },
+  {
+   "minX": 76.733,
+   "maxX": 82,
+   "minZ": -12.55,
+   "maxZ": -4.6
+  },
+  {
+   "minX": 76.733,
+   "maxX": 82,
+   "minZ": -21.6,
+   "maxZ": -13.65
+  },
+  {
+   "minX": 65,
+   "maxX": 82,
+   "minZ": -32,
+   "maxZ": -31
+  },
+  {
+   "minX": 65,
+   "maxX": 82,
+   "minZ": -34,
+   "maxZ": -33
+  },
+  {
+   "minX": 65,
+   "maxX": 82,
+   "minZ": -36,
+   "maxZ": -35
+  },
+  {
+   "minX": 65,
+   "maxX": 82,
+   "minZ": -38,
+   "maxZ": -37
+  },
+  {
+   "minX": 65,
+   "maxX": 82,
+   "minZ": -40,
+   "maxZ": -39
+  },
+  {
+   "minX": 65,
+   "maxX": 82,
+   "minZ": -42,
+   "maxZ": -41
+  },
+  {
+   "minX": 65,
+   "maxX": 82,
+   "minZ": -44,
+   "maxZ": -43
+  },
+  {
+   "minX": 38,
+   "maxX": 58,
+   "minZ": -47.5,
+   "maxZ": -46.5
+  },
+  {
+   "minX": 38,
+   "maxX": 58,
+   "minZ": -49.5,
+   "maxZ": -48.5
+  },
+  {
+   "minX": 38,
+   "maxX": 58,
+   "minZ": -51.5,
+   "maxZ": -50.5
+  },
+  {
+   "minX": 38,
+   "maxX": 58,
+   "minZ": -53.5,
+   "maxZ": -52.5
+  },
+  {
+   "minX": 38,
+   "maxX": 58,
+   "minZ": -55.5,
+   "maxZ": -54.5
+  },
+  {
+   "minX": 38,
+   "maxX": 58,
+   "minZ": -57.5,
+   "maxZ": -56.5
+  },
+  {
+   "minX": 59.4,
+   "maxX": 62.2,
+   "minZ": 11.6,
+   "maxZ": 14.4
+  },
+  {
+   "minX": 60.6,
+   "maxX": 63.4,
+   "minZ": -38.9,
+   "maxZ": -36.1
+  },
+  {
+   "minX": 4.7,
+   "maxX": 7.7,
+   "minZ": 40.7,
+   "maxZ": 43.1
+  },
+  {
+   "minX": -64,
+   "maxX": -61,
+   "minZ": -32.2,
+   "maxZ": -29.8
+  },
+  {
+   "minX": 59,
+   "maxX": 62,
+   "minZ": 30.4,
+   "maxZ": 32.8
+  },
+  {
+   "minX": -9.6,
+   "maxX": -6.6,
+   "minZ": -50.1,
+   "maxZ": -47.9
+  },
+  {
+   "minX": -9.6,
+   "maxX": -6.6,
+   "minZ": -56.1,
+   "maxZ": -53.9
+  },
+  {
+   "minX": -13.2,
+   "maxX": -10.2,
+   "minZ": -50.1,
+   "maxZ": -47.9
+  },
+  {
+   "minX": -13.2,
+   "maxX": -10.2,
+   "minZ": -56.1,
+   "maxZ": -53.9
+  },
+  {
+   "minX": -16.8,
+   "maxX": -13.8,
+   "minZ": -50.1,
+   "maxZ": -47.9
+  },
+  {
+   "minX": -16.8,
+   "maxX": -13.8,
+   "minZ": -56.1,
+   "maxZ": -53.9
+  },
+  {
+   "minX": -20.4,
+   "maxX": -17.4,
+   "minZ": -50.1,
+   "maxZ": -47.9
+  },
+  {
+   "minX": -20.4,
+   "maxX": -17.4,
+   "minZ": -56.1,
+   "maxZ": -53.9
+  },
+  {
+   "minX": -24,
+   "maxX": -21,
+   "minZ": -50.1,
+   "maxZ": -47.9
+  },
+  {
+   "minX": -24,
+   "maxX": -21,
+   "minZ": -56.1,
+   "maxZ": -53.9
+  },
+  {
+   "minX": 6.6,
+   "maxX": 9.6,
+   "minZ": -50.1,
+   "maxZ": -47.9
+  },
+  {
+   "minX": 6.6,
+   "maxX": 9.6,
+   "minZ": -56.1,
+   "maxZ": -53.9
+  },
+  {
+   "minX": 10.2,
+   "maxX": 13.2,
+   "minZ": -50.1,
+   "maxZ": -47.9
+  },
+  {
+   "minX": 10.2,
+   "maxX": 13.2,
+   "minZ": -56.1,
+   "maxZ": -53.9
+  },
+  {
+   "minX": 13.8,
+   "maxX": 16.8,
+   "minZ": -50.1,
+   "maxZ": -47.9
+  },
+  {
+   "minX": 13.8,
+   "maxX": 16.8,
+   "minZ": -56.1,
+   "maxZ": -53.9
+  },
+  {
+   "minX": 17.4,
+   "maxX": 20.4,
+   "minZ": -50.1,
+   "maxZ": -47.9
+  },
+  {
+   "minX": 17.4,
+   "maxX": 20.4,
+   "minZ": -56.1,
+   "maxZ": -53.9
+  },
+  {
+   "minX": 21,
+   "maxX": 24,
+   "minZ": -50.1,
+   "maxZ": -47.9
+  },
+  {
+   "minX": 21,
+   "maxX": 24,
+   "minZ": -56.1,
+   "maxZ": -53.9
+  },
+  {
+   "minX": -67.25,
+   "maxX": -61.75,
+   "minZ": 6.05,
+   "maxZ": 6.35
+  },
+  {
+   "minX": -25.5,
+   "maxX": -18.5,
+   "minZ": 41.85,
+   "maxZ": 42.15
+  },
+  {
+   "minX": -5.125,
+   "maxX": -4.875,
+   "minZ": -54.325,
+   "maxZ": -54.075
+  },
+  {
+   "minX": -5.125,
+   "maxX": -4.875,
+   "minZ": -49.925,
+   "maxZ": -49.675
+  },
+  {
+   "minX": 4.875,
+   "maxX": 5.125,
+   "minZ": -54.325,
+   "maxZ": -54.075
+  },
+  {
+   "minX": 4.875,
+   "maxX": 5.125,
+   "minZ": -49.925,
+   "maxZ": -49.675
+  },
+  {
+   "minX": 24.675,
+   "maxX": 24.925,
+   "minZ": 3.975,
+   "maxZ": 4.225
+  },
+  {
+   "minX": 28.275,
+   "maxX": 28.525,
+   "minZ": 3.975,
+   "maxZ": 4.225
+  },
+  {
+   "minX": -48.625,
+   "maxX": -48.375,
+   "minZ": -45.725,
+   "maxZ": -45.475
+  },
+  {
+   "minX": -43.625,
+   "maxX": -43.375,
+   "minZ": -45.725,
+   "maxZ": -45.475
+  },
+  {
+   "minX": 69.575,
+   "maxX": 69.825,
+   "minZ": -22.425,
+   "maxZ": -22.175
+  },
+  {
+   "minX": 74.175,
+   "maxX": 74.425,
+   "minZ": -22.425,
+   "maxZ": -22.175
+  },
+  {
+   "minX": 7.975,
+   "maxX": 8.225,
+   "minZ": 45.975,
+   "maxZ": 46.225
+  },
+  {
+   "minX": 10.775,
+   "maxX": 11.025,
+   "minZ": 45.975,
+   "maxZ": 46.225
+  },
+  {
+   "minX": -78.175,
+   "maxX": -77.825,
+   "minZ": 29.575,
+   "maxZ": 29.925
+  },
+  {
+   "minX": -66.175,
+   "maxX": -65.825,
+   "minZ": 29.575,
+   "maxZ": 29.925
+  },
+  {
+   "minX": -54.175,
+   "maxX": -53.825,
+   "minZ": 29.575,
+   "maxZ": 29.925
+  },
+  {
+   "minX": -42.175,
+   "maxX": -41.825,
+   "minZ": 29.575,
+   "maxZ": 29.925
+  },
+  {
+   "minX": -18.175,
+   "maxX": -17.825,
+   "minZ": 29.575,
+   "maxZ": 29.925
+  },
+  {
+   "minX": -6.175,
+   "maxX": -5.825,
+   "minZ": 29.575,
+   "maxZ": 29.925
+  },
+  {
+   "minX": 5.825,
+   "maxX": 6.175,
+   "minZ": 29.575,
+   "maxZ": 29.925
+  },
+  {
+   "minX": 17.825,
+   "maxX": 18.175,
+   "minZ": 29.575,
+   "maxZ": 29.925
+  },
+  {
+   "minX": 41.825,
+   "maxX": 42.175,
+   "minZ": 29.575,
+   "maxZ": 29.925
+  },
+  {
+   "minX": 53.825,
+   "maxX": 54.175,
+   "minZ": 29.575,
+   "maxZ": 29.925
+  },
+  {
+   "minX": 65.825,
+   "maxX": 66.175,
+   "minZ": 29.575,
+   "maxZ": 29.925
+  },
+  {
+   "minX": 77.825,
+   "maxX": 78.175,
+   "minZ": 29.575,
+   "maxZ": 29.925
+  },
+  {
+   "minX": -78.175,
+   "maxX": -77.825,
+   "minZ": 3.575,
+   "maxZ": 3.925
+  },
+  {
+   "minX": -66.175,
+   "maxX": -65.825,
+   "minZ": 3.575,
+   "maxZ": 3.925
+  },
+  {
+   "minX": -54.175,
+   "maxX": -53.825,
+   "minZ": 3.575,
+   "maxZ": 3.925
+  },
+  {
+   "minX": -42.175,
+   "maxX": -41.825,
+   "minZ": 3.575,
+   "maxZ": 3.925
+  },
+  {
+   "minX": -18.175,
+   "maxX": -17.825,
+   "minZ": 3.575,
+   "maxZ": 3.925
+  },
+  {
+   "minX": 5.825,
+   "maxX": 6.175,
+   "minZ": 3.575,
+   "maxZ": 3.925
+  },
+  {
+   "minX": 41.825,
+   "maxX": 42.175,
+   "minZ": 3.575,
+   "maxZ": 3.925
+  },
+  {
+   "minX": 53.825,
+   "maxX": 54.175,
+   "minZ": 3.575,
+   "maxZ": 3.925
+  },
+  {
+   "minX": 65.825,
+   "maxX": 66.175,
+   "minZ": 3.575,
+   "maxZ": 3.925
+  },
+  {
+   "minX": 77.825,
+   "maxX": 78.175,
+   "minZ": 3.575,
+   "maxZ": 3.925
+  },
+  {
+   "minX": -78.175,
+   "maxX": -77.825,
+   "minZ": -22.425,
+   "maxZ": -22.075
+  },
+  {
+   "minX": -66.175,
+   "maxX": -65.825,
+   "minZ": -22.425,
+   "maxZ": -22.075
+  },
+  {
+   "minX": -54.175,
+   "maxX": -53.825,
+   "minZ": -22.425,
+   "maxZ": -22.075
+  },
+  {
+   "minX": -18.175,
+   "maxX": -17.825,
+   "minZ": -22.425,
+   "maxZ": -22.075
+  },
+  {
+   "minX": -6.175,
+   "maxX": -5.825,
+   "minZ": -22.425,
+   "maxZ": -22.075
+  },
+  {
+   "minX": 17.825,
+   "maxX": 18.175,
+   "minZ": -22.425,
+   "maxZ": -22.075
+  },
+  {
+   "minX": 41.825,
+   "maxX": 42.175,
+   "minZ": -22.425,
+   "maxZ": -22.075
+  },
+  {
+   "minX": 53.825,
+   "maxX": 54.175,
+   "minZ": -22.425,
+   "maxZ": -22.075
+  },
+  {
+   "minX": 65.825,
+   "maxX": 66.175,
+   "minZ": -22.425,
+   "maxZ": -22.075
+  },
+  {
+   "minX": 77.825,
+   "maxX": 78.175,
+   "minZ": -22.425,
+   "maxZ": -22.075
+  },
+  {
+   "minX": -28.425,
+   "maxX": -28.075,
+   "minZ": 57.825,
+   "maxZ": 58.175
+  },
+  {
+   "minX": -28.425,
+   "maxX": -28.075,
+   "minZ": 33.825,
+   "maxZ": 34.175
+  },
+  {
+   "minX": -28.425,
+   "maxX": -28.075,
+   "minZ": 9.825,
+   "maxZ": 10.175
+  },
+  {
+   "minX": -28.425,
+   "maxX": -28.075,
+   "minZ": -14.175,
+   "maxZ": -13.825
+  },
+  {
+   "minX": -28.425,
+   "maxX": -28.075,
+   "minZ": -38.175,
+   "maxZ": -37.825
+  },
+  {
+   "minX": -28.425,
+   "maxX": -28.075,
+   "minZ": -50.175,
+   "maxZ": -49.825
+  },
+  {
+   "minX": 3.575,
+   "maxX": 3.925,
+   "minZ": 57.825,
+   "maxZ": 58.175
+  },
+  {
+   "minX": 3.575,
+   "maxX": 3.925,
+   "minZ": 33.825,
+   "maxZ": 34.175
+  },
+  {
+   "minX": 3.575,
+   "maxX": 3.925,
+   "minZ": 9.825,
+   "maxZ": 10.175
+  },
+  {
+   "minX": 3.575,
+   "maxX": 3.925,
+   "minZ": -14.175,
+   "maxZ": -13.825
+  },
+  {
+   "minX": 35.575,
+   "maxX": 35.925,
+   "minZ": 57.825,
+   "maxZ": 58.175
+  },
+  {
+   "minX": 35.575,
+   "maxX": 35.925,
+   "minZ": 33.825,
+   "maxZ": 34.175
+  },
+  {
+   "minX": 35.575,
+   "maxX": 35.925,
+   "minZ": 9.825,
+   "maxZ": 10.175
+  },
+  {
+   "minX": 35.575,
+   "maxX": 35.925,
+   "minZ": -14.175,
+   "maxZ": -13.825
+  },
+  {
+   "minX": 35.575,
+   "maxX": 35.925,
+   "minZ": -38.175,
+   "maxZ": -37.825
+  },
+  {
+   "minX": 35.575,
+   "maxX": 35.925,
+   "minZ": -50.175,
+   "maxZ": -49.825
+  },
+  {
+   "minX": -75.45,
+   "maxX": -75.25,
+   "minZ": 38.9,
+   "maxZ": 39.1
+  },
+  {
+   "minX": -75.45,
+   "maxX": -75.25,
+   "minZ": 41.1,
+   "maxZ": 41.3
+  },
+  {
+   "minX": -75.45,
+   "maxX": -75.25,
+   "minZ": 14.1,
+   "maxZ": 14.3
+  },
+  {
+   "minX": -75.45,
+   "maxX": -75.25,
+   "minZ": 16.3,
+   "maxZ": 16.5
+  },
+  {
+   "minX": -75.45,
+   "maxX": -75.25,
+   "minZ": -10.7,
+   "maxZ": -10.5
+  },
+  {
+   "minX": -75.45,
+   "maxX": -75.25,
+   "minZ": -8.5,
+   "maxZ": -8.3
+  },
+  {
+   "minX": -75.45,
+   "maxX": -75.25,
+   "minZ": -35.5,
+   "maxZ": -35.3
+  },
+  {
+   "minX": -75.45,
+   "maxX": -75.25,
+   "minZ": -33.3,
+   "maxZ": -33.1
+  },
+  {
+   "minX": -75.45,
+   "maxX": -75.25,
+   "minZ": -47.9,
+   "maxZ": -47.7
+  },
+  {
+   "minX": -75.45,
+   "maxX": -75.25,
+   "minZ": -45.7,
+   "maxZ": -45.5
+  },
+  {
+   "minX": -75.45,
+   "maxX": -75.25,
+   "minZ": -60.3,
+   "maxZ": -60.1
+  },
+  {
+   "minX": -75.45,
+   "maxX": -75.25,
+   "minZ": -58.1,
+   "maxZ": -57.9
+  },
+  {
+   "minX": -70.75,
+   "maxX": -70.55,
+   "minZ": 32.7,
+   "maxZ": 32.9
+  },
+  {
+   "minX": -70.75,
+   "maxX": -70.55,
+   "minZ": 34.9,
+   "maxZ": 35.1
+  },
+  {
+   "minX": -70.75,
+   "maxX": -70.55,
+   "minZ": 7.9,
+   "maxZ": 8.1
+  },
+  {
+   "minX": -70.75,
+   "maxX": -70.55,
+   "minZ": 10.1,
+   "maxZ": 10.3
+  },
+  {
+   "minX": -70.75,
+   "maxX": -70.55,
+   "minZ": -16.9,
+   "maxZ": -16.7
+  },
+  {
+   "minX": -70.75,
+   "maxX": -70.55,
+   "minZ": -14.7,
+   "maxZ": -14.5
+  },
+  {
+   "minX": -70.75,
+   "maxX": -70.55,
+   "minZ": -41.7,
+   "maxZ": -41.5
+  },
+  {
+   "minX": -70.75,
+   "maxX": -70.55,
+   "minZ": -39.5,
+   "maxZ": -39.3
+  },
+  {
+   "minX": -70.75,
+   "maxX": -70.55,
+   "minZ": -54.1,
+   "maxZ": -53.9
+  },
+  {
+   "minX": -70.75,
+   "maxX": -70.55,
+   "minZ": -51.9,
+   "maxZ": -51.7
+  },
+  {
+   "minX": -19.6,
+   "maxX": -19.4,
+   "minZ": 9.8,
+   "maxZ": 10
+  },
+  {
+   "minX": -19.6,
+   "maxX": -19.4,
+   "minZ": 12,
+   "maxZ": 12.2
+  },
+  {
+   "minX": -20.6,
+   "maxX": -20.4,
+   "minZ": -9,
+   "maxZ": -8.8
+  },
+  {
+   "minX": -20.6,
+   "maxX": -20.4,
+   "minZ": -11.2,
+   "maxZ": -11
+  },
+  {
+   "minX": 11.4,
+   "maxX": 11.6,
+   "minZ": -15,
+   "maxZ": -14.8
+  },
+  {
+   "minX": 11.4,
+   "maxX": 11.6,
+   "minZ": -17.2,
+   "maxZ": -17
+  },
+  {
+   "minX": -16.6,
+   "maxX": -16.4,
+   "minZ": -16.5,
+   "maxZ": -16.3
+  },
+  {
+   "minX": -16.6,
+   "maxX": -16.4,
+   "minZ": -18.7,
+   "maxZ": -18.5
+  },
+  {
+   "minX": -24.6,
+   "maxX": -24.4,
+   "minZ": -35,
+   "maxZ": -34.8
+  },
+  {
+   "minX": -24.6,
+   "maxX": -24.4,
+   "minZ": -37.2,
+   "maxZ": -37
+  },
+  {
+   "minX": -13.6,
+   "maxX": -13.4,
+   "minZ": -35,
+   "maxZ": -34.8
+  },
+  {
+   "minX": -13.6,
+   "maxX": -13.4,
+   "minZ": -37.2,
+   "maxZ": -37
+  },
+  {
+   "minX": 24.4,
+   "maxX": 24.6,
+   "minZ": -35,
+   "maxZ": -34.8
+  },
+  {
+   "minX": 24.4,
+   "maxX": 24.6,
+   "minZ": -37.2,
+   "maxZ": -37
+  },
+  {
+   "minX": -52.6,
+   "maxX": -52.4,
+   "minZ": 34.8,
+   "maxZ": 35
+  },
+  {
+   "minX": -52.6,
+   "maxX": -52.4,
+   "minZ": 37,
+   "maxZ": 37.2
+  },
+  {
+   "minX": 52.9,
+   "maxX": 53.1,
+   "minZ": 34.8,
+   "maxZ": 35
+  },
+  {
+   "minX": 52.9,
+   "maxX": 53.1,
+   "minZ": 37,
+   "maxZ": 37.2
+  },
+  {
+   "minX": -52.6,
+   "maxX": -52.4,
+   "minZ": -35,
+   "maxZ": -34.8
+  },
+  {
+   "minX": -52.6,
+   "maxX": -52.4,
+   "minZ": -37.2,
+   "maxZ": -37
+  },
+  {
+   "minX": 52.4,
+   "maxX": 52.6,
+   "minZ": -35,
+   "maxZ": -34.8
+  },
+  {
+   "minX": 52.4,
+   "maxX": 52.6,
+   "minZ": -37.2,
+   "maxZ": -37
+  },
+  {
+   "minX": -45.6,
+   "maxX": -45.4,
+   "minZ": -21.2,
+   "maxZ": -21
+  },
+  {
+   "minX": -45.6,
+   "maxX": -45.4,
+   "minZ": -19,
+   "maxZ": -18.8
+  },
+  {
+   "minX": -18.3,
+   "maxX": -18.1,
+   "minZ": 7.8,
+   "maxZ": 8
+  },
+  {
+   "minX": -18.3,
+   "maxX": -18.1,
+   "minZ": 10,
+   "maxZ": 10.2
+  },
+  {
+   "minX": -8.7,
+   "maxX": -8.2,
+   "minZ": -4.3,
+   "maxZ": -3.8
+  },
+  {
+   "minX": 12.8,
+   "maxX": 13.3,
+   "minZ": -4.6,
+   "maxZ": -4.1
+  },
+  {
+   "minX": -50.8,
+   "maxX": -50.3,
+   "minZ": 4.9,
+   "maxZ": 5.4
+  },
+  {
+   "minX": 40.2,
+   "maxX": 40.7,
+   "minZ": 5.9,
+   "maxZ": 6.4
+  },
+  {
+   "minX": -41.7,
+   "maxX": -41.2,
+   "minZ": -5.4,
+   "maxZ": -4.9
+  },
+  {
+   "minX": -20.8,
+   "maxX": -20.3,
+   "minZ": 31.4,
+   "maxZ": 31.9
+  },
+  {
+   "minX": 6.2,
+   "maxX": 6.7,
+   "minZ": 31.9,
+   "maxZ": 32.4
+  },
+  {
+   "minX": 18.2,
+   "maxX": 18.7,
+   "minZ": 31.9,
+   "maxZ": 32.4
+  },
+  {
+   "minX": 8.8,
+   "maxX": 9.3,
+   "minZ": -30.9,
+   "maxZ": -30.4
+  },
+  {
+   "minX": -16.2,
+   "maxX": -15.7,
+   "minZ": 21.7,
+   "maxZ": 22.2
+  },
+  {
+   "minX": 43.3,
+   "maxX": 43.8,
+   "minZ": -30.4,
+   "maxZ": -29.9
+  },
+  {
+   "minX": 36.2,
+   "maxX": 36.7,
+   "minZ": 31.4,
+   "maxZ": 31.9
+  },
+  {
+   "minX": 15.3,
+   "maxX": 15.8,
+   "minZ": -31.9,
+   "maxZ": -31.4
+  },
+  {
+   "minX": -27.3,
+   "maxX": -26.8,
+   "minZ": -22.1,
+   "maxZ": -21.6
+  },
+  {
+   "minX": -42.8,
+   "maxX": -42.3,
+   "minZ": 31.4,
+   "maxZ": 31.9
+  },
+  {
+   "minX": -43.3,
+   "maxX": -42.8,
+   "minZ": -22.1,
+   "maxZ": -21.6
+  },
+  {
+   "minX": -44.25,
+   "maxX": -43.75,
+   "minZ": 42.85,
+   "maxZ": 43.35
+  },
+  {
+   "minX": -20.25,
+   "maxX": -19.75,
+   "minZ": 42.85,
+   "maxZ": 43.35
+  },
+  {
+   "minX": 3.75,
+   "maxX": 4.25,
+   "minZ": 42.85,
+   "maxZ": 43.35
+  },
+  {
+   "minX": 27.75,
+   "maxX": 28.25,
+   "minZ": 42.85,
+   "maxZ": 43.35
+  },
+  {
+   "minX": 51.75,
+   "maxX": 52.25,
+   "minZ": 42.85,
+   "maxZ": 43.35
+  },
+  {
+   "minX": -25.85,
+   "maxX": -25.35,
+   "minZ": -49.45,
+   "maxZ": -48.95
+  },
+  {
+   "minX": 25.35,
+   "maxX": 25.85,
+   "minZ": -55.05,
+   "maxZ": -54.55
+  },
+  {
+   "minX": -36.45,
+   "maxX": -35.95,
+   "minZ": -47.25,
+   "maxZ": -46.75
+  },
+  {
+   "minX": -77,
+   "maxX": -75,
+   "minZ": 45.75,
+   "maxZ": 46.35
+  },
+  {
+   "minX": -61,
+   "maxX": -59,
+   "minZ": 45.75,
+   "maxZ": 46.35
+  },
+  {
+   "minX": -45,
+   "maxX": -43,
+   "minZ": 45.75,
+   "maxZ": 46.35
+  },
+  {
+   "minX": -13,
+   "maxX": -11,
+   "minZ": 45.75,
+   "maxZ": 46.35
+  },
+  {
+   "minX": 19,
+   "maxX": 21,
+   "minZ": 45.75,
+   "maxZ": 46.35
+  },
+  {
+   "minX": 51,
+   "maxX": 53,
+   "minZ": 45.75,
+   "maxZ": 46.35
+  },
+  {
+   "minX": 67,
+   "maxX": 69,
+   "minZ": 45.75,
+   "maxZ": 46.35
+  },
+  {
+   "minX": -26.5,
+   "maxX": -25.9,
+   "minZ": -53,
+   "maxZ": -51
+  },
+  {
+   "minX": 25.9,
+   "maxX": 26.5,
+   "minZ": -53,
+   "maxZ": -51
+  },
+  {
+   "minX": -50,
+   "maxX": -48,
+   "minZ": -58.8,
+   "maxZ": -58.2
+  },
+  {
+   "minX": -44,
+   "maxX": -42,
+   "minZ": -58.8,
+   "maxZ": -58.2
+  },
+  {
+   "minX": -76.15,
+   "maxX": -74.95,
+   "minZ": 35.5,
+   "maxZ": 36.7
+  },
+  {
+   "minX": -76.15,
+   "maxX": -74.95,
+   "minZ": -7.9,
+   "maxZ": -6.7
+  },
+  {
+   "minX": -76.15,
+   "maxX": -74.95,
+   "minZ": -38.9,
+   "maxZ": -37.7
+  },
+  {
+   "minX": -76.15,
+   "maxX": -74.95,
+   "minZ": -57.5,
+   "maxZ": -56.3
+  },
+  {
+   "minX": -71.05,
+   "maxX": -69.85,
+   "minZ": 16.9,
+   "maxZ": 18.1
+  },
+  {
+   "minX": -71.05,
+   "maxX": -69.85,
+   "minZ": -14.1,
+   "maxZ": -12.9
+  },
+  {
+   "minX": -71.05,
+   "maxX": -69.85,
+   "minZ": -45.1,
+   "maxZ": -43.9
+  },
+  {
+   "minX": -59.2,
+   "maxX": -58,
+   "minZ": -32,
+   "maxZ": -30.8
+  },
+  {
+   "minX": 27,
+   "maxX": 28.2,
+   "minZ": -50.2,
+   "maxZ": -49
+  },
+  {
+   "minX": -28,
+   "maxX": -26.8,
+   "minZ": -55.2,
+   "maxZ": -54
+  },
+  {
+   "minX": 57,
+   "maxX": 58.2,
+   "minZ": 30.6,
+   "maxZ": 31.8
+  },
+  {
+   "minX": -78.226,
+   "maxX": -77.626,
+   "minZ": 55.3,
+   "maxZ": 55.9
+  },
+  {
+   "minX": -15.318,
+   "maxX": -14.718,
+   "minZ": 55.3,
+   "maxZ": 55.9
+  },
+  {
+   "minX": -5.741,
+   "maxX": -5.141,
+   "minZ": 55.3,
+   "maxZ": 55.9
+  },
+  {
+   "minX": 21.373,
+   "maxX": 21.973,
+   "minZ": 55.3,
+   "maxZ": 55.9
+  },
+  {
+   "minX": 47.533,
+   "maxX": 48.133,
+   "minZ": 55.3,
+   "maxZ": 55.9
+  },
+  {
+   "minX": 66.117,
+   "maxX": 66.717,
+   "minZ": 55.3,
+   "maxZ": 55.9
+  },
+  {
+   "minX": 73.945,
+   "maxX": 74.545,
+   "minZ": 55.3,
+   "maxZ": 55.9
+  },
+  {
+   "minX": 60.784,
+   "maxX": 61.384,
+   "minZ": 39.7,
+   "maxZ": 40.3
+  },
+  {
+   "minX": 61.26,
+   "maxX": 61.86,
+   "minZ": 18.7,
+   "maxZ": 19.3
+  },
+  {
+   "minX": 61.365,
+   "maxX": 61.965,
+   "minZ": 4.7,
+   "maxZ": 5.3
+  },
+  {
+   "minX": 60.953,
+   "maxX": 61.553,
+   "minZ": -9.3,
+   "maxZ": -8.7
+  },
+  {
+   "minX": 61.061,
+   "maxX": 61.661,
+   "minZ": -16.3,
+   "maxZ": -15.7
+  },
+  {
+   "minX": 61.109,
+   "maxX": 61.709,
+   "minZ": -30.3,
+   "maxZ": -29.7
+  },
+  {
+   "minX": 61.311,
+   "maxX": 61.911,
+   "minZ": -44.3,
+   "maxZ": -43.7
+  },
+  {
+   "minX": -27.8,
+   "maxX": -27.2,
+   "minZ": -48.1,
+   "maxZ": -47.5
+  },
+  {
+   "minX": 27.2,
+   "maxX": 27.8,
+   "minZ": -56.7,
+   "maxZ": -56.1
+  },
+  {
+   "minX": -58.8,
+   "maxX": -58.2,
+   "minZ": 39.7,
+   "maxZ": 40.3
+  },
+  {
+   "minX": 49.7,
+   "maxX": 50.3,
+   "minZ": 42.7,
+   "maxZ": 43.3
+  },
+  {
+   "minX": 65.806,
+   "maxX": 66.306,
+   "minZ": 42.697,
+   "maxZ": 43.197
+  },
+  {
+   "minX": 65.58,
+   "maxX": 66.08,
+   "minZ": 38.309,
+   "maxZ": 38.809
+  },
+  {
+   "minX": 65.713,
+   "maxX": 66.213,
+   "minZ": 33.997,
+   "maxZ": 34.497
+  },
+  {
+   "minX": 69.284,
+   "maxX": 69.784,
+   "minZ": 42.149,
+   "maxZ": 42.649
+  },
+  {
+   "minX": 69.501,
+   "maxX": 70.001,
+   "minZ": 38.355,
+   "maxZ": 38.855
+  },
+  {
+   "minX": 69.779,
+   "maxX": 70.279,
+   "minZ": 34.685,
+   "maxZ": 35.185
+  },
+  {
+   "minX": 74.324,
+   "maxX": 74.824,
+   "minZ": 42.308,
+   "maxZ": 42.808
+  },
+  {
+   "minX": 73.224,
+   "maxX": 73.724,
+   "minZ": 38.317,
+   "maxZ": 38.817
+  },
+  {
+   "minX": 73.166,
+   "maxX": 73.666,
+   "minZ": 34.636,
+   "maxZ": 35.136
+  },
+  {
+   "minX": 78.004,
+   "maxX": 78.504,
+   "minZ": 41.73,
+   "maxZ": 42.23
+  },
+  {
+   "minX": 78.5,
+   "maxX": 79,
+   "minZ": 38.889,
+   "maxZ": 39.389
+  },
+  {
+   "minX": 78.182,
+   "maxX": 78.682,
+   "minZ": 34.368,
+   "maxZ": 34.868
+  },
+  {
+   "minX": -54.9,
+   "maxX": -54.3,
+   "minZ": -53.6,
+   "maxZ": -50.4
+  },
+  {
+   "minX": -37.7,
+   "maxX": -37.1,
+   "minZ": -53.6,
+   "maxZ": -50.4
+  }
+ ]
+}

@@ -1,0 +1,138 @@
+{
+  "sks": { "perKuliah": 1, "perUjian": 4, "lulus": 144, "skripsiMinSks": 110 },
+  "skripsi": {
+    "nulis": { "progres": 6, "energi": -20, "stres": 12 },
+    "bimbingan": { "progres": 10, "energi": -10, "stres": 6 },
+    "bonusSkillPerLevel": 1,
+    "pengaliDosenAkrab": 1.5
+  },
+  "wisuda": { "hadiahOrtu": 1000000 },
+
+  "kuisUjian": { "jumlahSoal": 3, "bobotPersiapan": 0.5, "petunjukPersiapan": 0.6 },
+  "soal": [
+    { "t": "Mahasiswa paling rajin bangun jam berapa saat ada kuliah pagi?", "p": ["5 menit sebelum masuk", "Jam 6 pagi, sempat sarapan", "Kapan-kapan aja"], "b": 1 },
+    { "t": "Apa yang dimaksud dengan IPK?", "p": ["Indeks Prestasi Kumulatif", "Ikatan Pecinta Kopi", "Iuran Pembayaran Kos"], "b": 0 },
+    { "t": "Satu SKS kuliah tatap muka biasanya berapa menit per minggu?", "p": ["10 menit", "50 menit", "5 jam"], "b": 1 },
+    { "t": "Berapakah 15% dari Rp200.000?", "p": ["Rp15.000", "Rp30.000", "Rp20.000"], "b": 1 },
+    { "t": "Plagiarisme dalam tugas artinya...", "p": ["Mengutip dengan sumber", "Menjiplak karya orang tanpa izin", "Membuat daftar pustaka"], "b": 1 },
+    { "t": "Ibu kota provinsi Jawa Barat adalah...", "p": ["Bandung", "Bogor", "Cirebon"], "b": 0 },
+    { "t": "Hasil dari 7 × 8 adalah...", "p": ["54", "56", "64"], "b": 1 },
+    { "t": "Air mendidih pada suhu berapa (di permukaan laut)?", "p": ["50 °C", "100 °C", "212 °C"], "b": 1 },
+    { "t": "Planet terbesar di tata surya adalah...", "p": ["Jupiter", "Mars", "Bumi"], "b": 0 },
+    { "t": "Daftar pustaka ditulis di bagian mana makalah?", "p": ["Paling depan", "Paling akhir", "Di tengah bab 2"], "b": 1 },
+    { "t": "Lambang negara Indonesia adalah...", "p": ["Garuda Pancasila", "Harimau", "Komodo"], "b": 0 },
+    { "t": "Fotosintesis terjadi di bagian tumbuhan yang disebut...", "p": ["Akar", "Kloroplas", "Batang kayu"], "b": 1 },
+    { "t": "Kalau deadline jam 23.59, waktu terbaik mengumpulkan tugas adalah...", "p": ["23.58", "Sehari sebelumnya", "00.01 besoknya"], "b": 1 },
+    { "t": "Bahasa resmi negara Indonesia adalah...", "p": ["Bahasa Indonesia", "Bahasa Inggris", "Bahasa Melayu"], "b": 0 },
+    { "t": "Satuan untuk mengukur kuat arus listrik adalah...", "p": ["Volt", "Ampere", "Watt"], "b": 1 },
+    { "t": "Berapakah akar kuadrat dari 144?", "p": ["12", "14", "16"], "b": 0 },
+    { "t": "Hormat kepada dosen saat mengirim pesan dimulai dengan...", "p": ["\"P\"", "Salam & perkenalan diri", "Stiker kucing"], "b": 1 },
+    { "t": "Gunung tertinggi di Indonesia adalah...", "p": ["Puncak Jaya", "Semeru", "Rinjani"], "b": 0 },
+    { "t": "Rumus luas persegi panjang adalah...", "p": ["p + l", "p × l", "2 × (p + l)"], "b": 1 },
+    { "t": "Hewan yang bernapas dengan insang adalah...", "p": ["Ikan", "Kucing", "Burung"], "b": 0 },
+    { "t": "Berapa jumlah provinsi di Pulau Jawa?", "p": ["4", "6", "8"], "b": 1 },
+    { "t": "Laporan praktikum yang baik ditulis berdasarkan...", "p": ["Data pengamatan", "Tebakan", "Punya teman"], "b": 0 },
+    { "t": "Hasil dari 1/2 + 1/4 adalah...", "p": ["2/6", "3/4", "1/8"], "b": 1 },
+    { "t": "Samudra yang berada di sebelah selatan Indonesia adalah...", "p": ["Samudra Hindia", "Samudra Atlantik", "Samudra Arktik"], "b": 0 },
+    { "t": "Zat yang dibutuhkan manusia untuk bernapas adalah...", "p": ["Karbon dioksida", "Oksigen", "Nitrogen"], "b": 1 },
+    { "t": "Singkatan KKN dalam dunia kampus adalah...", "p": ["Kuliah Kerja Nyata", "Kantin Kampus Nusantara", "Kelas Kosong Nih"], "b": 0 },
+    { "t": "Berapakah 25% dari 80?", "p": ["20", "25", "40"], "b": 0 },
+    { "t": "Siklus air dimulai dari proses...", "p": ["Penguapan (evaporasi)", "Pembekuan", "Pelapukan"], "b": 0 },
+    { "t": "Cara terbaik menghadapi ujian adalah...", "p": ["Sistem kebut semalam", "Belajar rutin beberapa hari", "Berdoa saja"], "b": 1 },
+    { "t": "Alat untuk mengukur suhu badan adalah...", "p": ["Barometer", "Termometer", "Speedometer"], "b": 1 }
+  ],
+
+  "skill": [
+    { "id": "pemrograman", "nama": "Pemrograman", "ikon": "💻", "stat": ["nugas", "freelance", "nulisSkripsi", "ukm_coding"], "bonus": "Freelance +10% & skripsi +1 per level" },
+    { "id": "memasak", "nama": "Memasak", "ikon": "🍳", "stat": ["masakMi", "kerja"], "bonus": "Masak di kamar ⚡+2 per level" },
+    { "id": "musik", "nama": "Musik", "ikon": "🎸", "stat": ["mainGitar", "ukm_musik"], "bonus": "Main gitar 😵 −2 lagi per level" },
+    { "id": "olahraga", "nama": "Olahraga", "ikon": "⚽", "stat": ["mainFutsal", "jogging", "ukm_futsal"], "bonus": "Futsal & jogging hemat ⚡2 per level" }
+  ],
+  "skillLevel": [5, 15, 30, 60],
+
+  "ukm": [
+    { "id": "futsal", "nama": "UKM Futsal", "ikon": "⚽", "deskripsi": "Latihan tim: stres hilang, skill olahraga naik" },
+    { "id": "musik", "nama": "UKM Musik", "ikon": "🎤", "deskripsi": "Jamming bareng band kampus, skill musik naik" },
+    { "id": "coding", "nama": "UKM Coding", "ikon": "👾", "deskripsi": "Ngoding bareng, skill pemrograman naik" },
+    { "id": "pers", "nama": "UKM Pers Kampus", "ikon": "📰", "deskripsi": "Nulis berita kampus: follower medsos +30 tiap rapat" }
+  ],
+  "ukmIuran": 20000,
+  "ukmHariRapat": 2,
+
+  "npc": [
+    { "id": "buKos", "nama": "Bu Kos", "ikon": "👩‍🦱", "perk": ["Batas bayar kos +3 hari", "Tidak kena denda kos", "Kadang dikasih makanan (⚡+15)"] },
+    { "id": "mbakSri", "nama": "Mbak Sri", "ikon": "👩‍🍳", "perk": ["Makan warteg −Rp1.000", "Makan warteg −Rp2.000", "Gaji kerja warteg +Rp5.000"] },
+    { "id": "bangUdin", "nama": "Bang Udin", "ikon": "🧔", "perk": ["Kopi warkop −Rp1.000", "Nongkrong ⚡ tidak berkurang", "Gaji kerja warkop +Rp5.000"] },
+    { "id": "pakDosen", "nama": "Pak Dosen Budiman", "ikon": "👨‍🏫", "perk": ["Kuliah 🎓 +10%", "Bimbingan skripsi ×1.5", "Ujian dapat petunjuk ekstra"] },
+    { "id": "oyen", "nama": "Oyen", "ikon": "🐱", "perk": ["Elus Oyen 😵 −6", "Oyen ikut nemenin tidur (😵 −3)", "Oyen bawa 'hadiah' (Rp5.000 jatuh di depan kos)"] }
+  ],
+  "relasiNgobrol": 8,
+  "relasiMakanKucing": 15,
+  "relasiLevel": [25, 60, 100],
+  "dialog": {
+    "buKos": ["\"Jangan lupa matikan lampu kalau keluar ya, Dek.\"", "\"Kemarin ada paket nyasar, punyamu bukan?\"", "\"Anak kos zaman sekarang rajin-rajin ya...\""],
+    "mbakSri": ["\"Hari ini sayur lodehnya mantap, cobain!\"", "\"Kalau tanggal tua bilang aja, Mbak kasih kuah lebih.\"", "\"Kamu kurusan, makan yang banyak!\""],
+    "bangUdin": ["\"Kopi hitam tanpa gula, rahasia anak teknik.\"", "\"Semalam ada yang begadang di sini sampai subuh.\"", "\"Main catur? Nanti malam ya.\""],
+    "pakDosen": ["\"Jangan lupa baca jurnal minggu ini.\"", "\"Pertanyaan bagus! Nanti kita bahas di kelas.\"", "\"Skripsi itu maraton, bukan lari cepat.\""],
+    "oyen": ["\"Meong.\" (minta dielus)", "\"Prrrr...\" (mendengkur)", "\"Mrrrow!\" (menatap penuh harap)"]
+  },
+
+  "medsos": { "followerMin": 4, "followerMaks": 22, "viralPeluang": 0.06, "viralKali": 8, "endorsePer100": 4000, "stres": -3, "milestone": [100, 500, 1000, 5000], "hadiahMilestone": [20000, 75000, 150000, 500000] },
+  "teleponOrtu": { "stres": -8, "daruratBatas": 200000, "daruratUang": 150000, "daruratPeluang": 0.5 },
+  "tagihan": { "tanggal": 10, "listrik": 60000, "wifi": 50000 },
+
+  "bensin": { "pakaiPerMeter": 0.12, "hargaPerPersen": 150, "kecepatanMogok": 0.35, "awal": 80 },
+  "motorUpgrade": [
+    { "level": 2, "nama": "Servis + Knalpot Racing", "harga": 300000, "kecepatan": 1.15, "hemat": 0.85 },
+    { "level": 3, "nama": "Bore Up & Ban Tubeless", "harga": 800000, "kecepatan": 1.3, "hemat": 0.7 }
+  ],
+  "catMotor": { "harga": 30000, "warna": ["#ffb36b", "#e9605a", "#7fb3e0", "#7cc6a4", "#3b2a20", "#fffaf2"] },
+
+  "jogging": { "energi": -10, "stres": -10, "bonusCfdStres": -8 },
+  "pasarMalam": { "hari": 5, "komidi": { "uang": -15000, "stres": -20, "energi": -4 } },
+  "tanggalMerah": [
+    { "bulan": 1, "tanggal": 17, "nama": "Libur Nasional 🇮🇩" },
+    { "bulan": 2, "tanggal": 8, "nama": "Cuti Bersama" },
+    { "bulan": 3, "tanggal": 25, "nama": "Hari Raya 🎉" },
+    { "bulan": 4, "tanggal": 9, "nama": "Dies Natalis Kampus 🎂" }
+  ],
+
+  "aksesoris": [
+    { "id": "topi", "nama": "Topi Baseball", "ikon": "🧢", "harga": 40000 },
+    { "id": "kacamata", "nama": "Kacamata Bulat", "ikon": "👓", "harga": 35000 },
+    { "id": "tasPunggung", "nama": "Tas Punggung", "ikon": "🎒", "harga": 60000 },
+    { "id": "bandana", "nama": "Bandana Merah", "ikon": "🔴", "harga": 25000 }
+  ],
+  "catDinding": [
+    { "id": "krem", "nama": "Krem (bawaan)", "warna": "#fde8c8", "bawah": "#f6cfa0", "harga": 0 },
+    { "id": "mint", "nama": "Hijau Mint", "warna": "#d4f2e4", "bawah": "#a8e6cf", "harga": 50000 },
+    { "id": "langit", "nama": "Biru Langit", "warna": "#d8ecfb", "bawah": "#a9cdee", "harga": 50000 },
+    { "id": "pink", "nama": "Pink Sakura", "warna": "#fde0e6", "bawah": "#f6b6c4", "harga": 50000 },
+    { "id": "lavender", "nama": "Lavender", "warna": "#e9e1fb", "bawah": "#c6b6f0", "harga": 50000 }
+  ],
+  "barangKamar": [
+    { "id": "akuarium", "nama": "Akuarium Ikan Cupang", "ikon": "🐟", "harga": 120000, "permanen": true, "deskripsi": "Kasih makan ikan tiap hari: 😵 −4" },
+    { "id": "weker", "nama": "Jam Weker", "ikon": "⏰", "harga": 30000, "permanen": true, "deskripsi": "Tidur pas begadang tidak bangun kesiangan (tapi ⚡ −15)" },
+    { "id": "makananKucing", "nama": "Makanan Kucing (5×)", "ikon": "🐟", "harga": 15000, "isi": 5, "deskripsi": "Kasih ke Oyen: pertemanan naik pesat" }
+  ],
+  "ikan": { "stres": -4 },
+  "siramTanaman": { "stres": -3 },
+  "weker": { "energi": -15 },
+  "targetTabungan": [500000, 1000000, 2000000, 5000000],
+
+  "sapaWarga": [
+    "Pagi, Mas/Mbak!", "Kuliah ya? Semangat!", "Habis hujan, hati-hati licin.", "Warteg Barokah enak lho!",
+    "Duh, panas banget hari ini...", "Lihat kucing oranye nggak?", "Wih, gayanya keren!", "Jangan lupa makan ya!",
+    "Lagi tanggal tua nih...", "Nanti malam ada pasar malam?", "Hati-hati di jalan!", "Udah ngerjain tugas?",
+    "Ojolnya sudah datang belum?", "Mau ke perpus juga?", "Semoga lulus tepat waktu!"
+  ],
+
+  "tipsBaru": [
+    "💡 Kumpulkan 144 SKS + skripsi 100% untuk wisuda!",
+    "💡 Ngobrol tiap hari dengan Mbak Sri & Bang Udin = diskon makan.",
+    "💡 Bensin motor habis = mogok. Isi di Pertamini depan kos.",
+    "💡 Sabtu malam ada pasar malam di lapangan futsal!",
+    "💡 Minggu pagi Car Free Day: jogging di taman lebih segar.",
+    "💡 Posting medsos rutin → follower → endorse tiap awal bulan."
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "name": "MS.Inti",
+  "rootNamespace": "MS.Inti",
+  "references": ["MS.Kontrak"],
+  "overrideReferences": true,
+  "precompiledReferences": ["Newtonsoft.Json.dll"],
+  "autoReferenced": true
+}
