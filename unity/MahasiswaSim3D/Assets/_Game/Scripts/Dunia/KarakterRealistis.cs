@@ -18,6 +18,7 @@ namespace MS.Dunia
         static readonly GameObject[] model = new GameObject[6];
         static readonly Dictionary<(Material, int), Material> bahan = new();
         static readonly Color[] warnaBaju = { Color.white, new(.64f, .80f, .98f), new(.63f, .81f, .64f), new(.93f, .65f, .52f) };
+        static readonly float[] tinggiBadan = { 1.69f, 1.60f, 1.70f, 1.64f, 1.66f, 1.61f };
 
         bool pemain;
         int pilihan;
@@ -26,6 +27,8 @@ namespace MS.Dunia
         int warnaTerakhir = -1;
         float tahan;
         Vector3 posisiLalu;
+        Vector3 posisiBerdiri;
+        Transform pinggul;
         IPenerimaAksi layanan;
         Renderer[] bawaan;
         GameObject tampilan;
@@ -84,6 +87,8 @@ namespace MS.Dunia
             bawaan = GetComponentsInChildren<Renderer>(true);
             pilihan = pemain ? Mathf.Clamp(PlayerPrefs.GetInt("KarakterRealistis", 1), 0, 5) : pilihan;
             PasangModel();
+            if (tampilan != null && (pemain || GetComponent<WargaJalan>() == null))
+                gameObject.AddComponent<BayanganKontak>().Pasang();
         }
 
         void PasangModel()
@@ -101,7 +106,7 @@ namespace MS.Dunia
             animator.applyRootMotion = false;
             animator.cullingMode = AnimatorCullingMode.CullCompletely;
             var renderer = tampilan.GetComponentsInChildren<SkinnedMeshRenderer>();
-            var bounds = new Bounds(tampilan.transform.position, Vector3.zero);
+            var bounds = renderer.Length > 0 ? renderer[0].bounds : new Bounds(tampilan.transform.position, Vector3.zero);
             foreach (var item in renderer)
             {
                 bounds.Encapsulate(item.bounds);
@@ -111,7 +116,14 @@ namespace MS.Dunia
                 item.sharedMaterials = material;
             }
             if (bounds.size.y > .02f)
-                tampilan.transform.localScale *= 1.63f / bounds.size.y;
+            {
+                float skala = tinggiBadan[pilihan] / bounds.size.y;
+                tampilan.transform.localScale *= skala;
+                float jarakKaki = (bounds.min.y - transform.position.y) * skala;
+                posisiBerdiri = new Vector3(0, -jarakKaki, 0);
+                tampilan.transform.localPosition = posisiBerdiri;
+            }
+            pinggul = animator.GetBoneTransform(HumanBodyBones.Hips);
             var lod = tampilan.AddComponent<LODGroup>();
             lod.SetLODs(new[] { new LOD(.045f, renderer) });
             lod.RecalculateBounds();
@@ -144,9 +156,13 @@ namespace MS.Dunia
             else if (asal.HasProperty("_BaseColor")) hasil.color = asal.GetColor("_BaseColor");
             var tekstur = Resources.Load<Texture2D>($"Karakter/Pakaian/kar_{nomor + 1}/{nama}");
             hasil.mainTexture = tekstur != null ? tekstur : asal.mainTexture;
-            if (tekstur != null) hasil.color = Color.white;
+            bool kulit = nama.Contains("head") || nama.Contains("hands") || nama.Contains("skin") || nama.Contains("bodymat");
+            bool rambut = nama.Contains("hair");
+            if (hasil.mainTexture != null) hasil.color = kulit
+                ? new Color(.91f, .87f, .83f) : new Color(.88f, .88f, .87f);
             if (potong) hasil.SetFloat("_Cutoff", .27f);
-            hasil.SetFloat("_Smoothness", .24f);
+            hasil.SetFloat("_Smoothness", kulit ? .38f : rambut ? .31f : .18f);
+            if (!kulit && !rambut) hasil.SetFloat("_SpecularHighlights", 0f);
             bahan.Add((asal, nomor), hasil);
             return hasil;
         }
@@ -192,6 +208,22 @@ namespace MS.Dunia
             }
             if (gerak.GetTime() >= klip[tujuan].length)
                 gerak.SetTime(gerak.GetTime() % klip[tujuan].length);
+            if (pemain) CocokkanPosisiMotor(tujuan == 3 && Layanan.Kendaraan?.NaikMotor == true);
+        }
+
+        void CocokkanPosisiMotor(bool naik)
+        {
+            var target = posisiBerdiri;
+            if (naik && pinggul != null)
+            {
+                var posisiJok = new Vector3(0, .77f, -.23f);
+                var posisiSekarang = transform.InverseTransformPoint(pinggul.position);
+                var koreksi = tampilan.transform.localPosition + posisiJok - posisiSekarang;
+                target = new Vector3(Mathf.Clamp(koreksi.x, -.15f, .15f),
+                    Mathf.Clamp(koreksi.y, -.48f, .65f), Mathf.Clamp(koreksi.z, -.5f, .5f));
+            }
+            tampilan.transform.localPosition = Vector3.Lerp(tampilan.transform.localPosition, target,
+                1f - Mathf.Exp(-15f * Time.deltaTime));
         }
 
         void TerapkanBaju(Color warna)
