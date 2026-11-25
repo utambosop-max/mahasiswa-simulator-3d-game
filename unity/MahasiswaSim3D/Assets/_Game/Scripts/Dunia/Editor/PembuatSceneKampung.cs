@@ -488,15 +488,19 @@ namespace MS.Dunia.Editor
                 wj.jalur = jalur;
                 wj.kecepatan = j.kecepatan;
 
-                var model = Model("kar_mahasiswa", root, root.position, root.rotation);
+                var modelKhusus = Model("kar_warga_" + w.id, root, root.position, root.rotation);
+                var model = modelKhusus != null ? modelKhusus : Model("kar_mahasiswa", root, root.position, root.rotation);
                 if (model != null)
                 {
                     // Collider kotak dari helper Model dibuang; diganti kapsul di root (warga bergerak)
                     foreach (var c in model.GetComponentsInChildren<Collider>()) Object.DestroyImmediate(c);
                     // Warna baju dikalikan ke tekstur palet: pastel dicampur 50% ke putih agar tekstur tetap terlihat.
                     // MaterialPropertyBlock tidak tersimpan di scene, jadi dipasang WargaJalan saat Start.
-                    wj.rendererBaju = model.GetComponentsInChildren<Renderer>();
-                    wj.warnaBaju = Color.Lerp(baju, Color.white, 0.5f);
+                    if (modelKhusus == null)
+                    {
+                        wj.rendererBaju = model.GetComponentsInChildren<Renderer>();
+                        wj.warnaBaju = Color.Lerp(baju, Color.white, 0.5f);
+                    }
                 }
                 else
                 {
