@@ -11,11 +11,15 @@ namespace MS.Dunia
         {
             var kunci = (id, warna, ubin);
             if (bahan.TryGetValue(kunci, out var hasil)) return hasil;
-            var template = id != null ? Resources.Load<Material>("Bahan/MaterialPbr") : null;
+            var template = id != null
+                ? Resources.Load<Material>(id.StartsWith("Fasad/") ? "Fasad/PbrBercahaya" : "Bahan/MaterialPbr")
+                : null;
+            if (template == null && id != null) template = Resources.Load<Material>("Bahan/MaterialPbr");
             hasil = template != null ? new Material(template) : new Material(Shader.Find("Universal Render Pipeline/Lit"));
             hasil.name = id ?? "Aksen";
             hasil.color = warna;
             hasil.enableInstancing = true;
+            hasil.DisableKeyword("_EMISSION");
             hasil.SetFloat("_Smoothness", id == "Tiles074" ? .47f : .23f);
             if (id != null)
             {

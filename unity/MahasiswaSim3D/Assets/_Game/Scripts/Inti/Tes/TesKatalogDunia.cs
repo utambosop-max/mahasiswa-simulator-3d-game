@@ -80,5 +80,18 @@ namespace MS.Inti.Tes
             for (int i = 0; i < prop.arraySize; i++)
                 Assert.NotNull(prop.GetArrayElementAtIndex(i).objectReferenceValue, "Prop " + i);
         }
+
+        [Test]
+        public void PeneranganMalamMemilikiVarianShaderDanPapan()
+        {
+            Assert.NotNull(Resources.Load<Shader>("Fasad/LangitKampung"));
+            foreach (var nama in new[] { "Fasad/PbrBercahaya", "Fasad/LitBercahaya" })
+            {
+                var mat = Resources.Load<Material>(nama);
+                Assert.NotNull(mat, nama);
+                Assert.IsTrue(mat.IsKeywordEnabled("_EMISSION"), nama);
+            }
+            Assert.NotNull(Resources.Load<Texture2D>("Fasad/warteg/emisi"));
+        }
     }
 }

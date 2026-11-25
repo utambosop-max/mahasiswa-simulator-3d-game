@@ -1,7 +1,7 @@
 """Siapkan atlas fasad dengan warna, normal, metalik, AO, dan kilap."""
 import json
 from pathlib import Path
-from PIL import Image, ImageDraw, ImageFont, ImageOps
+from PIL import Image, ImageDraw, ImageEnhance, ImageFont, ImageOps
 
 ROOT=Path(__file__).resolve().parents[2]
 GAME=ROOT/"unity/MahasiswaSim3D/Assets/_Game"
@@ -93,6 +93,11 @@ def buat(b):
     base.save(keluar/"warna.jpg",quality=88,optimize=True)
     gl.save(keluar/"normal.jpg",quality=89,optimize=True)
     pbr.save(keluar/"pbr.png",optimize=True)
+    if not rumah:
+        plang=base.crop((0,256,256,512)).resize((128,128),Image.Resampling.LANCZOS)
+        emisi=Image.new("RGB",(512,512))
+        emisi.paste(ImageEnhance.Brightness(plang).enhance(.62),(0,128))
+        emisi.save(keluar/"emisi.png",optimize=True)
 
 if __name__=="__main__":
     data=json.loads((GAME/"Data/dunia.json").read_text(encoding="utf-8"))

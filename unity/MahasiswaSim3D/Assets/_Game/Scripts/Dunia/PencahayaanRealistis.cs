@@ -79,7 +79,8 @@ namespace MS.Dunia
                 RenderSettings.fogMode = FogMode.Linear;
                 var hdr = Resources.Load<Cubemap>("Bahan/kloppenheim_06_puresky");
                 var materialLangit = Resources.Load<Material>("Bahan/MaterialLangit");
-                var shader = materialLangit != null ? materialLangit.shader : Shader.Find("Skybox/Cubemap");
+                var shader = Resources.Load<Shader>("Fasad/LangitKampung");
+                if (shader == null) shader = materialLangit != null ? materialLangit.shader : Shader.Find("Skybox/Cubemap");
                 if (hdr != null)
                 {
                     if (shader != null)
@@ -149,11 +150,13 @@ namespace MS.Dunia
             RenderSettings.fogColor = kabut;
             penataanWarna.colorFilter.value = filter;
             bool malam = fase == Fase.Malam || fase == Fase.Begadang;
+            RenderSettings.reflectionIntensity = malam ? .36f : 1f;
             if (pantulanLangit != null) pantulanLangit.intensity = malam ? .04f : .37f;
             penataanWarna.postExposure.value = malam ? .10f : .21f;
             if (langit == null) return;
             langit.SetFloat("_Exposure", terang);
             langit.SetColor("_Tint", warnaLangit);
+            if (langit.HasProperty("_Malam")) langit.SetFloat("_Malam", malam ? 1f : 0f);
         }
 
         void Matahari(float tinggi, float intensitas, Color warna)

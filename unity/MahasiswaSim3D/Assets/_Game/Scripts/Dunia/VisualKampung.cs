@@ -6,6 +6,8 @@ namespace MS.Dunia
     internal sealed class VisualKampung : MonoBehaviour
     {
         Material lampu;
+        Material lampuAsal;
+        PeneranganKampung penerangan;
         IPenerimaAksi aksi;
         TextMesh celetukan;
         Transform wargaBicara;
@@ -20,6 +22,7 @@ namespace MS.Dunia
         public void Pasang()
         {
             var bahan = gameObject.AddComponent<BahanRealistis>();
+            penerangan = gameObject.AddComponent<PeneranganKampung>();
             var jalan = GameObject.Find("Tanah & Jalan");
             if (jalan != null)
             {
@@ -47,6 +50,14 @@ namespace MS.Dunia
             KendaraanKampung.Pasang(gameObject.scene, prop.transform, bahan);
             TataPerabot.Pohon(prop.transform);
             lampu = bahan.Ambil(null, new Color(.64f, .55f, .37f), Vector2.one);
+            var templat = Resources.Load<Material>("Fasad/LitBercahaya");
+            if (templat != null)
+            {
+                lampuAsal = new Material(templat);
+                lampuAsal.mainTexture = null;
+                lampuAsal.color = lampu.color;
+                lampu = lampuAsal;
+            }
             lampu.EnableKeyword("_EMISSION");
             lampu.globalIlluminationFlags = MaterialGlobalIlluminationFlags.None;
             var asalLampu = new System.Collections.Generic.List<Vector3>();
@@ -59,12 +70,13 @@ namespace MS.Dunia
             }
             foreach (var posisi in asalLampu)
                 bahan.Detail(prop.transform, "Bohlam jalan", posisi, new Vector3(.22f, .14f, .22f), lampu, PrimitiveType.Sphere);
+            penerangan.PasangSorot(prop.transform, asalLampu);
             var parkir = GameObject.Find("Motor Saya");
             if (parkir != null)
                 bahan.Tanaman(prop.transform, prop.transform.InverseTransformPoint(parkir.transform.position) + new Vector3(1.8f, 0, 1.6f), .80f);
         }
 
-        static void PasangFasad(Transform gedung, BahanRealistis bahan)
+        void PasangFasad(Transform gedung, BahanRealistis bahan)
         {
             var nama = gedung.name;
             int mulai = nama.LastIndexOf('(');
@@ -89,6 +101,9 @@ namespace MS.Dunia
             var kaca = bahan.Ambil(null, new Color(.21f, .27f, .28f), Vector2.one);
             kaca.SetFloat("_Smoothness", .86f);
             kaca.SetFloat("_Metallic", .23f);
+            bool gelap = id.StartsWith("rumah") && int.TryParse(id.Substring(5), out int nomor) && nomor % 4 == 0;
+            if (!gelap) kaca = penerangan.Kaca(kaca);
+            penerangan.TambahPlang(padat, Resources.Load<Texture2D>(jalur + "/emisi"));
             foreach (var renderer in pengganti)
             {
                 bool jendela = renderer.name.StartsWith("Kaca");
@@ -100,9 +115,10 @@ namespace MS.Dunia
 
         public void AturFase(Fase fase)
         {
+            bool malam = fase == Fase.Malam || fase == Fase.Begadang;
+            penerangan?.Atur(malam);
             if (lampu != null)
-                lampu.SetColor("_EmissionColor", fase == Fase.Malam || fase == Fase.Begadang
-                    ? new Color(1f, .56f, .16f) * 2.4f : Color.black);
+                lampu.SetColor("_EmissionColor", malam ? new Color(1f, .56f, .16f) * 2.4f : Color.black);
         }
 
         void LateUpdate()
@@ -166,6 +182,7 @@ namespace MS.Dunia
         void OnDestroy()
         {
             if (aksi != null) aksi.AksiMulai -= Dengar;
+            if (lampuAsal != null) Destroy(lampuAsal);
         }
     }
 }
