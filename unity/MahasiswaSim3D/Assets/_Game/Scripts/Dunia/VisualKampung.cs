@@ -45,6 +45,7 @@ namespace MS.Dunia
             var prop = GameObject.Find("Prop");
             if (prop == null) return;
             KendaraanKampung.Pasang(gameObject.scene, prop.transform, bahan);
+            TataPerabot.Pohon(prop.transform);
             lampu = bahan.Ambil(null, new Color(.64f, .55f, .37f), Vector2.one);
             lampu.EnableKeyword("_EMISSION");
             lampu.globalIlluminationFlags = MaterialGlobalIlluminationFlags.None;

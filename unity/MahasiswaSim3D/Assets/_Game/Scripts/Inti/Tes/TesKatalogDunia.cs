@@ -68,5 +68,17 @@ namespace MS.Inti.Tes
                 }
             Assert.AreEqual(jumlah, roda);
         }
+
+        [Test]
+        public void KatalogPerabotMemilikiReferensiModelOffline()
+        {
+            var katalog = Resources.Load<ScriptableObject>("KatalogPropDunia");
+            Assert.NotNull(katalog);
+            var serialized = new SerializedObject(katalog);
+            var prop = serialized.FindProperty("prop");
+            Assert.GreaterOrEqual(prop.arraySize, 30);
+            for (int i = 0; i < prop.arraySize; i++)
+                Assert.NotNull(prop.GetArrayElementAtIndex(i).objectReferenceValue, "Prop " + i);
+        }
     }
 }

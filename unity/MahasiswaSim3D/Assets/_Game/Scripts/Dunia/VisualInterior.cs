@@ -9,6 +9,7 @@ namespace MS.Dunia
             var ruang = GameObject.Find("Ruang " + id)?.transform;
             var lantai = ruang?.Find("Lantai");
             if (lantai == null) return;
+            TataPerabot.Interior(ruang, id);
             var bahan = induk.AddComponent<BahanRealistis>();
             var ukuran = lantai.localScale;
             var (aksen, jenisLantai, label) = Tema(id);
