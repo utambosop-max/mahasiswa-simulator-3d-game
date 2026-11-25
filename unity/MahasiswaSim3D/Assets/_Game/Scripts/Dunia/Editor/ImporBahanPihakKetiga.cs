@@ -16,6 +16,7 @@ namespace MS.Dunia.Editor
             importer.maxTextureSize = 1024;
             importer.mipmapEnabled = !langit;
             importer.sRGBTexture = !linear;
+            if (langit) importer.textureShape = TextureImporterShape.TextureCube;
             if (normal) importer.textureType = TextureImporterType.NormalMap;
             if (assetPath.Contains("/Bahan/") && !langit) importer.wrapMode = UnityEngine.TextureWrapMode.Repeat;
             if (assetPath.Contains("/Mixamo/")) importer.maxTextureSize = 1024;
