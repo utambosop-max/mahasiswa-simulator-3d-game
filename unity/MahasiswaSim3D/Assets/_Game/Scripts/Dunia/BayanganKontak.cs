@@ -52,6 +52,8 @@ namespace MS.Dunia
             if (!dipasang || --pengguna > 0) return;
             Destroy(bahan);
             Destroy(tekstur);
+            bahan = null;
+            tekstur = null;
         }
     }
 }

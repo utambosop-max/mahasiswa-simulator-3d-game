@@ -55,7 +55,7 @@ namespace MS.Pemain
 
         void Start()
         {
-            if (gameObject.scene.name == "KamarKos")
+            if (gameObject.scene.name == "KamarKos" || gameObject.scene.name.StartsWith("Gedung_"))
             {
                 _sudutTuju = 180f;
                 SiapkanDinding();
@@ -153,6 +153,7 @@ namespace MS.Pemain
             {
                 var hit = penghalang[i];
                 if (hit.transform.IsChildOf(target)) continue;
+                if (hit.collider.bounds.max.y < fokus.y + .55f) continue;
                 if (dindingKamar.TryGetValue(hit.transform, out var dinding) && dinding.Pudar) continue;
                 jarak = Mathf.Min(jarak, Mathf.Max(.05f, hit.distance - .12f));
             }

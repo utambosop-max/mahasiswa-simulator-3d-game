@@ -10,6 +10,7 @@ namespace MS.Dunia
     public sealed class PencahayaanRealistis : MonoBehaviour
     {
         Light matahari;
+        Light pantulanLangit;
         JamGame jam;
         Material langit;
         VolumeProfile profil;
@@ -66,6 +67,12 @@ namespace MS.Dunia
 
             if (luar)
             {
+                pantulanLangit = new GameObject("Pantulan cahaya langit").AddComponent<Light>();
+                pantulanLangit.transform.SetParent(transform, false);
+                pantulanLangit.type = LightType.Directional;
+                pantulanLangit.transform.rotation = Quaternion.Euler(56f, 146f, 0);
+                pantulanLangit.shadows = LightShadows.None;
+                pantulanLangit.color = new Color(.84f, .89f, .99f);
                 partikel = gameObject.AddComponent<PartikelKampung>();
                 partikel.Pasang();
                 RenderSettings.fog = true;
@@ -141,6 +148,9 @@ namespace MS.Dunia
             };
             RenderSettings.fogColor = kabut;
             penataanWarna.colorFilter.value = filter;
+            bool malam = fase == Fase.Malam || fase == Fase.Begadang;
+            if (pantulanLangit != null) pantulanLangit.intensity = malam ? .04f : .37f;
+            penataanWarna.postExposure.value = malam ? .10f : .21f;
             if (langit == null) return;
             langit.SetFloat("_Exposure", terang);
             langit.SetColor("_Tint", warnaLangit);

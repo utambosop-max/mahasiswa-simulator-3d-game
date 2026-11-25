@@ -121,7 +121,13 @@ namespace MS.Dunia
             }
             var kamera = Camera.main;
             if (kamera != null)
-                celetukan.transform.SetPositionAndRotation(wargaBicara.position + Vector3.up * 2.15f, kamera.transform.rotation);
+            {
+                var titik = kamera.WorldToViewportPoint(wargaBicara.position + Vector3.up * 2.15f);
+                float kiri = titik.y > .64f ? .34f : .17f;
+                titik.x = Mathf.Clamp(titik.x, kiri, .68f);
+                titik.y = Mathf.Clamp(titik.y, .26f, .76f);
+                celetukan.transform.SetPositionAndRotation(kamera.ViewportToWorldPoint(titik), kamera.transform.rotation);
+            }
         }
 
         void Dengar(string id)
