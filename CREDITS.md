@@ -14,6 +14,8 @@
 
 ## Katalog Poly Haven
 
+`tanah_kampung` menggabungkan `grass_ground`, `sparse_grass`, dan `red_dirt_mud_01`. Atlas fasad merakit permukaan katalog. Papan nama dibuat untuk proyek ini.
+
 | ID aset | Jenis | Lisensi | Sumber |
 |---|---|---|---|
 | SchoolChair_01 | Model LOD dan warna | CC0 | [Aset](https://polyhaven.com/a/SchoolChair_01) |

@@ -22,15 +22,19 @@ namespace MS.Dunia
             var bahan = gameObject.AddComponent<BahanRealistis>();
             var jalan = GameObject.Find("Tanah & Jalan");
             if (jalan != null)
+            {
+                bahan.Permukaan(jalan.transform.Find("Tanah"), "tanah_kampung", Color.white, new Vector2(24, 17));
                 foreach (Transform bidang in jalan.transform)
                 {
                     bool aspal = bidang.name.StartsWith("Jalan ");
                     if (!aspal && !bidang.name.StartsWith("Trotoar ")) continue;
                     var ukuran = bidang.localScale;
-                    bahan.Permukaan(bidang, aspal ? "asphalt_01" : "concrete_floor_02",
+                    bahan.Permukaan(bidang, aspal ? "asphalt_01" : "concrete_pavers",
                         aspal ? new Color(.87f, .87f, .88f) : new Color(.87f, .83f, .76f),
                         new Vector2(Mathf.Max(1, ukuran.x * .52f), Mathf.Max(1, ukuran.z * .52f)));
                 }
+                gameObject.AddComponent<DetailJalan>().Pasang(jalan.transform, bahan);
+            }
 
             var bangunan = GameObject.Find("Bangunan");
             if (bangunan != null)

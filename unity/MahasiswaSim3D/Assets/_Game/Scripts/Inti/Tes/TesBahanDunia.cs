@@ -12,6 +12,8 @@ namespace MS.Inti.Tes
         [TestCase("wood_table_001")]
         [TestCase("brick_wall_02")]
         [TestCase("plastered_wall_02")]
+        [TestCase("tanah_kampung")]
+        [TestCase("concrete_pavers")]
         public void BahanTersediaOffline(string nama)
         {
             var path = "Bahan/" + nama + "/";

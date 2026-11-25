@@ -57,16 +57,19 @@ namespace MS.Dunia
         }
 
         public GameObject Detail(Transform induk, string nama, Vector3 posisi, Vector3 ukuran, Material mat,
-            PrimitiveType bentuk = PrimitiveType.Cube)
+            PrimitiveType bentuk = PrimitiveType.Cube, bool bertabrakan = false)
         {
             var detail = GameObject.CreatePrimitive(bentuk);
             detail.name = nama;
             detail.transform.SetParent(induk, false);
             detail.transform.localPosition = posisi;
             detail.transform.localScale = ukuran;
-            var collider = detail.GetComponent<Collider>();
-            collider.enabled = false;
-            Destroy(collider);
+            if (!bertabrakan)
+            {
+                var collider = detail.GetComponent<Collider>();
+                collider.enabled = false;
+                Destroy(collider);
+            }
             var renderer = detail.GetComponent<Renderer>();
             renderer.sharedMaterial = mat;
             renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
