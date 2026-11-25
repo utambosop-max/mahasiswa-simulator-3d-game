@@ -95,6 +95,11 @@ namespace MS.UI
         void BangunPilihan()
         {
             dibuat = true;
+            if (Resources.Load<GameObject>("Karakter/kar_2") != null)
+            {
+                BuatPemilih("Karakter", "KarakterRealistis", 1, new[] { "1", "2", "3", "4", "5", "6" });
+                BuatPemilih("Warna pakaian", "BajuRealistis", 0, new[] { "Asli", "Biru", "Hijau", "Terakota" });
+            }
             Label(konten, "Pilih jurusan", 44);
             foreach (var item in profil.DaftarJurusan)
             {
@@ -112,6 +117,21 @@ namespace MS.UI
                 asal.Add(tombol);
             }
             Warnai();
+        }
+
+        void BuatPemilih(string namaPilihan, string kunci, int baku, string[] pilihan)
+        {
+            int indeks = Mathf.Clamp(PlayerPrefs.GetInt(kunci, baku), 0, pilihan.Length - 1);
+            var tombol = BuatTombol(konten, namaPilihan + " · " + pilihan[indeks], () => { });
+            tombol.targetGraphic.color = TemaAntarmuka.Mentega;
+            var teks = tombol.GetComponentInChildren<TextMeshProUGUI>();
+            tombol.onClick.AddListener(() =>
+            {
+                indeks = (indeks + 1) % pilihan.Length;
+                PlayerPrefs.SetInt(kunci, indeks);
+                PlayerPrefs.Save();
+                teks.text = namaPilihan + " · " + pilihan[indeks];
+            });
         }
 
         void Mulai()
