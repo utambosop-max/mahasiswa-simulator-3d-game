@@ -15,7 +15,6 @@ namespace MS.UI
     public sealed class HudKamar : MonoBehaviour
     {
         [SerializeField] private AnimationClip[] animasiMahasiswa;
-        private readonly System.Collections.Generic.List<Texture2D> ikonStat = new();
         private static readonly CultureInfo Indonesia = CultureInfo.GetCultureInfo("id-ID");
         private static readonly Regex DekorasiEmoji = new Regex(@"[\p{So}\p{Cs}\u200D\uFE0E\uFE0F]+\s*");
         private static readonly Color Kopi = new Color32(59, 42, 32, 255);
@@ -51,7 +50,7 @@ namespace MS.UI
         private TextMeshProUGUI uang, ipk, energi, stres, kalender, judulKalender;
         private TextMeshProUGUI statusAkademik;
         private TextMeshProUGUI statusKondisi;
-        private Image barBensin;
+        private Image barBensin, barEnergi, barStres;
         private RectTransform wadahBensin;
         private string akademikTerakhir;
         private PerintahAksi? aksiUtama, aksiTambahan;
@@ -211,7 +210,6 @@ namespace MS.UI
 
         private void OnDestroy()
         {
-            foreach (var tekstur in ikonStat) Destroy(tekstur);
         }
 
         private void HubungkanLayanan()
@@ -278,6 +276,7 @@ namespace MS.UI
             if (sebelumnya?.Ipk != nilai.Ipk) ipk.text = nilai.Ipk.ToString("0.00", Indonesia);
             if (sebelumnya?.Energi != nilai.Energi) energi.text = $"{nilai.Energi}%";
             if (sebelumnya?.Stres != nilai.Stres) stres.text = $"{nilai.Stres}%";
+            IsiBar(barEnergi, nilai.Energi); IsiBar(barStres, nilai.Stres);
             statTerakhir = nilai;
         }
 
@@ -470,38 +469,75 @@ namespace MS.UI
 
         private void BuatHudStat()
         {
-            statusKondisi = Teks(areaAman, "", 32, 24, FontStyles.Bold);
-            statusKondisi.alignment = TextAlignmentOptions.MidlineLeft;
-            Rentangkan(statusKondisi.rectTransform, new Vector2(.02f, 1), new Vector2(.78f, 1));
-            statusKondisi.rectTransform.offsetMin = new Vector2(0, -255);
-            statusKondisi.rectTransform.offsetMax = new Vector2(0, -202);
+            var bilah = BuatKotak("Stat dan kalender", areaAman);
+            Rentangkan(bilah, new Vector2(0, .85f), Vector2.one);
+            bilah.offsetMin = new Vector2(18, 4);
+            bilah.offsetMax = new Vector2(-18, -6);
+            var waktu = Kapsul(bilah, "Kalender", 0, .33f, TemaAntarmuka.Kertas);
+            IkonHud.Pasang(waktu, IkonHud.Jenis.Jam, 42, new Vector2(.11f, .68f));
+            judulKalender = BarisStat(waktu, "Kalender", .74f, .99f, 34);
+            kalender = BarisStat(waktu, "-", .49f, .76f, 42);
+            statusAkademik = BarisStat(waktu, "", .24f, .49f, 32);
+            statusKondisi = BarisStat(waktu, "", .02f, .25f, 30);
+            uang = BuatStat(bilah, "Uang", .33f, .555f, TemaAntarmuka.Mentega, IkonHud.Jenis.Uang);
+            ipk = BuatStat(bilah, "IPK", .555f, .70f, TemaAntarmuka.Langit, IkonHud.Jenis.Ipk);
+            energi = BuatStat(bilah, "Energi", .70f, .85f, TemaAntarmuka.Mint, IkonHud.Jenis.Energi);
+            stres = BuatStat(bilah, "Stres", .85f, 1, TemaAntarmuka.Bata, IkonHud.Jenis.Stres);
+            barEnergi = BuatBar((RectTransform)energi.transform.parent, new Color32(54, 130, 102, 255));
+            barStres = BuatBar((RectTransform)stres.transform.parent, new Color32(168, 72, 59, 255));
+
             wadahBensin = BuatKotak("Bar bensin", areaAman);
-            Rentangkan(wadahBensin, new Vector2(.02f, 1), new Vector2(.30f, 1));
-            wadahBensin.offsetMin = new Vector2(0, -310);
-            wadahBensin.offsetMax = new Vector2(0, -260);
-            Gambar(wadahBensin, Krem);
+            Rentangkan(wadahBensin, new Vector2(.02f, .85f), new Vector2(.30f, .85f));
+            wadahBensin.offsetMin = new Vector2(0, -56);
+            wadahBensin.offsetMax = new Vector2(0, -8);
+            Gambar(wadahBensin, TemaAntarmuka.Kertas);
             var isiBensin = BuatKotak("Isi bensin", wadahBensin);
             Rentangkan(isiBensin, Vector2.zero, Vector2.one);
-            barBensin = Gambar(isiBensin, Aksen);
-            var teksBensin = Teks(wadahBensin, "Bensin", 30, 24, FontStyles.Bold);
+            barBensin = Gambar(isiBensin, TemaAntarmuka.Jingga);
+            var teksBensin = Teks(wadahBensin, "Bensin", 30, 28, FontStyles.Bold);
             Rentangkan(teksBensin.rectTransform, Vector2.zero, Vector2.one);
             wadahBensin.gameObject.SetActive(false);
-            statusAkademik = Teks(areaAman, "", 34, 26, FontStyles.Bold);
-            statusAkademik.name = "Status akademik";
-            statusAkademik.alignment = TextAlignmentOptions.MidlineLeft;
-            Rentangkan(statusAkademik.rectTransform, new Vector2(.02f, 1), new Vector2(.78f, 1));
-            statusAkademik.rectTransform.offsetMin = new Vector2(0, -202);
-            statusAkademik.rectTransform.offsetMax = new Vector2(0, -145);
-            var bilah = BuatKotak("Stat dan kalender", areaAman);
-            Rentangkan(bilah, new Vector2(0, 1), Vector2.one);
-            bilah.offsetMin = new Vector2(22, -138);
-            bilah.offsetMax = new Vector2(-22, -18);
-            Gambar(bilah, Krem);
-            (judulKalender, kalender) = BuatStat(bilah, "Kalender", 0.00f, 0.28f);
-            (_, uang) = BuatStat(bilah, "Uang", 0.28f, 0.52f);
-            (_, ipk) = BuatStat(bilah, "IPK", 0.52f, 0.68f);
-            (_, energi) = BuatStat(bilah, "Energi", 0.68f, 0.84f);
-            (_, stres) = BuatStat(bilah, "Stres", 0.84f, 1.00f);
+        }
+
+        RectTransform Kapsul(Transform induk, string nama, float kiri, float kanan, Color warna)
+        {
+            var kolom = BuatKotak(nama, induk);
+            Rentangkan(kolom, new Vector2(kiri, 0), new Vector2(kanan, 1));
+            kolom.offsetMin = new Vector2(4, 0);
+            kolom.offsetMax = new Vector2(-4, 0);
+            Gambar(kolom, warna);
+            return kolom;
+        }
+
+        TextMeshProUGUI BuatStat(Transform induk, string nama, float kiri, float kanan, Color warna, IkonHud.Jenis ikon)
+        {
+            var kolom = Kapsul(induk, nama, kiri, kanan, warna);
+            IkonHud.Pasang(kolom, ikon, 40, new Vector2(.20f, .68f));
+            var judul = BarisStat(kolom, nama, .55f, .93f, 34);
+            judul.rectTransform.anchorMin = new Vector2(.32f, .55f);
+            return BarisStat(kolom, "-", .19f, .57f, 49);
+        }
+
+        static TextMeshProUGUI BarisStat(Transform induk, string nama, float bawah, float atas, float ukuran)
+        {
+            var teks = Teks(induk, nama, ukuran, 28, FontStyles.Bold);
+            Rentangkan(teks.rectTransform, new Vector2(.07f, bawah), new Vector2(.96f, atas));
+            return teks;
+        }
+
+        Image BuatBar(Transform induk, Color warna)
+        {
+            var jalur = BuatKotak("Jalur", induk);
+            Rentangkan(jalur, new Vector2(.13f, .10f), new Vector2(.87f, .17f));
+            Gambar(jalur, TemaAntarmuka.Kertas);
+            var isi = BuatKotak("Kemajuan", jalur);
+            Rentangkan(isi, Vector2.zero, Vector2.one);
+            return Gambar(isi, warna);
+        }
+
+        static void IsiBar(Image bar, float persen)
+        {
+            bar.rectTransform.anchorMax = new Vector2(Mathf.Clamp01(persen / 100), 1);
         }
 
         private void BuatTombolRapor()
@@ -516,46 +552,6 @@ namespace MS.UI
             tombol.onClick.AddListener(() => panelRapor.Buka());
             var teks = Teks(wadah, "Rapor", 36, 27, FontStyles.Bold);
             Rentangkan(teks.rectTransform, Vector2.zero, Vector2.one);
-        }
-
-        private (TextMeshProUGUI Judul, TextMeshProUGUI Isi) BuatStat(Transform induk, string nama, float kiri, float kanan)
-        {
-            var kolom = BuatKotak(nama, induk);
-            Rentangkan(kolom, new Vector2(kiri, 0), new Vector2(kanan, 1));
-            var judul = Teks(kolom, nama, 34, 30, FontStyles.Normal);
-            Rentangkan(judul.rectTransform, new Vector2(0.23f, 0.47f), new Vector2(0.97f, 0.94f));
-            var ikon = BuatKotak("Ikon " + nama, kolom);
-            ikon.anchorMin = ikon.anchorMax = new Vector2(0.15f, 0.70f);
-            ikon.sizeDelta = new Vector2(34, 34);
-            var gambar = ikon.gameObject.AddComponent<RawImage>();
-            gambar.raycastTarget = false;
-            gambar.color = Kopi;
-            gambar.texture = BuatIkonStat(nama);
-            var isi = Teks(kolom, "-", 48, 32, FontStyles.Bold);
-            Rentangkan(isi.rectTransform, new Vector2(0.04f, 0.07f), new Vector2(0.96f, 0.58f));
-            return (judul, isi);
-        }
-
-        private Texture2D BuatIkonStat(string nama)
-        {
-            string pola = nama switch
-            {
-                "Uang" => "0111110/1000001/1011101/1010101/1011101/1000001/0111110",
-                "IPK" => "0001000/0011100/0111110/1111111/0101010/0111010/0000010",
-                "Energi" => "0001100/0011000/0110000/0111110/0001100/0011000/0010000",
-                "Stres" => "0111110/1000001/1010101/1000001/1001001/1010101/0111110",
-                _ => "0100010/1111111/1000001/1111111/1010101/1000001/1111111"
-            };
-            var tekstur = new Texture2D(7, 7, TextureFormat.RGBA32, false);
-            tekstur.filterMode = FilterMode.Point;
-            tekstur.wrapMode = TextureWrapMode.Clamp;
-            var baris = pola.Split('/');
-            for (int y = 0; y < 7; y++)
-                for (int x = 0; x < 7; x++)
-                    tekstur.SetPixel(x, 6 - y, baris[y][x] == '1' ? Color.white : Color.clear);
-            tekstur.Apply(false, true);
-            ikonStat.Add(tekstur);
-            return tekstur;
         }
 
         private void BuatJoystick()
