@@ -369,7 +369,11 @@ namespace MS.UI
             PerbaruiTombol();
         }
 
-        private void MintaAksiUtama() => MintaAksi(aksiUtama, true);
+        private void MintaAksiUtama()
+        {
+            if (!Layanan.InputDitahan && aksiUtama.HasValue) Layanan.Audio?.Mainkan("klik");
+            MintaAksi(aksiUtama, true);
+        }
 
         internal void PanelMenuDibuka()
         {
@@ -381,7 +385,6 @@ namespace MS.UI
         {
             if (Layanan.InputDitahan || panelRacik.Terbuka) return;
             if (!aksi.HasValue) return;
-            Layanan.Audio?.Mainkan("klik");
             var perintah = aksi.Value;
             // Aksi beli menu tanpa target -> buka daftar menu dulu, bukan langsung beli
             if (panelMenu.AksiBeliMenu(aksi) && Layanan.Aksi != null)
@@ -601,10 +604,10 @@ namespace MS.UI
                 IkonHud.Pasang((RectTransform)tombolKamera.transform, IkonHud.Jenis.Kamera, 39);
             }
             kotakPesan = BuatKotak("Alasan aksi", areaAman);
-            kotakPesan.anchorMin = kotakPesan.anchorMax = new Vector2(0.5f, 0);
-            kotakPesan.pivot = new Vector2(0.5f, 0);
+            kotakPesan.anchorMin = kotakPesan.anchorMax = new Vector2(.5f, .85f);
+            kotakPesan.pivot = new Vector2(.5f, 1);
             kotakPesan.sizeDelta = new Vector2(840, 152);
-            kotakPesan.anchoredPosition = new Vector2(0, 260);
+            kotakPesan.anchoredPosition = new Vector2(0, -14);
             var susun = kotakPesan.gameObject.AddComponent<VerticalLayoutGroup>();
             susun.spacing = 8;
             susun.childControlWidth = susun.childControlHeight = true;
@@ -680,18 +683,7 @@ namespace MS.UI
                 kotakKamera.sizeDelta = new Vector2(lebar, Mathf.Max(112, 56 / skala));
                 kotakKamera.anchoredPosition = new Vector2(-32, 32 + tinggi + jarak);
             }
-            // Toast di bawah; saat panel menu terbuka pindah ke atas kartu agar tidak menumpuk
-            if (panelMenu != null && panelMenu.Terbuka)
-            {
-                kotakPesan.anchorMin = kotakPesan.anchorMax = kotakPesan.pivot = new Vector2(0.5f, 1);
-                kotakPesan.anchoredPosition = new Vector2(0, -150);
-                kotakPesan.SetAsLastSibling();
-            }
-            else
-            {
-                kotakPesan.anchorMin = kotakPesan.anchorMax = kotakPesan.pivot = new Vector2(0.5f, 0);
-                kotakPesan.anchoredPosition = new Vector2(0, Mathf.Max(260, tinggi + 72));
-            }
+            if (panelMenu != null && panelMenu.Terbuka) kotakPesan.SetAsLastSibling();
         }
 
         private static void WarnaiTombol(Button tombol, bool tersedia, Color latar)
@@ -733,6 +725,7 @@ namespace MS.UI
             gambar.type = bulat ? Image.Type.Simple : Image.Type.Sliced;
             gambar.color = warna;
             gambar.raycastTarget = sentuh;
+            if (sentuh) kotak.gameObject.AddComponent<UmpanBalikUi>();
             return gambar;
         }
 
@@ -740,6 +733,8 @@ namespace MS.UI
         {
             var kotak = new GameObject(nama, typeof(RectTransform));
             kotak.transform.SetParent(induk, false);
+            if (nama.StartsWith("Panel ", System.StringComparison.Ordinal) && nama != "Panel event acak")
+                kotak.AddComponent<TransisiPanelUi>();
             return (RectTransform)kotak.transform;
         }
 
