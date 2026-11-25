@@ -44,6 +44,9 @@ namespace MS.Inti
             if (Instans != null && Instans != this) { Destroy(gameObject); return; }
             Instans = this;
             DontDestroyOnLoad(gameObject);
+#if UNITY_ANDROID && !UNITY_EDITOR
+            Application.targetFrameRate = 60;
+#endif
 
             Data = DataGame.Muat(aksiJson, balanceJson, menuJson, upgradesJson);
             Data.Akademik = DataAkademik.Muat(fiturJson != null ? fiturJson.text : null, fitur2Json != null ? fitur2Json.text : null);
