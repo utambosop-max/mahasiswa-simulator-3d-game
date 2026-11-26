@@ -134,6 +134,10 @@
 | Ayam kampung dan atlas warna bulu | Model orisinal proyek, dibuat dengan `blender/skrip/buat_ayam_unity.py` |
 | Oyen dan palet warna | Model orisinal proyek, digunakan ulang dari `blender/skrip/npc_fase3.py` |
 
+## Perabot Kamar
+
+Tikar, karpet, spring bed, meja belajar, unit AC, dan atlasnya merupakan aset orisinal proyek dari `blender/skrip/buat_perabot_kamar_unity.py`. Lampu meja memakai `desk_lamp_arm_01` dari katalog Poly Haven di atas.
+
 ## Mixamo (tidak diunggah ke repo)
 
 Karakter dan animasi Mixamo © Adobe. Bebas royalti untuk dipakai di dalam game, tapi file mentahnya tidak boleh dibagikan ulang.

@@ -59,8 +59,39 @@ namespace MS.Dunia
             }
             Taruh(ruang, katalog.Ambil("wooden_stool_01"), new Vector3(2.47f, 0, 2.24f), .43f, -15);
             Taruh(ruang, katalog.Ambil("wicker_basket_01"), new Vector3(-.28f, 0, 3.13f), .38f, 12);
-            Taruh(ruang, katalog.Ambil("desk_lamp_arm_01"), new Vector3(3.59f, .80f, 2.96f), .41f, 14);
             Taruh(ruang, katalog.Ambil("wooden_bucket_01"), new Vector3(-4.70f, 0, -2.05f), .33f, -10);
+            PerabotLanjutan(ruang, bahan, katalog, meja, kasur);
+        }
+
+        static void PerabotLanjutan(Transform ruang, BahanRealistis bahan, KatalogPropDunia katalog,
+            GameObject[] meja, GameObject[] kasur)
+        {
+            var warna = bahan.Ambil(null, new Color(.99f, .99f, 1), Vector2.one);
+            warna.mainTexture = Resources.Load<Texture2D>("Kamar/warna");
+            warna.SetFloat("_Smoothness", .24f);
+            var kipas = ruang.Find("Perabot kipas")?.GetComponent<ModelPerLevel>()?.perLevel;
+            var dekor = ruang.Find("Perabot dekorasi")?.GetComponent<ModelPerLevel>()?.perLevel;
+            GantiPerabot(kasur, 2, "spring_bed", Vector3.zero, 0);
+            GantiPerabot(kipas, 2, "ac", Vector3.zero, 180);
+            GantiPerabot(dekor, 1, "tikar", new Vector3(1.62f, .014f, .16f), 0);
+            GantiPerabot(dekor, 2, "karpet", new Vector3(1.62f, .014f, .16f), 0);
+            var mejaTiga = GantiPerabot(meja, 2, "meja_belajar", Vector3.zero, 180);
+            if (mejaTiga != null)
+                Taruh(mejaTiga, katalog.Ambil("desk_lamp_arm_01"), new Vector3(-.46f, .78f, .23f), .43f, 26);
+
+            Transform GantiPerabot(GameObject[] tingkat, int indeks, string id, Vector3 posisi, float arah)
+            {
+                if (tingkat == null || tingkat.Length <= indeks || tingkat[indeks] == null) return null;
+                var model = Resources.Load<GameObject>("Kamar/" + id);
+                if (model == null || warna.mainTexture == null) return null;
+                var induk = tingkat[indeks].transform;
+                foreach (var lama in induk.GetComponentsInChildren<MeshRenderer>(true)) lama.enabled = false;
+                var prop = UnityEngine.Object.Instantiate(model, induk);
+                prop.name = id;
+                prop.transform.SetLocalPositionAndRotation(posisi, Quaternion.Euler(0, arah, 0));
+                foreach (var baru in prop.GetComponentsInChildren<MeshRenderer>(true)) baru.sharedMaterial = warna;
+                return induk;
+            }
         }
 
         public static void Pohon(Transform prop)

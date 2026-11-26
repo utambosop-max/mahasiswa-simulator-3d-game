@@ -2,6 +2,14 @@
 
 Riwayat versi Unity dan web.
 
+## Unity v0.3.1 — Pagi hingga malam di Kampung (2026-11-26)
+
+- Lampu rumah, jalan, dan plang menyala setelah petang. Hujan membawa genangan, pantulan basah, suara, dan payung warga.
+- Warga pergi bekerja, berbelanja, dan pulang sesuai fase hari. Oyen dan ayam berkeliaran, sementara angkot dan motor melintas.
+- Langkah kaki berbunyi sesuai permukaan. Kipas, ayam pagi, jangkrik malam, dan kendaraan jauh mengisi suasana.
+- Upgrade kamar mengganti perabot, dari tikar dan kipas berdiri hingga spring bed, meja dengan lampu, karpet, dan AC.
+- Perbaikan UV genteng, warna pagi dan rumput, skala pemain, serta label Pengaturan.
+
 ## Unity v0.3.0 — Kampung dan kos yang lebih hidup (2026-11-26)
 
 - Bangunan Kampung mendapat fasad baru, jendela berbingkai, teras, dan papan nama. Tanah dan jalan memakai paving, got, genangan, serta polisi tidur.
