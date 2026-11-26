@@ -32,6 +32,9 @@ namespace MS.MiniGame
         readonly TextMeshProUGUI judul, isi, umpanBalik, waktu;
         readonly Image sisaBar;
         readonly LayoutElement tinggiWaktu;
+        readonly SajianRacik sajian;
+        readonly RawImage layarSajian;
+        readonly LayoutElement ukuranSajian;
         readonly List<(Button tombol, TextMeshProUGUI teks)> tombol = new();
         readonly HashSet<string> terisi = new();
         readonly Action saatBuka;
@@ -73,7 +76,21 @@ namespace MS.MiniGame
             gulir.horizontal = false;
             gulir.movementType = ScrollRect.MovementType.Clamped;
             judul = Teks("Judul racik", konten, 52, true);
-            isi = Teks("Informasi racik", konten, 40);
+            var ringkasan = Kotak("Ringkasan racik", konten, Vector2.zero, Vector2.one);
+            var susun = ringkasan.gameObject.AddComponent<HorizontalLayoutGroup>();
+            susun.childControlWidth = susun.childControlHeight = true;
+            susun.childForceExpandWidth = susun.childForceExpandHeight = false;
+            susun.spacing = 18;
+            susun.childAlignment = TextAnchor.MiddleCenter;
+            isi = Teks("Informasi racik", ringkasan, 40);
+            isi.gameObject.AddComponent<LayoutElement>().flexibleWidth = 1f;
+            var layar = Kotak("Tampilan sajian", ringkasan, Vector2.zero, Vector2.one);
+            ukuranSajian = layar.gameObject.AddComponent<LayoutElement>();
+            layarSajian = layar.gameObject.AddComponent<RawImage>();
+            layarSajian.raycastTarget = false;
+            layarSajian.gameObject.SetActive(false);
+            sajian = akar.gameObject.AddComponent<SajianRacik>();
+            sajian.Siapkan(layarSajian);
             umpanBalik = Teks("Umpan balik racik", konten, 36, true);
             umpanBalik.gameObject.AddComponent<LayoutElement>().preferredHeight = 88;
             var bar = Kotak("Kesabaran", konten, Vector2.zero, Vector2.one);
@@ -141,6 +158,8 @@ namespace MS.MiniGame
         {
             if (tahap != Tahap.Pembuka) return;
             Buka(Tahap.Racik, aturan.nama, "");
+            layarSajian.gameObject.SetActive(true);
+            sajian.Mulai(kerja.Aktif == "warkop");
             TataTombol(aturan.bahan.Length + 1, true);
             for (int i = 0; i < aturan.bahan.Length; i++)
             {
@@ -161,6 +180,7 @@ namespace MS.MiniGame
             jeda = 0;
             pesan = "";
             terisi.Clear();
+            sajian.Pelanggan();
             Layanan.Audio?.Mainkan("notif");
             PerbaruiPesanan();
             PerbaruiWaktu();
@@ -170,6 +190,7 @@ namespace MS.MiniGame
         {
             if (tahap != Tahap.Racik) return;
             delta = Mathf.Min(.1f, delta);
+            sajian.Tick(delta);
             if (jeda > 0)
             {
                 jeda -= delta;
@@ -206,6 +227,7 @@ namespace MS.MiniGame
                 return;
             }
             terisi.Add(id);
+            sajian.Tambah(id);
             pesan = "";
             if (terisi.Count == pesanan.resep.Length)
             {
@@ -224,6 +246,7 @@ namespace MS.MiniGame
         void Reaksi(string teks, string suara)
         {
             jeda = .9f;
+            sajian.Hidangkan();
             pesan = teks;
             Layanan.Audio?.Mainkan(suara);
             PerbaruiPesanan();
@@ -266,6 +289,7 @@ namespace MS.MiniGame
             tahap = baru;
             judul.text = nama;
             isi.text = deskripsi;
+            if (baru != Tahap.Racik) sajian.Sembunyi();
             umpanBalik.gameObject.SetActive(baru == Tahap.Racik);
             tinggiWaktu.gameObject.SetActive(baru == Tahap.Racik);
             akar.gameObject.SetActive(true);
@@ -277,6 +301,7 @@ namespace MS.MiniGame
         void Tutup()
         {
             tahap = Tahap.Tutup;
+            sajian.Sembunyi();
             akar.gameObject.SetActive(false);
         }
 
@@ -319,6 +344,12 @@ namespace MS.MiniGame
             float tinggi = Mathf.Max(88, 56 / skala);
             foreach (var item in tombol) item.tombol.GetComponent<LayoutElement>().minHeight = tinggi;
             var grid = konten.Find("Bahan");
+            if (layarSajian.gameObject.activeSelf)
+            {
+                float lebar = ((RectTransform)konten.parent).rect.width * .26f;
+                ukuranSajian.preferredWidth = lebar;
+                ukuranSajian.preferredHeight = lebar * .5f;
+            }
             if (grid != null && grid.gameObject.activeSelf)
             {
                 Canvas.ForceUpdateCanvases();
