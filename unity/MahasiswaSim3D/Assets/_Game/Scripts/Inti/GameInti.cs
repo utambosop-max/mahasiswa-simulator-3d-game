@@ -38,12 +38,21 @@ namespace MS.Inti
         public Sosial Kos => Sosial;
         public Cerita Cerita { get; private set; }
         float timerCerita;
+        bool ukurFps;
 
         void Awake()
         {
             if (Instans != null && Instans != this) { Destroy(gameObject); return; }
             Instans = this;
             DontDestroyOnLoad(gameObject);
+#if UNITY_STANDALONE_WIN && !UNITY_EDITOR
+            ukurFps = System.Array.IndexOf(System.Environment.GetCommandLineArgs(), "-ukur-fps") >= 0;
+            if (ukurFps)
+            {
+                Application.runInBackground = true;
+                StartCoroutine(UkurKinerja());
+            }
+#endif
 #if UNITY_ANDROID && !UNITY_EDITOR
             Application.targetFrameRate = 60;
 #endif
@@ -104,15 +113,37 @@ namespace MS.Inti
             Layanan.Menu = Sosial; Layanan.Hidup = Sosial; Layanan.Cerita = Cerita;
         }
 
+#if UNITY_STANDALONE_WIN && !UNITY_EDITOR
+        System.Collections.IEnumerator UkurKinerja()
+        {
+            // Lewati pemuatan awal sebelum menghitung gambar yang benar-benar dirender.
+            yield return new WaitForSecondsRealtime(5f);
+            while (true)
+            {
+                double mulai = Time.realtimeSinceStartupAsDouble;
+                int awal = Time.renderedFrameCount;
+                yield return new WaitForSecondsRealtime(10f);
+                double fps = (Time.renderedFrameCount - awal) / (Time.realtimeSinceStartupAsDouble - mulai);
+                string scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+                string profil = QualitySettings.names[QualitySettings.GetQualityLevel()];
+                string mode = Layanan.InputDitahan ? "modal" : "dunia";
+                Debug.Log($"[Kinerja] {scene} {Screen.width}x{Screen.height} {profil} {mode} {fps:F1} FPS");
+            }
+        }
+#endif
+
         void Update()
         {
             if (!Layanan.InputDitahan) Jam.Jalan(Time.deltaTime);
             Sosial.Periksa(); // jam malam kos
             // Cerita: cek pemicu tiap 1 detik nyata, tampilkan dialog saat layar kosong
-            timerCerita -= Time.deltaTime;
-            if (timerCerita <= 0f) { timerCerita = 1f; Cerita.Periksa(); }
-            if (Cerita.AdaDialog && Event.Aktif == null && Kerja.Aktif == null && !Jam.Sibuk && !Upgrade.Terbuka && !Hidup.Terbuka && !Hidup.PerluDibuat && !Sosial.Terbuka)
-                Cerita.TampilkanBerikut(Event); // jam berhenti selama event tampil
+            if (!ukurFps)
+            {
+                timerCerita -= Time.deltaTime;
+                if (timerCerita <= 0f) { timerCerita = 1f; Cerita.Periksa(); }
+                if (Cerita.AdaDialog && Event.Aktif == null && Kerja.Aktif == null && !Jam.Sibuk && !Upgrade.Terbuka && !Hidup.Terbuka && !Hidup.PerluDibuat && !Sosial.Terbuka)
+                    Cerita.TampilkanBerikut(Event); // jam berhenti selama event tampil
+            }
             if (Aturan.PerluPulang) Aturan.PulangKampung(); // stres 100 -> pulang kampung
         }
 

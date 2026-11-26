@@ -231,7 +231,7 @@
       "teks": [
         { "t": 1.9, "jenis": "besar", "isi": "TANGGAL TUA" },
         { "t": 2.6, "jenis": "dialog", "tokoh": "oyen", "isi": "Meong. (ketawa)" },
-        { "t": 3.6, "jenis": "judul", "isi": "Mahasiswa Simulator 3D" }
+        { "t": 3.6, "jenis": "judul", "isi": "Anak Kos: Survival Semester" }
       ],
       "audio": [{ "t": 0.2, "cue": "kalender" }, { "t": 1.85, "cue": "stinger" }, { "t": 2.6, "cue": "meong" }, { "t": 3.6, "cue": "judul" }]
     }

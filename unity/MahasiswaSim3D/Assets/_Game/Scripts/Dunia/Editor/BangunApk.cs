@@ -14,19 +14,40 @@ namespace MS.Dunia.Editor
 {
     public static class BangunApk
     {
+        static string Rilis => Path.GetFullPath(Path.Combine(Application.dataPath, "../../../rilis"));
+
+        [MenuItem("Mahasiswa Sim/Bangun PC")]
+        public static void BangunPC()
+        {
+            string folder = Path.Combine(Rilis, "pc", "AnakKos-v" + PlayerSettings.bundleVersion);
+            string keluar = Argumen("-keluar") ?? Path.Combine(folder, "AnakKos.exe");
+            Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(keluar)));
+            var hasil = BuildPipeline.BuildPlayer(new BuildPlayerOptions
+            {
+                scenes = EditorBuildSettings.scenes.Where(s => s.enabled).Select(s => s.path).ToArray(),
+                locationPathName = keluar,
+                target = BuildTarget.StandaloneWindows64,
+                targetGroup = BuildTargetGroup.Standalone,
+                options = BuildOptions.None
+            });
+            if (hasil.summary.result != BuildResult.Succeeded)
+                throw new InvalidOperationException("Build Windows gagal: " + hasil.summary.result);
+            Debug.Log("Build Windows selesai: " + keluar);
+        }
+
         [MenuItem("Mahasiswa Sim/Bangun APK Android")]
         public static void Bangun()
         {
             bool uji = Array.IndexOf(Environment.GetCommandLineArgs(), "-uji") >= 0; // Development Build + layar error merah
             string versi = PlayerSettings.bundleVersion;
             int kodeVersi = PlayerSettings.Android.bundleVersionCode;
-            string keluar = Argumen("-keluar") ?? "D:/Mahasiswa_simulator/rilis/unity/MahasiswaSim3D-v" + versi + (uji ? "-uji" : "-unity") + ".apk";
+            string keluar = Argumen("-keluar") ?? Path.Combine(Rilis, "unity", "AnakKos-v") + versi + (uji ? "-uji" : "-unity") + ".apk";
             Directory.CreateDirectory(Path.GetDirectoryName(keluar));
 
             // --- Identitas & versi ---
             PlayerSettings.companyName = "Studio Mahasiswa";
-            PlayerSettings.productName = "Mahasiswa Simulator 3D";
-            PlayerSettings.SetApplicationIdentifier(NamedBuildTarget.Android, "com.studiomahasiswa.sim3d.unity"); // beda dari versi web agar bisa dipasang berdampingan
+            PlayerSettings.productName = "Anak Kos: Survival Semester";
+            PlayerSettings.SetApplicationIdentifier(NamedBuildTarget.Android, "com.studiomahasiswa.anakkos"); // beda dari versi web agar bisa dipasang berdampingan
 
             // --- Layar: landscape, boleh diputar 180° (sensorLandscape) ---
             PlayerSettings.defaultInterfaceOrientation = UIOrientation.AutoRotation;

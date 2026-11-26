@@ -76,6 +76,32 @@ namespace MS.UI
         internal void Tambah(string nama, string detail, bool boleh, Action klik, Color? contoh = null)
             => BuatBaris(nama, detail, boleh, klik, contoh);
 
+        internal void KeDepan()
+        {
+            if (Terbuka && akar.GetSiblingIndex() != akar.parent.childCount - 1)
+                akar.SetAsLastSibling();
+        }
+
+        internal void TambahKisi(IReadOnlyList<string> nama, Action<int> buka)
+        {
+            const int kolom = 4;
+            for (int barisAwal = 0; barisAwal < nama.Count; barisAwal += kolom)
+            {
+                var rt = HudKamar.BuatKotak("Aplikasi", isi);
+                var susun = rt.gameObject.AddComponent<HorizontalLayoutGroup>();
+                susun.spacing = 12;
+                susun.childControlHeight = susun.childControlWidth = true;
+                susun.childForceExpandHeight = susun.childForceExpandWidth = true;
+                baris.Add(rt.gameObject);
+                for (int i = barisAwal; i < Mathf.Min(barisAwal + kolom, nama.Count); i++)
+                {
+                    int indeks = i;
+                    var objek = BuatBaris($"{i + 1} · {nama[i]}", "", true, () => buka(indeks), null, rt);
+                    objek.GetComponent<LayoutElement>().flexibleWidth = 1;
+                }
+            }
+        }
+
         GameObject BuatBaris(string nama, string detail, bool boleh, Action klik, Color? contoh, RectTransform induk = null)
         {
             var rt = HudKamar.BuatKotak(nama, induk ?? isi);

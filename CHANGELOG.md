@@ -1,6 +1,11 @@
-# Catatan Perubahan — Mahasiswa Simulator 3D
+# Catatan Perubahan — Anak Kos: Survival Semester
 
 Riwayat versi Unity dan web.
+
+## Unity v0.4.0 - Anak Kos di Windows (2026-11-26)
+
+- Versi PC mendukung Windows x64. Ukuran jendela dapat diubah.
+- Paket Android kini memakai `com.studiomahasiswa.anakkos`. Simpanan dari paket lama tidak otomatis terbawa.
 
 ## Unity v0.3.1 — Pagi hingga malam di Kampung (2026-11-26)
 

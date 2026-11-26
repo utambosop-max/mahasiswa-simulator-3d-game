@@ -9,6 +9,7 @@ namespace MS.Pemain
     {
         // Angka dari web (Player.tsx KECEPATAN_JALAN, balance.json). TODO: baca dari Data JSON via MS.Inti.
         [SerializeField] float kecepatanJalan = 3.2f;     // m/s
+        [SerializeField] float pengaliLari = 1.5f;
         [SerializeField] float pengaliLemas = 0.6f;       // balance.json pengali.kecepatanSaatLemas
         [SerializeField] float ambangEnergiLemas = 20f;   // TODO: samakan dengan balance.json ambang.energiLemas
         [SerializeField] float lajuPutar = 12f;           // sama dengan web: dt * 12
@@ -17,6 +18,7 @@ namespace MS.Pemain
 
         CharacterController _cc;
         InputPemain _input;
+        KameraIsometric _kamera;
         float _vy;
         float jarakLangkah;
         readonly List<Bounds> jalan = new();
@@ -30,6 +32,7 @@ namespace MS.Pemain
             _cc = GetComponent<CharacterController>();
             _input = GetComponent<InputPemain>();
             if (kamera == null && Camera.main != null) kamera = Camera.main.transform;
+            if (kamera != null) _kamera = kamera.GetComponent<KameraIsometric>();
             var kampung = GameObject.Find("Tanah & Jalan");
             if (kampung == null) return;
             foreach (Transform bidang in kampung.transform)
@@ -60,6 +63,7 @@ namespace MS.Pemain
             var hidup = MS.Inti.GameInti.Instans != null ? MS.Inti.GameInti.Instans.Hidup : null;
             bool motor = hidup != null && hidup.NaikMotor;
             if (motor) lemas = 1f; // motor tidak terpengaruh lemas
+            else if (_input.Lari) lemas *= pengaliLari;
             Vector3 v = arah * (kecepatanJalan * lemas * (hidup != null ? hidup.PengaliKecepatan : 1f));
             if (motor) hidup.Tempuh(v.magnitude * dt); // bensin berkurang sesuai jarak
             KecepatanSaatIni = v.magnitude;
@@ -84,7 +88,7 @@ namespace MS.Pemain
             }
 
             // Putar halus menghadap arah gerak
-            if (arah.sqrMagnitude > 0.0001f)
+            if (_kamera?.OrangPertama != true && arah.sqrMagnitude > 0.0001f)
             {
                 Quaternion tuju = Quaternion.LookRotation(arah, Vector3.up);
                 transform.rotation = Quaternion.Slerp(transform.rotation, tuju, Mathf.Min(1f, dt * lajuPutar));

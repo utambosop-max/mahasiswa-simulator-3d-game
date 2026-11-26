@@ -19,6 +19,7 @@ namespace MS.Dunia
         ColorAdjustments penataanWarna;
         VisualKampung kampung;
         PartikelKampung partikel;
+        PencahayaanUltra pencahayaanUltra;
         bool luar;
         int mutu = -1;
         float cahayaCuaca = 1f;
@@ -36,6 +37,7 @@ namespace MS.Dunia
             var cahaya = dunia.AddComponent<PencahayaanRealistis>();
             if (scene.name == "KamarKos") VisualKamar.Pasang(dunia);
             if (scene.name.StartsWith("Gedung_")) VisualInterior.Pasang(dunia, scene.name.Substring(7));
+            cahaya.pencahayaanUltra = PencahayaanUltra.Pasang(dunia.transform, scene.name);
             if (scene.name == "Kampung")
             {
                 cahaya.kampung = dunia.AddComponent<VisualKampung>();
@@ -111,12 +113,24 @@ namespace MS.Dunia
             if (mutu != QualitySettings.GetQualityLevel()) AturMutu();
         }
 
+        internal static bool UltraAktif()
+        {
+#if UNITY_STANDALONE_WIN
+            var nama = QualitySettings.names;
+            int tingkat = QualitySettings.GetQualityLevel();
+            return tingkat >= 0 && tingkat < nama.Length && nama[tingkat] == "Ultra";
+#else
+            return false;
+#endif
+        }
+
         void AturMutu()
         {
             mutu = QualitySettings.GetQualityLevel();
             bool tinggi = mutu > 0;
             bloom.active = vignette.active = tinggi;
             if (matahari != null) matahari.shadows = tinggi ? LightShadows.Soft : LightShadows.Hard;
+            pencahayaanUltra?.AturMutu(UltraAktif());
             if (!luar) return;
             if (Camera.main != null) Camera.main.farClipPlane = tinggi ? 98f : 76f;
             RenderSettings.fogStartDistance = tinggi ? 38f : 34f;
@@ -128,14 +142,17 @@ namespace MS.Dunia
         {
             if (kampung != null) kampung.AturFase(fase);
             if (partikel != null) partikel.AturFase(fase);
-            if (matahari == null) return;
-            switch (fase)
+            if (matahari != null)
             {
-                case Fase.Pagi: Matahari(36, luar ? 1.48f : 1.15f, new Color(1, .96f, .86f)); break;
-                case Fase.Siang: Matahari(62, 1.3f, new Color(1, .97f, .91f)); break;
-                case Fase.Sore: Matahari(22, .95f, new Color(1, .66f, .43f)); break;
-                default: Matahari(39, .28f, new Color(.43f, .59f, 1)); break;
+                switch (fase)
+                {
+                    case Fase.Pagi: Matahari(36, luar ? 1.48f : 1.15f, new Color(1, .96f, .86f)); break;
+                    case Fase.Siang: Matahari(62, 1.3f, new Color(1, .97f, .91f)); break;
+                    case Fase.Sore: Matahari(22, .95f, new Color(1, .66f, .43f)); break;
+                    default: Matahari(39, .28f, new Color(.43f, .59f, 1)); break;
+                }
             }
+            pencahayaanUltra?.AturFase(fase);
             if (luar) Suasana(fase);
         }
 

@@ -1,10 +1,12 @@
 using System;
 using MS.Kontrak;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace MS.Pemain
 {
     /// <summary>Mencari TitikInteraksi terdekat dalam radius, lalu mengumumkannya lewat Layanan.Konteks agar HUD bisa menampilkan tombol aksi.</summary>
+    [DefaultExecutionOrder(20)]
     public class InteraksiPemain : MonoBehaviour, IKonteksInteraksi
     {
         public TitikInteraksi Terdekat { get; private set; }
@@ -21,23 +23,31 @@ namespace MS.Pemain
         public event Action Berubah;
         public event Action MintaUtama;
         bool tadiNaik;
+        Camera kamera;
+        KameraIsometric pengaturKamera;
+        BidikanInteraksi bidikan;
 
         void OnEnable() { Layanan.Konteks = this; }
         void OnDisable() { if (ReferenceEquals(Layanan.Konteks, this)) Layanan.Konteks = null; }
 
-        void Update()
+        void Start()
         {
-            Vector3 p = transform.position;
-            TitikInteraksi best = null;
-            float bestD = float.MaxValue;
-            var daftar = TitikInteraksi.Semua;
-            for (int i = 0; i < daftar.Count; i++)
+            kamera = Camera.main;
+            if (kamera != null) pengaturKamera = kamera.GetComponent<KameraIsometric>();
+        }
+
+        void OnDestroy() => bidikan?.Lepaskan();
+
+        void LateUpdate()
+        {
+            bool fp = pengaturKamera != null && pengaturKamera.OrangPertama;
+            TitikInteraksi best;
+            if (fp)
             {
-                var t = daftar[i];
-                Vector3 d = t.transform.position - p; d.y = 0f; // jarak datar saja
-                float d2 = d.sqrMagnitude;
-                if (d2 <= t.radius * t.radius && d2 < bestD) { bestD = d2; best = t; }
+                bidikan ??= new BidikanInteraksi();
+                best = bidikan.Cari(kamera.ViewportPointToRay(new Vector3(.5f, .5f, 0f)), kamera.transform.position, transform);
             }
+            else best = CariTerdekat();
             var hidup = MS.Inti.GameInti.Instans != null ? MS.Inti.GameInti.Instans.Hidup : null;
             bool naik = hidup != null && hidup.NaikMotor;
             if (best != Terdekat || naik != tadiNaik)
@@ -51,13 +61,46 @@ namespace MS.Pemain
                 }
                 TerdekatBerubah?.Invoke(best); Berubah?.Invoke();
             }
-            // Tombol dicek SETELAH konteks diperbarui agar memakai titik yang benar di frame ini (temuan QA)
-            var kb = UnityEngine.InputSystem.Keyboard.current; // E / Spasi = aksi utama (PC)
-            if (kb != null && (kb.eKey.wasPressedThisFrame || kb.spaceKey.wasPressedThisFrame) && !Layanan.InputDitahan)
+
+            var kb = Keyboard.current;
+            bool tombol = kb != null && (kb.eKey.wasPressedThisFrame || kb.spaceKey.wasPressedThisFrame);
+            bool klik = fp && pengaturKamera.BidikanAktif && best != null && Mouse.current?.leftButton.wasPressedThisFrame == true;
+            if ((tombol || klik) && !Layanan.InputDitahan && Application.isFocused && (!fp || pengaturKamera.BidikanAktif))
             {
                 if (MintaUtama != null) MintaUtama(); // HUD yang memutuskan (buka menu / jalankan)
                 else Lakukan();
             }
+        }
+
+        TitikInteraksi CariTerdekat()
+        {
+            Vector3 p = transform.position;
+            TitikInteraksi best = null;
+            float bestD = float.MaxValue;
+            var daftar = TitikInteraksi.Semua;
+            for (int i = 0; i < daftar.Count; i++)
+            {
+                var t = daftar[i];
+                Vector3 d = t.transform.position - p; d.y = 0f; // jarak datar saja
+                float d2 = d.sqrMagnitude;
+                if (d2 <= t.radius * t.radius && d2 < bestD) { bestD = d2; best = t; }
+            }
+            return best;
+        }
+
+        void OnGUI()
+        {
+            if (bidikan == null || pengaturKamera == null || !pengaturKamera.BidikanAktif ||
+                Event.current.type != EventType.Repaint) return;
+            var jenis = BidikanInteraksi.Jenis.Titik;
+            if (Terdekat != null && Utama.HasValue)
+            {
+                string id = Utama.Value.Id;
+                jenis = Layanan.Aksi != null && !Layanan.Aksi.BolehDilakukan(Utama.Value, out _)
+                    ? BidikanInteraksi.Jenis.Kunci
+                    : BidikanInteraksi.AksiBicara(id) ? BidikanInteraksi.Jenis.Bicara : BidikanInteraksi.Jenis.Tangan;
+            }
+            bidikan.Gambar(kamera.pixelRect, jenis);
         }
 
         // Hanya dipanggil saat titik terdekat berganti, jadi aman membuat string/struct di sini.

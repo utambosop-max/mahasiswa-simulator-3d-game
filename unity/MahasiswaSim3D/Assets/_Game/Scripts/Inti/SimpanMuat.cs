@@ -24,6 +24,25 @@ namespace MS.Inti
                     if (calon != jalur) Debug.LogWarning("[Inti] Save dipulihkan dari " + Path.GetFileName(calon));
                     return data;
                 }
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
+                // Perubahan judul mengubah folder LocalLow di Windows.
+                const string kunci = "MigrasiJudul040";
+                if (!PlayerPrefs.HasKey(kunci) && !File.Exists(jalur))
+                {
+                    string lama = Path.Combine(Application.persistentDataPath, "..", "Mahasiswa Simulator 3D", NamaFile);
+                    foreach (string akhiran in new[] { "", ".baru", ".tmp", ".bak" })
+                    {
+                        var data = Baca(lama + akhiran, b);
+                        if (data == null) continue;
+                        if (Tulis(data))
+                        {
+                            PlayerPrefs.SetInt(kunci, 1);
+                            PlayerPrefs.Save();
+                        }
+                        return data;
+                    }
+                }
+#endif
                 return DataSimpan.Baru(b);
             }
         }
@@ -119,6 +138,10 @@ namespace MS.Inti
         {
             lock (Kunci)
             {
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
+                PlayerPrefs.SetInt("MigrasiJudul040", 1);
+                PlayerPrefs.Save();
+#endif
                 foreach (string akhiran in new[] { ".baru", ".tmp", ".bak", "" })
                 {
                     try { File.Delete(Jalur + akhiran); }

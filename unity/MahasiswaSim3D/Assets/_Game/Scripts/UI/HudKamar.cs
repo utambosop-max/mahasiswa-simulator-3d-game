@@ -6,6 +6,8 @@ using MS.Kontrak;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
@@ -68,6 +70,166 @@ namespace MS.UI
         private (int Tanggal, int Menit, Fase Fase, bool Sibuk, bool TanggalTua)? kalenderTerakhir;
         private float cekAksiBerikut;
         private float statTampilEnergi, statTampilStres;
+        private DaftarModal kosanOs;
+        private TextMeshProUGUI hariPc;
+        private static bool judulSudahTampil;
+        private static readonly string[] NamaHari =
+            { "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu" };
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void ResetJudul() => judulSudahTampil = false;
+
+        private void TampilkanLayarJudul()
+        {
+            if (judulSudahTampil) return;
+            judulSudahTampil = true;
+#if UNITY_STANDALONE_WIN && !UNITY_EDITOR
+            if (System.Array.IndexOf(System.Environment.GetCommandLineArgs(), "-ukur-fps") >= 0) return;
+#endif
+            panelPengaturan.BukaJeda(true);
+        }
+
+        private void SiapkanMenuPc()
+        {
+            kosanOs = new DaftarModal(this, areaAman, "KosanOS", TutupKosanOs);
+        }
+
+        private void BukaKosanOs()
+        {
+            if (Layanan.InputDitahan) return;
+            Layanan.UiModal = true;
+            kosanOs.Tampil(true, "KosanOS", $"Saldo {uang.text}   ·   IPK {ipk.text}");
+            kosanOs.Tambah("1 · Rapor", "", true, BukaRaporPc);
+            kosanOs.Tambah("2 · Pengaturan", "", true, () =>
+            {
+                TutupKosanOs();
+                panelPengaturan.Buka();
+            });
+        }
+
+        private void BukaRaporPc()
+        {
+            TutupKosanOs();
+            panelRapor.Buka();
+        }
+
+        private void TutupKosanOs()
+        {
+            if (kosanOs?.Terbuka != true) return;
+            kosanOs.Tampil(false);
+            Layanan.UiModal = false;
+            EventSystem.current?.SetSelectedGameObject(null);
+        }
+
+        private void PintasanPc()
+        {
+            var papan = Keyboard.current;
+            if (papan == null) return;
+            if (papan.tabKey.wasPressedThisFrame)
+            {
+                if (kosanOs.Terbuka) TutupKosanOs();
+                else BukaKosanOs();
+            }
+            if (!kosanOs.Terbuka) return;
+            if (Ditekan(papan.digit1Key, papan.numpad1Key)) BukaRaporPc();
+            else if (Ditekan(papan.digit2Key, papan.numpad2Key))
+            {
+                TutupKosanOs();
+                panelPengaturan.Buka();
+            }
+        }
+
+        private static bool Ditekan(KeyControl tombol, KeyControl numpad) =>
+            tombol.wasPressedThisFrame || numpad.wasPressedThisFrame;
+
+        private void BuatHudPc()
+        {
+            var waktu = KotakPc("Waktu dan cuaca", Vector2.one, new Vector2(-24, -24), new Vector2(390, 164));
+            Gambar(waktu, Krem);
+            kalender = BarisStat(waktu, "-", .62f, .98f, 42);
+            hariPc = BarisStat(waktu, "", .39f, .65f, 32);
+            statusKondisi = BarisStat(waktu, "", .04f, .36f, 30);
+            statusKondisi.rectTransform.anchorMin = new Vector2(.16f, .04f);
+            IkonHud.Pasang(waktu, IkonHud.Jenis.Cuaca, 30, new Vector2(.09f, .20f));
+            judulKalender = BarisStat(waktu, "", .39f, .65f, 28);
+            statusAkademik = BarisStat(waktu, "", .04f, .35f, 28);
+            uang = BarisStat(waktu, "-", 0, 1, 32);
+            ipk = BarisStat(waktu, "-", 0, 1, 32);
+            foreach (var label in new[] { judulKalender, statusAkademik, uang, ipk })
+                label.gameObject.SetActive(false);
+
+            BuatVital("Kenyang", 24, out _, out var kenyang);
+            kenyang.text = "—";
+            barEnergi = BuatVital("Energi", 174, out _, out energi);
+            barStres = BuatVital("Stres", 324, out _, out stres);
+        }
+
+        private RectTransform KotakPc(string nama, Vector2 jangkar, Vector2 posisi, Vector2 ukuran)
+        {
+            var kotak = BuatKotak(nama, areaAman);
+            kotak.anchorMin = kotak.anchorMax = kotak.pivot = jangkar;
+            kotak.anchoredPosition = posisi;
+            kotak.sizeDelta = ukuran;
+            return kotak;
+        }
+
+        private Image BuatVital(string nama, float x, out RectTransform lingkaran, out TextMeshProUGUI nilai)
+        {
+            lingkaran = KotakPc(nama, Vector2.zero, new Vector2(x, 24), new Vector2(136, 136));
+            var dasar = lingkaran.gameObject.AddComponent<Image>();
+            dasar.sprite = SpriteVital();
+            dasar.color = new Color32(95, 81, 73, 225);
+            dasar.raycastTarget = false;
+            var isi = BuatKotak("Isi", lingkaran);
+            Rentangkan(isi, Vector2.zero, Vector2.one);
+            var cincin = isi.gameObject.AddComponent<Image>();
+            cincin.sprite = dasar.sprite;
+            cincin.type = Image.Type.Filled;
+            cincin.fillMethod = Image.FillMethod.Radial360;
+            cincin.fillOrigin = (int)Image.Origin360.Top;
+            cincin.fillAmount = 0;
+            cincin.raycastTarget = false;
+            var tengah = BuatKotak("Label", lingkaran);
+            Rentangkan(tengah, new Vector2(.09f, .09f), new Vector2(.91f, .91f));
+            var bidang = tengah.gameObject.AddComponent<Image>();
+            bidang.sprite = dasar.sprite;
+            bidang.color = Krem;
+            bidang.raycastTarget = false;
+            BarisStat(tengah, nama, .49f, .82f, 28);
+            nilai = BarisStat(tengah, "-", .19f, .52f, 34);
+            return cincin;
+        }
+
+        private static Sprite spriteVital;
+
+        private static Sprite SpriteVital()
+        {
+            if (spriteVital != null) return spriteVital;
+            const int sisi = 128;
+            var tekstur = new Texture2D(sisi, sisi, TextureFormat.RGBA32, false);
+            var piksel = new Color32[sisi * sisi];
+            var pusat = new Vector2(sisi / 2f - .5f, sisi / 2f - .5f);
+            for (int y = 0; y < sisi; y++)
+                for (int x = 0; x < sisi; x++)
+                {
+                    float jarak = Vector2.Distance(new Vector2(x, y), pusat);
+                    piksel[y * sisi + x] = new Color(1, 1, 1, Mathf.Clamp01(sisi / 2f - jarak));
+                }
+            tekstur.SetPixels32(piksel);
+            tekstur.Apply(false, true);
+            spriteVital = Sprite.Create(tekstur, new Rect(0, 0, sisi, sisi), Vector2.one * .5f);
+            return spriteVital;
+        }
+
+        private void PerbaruiVitalPc()
+        {
+            if (stat == null) return;
+            var tenang = TemaAntarmuka.Mint;
+            var merah = Color.Lerp(new Color32(173, 45, 44, 255), new Color32(255, 114, 104, 255),
+                .5f + .5f * Mathf.Sin(Time.unscaledTime * 6f));
+            barEnergi.color = stat.Energi < 25 ? merah : tenang;
+            barStres.color = stat.Stres > 75 ? merah : TemaAntarmuka.Jingga;
+        }
 
         private void Awake()
         {
@@ -105,16 +267,19 @@ namespace MS.UI
                 joystick.ResetPosisi();
                 EventSystem.current?.SetSelectedGameObject(null);
             });
-            BuatTombolRapor();
             panelPengaturan = new PanelPengaturan(this, areaAman, joystick.ResetPosisi);
-            var (pengaturan, teksPengaturan) = BuatTombol("Pengaturan", panelPengaturan.Buka);
-            var kotakPengaturan = (RectTransform)pengaturan.transform;
-            kotakPengaturan.anchorMin = kotakPengaturan.anchorMax = kotakPengaturan.pivot = Vector2.one;
-            kotakPengaturan.anchoredPosition = new Vector2(-24, -174);
-            kotakPengaturan.sizeDelta = new Vector2(360, 140);
-            pengaturan.targetGraphic.color = TemaAntarmuka.Kertas;
-            teksPengaturan.fontSizeMax = 38;
-            IkonHud.Pasang(kotakPengaturan, IkonHud.Jenis.Pengaturan, 38);
+            if (Application.isMobilePlatform)
+            {
+                BuatTombolRapor();
+                var (pengaturan, teksPengaturan) = BuatTombol("Pengaturan", panelPengaturan.Buka);
+                var kotakPengaturan = (RectTransform)pengaturan.transform;
+                kotakPengaturan.anchorMin = kotakPengaturan.anchorMax = kotakPengaturan.pivot = Vector2.one;
+                kotakPengaturan.anchoredPosition = new Vector2(-24, -174);
+                kotakPengaturan.sizeDelta = new Vector2(360, 140);
+                pengaturan.targetGraphic.color = TemaAntarmuka.Kertas;
+                teksPengaturan.fontSizeMax = 38;
+                IkonHud.Pasang(kotakPengaturan, IkonHud.Jenis.Pengaturan, 38);
+            }
             panelProfil = new PanelProfil(this, areaAman, () =>
             {
                 panelMenu.Tutup();
@@ -125,11 +290,13 @@ namespace MS.UI
             panelToko = new PanelToko(this, areaAman, joystick.ResetPosisi);
             panelLayanan = new PanelMenuLayanan(this, areaAman, joystick.ResetPosisi);
             bukuSakti = new WidgetBukuSakti(this, areaAman);
+            if (!Application.isMobilePlatform) SiapkanMenuPc();
             PerbaruiAreaAman();
         }
 
         private void Start()
         {
+            if (!Application.isMobilePlatform) TampilkanLayarJudul();
             if (gameObject.scene.name == "Kampung")
                 PasangOpsional(() => gameObject.AddComponent<WarnaMotorPemain>(), "warna motor");
             panelPengaturan.AturTeks();
@@ -171,7 +338,7 @@ namespace MS.UI
                     jalannyaTirai = StartCoroutine(TutupTirai());
                 }
             }
-            if (tombolKlakson.gameObject.activeSelf != (Layanan.Kendaraan?.NaikMotor == true))
+            if (Application.isMobilePlatform && tombolKlakson.gameObject.activeSelf != (Layanan.Kendaraan?.NaikMotor == true))
                 PerbaruiTombol();
             if (Time.unscaledTime >= cekAksiBerikut)
             {
@@ -182,28 +349,34 @@ namespace MS.UI
                 panelMenu.Segarkan();
             }
             toast.Tick();
-            if (!Layanan.InputDitahan && tombolKlakson.gameObject.activeSelf &&
+            if (!Layanan.InputDitahan && Layanan.Kendaraan?.NaikMotor == true &&
                 UnityEngine.InputSystem.Keyboard.current?.hKey.wasPressedThisFrame == true)
                 MintaAksi(new PerintahAksi("klakson"), false);
             AnimasiStat();
+            if (!Application.isMobilePlatform) PerbaruiVitalPc();
             TutorialKonteks();
             if (!panelEvent.Terbuka) panelRacik.Tick(Time.unscaledDeltaTime);
             panelEvent.KeDepan();
             panelProfil.KeDepan();
-            // Esc di PC / tombol Back di Android menutup panel menu
+            if (panelPengaturan.LayarJudul) panelPengaturan.KeDepan();
+            if (!Application.isMobilePlatform) PintasanPc();
+            // Esc di PC / tombol Back di Android menutup panel aktif dahulu.
             if (!panelEvent.Terbuka && UnityEngine.InputSystem.Keyboard.current?.escapeKey.wasPressedThisFrame == true)
             {
                 if (panelPengaturan.Terbuka) panelPengaturan.Tutup();
+                else if (kosanOs?.Terbuka == true) TutupKosanOs();
                 else if (panelRapor.Terbuka) panelRapor.Tutup();
                 else if (panelLayanan.Terbuka) panelLayanan.Tutup();
                 else if (panelToko.Terbuka) panelToko.Tutup();
                 else if (panelUpgrade.Terbuka) panelUpgrade.Tutup();
                 else if (panelMenu.Terbuka) panelMenu.Tutup();
+                else if (!Application.isMobilePlatform) panelPengaturan.BukaJeda();
             }
         }
 
         private void OnDisable()
         {
+            TutupKosanOs();
             panelEvent.Hubungkan(null);
             panelUpgrade.Hubungkan(null);
             panelRapor.Tutup();
@@ -381,7 +554,10 @@ namespace MS.UI
             if (kalenderTerakhir == nilai) return;
             kalenderTerakhir = nilai;
             judulKalender.text = nilai.Sibuk ? "Sedang sibuk" : nilai.TanggalTua ? "Tanggal tua" : nilai.Fase.ToString();
-            kalender.text = $"Tgl {nilai.Tanggal} · {nilai.Menit / 60:00}:{nilai.Menit % 60:00}";
+            kalender.text = Application.isMobilePlatform
+                ? $"Tgl {nilai.Tanggal} · {nilai.Menit / 60:00}:{nilai.Menit % 60:00}"
+                : $"{nilai.Menit / 60:00}:{nilai.Menit % 60:00}";
+            if (hariPc != null) hariPc.text = $"{NamaHari[Mathf.Max(0, jam.Hari - 1) % 7]}, {jam.Tanggal}";
         }
 
         private void PerbaruiAkademik()
@@ -405,7 +581,7 @@ namespace MS.UI
             WarnaiTombol(tombolTambahan, aksiTambahan.HasValue && layanan != null && layanan.BolehDilakukan(aksiTambahan.Value, out _), Netral);
             if (tombolKlakson != null)
             {
-                bool naik = Layanan.Kendaraan?.NaikMotor == true;
+                bool naik = Application.isMobilePlatform && Layanan.Kendaraan?.NaikMotor == true;
                 if (tombolKlakson.gameObject.activeSelf != naik) tombolKlakson.gameObject.SetActive(naik);
                 if (naik) WarnaiTombol(tombolKlakson, layanan != null && layanan.BolehDilakukan(new PerintahAksi("klakson"), out _), Netral);
             }
@@ -458,8 +634,8 @@ namespace MS.UI
 
         private void TerapkanAksiKonteks()
         {
-            tombolUtama.gameObject.SetActive(aksiUtama.HasValue);
-            tombolTambahan.gameObject.SetActive(aksiTambahan.HasValue);
+            tombolUtama.gameObject.SetActive(Application.isMobilePlatform && aksiUtama.HasValue);
+            tombolTambahan.gameObject.SetActive(Application.isMobilePlatform && aksiTambahan.HasValue);
             PosisiTombol();
             PerbaruiTombol();
         }
@@ -504,8 +680,10 @@ namespace MS.UI
             }
 
             layanan.Lakukan(perintah);
+#if UNITY_ANDROID || UNITY_IOS
             if (Application.isMobilePlatform && PlayerPrefs.GetInt("GetarAksi", 1) == 1)
                 Handheld.Vibrate();
+#endif
             PerbaruiTombol();
         }
 
@@ -617,6 +795,12 @@ namespace MS.UI
 
         private void BuatHudStat()
         {
+            if (!Application.isMobilePlatform)
+            {
+                BuatHudPc();
+                BuatBensin();
+                return;
+            }
             var bilah = BuatKotak("Stat dan kalender", areaAman);
             Rentangkan(bilah, new Vector2(0, .85f), Vector2.one);
             bilah.offsetMin = new Vector2(18, 4);
@@ -638,6 +822,11 @@ namespace MS.UI
             barEnergi = BuatBar((RectTransform)energi.transform.parent, new Color32(54, 130, 102, 255));
             barStres = BuatBar((RectTransform)stres.transform.parent, new Color32(168, 72, 59, 255));
 
+            BuatBensin();
+        }
+
+        private void BuatBensin()
+        {
             wadahBensin = BuatKotak("Bar bensin", areaAman);
             Rentangkan(wadahBensin, new Vector2(.02f, .85f), new Vector2(.30f, .85f));
             wadahBensin.offsetMin = new Vector2(0, -56);
@@ -689,7 +878,8 @@ namespace MS.UI
 
         static void IsiBar(Image bar, float persen)
         {
-            bar.rectTransform.anchorMax = new Vector2(Mathf.Clamp01(persen / 100), 1);
+            if (bar.type == Image.Type.Filled) bar.fillAmount = Mathf.Clamp01(persen / 100);
+            else bar.rectTransform.anchorMax = new Vector2(Mathf.Clamp01(persen / 100), 1);
         }
 
         private void BuatTombolRapor()
@@ -726,6 +916,7 @@ namespace MS.UI
             IkonHud.Pasang(knob, IkonHud.Jenis.Arah, 62, new Vector2(.5f, .5f));
             joystick = zona.gameObject.AddComponent<JoystickMelayang>();
             joystick.Siapkan(basis, knob, grup);
+            zona.gameObject.SetActive(Application.isMobilePlatform);
         }
 
         private void BuatTombolAksi()
@@ -798,6 +989,7 @@ namespace MS.UI
             panelUpgrade.Ukur(Mathf.Sqrt(ukuran.x / 1920f * (ukuran.y / 1080f)));
             panelRacik.Ukur(Mathf.Sqrt(ukuran.x / 1920f * (ukuran.y / 1080f)));
             panelPengaturan.Ukur(Mathf.Sqrt(ukuran.x / 1920f * (ukuran.y / 1080f)));
+            kosanOs?.Ukur(Mathf.Sqrt(ukuran.x / 1920f * (ukuran.y / 1080f)));
             areaTerakhir = aman;
             Rentangkan(areaAman, new Vector2(aman.xMin / ukuran.x, aman.yMin / ukuran.y),
                 new Vector2(aman.xMax / ukuran.x, aman.yMax / ukuran.y));

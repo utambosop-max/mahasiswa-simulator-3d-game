@@ -17,6 +17,7 @@ namespace MS.Pemain
 
         /// <summary>Vektor gerak akhir (x = kanan, y = maju), dibaca GerakPemain.</summary>
         public Vector2 Gerak { get; private set; }
+        public bool Lari { get; private set; }
 
         void Update()
         {
@@ -32,7 +33,9 @@ namespace MS.Pemain
             var gp = Gamepad.current;
             if (gp != null) v += PetakanDeadZone(gp.leftStick.ReadValue());
             v += PetakanDeadZone(_joystick);
-            Gerak = MS.Kontrak.Layanan.InputDitahan ? Vector2.zero : Vector2.ClampMagnitude(v, 1f); // panel terbuka → diam
+            bool ditahan = MS.Kontrak.Layanan.InputDitahan || !Application.isFocused;
+            Gerak = ditahan ? Vector2.zero : Vector2.ClampMagnitude(v, 1f);
+            Lari = !ditahan && kb != null && (kb.leftShiftKey.isPressed || kb.rightShiftKey.isPressed);
         }
 
         /// <summary>[DeadZone..1] dipetakan ke [0..1] agar kecepatan naik mulus dari nol.</summary>

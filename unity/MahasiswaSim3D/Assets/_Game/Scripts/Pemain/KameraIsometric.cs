@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 namespace MS.Pemain
 {
     /// <summary>Kamera atas-miring mengikuti pemain (SmoothDamp). Q/R putar 45 derajat seperti web (KontrolKamera.tsx).</summary>
+    [DefaultExecutionOrder(-20)]
     public class KameraIsometric : MonoBehaviour
     {
         [SerializeField] Transform target;
@@ -21,6 +22,8 @@ namespace MS.Pemain
         float waktuPutarAktif;
         Camera lensa;
         float fovDasar, velFov, dialogHingga;
+        float klipDekatDasar;
+        TampilanOrangPertama orangPertama;
         MS.Kontrak.IPenerimaAksi aksi;
         readonly RaycastHit[] penghalang = new RaycastHit[16];
         static readonly float[] SudutAlternatif = { 45f, -45f, 90f, -90f, 135f, -135f, 180f };
@@ -44,6 +47,7 @@ namespace MS.Pemain
 
         public void Putar(float derajat)
         {
+            if (OrangPertama) return;
             waktuPutarAktif = waktuPutar * (PlayerPrefs.GetInt("SensitivitasKamera", 1) switch
             {
                 0 => 1.65f,
@@ -55,11 +59,18 @@ namespace MS.Pemain
         public void PutarKiri() { Putar(-langkahPutar); }
         public void PutarKanan() { Putar(langkahPutar); }
         public void SetTarget(Transform t) { target = t; Lompat(); }
+        public bool OrangPertama => orangPertama != null && orangPertama.Aktif;
+        internal bool BidikanAktif => OrangPertama && orangPertama.BidikanAktif;
 
         void Start()
         {
             lensa = GetComponent<Camera>();
-            if (lensa != null) fovDasar = lensa.fieldOfView;
+            if (lensa != null)
+            {
+                fovDasar = lensa.fieldOfView;
+                klipDekatDasar = lensa.nearClipPlane;
+                orangPertama = new TampilanOrangPertama(lensa);
+            }
             if (gameObject.scene.name == "KamarKos" || gameObject.scene.name.StartsWith("Gedung_"))
             {
                 _sudutTuju = 180f;
@@ -97,6 +108,7 @@ namespace MS.Pemain
 
         void OnDestroy()
         {
+            orangPertama?.Lepaskan();
             if (aksi != null) aksi.AksiMulai -= Dialog;
             foreach (var dinding in dindingKamar.Values)
                 Destroy(dinding.Transparan);
@@ -114,6 +126,11 @@ namespace MS.Pemain
         public void Lompat()
         {
             if (target == null) return;
+            if (OrangPertama)
+            {
+                orangPertama.Lompat(target);
+                return;
+            }
             _vel = Vector3.zero;
             _velSudut = 0;
             Vector3 fokus = target.position + Vector3.up * tinggiLihat;
@@ -168,11 +185,52 @@ namespace MS.Pemain
             return jarak;
         }
 
+        void Update()
+        {
+            if (orangPertama == null || target == null) return;
+            bool gunakan = !Application.isMobilePlatform && PlayerPrefs.GetInt("KameraAtas", 0) == 0;
+            if (gunakan != OrangPertama)
+            {
+                orangPertama.AturAktif(gunakan, target);
+                if (gunakan)
+                {
+                    foreach (var dinding in dindingKamar.Values) dinding.Atur(false);
+                    lensa.fieldOfView = 70f;
+                    lensa.nearClipPlane = .035f;
+                }
+                else
+                {
+                    lensa.nearClipPlane = klipDekatDasar;
+                    lensa.fieldOfView = fovDasar;
+                    Lompat();
+                }
+            }
+            if (OrangPertama) orangPertama.Input(target);
+        }
+
+        void OnDisable()
+        {
+            if (!OrangPertama) return;
+            orangPertama.AturAktif(false, target);
+            lensa.nearClipPlane = klipDekatDasar;
+            lensa.fieldOfView = fovDasar;
+        }
+
+        void OnApplicationFocus(bool fokus)
+        {
+            if (!fokus) orangPertama?.BebaskanKursor();
+        }
+
         void LateUpdate()
         {
+            if (OrangPertama)
+            {
+                orangPertama.Posisi(target);
+                return;
+            }
             AturLensa();
             var kb = Keyboard.current;
-            if (kb != null)
+            if (kb != null && !MS.Kontrak.Layanan.InputDitahan)
             {
                 if (kb.qKey.wasPressedThisFrame) PutarKiri();
                 if (kb.rKey.wasPressedThisFrame) PutarKanan();
