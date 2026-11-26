@@ -354,7 +354,6 @@ namespace MS.UI
                 MintaAksi(new PerintahAksi("klakson"), false);
             AnimasiStat();
             if (!Application.isMobilePlatform) PerbaruiVitalPc();
-            TutorialKonteks();
             if (!panelEvent.Terbuka) panelRacik.Tick(Time.unscaledDeltaTime);
             panelEvent.KeDepan();
             panelProfil.KeDepan();
@@ -523,23 +522,6 @@ namespace MS.UI
             int kini = Mathf.RoundToInt(nilai);
             if (kini != lalu) teks.text = $"{kini}%";
             IsiBar(bar, nilai);
-        }
-
-        void TutorialKonteks()
-        {
-            if (jam?.Tanggal != 1 || !aksiUtama.HasValue || Layanan.InputDitahan || jam.Sibuk) return;
-            string id = aksiUtama.Value.Id;
-            string pesan = id switch
-            {
-                "mandi" => "Mulai hari dengan mandi untuk memulihkan kondisi.",
-                "keluarKos" => "Cari kampus untuk kuliah dan warteg untuk makan.",
-                "kuliah" => "Kuliah menambah kemajuan akademik. Lihat hasilnya di Rapor.",
-                _ => null
-            };
-            if (pesan == null || PlayerPrefs.HasKey("Panduan." + id)) return;
-            PlayerPrefs.SetInt("Panduan." + id, 1);
-            PlayerPrefs.Save();
-            BeriPesan(pesan);
         }
 
         private void PerbaruiKalender()

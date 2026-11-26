@@ -7,7 +7,8 @@ using UnityEngine;
 namespace MS.Inti
 {
     public class DataJurusan { public string id, nama, ikon, deskripsi; public Dictionary<string, float> pengali = new Dictionary<string, float>(); }
-    public class DataAsal { public string id, nama, ikon; public int kiriman = 1500000, ongkosPulang = 50000; }
+    public class DataAsal { public string id, nama, ikon; public string deskripsi; public int saldoAwal; public int kiriman = 1500000, ongkosPulang = 50000; }
+    public class DataTrait { public string id, nama, deskripsi; public bool positif; }
     public class DataCuaca { public string id, nama, ikon; public float peluang; }
     public class DataBarang { public string id, nama, ikon, deskripsi; public int harga, isi; public bool permanen; public Efek efek = new Efek(); }
 
@@ -24,6 +25,8 @@ namespace MS.Inti
     public class DataFitur
     {
         public List<DataJurusan> jurusan = new List<DataJurusan>();
+        public List<DataAsal> latar = new List<DataAsal>();
+        public List<DataTrait> traits = new List<DataTrait>();
         public List<DataAsal> asal = new List<DataAsal>();
         public List<DataCuaca> cuaca = new List<DataCuaca>();
         public List<DataBarang> barang = new List<DataBarang>();
@@ -40,6 +43,8 @@ namespace MS.Inti
                 {
                     var f = JObject.Parse(fitur);
                     d.jurusan = f["jurusan"]?.ToObject<List<DataJurusan>>() ?? d.jurusan;
+                    d.latar = f["latar"]?.ToObject<List<DataAsal>>() ?? d.latar;
+                    d.traits = f["traits"]?.ToObject<List<DataTrait>>() ?? d.traits;
                     d.asal = f["asal"]?.ToObject<List<DataAsal>>() ?? d.asal;
                     d.cuaca = f["cuaca"]?.ToObject<List<DataCuaca>>() ?? d.cuaca;
                     d.barang = f["barang"]?.ToObject<List<DataBarang>>() ?? d.barang;
@@ -54,7 +59,7 @@ namespace MS.Inti
         }
 
         public DataJurusan Jurusan(string id) { foreach (var j in jurusan) if (j.id == id) return j; return null; }
-        public DataAsal Asal(string id) { foreach (var a in asal) if (a.id == id) return a; return null; }
+        public DataAsal Asal(string id) { foreach (var a in latar) if (a.id == id) return a; foreach (var a in asal) if (a.id == id) return a; return null; }
         public DataBarang Barang(string id) { foreach (var b in barang) if (b.id == id) return b; return null; }
 
         /// <summary>Pengali jurusan (bawaan bila jurusan/kunci tidak ada).</summary>

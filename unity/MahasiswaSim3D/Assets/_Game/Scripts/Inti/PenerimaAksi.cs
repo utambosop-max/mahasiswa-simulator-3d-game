@@ -101,6 +101,8 @@ namespace MS.Inti
             alasan = null;
             string id = p.Id;
             if (jam.Sibuk) { alasan = "⏳ Tunggu dulu, masih sibuk."; return false; }
+            if (s.tahapPindahan > 0 && s.semester < 2 && (id == "bimbingan" || id == "sidang"))
+            { alasan = "Pengajuan skripsi dibuka mulai semester 2."; return false; }
             if (id == "bukaUpgrade") return Upgrade != null;
             if (Sosial != null && Sosial.Tangani(id))
             {
@@ -433,7 +435,11 @@ namespace MS.Inti
             }
             if (Hidup != null)
             {
-                if (id == "kuliah") efek.stres += Hidup.PengaliJurusan("stresKuliah", 0f);
+                if (id == "kuliah")
+                {
+                    efek.stres += Hidup.PengaliJurusan("stresKuliah", 0f);
+                    if (s.traits.Contains("introvertAkut") && efek.stres > 0) efek.stres *= 1.5f;
+                }
                 if (a.jenis == "santai" && efek.stres < 0f) efek.stres = Mathf.Round(efek.stres * Hidup.PengaliJurusan("stresSantai"));
                 if (id == "periksa" && efek.uang != 0f) efek.uang = Mathf.Round(efek.uang * Hidup.PengaliJurusan("hargaKlinik"));
                 if (id == "freelance" && efek.uang != 0f) efek.uang = Mathf.Round(efek.uang * Hidup.PengaliJurusan("gajiFreelance") / 500f) * 500f;
@@ -444,6 +450,8 @@ namespace MS.Inti
                 if (Hidup != null)
                 {
                     k *= Hidup.PengaliJurusan(id == "kuliah" ? "ipkKuliah" : "ipkBelajar");
+                    if (id == "belajar" && s.traits.Contains("kelelawarMalam") && s.menit >= 1020 && s.menit < 1320)
+                        k *= 1.25f;
                     if (Hidup.Sakit) k *= data.Fitur.kehidupan.sakitPengaliIpk; // sakit → susah fokus
                 }
                 if (a.pakaiMeja) { float pm = data.EfekPerabot("meja", s.LevelPerabot("meja"), "pengaliBelajar", 1f); k *= pm > 0f ? pm : 1f; }

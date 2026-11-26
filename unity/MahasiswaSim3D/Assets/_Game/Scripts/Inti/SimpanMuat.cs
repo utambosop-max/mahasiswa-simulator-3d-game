@@ -74,6 +74,8 @@ namespace MS.Inti
         /// <summary>Isi field baru untuk save lama. Field yang tidak ada di JSON lama sudah memakai nilai default kelas.</summary>
         public static void Migrasi(DataSimpan d)
         {
+            if (d.versi < 9 && d.jurusan == "kedokteran") d.jurusan = "sosial";
+            d.traits ??= new System.Collections.Generic.List<string>();
             if (d.versi < 8)
             {
                 d.cerita = d.cerita ?? new CeritaSimpan();

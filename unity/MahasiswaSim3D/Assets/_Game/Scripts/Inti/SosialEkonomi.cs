@@ -437,16 +437,18 @@ namespace MS.Inti
         DataMotorUp Up(int lv) { foreach (var u in F.motorUpgrade) if (u.level == lv) return u; return null; }
         public float PengaliMotor => Up(LevelMotor)?.kecepatan ?? 1f;
         public float PengaliHemat => Up(LevelMotor)?.hemat ?? 1f;
+        int HargaUpgrade(DataMotorUp u) => s.traits.Contains("tanganMontir") ? Mathf.RoundToInt(u.harga * .75f) : u.harga;
         public string CekUpgradeMotor(DataMotorUp u) =>
+            s.tahapPindahan > 0 && s.hari < 8 && u.level > 2 ? "Modifikasi berat dibuka mulai minggu kedua." :
             u.level <= LevelMotor ? "✅ Sudah terpasang." : u.level > LevelMotor + 1 ? "🔧 Upgrade level " + (u.level - 1) + " dulu." :
-            stat.Uang - u.harga < 0 ? "💸 Uangnya nggak cukup (upgrade tidak boleh ngutang)." : null;
+            stat.Uang - HargaUpgrade(u) < 0 ? "💸 Uangnya nggak cukup (upgrade tidak boleh ngutang)." : null;
         public void UpgradeMotor(int lv)
         {
             var u = Up(lv); if (u == null) return;
             string a = CekUpgradeMotor(u); if (a != null) { Umumkan(a); return; }
-            stat.TambahUang(-u.harga); s.motorLevel = u.level;
+            stat.TambahUang(-HargaUpgrade(u)); s.motorLevel = u.level;
             Layanan.Audio?.Mainkan("upgrade");
-            Umumkan("🔧 " + u.nama + " terpasang! Motor lebih kencang & irit. −" + AturanHarian.Rupiah(u.harga));
+            Umumkan("🔧 " + u.nama + " terpasang! Motor lebih kencang & irit. −" + AturanHarian.Rupiah(HargaUpgrade(u)));
             Kabari();
         }
         public string CekCatMotor(string w) => w == s.warnaMotor ? "🎨 Warnanya sama." : stat.Uang - F.hargaCatMotor < data.Bal.batas.uangMin ? "💸 Uangnya nggak cukup..." : null;

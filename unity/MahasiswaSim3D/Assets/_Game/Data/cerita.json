@@ -147,11 +147,11 @@
       { "teks": "🍳 Traktir telur", "efek": { "uang": -5000 }, "relasi": { "raka": 15 }, "setFlag": ["rakaTeman"], "hasil": "🧑 Raka: \"Serius?! Kamu orang baik, Bro. Kita senasib.\"" },
       { "teks": "👋 Sapa aja", "relasi": { "raka": 8 }, "hasil": "🧑 Raka: \"Anak rantau juga? Kerupuknya mau?\"" }
     ] },
-    { "id": "d_bab1_selesai", "ikon": "👩‍🍳", "judul": "Halaman 2 Beres!", "teks": "Mbak Sri: \"Dek, kamu udah kayak langganan lama. Tempe hari ini Mbak lebihin ya!\"", "pilihan": [ { "teks": "😋 Makasih, Mbak!", "hasil": "" } ] },
+    { "id": "d_bab1_selesai", "ikon": "👩‍🍳", "judul": "Halaman 2 Beres!", "teks": "Mbak Yanti: \"Dek, kamu udah kayak langganan lama. Tempe hari ini Mbak lebihin ya!\"", "pilihan": [ { "teks": "😋 Makasih, Mbak!", "hasil": "" } ] },
 
     { "id": "d_raka_pinjam", "ikon": "🧑", "judul": "Tok Tok Tok...", "teks": "Raka di depan pintu: \"Bro... kirimanku telat. Boleh pinjam dulu? Nanti kubalikin.\"", "pilihan": [
       { "teks": "💸 Pinjami Rp50.000", "efek": { "uang": -50000 }, "relasi": { "raka": 20 }, "setFlag": ["rakaHutang"], "hasil": "🧑 \"Kamu penyelamat! Tanggal 3 kubalikin, sumpah!\"" },
-      { "teks": "🧑‍🍳 Ayo kerja bareng", "relasi": { "raka": 12, "mbakSri": 5 }, "hasil": "🧑 \"Cuci piring di Mbak Sri? Gas! Daripada ngelamun.\"" },
+      { "teks": "🧑‍🍳 Ayo kerja bareng", "relasi": { "raka": 12, "mbakSri": 5 }, "hasil": "🧑 \"Cuci piring di Mbak Yanti? Gas! Daripada ngelamun.\"" },
       { "teks": "😅 Maaf, aku juga tipis", "efek": { "stres": -2 }, "relasi": { "raka": 3 }, "hasil": "🍜 Kalian makan mi berdua. Satu bungkus. Dibagi dua." }
     ] },
     { "id": "d_bab2_selesai", "ikon": "👩", "judul": "Tembus Tanggal Tua!", "teks": "Ibu: \"Kamu selamat dari tanggal tua pertama! Ibu sampai syukuran. Masak tempe.\"", "pilihan": [ { "teks": "🥲 Terharu, Bu", "hasil": "" } ] },
@@ -209,7 +209,7 @@
       "teks": "Ibu & Ayah datang naik bus bawa rantang rendang untuk satu kampung. Ayah: \"Bagus.\" Ibu: \"Ayahmu nangis di bus tadi.\"" },
     { "id": "end_cumlaude_sepi", "judul": "Cum Laude, Tapi Sepi", "ikon": "🏅",
       "syarat": { "ipkMin": 3.75, "wargaRelasiMaks": { "nilai": 60, "jumlah": 1 } },
-      "teks": "Pidato wisudamu megah. Saat foto bersama, yang ikut cuma Oyen. \"Meong.\" Lalu Raka & Mbak Sri datang telat bawa gorengan." },
+      "teks": "Pidato wisudamu megah. Saat foto bersama, yang ikut cuma Oyen. \"Meong.\" Lalu Raka & Mbak Yanti datang telat bawa gorengan." },
     { "id": "end_juragan_warkop", "judul": "Juragan Warkop", "ikon": "☕",
       "syarat": { "flag": ["warkopSelamat"], "statMin": { "kerja": 40 }, "ipkMaks": 3.249 },
       "teks": "Bang Udin menawarimu jadi rekan usaha cabang kedua. \"IPK pas-pasan, kopi tak tertandingi.\"" },

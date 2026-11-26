@@ -188,7 +188,7 @@ namespace MS.Inti
             Ikon = "🔧"; Judul = "Bengkel Pak Jo";
             Info = "Motor level " + LevelMotor + " · kecepatan ×" + PengaliMotor.ToString("0.00") + " · bensin ×" + PengaliHemat.ToString("0.00");
             Subjudul("🏍️ Upgrade mesin");
-            foreach (var u in F.motorUpgrade) Tambah("motor_" + u.level, "🔧", u.nama, "kecepatan ×" + u.kecepatan.ToString("0.00") + ", bensin ×" + u.hemat.ToString("0.00"), u.harga, CekUpgradeMotor(u), u.level <= LevelMotor);
+            foreach (var u in F.motorUpgrade) Tambah("motor_" + u.level, "🔧", u.nama, "kecepatan ×" + u.kecepatan.ToString("0.00") + ", bensin ×" + u.hemat.ToString("0.00"), HargaUpgrade(u), CekUpgradeMotor(u), u.level <= LevelMotor);
             Subjudul("🎨 Cat motor (" + Rp(F.hargaCatMotor) + ")");
             foreach (var w in F.warnaMotor) Tambah("catMotor_" + w, "🎨", "Warna " + w, w, F.hargaCatMotor, CekCatMotor(w), w == s.warnaMotor);
         }

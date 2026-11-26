@@ -77,6 +77,11 @@ namespace MS.Inti
                 {
                     var pr = ak.Predikat(stat.Ipk);
                     Pesan?.Invoke(pr.ikon + " Semester " + s.semester + " selesai! IPK " + stat.Ipk.ToString("0.00") + " — " + pr.nama);
+                    if (s.asal == "kipk" && !s.kipkDicabut && stat.Ipk < 3.25f)
+                    {
+                        s.kipkDicabut = true;
+                        Pesan?.Invoke("KIP-K dicabut karena IPK semester di bawah 3,25.");
+                    }
                     s.semester++;
                     s.ujianSelesai.Clear();
                     if (ak.predikat.Count > 0 && stat.Ipk >= ak.predikat[0].min)
@@ -107,11 +112,18 @@ namespace MS.Inti
                 stat.TambahUang(-tagih);
                 Pesan?.Invoke("🧾 Tagihan listrik & WiFi −" + Rupiah(tagih));
             }
-            if (s.tanggal == 1)
+            if (s.tanggal == 1) s.kosLunas = s.asal == "lokal" && s.kosPindahHari == 0;
+            int tanggalCair = s.asal == "rantau" ? 3 + (s.bulan % 4) : 1;
+            if (s.asal == "lokal")
             {
-                s.kosLunas = false;
+                stat.TambahUang(35000);
+                Pesan?.Invoke("Uang saku harian " + Rupiah(35000) + " masuk.");
+            }
+            else if (s.tanggal == tanggalCair && Kiriman > 0)
+            {
                 stat.TambahUang(Kiriman);
-                if (Kiriman > 0) Pesan?.Invoke("💌 Kiriman ortu masuk " + Rupiah(Kiriman) + "! Bayar kos (" + Rupiah(BiayaKos) + ") sebelum tanggal " + BatasBayar + ".");
+                string sumber = s.asal == "kipk" ? "Biaya hidup KIP-K" : "Kiriman orang tua";
+                Pesan?.Invoke(sumber + " masuk " + Rupiah(Kiriman) + ". Bayar kos sebelum tanggal " + BatasBayar + ".");
             }
             // Lewat batas → dipotong otomatis + denda
             if (s.tanggal == BatasBayar + 1 && !s.kosLunas)

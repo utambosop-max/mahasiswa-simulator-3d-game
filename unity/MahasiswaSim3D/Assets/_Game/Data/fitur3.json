@@ -129,7 +129,7 @@
   },
 
   "warga": [
-    { "id": "rina", "gaya": "panjang", "nama": "Rina", "ikon": "👩‍🎓", "peran": "mahasiswi Sastra", "pacar": true, "suka": "buku", "dialog": ["\"Lagi baca novel apa? Aku lagi suka puisi Chairil.\"", "\"Kantin kampus enak, tapi warteg Mbak Sri juara!\"", "\"Eh, kamu sering lewat sini ya?\""] },
+    { "id": "rina", "gaya": "panjang", "nama": "Rina", "ikon": "👩‍🎓", "peran": "mahasiswi Sastra", "pacar": true, "suka": "buku", "dialog": ["\"Lagi baca novel apa? Aku lagi suka puisi Chairil.\"", "\"Kantin kampus enak, tapi warteg Mbak Yanti juara!\"", "\"Eh, kamu sering lewat sini ya?\""] },
     { "id": "dimas", "gaya": "jabrik", "nama": "Dimas", "ikon": "🧑‍🎓", "peran": "mahasiswa Teknik", "pacar": true, "suka": "game", "dialog": ["\"Laptopku nge-hang pas ngoding. Sedih.\"", "\"Main futsal sore ini? Kurang satu orang!\"", "\"Kopi hitam itu bahan bakar anak teknik.\""] },
     { "id": "bayu", "gaya": "pendek", "nama": "Bayu", "ikon": "🧢", "peran": "ojol senior", "pacar": false, "suka": "kopi", "dialog": ["\"Narik pagi-pagi rezekinya lancar, Dek.\"", "\"Jalan depan kampus macet terus jam 7.\"", "\"Isi bensin di Pak Jo aja, takarannya jujur.\""] },
     { "id": "laras", "gaya": "kuncir", "nama": "Laras", "ikon": "👩", "peran": "mahasiswi Ekonomi", "pacar": true, "suka": "kopi", "dialog": ["\"Aku lagi nabung buat beli laptop baru!\"", "\"Tips hemat: masak sendiri, jangan jajan terus.\"", "\"Kafe baru itu enak buat nugas loh.\""] },

@@ -19,6 +19,7 @@ namespace MS.Inti
         {
             get
             {
+                if (s.asal == "lokal" && s.kosPindahHari == 0) return 0;
                 var k = KosSekarang;
                 int h = k != null ? k.harga : data.Bal.bulanan.biayaKos;
                 return Mathf.RoundToInt(h * (s.tinggalBareng ? SOS.pengaliKosTinggalBareng : 1f));

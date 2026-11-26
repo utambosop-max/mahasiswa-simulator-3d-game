@@ -38,6 +38,7 @@ namespace MS.Inti
         public Sosial Kos => Sosial;
         public Cerita Cerita { get; private set; }
         float timerCerita;
+        HariPindahan pindahan;
         bool ukurFps;
 
         void Awake()
@@ -74,6 +75,10 @@ namespace MS.Inti
             Aturan.Pesan += Aksi.Umumkan;
             Jam.FaseBerganti += SaatFaseBerganti;
             Event = new EventAcak(Data, Simpanan, Stat, Jam, eventsJson != null ? eventsJson.text : null);
+            pindahan = new HariPindahan(Simpanan, Event);
+            Hidup.ProfilDidaftarkan += pindahan.Mulai;
+            Aksi.AksiMulai += pindahan.Aksi;
+            Aksi.MenuDibeli += pindahan.Makan;
             Kerja = new KerjaSambilan(Data, Simpanan, Stat, Aksi, kerjaJson != null ? kerjaJson.text : null, menuJson != null ? menuJson.text : null);
             Aksi.Kerja = Kerja;
             Kerja.pengaliGaji = () => Hidup.PengaliJurusan("gajiKerja");
@@ -135,12 +140,13 @@ namespace MS.Inti
         void Update()
         {
             if (!Layanan.InputDitahan) Jam.Jalan(Time.deltaTime);
+            pindahan.Periksa();
             Sosial.Periksa(); // jam malam kos
             // Cerita: cek pemicu tiap 1 detik nyata, tampilkan dialog saat layar kosong
             if (!ukurFps)
             {
                 timerCerita -= Time.deltaTime;
-                if (timerCerita <= 0f) { timerCerita = 1f; Cerita.Periksa(); }
+                if (!pindahan.Aktif && timerCerita <= 0f) { timerCerita = 1f; Cerita.Periksa(); }
                 if (Cerita.AdaDialog && Event.Aktif == null && Kerja.Aktif == null && !Jam.Sibuk && !Upgrade.Terbuka && !Hidup.Terbuka && !Hidup.PerluDibuat && !Sosial.Terbuka)
                     Cerita.TampilkanBerikut(Event); // jam berhenti selama event tampil
             }
@@ -157,6 +163,12 @@ namespace MS.Inti
         {
             if (Instans != this) return;
             Instans = null;
+            if (pindahan != null)
+            {
+                Hidup.ProfilDidaftarkan -= pindahan.Mulai;
+                Aksi.AksiMulai -= pindahan.Aksi;
+                Aksi.MenuDibeli -= pindahan.Makan;
+            }
             if (Aksi != null) Aksi.MenuDibeli -= SimpanSetelahPembelian;
             if (Jam != null) Jam.FaseBerganti -= SaatFaseBerganti;
             if (Aturan != null) { Aturan.Pesan -= Aksi.Umumkan; Aturan.Lepas(); }

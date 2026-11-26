@@ -12,6 +12,8 @@ namespace MS.UI
         readonly TMP_InputField nama;
         TextMeshProUGUI validasi;
         readonly List<Button> jurusan = new(), asal = new();
+        readonly Dictionary<string, Button> tombolTrait = new();
+        readonly HashSet<string> bakat = new(), kelemahan = new();
         readonly System.Action saatBuka;
         IProfil profil;
         string idJurusan, idAsal;
@@ -25,7 +27,7 @@ namespace MS.UI
         internal PanelProfil(HudKamar hud, RectTransform area, System.Action saatBuka)
         {
             this.saatBuka = saatBuka;
-            akar = HudKamar.BuatKotak("Buat karakter", area);
+            akar = HudKamar.BuatKotak("Registrasi Mahasiswa Baru", area);
             HudKamar.Rentangkan(akar, Vector2.zero, Vector2.one);
             akar.gameObject.AddComponent<Image>().color = TemaAntarmuka.Redup;
             var kartu = HudKamar.BuatKotak("Kartu karakter", akar);
@@ -68,8 +70,8 @@ namespace MS.UI
             var layoutFooter = footer.gameObject.AddComponent<VerticalLayoutGroup>();
             layoutFooter.childControlHeight = layoutFooter.childControlWidth = true;
             layoutFooter.childForceExpandHeight = false;
-            validasi = Label(footer, "Pilih jurusan dan asal untuk mulai.", 32);
-            BuatTombol(footer, "Mulai Kuliah!", Mulai, 136);
+            validasi = Label(footer, "Pilih jurusan, latar, dan sifat bawaan.", 32);
+            BuatTombol(footer, "Mulai hari pindahan", Mulai, 136);
             akar.gameObject.SetActive(false);
         }
 
@@ -108,7 +110,7 @@ namespace MS.UI
                 IkonHud.Pasang((RectTransform)tombol.transform, IkonHud.Jenis.Buku);
                 jurusan.Add(tombol);
             }
-            Label(konten, "Pilih asal", 44);
+            Label(konten, "Pilih latar belakang", 44);
             foreach (var item in profil.DaftarAsal)
             {
                 var pilihan = item;
@@ -116,7 +118,20 @@ namespace MS.UI
                 IkonHud.Pasang((RectTransform)tombol.transform, IkonHud.Jenis.Rumah);
                 asal.Add(tombol);
             }
+            BuatDaftarTrait("Pilih 2 bakat", profil.Bakat, bakat);
+            BuatDaftarTrait("Pilih 2 kelemahan", profil.Kelemahan, kelemahan);
             Warnai();
+        }
+
+        void BuatDaftarTrait(string judul, IReadOnlyList<InfoPilihan> opsi, HashSet<string> pilihan)
+        {
+            Label(konten, judul, 44);
+            foreach (var item in opsi)
+                tombolTrait.Add(item.Id, BuatTombol(konten, Ringkas(item), () =>
+                {
+                    if (!pilihan.Remove(item.Id) && pilihan.Count < 2) pilihan.Add(item.Id);
+                    Warnai();
+                }, 126));
         }
 
         void BuatPemilih(string namaPilihan, string kunci, int baku, string[] pilihan)
@@ -136,18 +151,16 @@ namespace MS.UI
 
         void Mulai()
         {
-            if (idJurusan == null || idAsal == null)
-            {
-                validasi.text = "Pilih jurusan dan asal untuk mulai.";
-                return;
-            }
-            profil.Buat(nama.text, idJurusan, idAsal);
+            if (!profil.Daftarkan(nama.text, idJurusan, idAsal, bakat, kelemahan))
+                validasi.text = "Lengkapi jurusan, latar, 2 bakat, dan 2 kelemahan.";
         }
 
         void Warnai()
         {
             if (validasi != null)
-                validasi.text = idJurusan != null && idAsal != null ? "Pilihan siap. Nama kosong memakai Mahasiswa." : "Pilih jurusan dan asal untuk mulai.";
+                validasi.text = $"Bakat {bakat.Count}/2 · Kelemahan {kelemahan.Count}/2";
+            foreach (var (id, tombol) in tombolTrait)
+                tombol.targetGraphic.color = bakat.Contains(id) || kelemahan.Contains(id) ? TemaAntarmuka.Mint : TemaAntarmuka.Mentega;
             for (int i = 0; i < jurusan.Count; i++)
                 jurusan[i].targetGraphic.color = profil.DaftarJurusan[i].Id == idJurusan ? TemaAntarmuka.Mint : TemaAntarmuka.Mentega;
             for (int i = 0; i < asal.Count; i++)

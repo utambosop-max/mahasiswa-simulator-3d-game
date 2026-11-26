@@ -5,7 +5,7 @@
     "ibu": { "nama": "Ibu", "kulit": "#f1c08f", "baju": "#ff9aa2", "rambut": "#2a1d15", "gaya": "cepol", "celana": "#c48d55", "aksesoris": [], "warnaNama": "#e9605a" },
     "ayah": { "nama": "Ayah", "kulit": "#d9a074", "baju": "#7fb3e0", "rambut": "#8a8f99", "gaya": "pendek", "celana": "#5a6b8c", "aksesoris": ["kacamata"], "warnaNama": "#3f7fbf" },
     "bayu": { "nama": "Bayu", "kulit": "#d9a074", "baju": "#5cbf7a", "rambut": "#2a1d15", "gaya": "pendek", "celana": "#4a3a33", "aksesoris": ["topi"], "warnaNama": "#2f9a55" },
-    "sri": { "nama": "Mbak Sri", "kulit": "#f1c08f", "baju": "#7cc6a4", "rambut": "#2a1d15", "gaya": "kuncir", "celana": "#6b8f7a", "aksesoris": [], "warnaNama": "#2f9a6f" },
+    "sri": { "nama": "Mbak Yanti", "kulit": "#f1c08f", "baju": "#7cc6a4", "rambut": "#2a1d15", "gaya": "kuncir", "celana": "#6b8f7a", "aksesoris": [], "warnaNama": "#2f9a6f" },
     "udin": { "nama": "Bang Udin", "kulit": "#b97f57", "baju": "#e6d3b3", "rambut": "#2a1d15", "gaya": "jabrik", "celana": "#6b4430", "aksesoris": ["bandana"], "warnaNama": "#8a5a3a" },
     "ratna": { "nama": "Bu Ratna", "kulit": "#ffd7b5", "baju": "#fde8c8", "rambut": "#bdb2ff", "gaya": "hijab", "celana": "#a0c4ff", "aksesoris": [], "warnaNama": "#7a62c9" },
     "oyen": { "nama": "Oyen", "warnaNama": "#d9853b" },

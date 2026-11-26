@@ -15,6 +15,7 @@ namespace MS.Inti
         readonly Func<float> acak;
         readonly Efek efek = new Efek();
         readonly List<InfoPilihan> daftarJurusan = new List<InfoPilihan>(), daftarAsal = new List<InfoPilihan>();
+        readonly List<InfoPilihan> bakat = new List<InfoPilihan>(), kelemahan = new List<InfoPilihan>();
         readonly List<InfoBarang> daftarBarang = new List<InfoBarang>();
 
         public event Action<string> Pesan;
@@ -33,9 +34,11 @@ namespace MS.Inti
             jam.HariDimulai += SaatHariDimulai;
             jam.FaseSelesai += SaatFaseSelesai;
             foreach (var x in F.jurusan) daftarJurusan.Add(new InfoPilihan { Id = x.id, Nama = x.nama, Ikon = x.ikon, Deskripsi = x.deskripsi });
-            foreach (var x in F.asal)
+            foreach (var x in F.latar)
                 daftarAsal.Add(new InfoPilihan { Id = x.id, Nama = x.nama, Ikon = x.ikon,
-                    Deskripsi = "Kiriman " + AturanHarian.Rupiah(x.kiriman) + "/bulan · ongkos pulang " + AturanHarian.Rupiah(x.ongkosPulang) });
+                    Deskripsi = "Saldo awal " + AturanHarian.Rupiah(x.saldoAwal) + ". " + x.deskripsi });
+            foreach (var x in F.traits)
+                (x.positif ? bakat : kelemahan).Add(new InfoPilihan { Id = x.id, Nama = x.nama, Deskripsi = x.deskripsi });
         }
 
         public void Lepas() { jam.HariDimulai -= SaatHariDimulai; jam.FaseSelesai -= SaatFaseSelesai; }
@@ -123,6 +126,34 @@ namespace MS.Inti
         public IReadOnlyList<InfoPilihan> DaftarJurusan => daftarJurusan;
         public IReadOnlyList<InfoPilihan> DaftarAsal => daftarAsal;
 
+        public IReadOnlyList<InfoPilihan> Bakat => bakat;
+        public IReadOnlyList<InfoPilihan> Kelemahan => kelemahan;
+
+        internal event Action ProfilDidaftarkan;
+
+        public bool Daftarkan(string nama, string jurusan, string latar, IReadOnlyCollection<string> pilihanBakat,
+            IReadOnlyCollection<string> pilihanKelemahan)
+        {
+            var asal = F.Asal(latar);
+            if (s.profilDibuat || F.Jurusan(jurusan) == null || asal == null || !F.latar.Contains(asal) ||
+                !Sah(pilihanBakat, bakat) || !Sah(pilihanKelemahan, kelemahan)) return false;
+            s.traits = new List<string>(pilihanBakat);
+            s.traits.AddRange(pilihanKelemahan);
+            s.tahapPindahan = 1;
+            stat.TambahUang(asal.saldoAwal - stat.Uang);
+            Buat(nama, jurusan, latar);
+            ProfilDidaftarkan?.Invoke();
+            return true;
+        }
+
+        static bool Sah(IReadOnlyCollection<string> pilihan, List<InfoPilihan> katalog)
+        {
+            if (pilihan?.Count != 2 || new HashSet<string>(pilihan).Count != 2) return false;
+            foreach (var id in pilihan)
+                if (!katalog.Exists(item => item.Id == id)) return false;
+            return true;
+        }
+
         /// <summary>Kunci jurusan & asal (sekali seumur save, anti-eksploitasi).</summary>
         public void Buat(string nama, string jurusan, string asal)
         {
@@ -139,7 +170,7 @@ namespace MS.Inti
         }
 
         public float PengaliJurusan(string kunci, float bawaan = 1f) => F.Pengali(s.jurusan, kunci, bawaan);
-        public int Kiriman => F.Asal(s.asal)?.kiriman ?? data.Bal.bulanan.kirimanOrtu;
+        public int Kiriman => s.kipkDicabut ? 0 : F.Asal(s.asal)?.kiriman ?? data.Bal.bulanan.kirimanOrtu;
         public int OngkosPulang => F.Asal(s.asal)?.ongkosPulang ?? data.Bal.pulangKampung.ongkos;
 
         // ================= IToko =================

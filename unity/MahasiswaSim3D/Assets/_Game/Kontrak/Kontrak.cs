@@ -183,7 +183,10 @@ namespace MS.Kontrak
         string AsalId { get; }
         System.Collections.Generic.IReadOnlyList<InfoPilihan> DaftarJurusan { get; }
         System.Collections.Generic.IReadOnlyList<InfoPilihan> DaftarAsal { get; }
-        void Buat(string nama, string idJurusan, string idAsal);
+        System.Collections.Generic.IReadOnlyList<InfoPilihan> Bakat { get; }
+        System.Collections.Generic.IReadOnlyList<InfoPilihan> Kelemahan { get; }
+        bool Daftarkan(string nama, string jurusan, string latar, System.Collections.Generic.IReadOnlyCollection<string> bakat,
+            System.Collections.Generic.IReadOnlyCollection<string> kelemahan);
         event Action Berubah;
     }
 

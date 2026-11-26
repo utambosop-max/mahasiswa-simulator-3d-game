@@ -61,7 +61,7 @@
 
   "npc": [
     { "id": "buKos", "nama": "Bu Kos", "ikon": "👩‍🦱", "perk": ["Batas bayar kos +3 hari", "Tidak kena denda kos", "Kadang dikasih makanan (⚡+15)"] },
-    { "id": "mbakSri", "nama": "Mbak Sri", "ikon": "👩‍🍳", "perk": ["Makan warteg −Rp1.000", "Makan warteg −Rp2.000", "Gaji kerja warteg +Rp5.000"] },
+    { "id": "mbakSri", "nama": "Mbak Yanti", "ikon": "👩‍🍳", "perk": ["Makan warteg −Rp1.000", "Makan warteg −Rp2.000", "Gaji kerja warteg +Rp5.000"] },
     { "id": "bangUdin", "nama": "Bang Udin", "ikon": "🧔", "perk": ["Kopi warkop −Rp1.000", "Nongkrong ⚡ tidak berkurang", "Gaji kerja warkop +Rp5.000"] },
     { "id": "pakDosen", "nama": "Pak Dosen Budiman", "ikon": "👨‍🏫", "perk": ["Kuliah 🎓 +10%", "Bimbingan skripsi ×1.5", "Ujian dapat petunjuk ekstra"] },
     { "id": "oyen", "nama": "Oyen", "ikon": "🐱", "perk": ["Elus Oyen 😵 −6", "Oyen ikut nemenin tidur (😵 −3)", "Oyen bawa 'hadiah' (Rp5.000 jatuh di depan kos)"] }
@@ -129,7 +129,7 @@
 
   "tipsBaru": [
     "💡 Kumpulkan 144 SKS + skripsi 100% untuk wisuda!",
-    "💡 Ngobrol tiap hari dengan Mbak Sri & Bang Udin = diskon makan.",
+    "💡 Ngobrol tiap hari dengan Mbak Yanti & Bang Udin = diskon makan.",
     "💡 Bensin motor habis = mogok. Isi di Pertamini depan kos.",
     "💡 Sabtu malam ada pasar malam di lapangan futsal!",
     "💡 Minggu pagi Car Free Day: jogging di taman lebih segar.",

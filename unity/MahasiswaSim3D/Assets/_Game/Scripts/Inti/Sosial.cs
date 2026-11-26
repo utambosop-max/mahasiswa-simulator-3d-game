@@ -78,6 +78,7 @@ namespace MS.Inti
         public int LevelRelasi(string id) => F.LevelRelasi(Relasi(id));
         void TambahRelasi(string id, int n)
         {
+            if (n > 0 && id != "oyen") n = Mathf.RoundToInt(n * PengaliJurusan("relasi", 1f));
             if (string.IsNullOrEmpty(id)) return;
             s.relasi[id] = Mathf.Clamp(Relasi(id) + n, 0, 100);
         }

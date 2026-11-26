@@ -1,8 +1,27 @@
 {
+  "latar": [
+    {"id": "rantau", "nama": "Rantau Jauh", "deskripsi": "Kiriman orang tua mulai tanggal 3–6.", "saldoAwal": 800000, "kiriman": 1500000, "ongkosPulang": 150000},
+    {"id": "kipk", "nama": "Penerima Beasiswa (KIP-K)", "deskripsi": "Biaya hidup Rp950.000 per bulan. Pertahankan IPK minimal 3,25.", "saldoAwal": 450000, "kiriman": 950000, "ongkosPulang": 50000},
+    {"id": "lokal", "nama": "Anak Lokal", "deskripsi": "Uang saku Rp35.000 per hari dan bebas sewa bulanan.", "saldoAwal": 600000, "kiriman": 0, "ongkosPulang": 15000}
+  ],
+  "traits": [
+    {"id": "lambungBaja", "nama": "Lambung Baja", "deskripsi": "Maag akibat mi instan dan sambal berkurang 50%.", "positif": true},
+    {"id": "lidahDiplomat", "nama": "Lidah Diplomat", "deskripsi": "Peluang tawar-menawar, kasbon, dan lobi naik 20%.", "positif": true},
+    {"id": "kelelawarMalam", "nama": "Kelelawar Malam", "deskripsi": "Belajar 25% lebih efektif pukul 22.00–03.00.", "positif": true},
+    {"id": "tanganMontir", "nama": "Tangan Dingin Montir", "deskripsi": "Biaya servis motor turun 25%.", "positif": true},
+    {"id": "hemat", "nama": "Hemat Tingkat Dewa", "deskripsi": "Kebutuhan makanan dan air turun 15%.", "positif": true},
+    {"id": "tampangMelas", "nama": "Tampang Melas Alami", "deskripsi": "Lebih mudah mendapat bonus atau keringanan.", "positif": true},
+    {"id": "pelupaAkut", "nama": "Pelupa Akut", "deskripsi": "Peluang 15% tertinggal perlengkapan kuliah.", "positif": false},
+    {"id": "introvertAkut", "nama": "Introvert Akut", "deskripsi": "Stres di keramaian kampus naik 50% lebih cepat.", "positif": false},
+    {"id": "pelupaPagi", "nama": "Pelupa Waktu Pagi", "deskripsi": "Alarm pagi lebih pelan dan butuh dua klik.", "positif": false},
+    {"id": "borosImpulsif", "nama": "Boros Impulsif", "deskripsi": "Flash sale lebih sering menggoda.", "positif": false},
+    {"id": "gengsiTinggi", "nama": "Gengsi Tinggi", "deskripsi": "Stres +10 saat memesan menu hemat di depan teman.", "positif": false},
+    {"id": "rentanMasukAngin", "nama": "Rentan Masuk Angin", "deskripsi": "Hujan atau angin malam lebih mudah membuat sakit.", "positif": false}
+  ],
   "jurusan": [
     {
       "id": "teknik",
-      "nama": "Teknik Informatika",
+      "nama": "Teknik & Informatika",
       "ikon": "💻",
       "deskripsi": "Nugas & belajar IPK ×1.1, freelance +30%",
       "pengali": {
@@ -12,7 +31,7 @@
     },
     {
       "id": "ekonomi",
-      "nama": "Ekonomi",
+      "nama": "Ekonomi & Manajemen",
       "ikon": "📈",
       "deskripsi": "Gaji kerja sambilan +10%, bunga tabungan 2×",
       "pengali": {
@@ -21,19 +40,15 @@
       }
     },
     {
-      "id": "kedokteran",
-      "nama": "Kedokteran",
-      "ikon": "🩺",
-      "deskripsi": "Kuliah IPK ×1.2 tapi lebih bikin stres, klinik diskon 50%",
-      "pengali": {
-        "ipkKuliah": 1.2,
-        "stresKuliah": 3,
-        "hargaKlinik": 0.5
-      }
+      "id": "sosial",
+      "nama": "Ilmu Sosial & Hukum",
+      "ikon": "📚",
+      "deskripsi": "Relasi warga bertambah 20% lebih cepat.",
+      "pengali": { "relasi": 1.2 }
     },
     {
       "id": "seni",
-      "nama": "Seni & Desain",
+      "nama": "Seni & Desain (DKV)",
       "ikon": "🎨",
       "deskripsi": "Santai & main gitar lebih menenangkan, freelance +30%",
       "pengali": {
@@ -402,7 +417,7 @@
     },
     {
       "id": "m_ngobrol2",
-      "teks": "Ngobrol dengan 2 orang (Bu Kos, Mbak Sri, Bang Udin, Dosen)",
+      "teks": "Ngobrol dengan 2 orang (Bu Kos, Mbak Yanti, Bang Udin, Dosen)",
       "stat": "ngobrol",
       "target": 2,
       "hadiah": {
@@ -818,7 +833,7 @@
     "💡 Kerja sambilan tanpa salah = stres malah turun.",
     "💡 Cek misi harian di 📱 HP untuk uang tambahan.",
     "💡 Kumpulkan 144 SKS + skripsi 100% untuk wisuda!",
-    "💡 Ngobrol tiap hari dengan Mbak Sri & Bang Udin = diskon makan.",
+    "💡 Ngobrol tiap hari dengan Mbak Yanti & Bang Udin = diskon makan.",
     "💡 Bensin motor habis = mogok. Isi di Pertamini depan kos.",
     "💡 Sabtu malam ada pasar malam di lapangan futsal!",
     "💡 Minggu pagi Car Free Day: jogging di taman lebih segar.",

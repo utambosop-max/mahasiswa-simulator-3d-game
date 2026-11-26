@@ -235,7 +235,7 @@
     "majuFase": 1,
     "transisi": "💼 Selesai shift di warteg...",
     "pesan": "Kerja di Warteg selesai!",
-    "alasanTutup": "💼 Mbak Sri: \"Shift warteg cuma Pagi sampai Sore, Dek!\"",
+    "alasanTutup": "💼 Mbak Yanti: \"Shift warteg cuma Pagi sampai Sore, Dek!\"",
     "durasiJam": 4
   },
   "kerjaWarkop": {
@@ -776,7 +776,7 @@
       "stres": -2
     },
     "majuFase": 0,
-    "pesan": "Ngobrol dengan Mbak Sri",
+    "pesan": "Ngobrol dengan Mbak Yanti",
     "alasanTutup": "🍛 Warteg sudah tutup."
   },
   "ngobrolUdin": {
