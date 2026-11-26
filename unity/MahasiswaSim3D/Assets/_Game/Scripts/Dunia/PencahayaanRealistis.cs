@@ -131,7 +131,7 @@ namespace MS.Dunia
             if (matahari == null) return;
             switch (fase)
             {
-                case Fase.Pagi: Matahari(32, 1.15f, new Color(1, .88f, .71f)); break;
+                case Fase.Pagi: Matahari(36, luar ? 1.48f : 1.15f, new Color(1, .96f, .86f)); break;
                 case Fase.Siang: Matahari(62, 1.3f, new Color(1, .97f, .91f)); break;
                 case Fase.Sore: Matahari(22, .95f, new Color(1, .66f, .43f)); break;
                 default: Matahari(39, .28f, new Color(.43f, .59f, 1)); break;
@@ -143,7 +143,7 @@ namespace MS.Dunia
         {
             var (kabut, warnaLangit, filter, terang) = fase switch
             {
-                Fase.Pagi => (new Color(.69f, .63f, .53f), new Color(.54f, .50f, .45f), new Color(1f, .99f, .97f), .69f),
+                Fase.Pagi => (new Color(.69f, .75f, .81f), new Color(.55f, .64f, .78f), Color.white, .86f),
                 Fase.Siang => (new Color(.68f, .72f, .71f), new Color(.50f, .51f, .52f), Color.white, .85f),
                 Fase.Sore => (new Color(.72f, .53f, .38f), new Color(.65f, .42f, .30f), new Color(1f, .96f, .89f), .66f),
                 Fase.Malam => (new Color(.19f, .24f, .33f), new Color(.37f, .43f, .60f), new Color(.93f, .97f, 1f), .30f),
@@ -153,8 +153,8 @@ namespace MS.Dunia
             penataanWarna.colorFilter.value = filter;
             bool malam = fase == Fase.Malam || fase == Fase.Begadang;
             RenderSettings.reflectionIntensity = malam ? .36f : 1f;
-            if (pantulanLangit != null) pantulanLangit.intensity = malam ? .04f : .37f * cahayaCuaca;
-            penataanWarna.postExposure.value = malam ? .10f : .21f;
+            if (pantulanLangit != null) pantulanLangit.intensity = malam ? .04f : (fase == Fase.Pagi ? .64f : .37f) * cahayaCuaca;
+            penataanWarna.postExposure.value = malam ? .10f : fase == Fase.Pagi ? .45f : .21f;
             if (langit == null) return;
             langit.SetFloat("_Exposure", terang * cahayaCuaca);
             langit.SetColor("_Tint", warnaLangit);

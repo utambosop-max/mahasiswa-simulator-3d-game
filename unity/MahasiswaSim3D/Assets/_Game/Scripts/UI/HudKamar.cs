@@ -105,13 +105,14 @@ namespace MS.UI
             });
             BuatTombolRapor();
             panelPengaturan = new PanelPengaturan(this, areaAman, joystick.ResetPosisi);
-            var (pengaturan, _) = BuatTombol("Pengaturan", panelPengaturan.Buka);
+            var (pengaturan, teksPengaturan) = BuatTombol("Pengaturan", panelPengaturan.Buka);
             var kotakPengaturan = (RectTransform)pengaturan.transform;
             kotakPengaturan.anchorMin = kotakPengaturan.anchorMax = kotakPengaturan.pivot = Vector2.one;
             kotakPengaturan.anchoredPosition = new Vector2(-24, -174);
-            kotakPengaturan.sizeDelta = new Vector2(290, 140);
+            kotakPengaturan.sizeDelta = new Vector2(360, 140);
             pengaturan.targetGraphic.color = TemaAntarmuka.Kertas;
-            IkonHud.Pasang(kotakPengaturan, IkonHud.Jenis.Pengaturan, 44);
+            teksPengaturan.fontSizeMax = 38;
+            IkonHud.Pasang(kotakPengaturan, IkonHud.Jenis.Pengaturan, 38);
             panelProfil = new PanelProfil(this, areaAman, () =>
             {
                 panelMenu.Tutup();

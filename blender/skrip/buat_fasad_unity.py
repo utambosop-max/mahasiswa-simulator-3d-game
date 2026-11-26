@@ -1,8 +1,10 @@
 ﻿"""Buat model eksterior yang mengikuti tata letak dunia Unity."""
 import json
+from math import ceil, floor
 from pathlib import Path
 
 import bpy
+from mathutils import Vector
 
 ROOT = Path(__file__).resolve().parents[2]
 GAME = ROOT / "unity/MahasiswaSim3D/Assets/_Game"
@@ -30,18 +32,57 @@ VARIASI = {
     "salon": (2, .62), "polisi": (3, .49)
 }
 
+def potong_uv(poligon, sumbu, batas, tanda):
+    hasil = []
+    for awal, akhir in zip(poligon, poligon[1:] + poligon[:1]):
+        a = tanda * (awal[sumbu] - batas)
+        b = tanda * (akhir[sumbu] - batas)
+        if a >= 0:
+            hasil.append(awal)
+        if (a < 0 < b) or (b < 0 < a):
+            t = a / (a - b)
+            hasil.append(awal.lerp(akhir, t))
+    return hasil
+
+
 class Fasad:
     def __init__(self):
         self.solid = ([], [], [])
         self.kaca = ([], [], [])
+        self.uv_atap = {}
 
     def bentuk(self, vertices, sisi, bahan):
+        if bahan == "Atap":
+            for face in sisi:
+                self.ubin_atap([Vector(vertices[i]) for i in face])
+            return
         verts, faces, uv = self.kaca if bahan == "Kaca" else self.solid
         awal = len(verts)
         verts.extend(vertices)
         for face in sisi:
             faces.append(tuple(awal + i for i in face))
             uv.append(bahan)
+
+    def ubin_atap(self, vertices):
+        # Proyeksikan ke bidang miring dalam meter dan ulangi petak atlas tanpa material baru.
+        verts, faces, layout = self.solid
+        titik = vertices[0]
+        kanan = (vertices[1] - titik).normalized()
+        tegak = kanan.cross(vertices[-1] - titik).normalized().cross(kanan)
+        ukuran = 1.75
+        uv = [Vector(((v-titik).dot(kanan)/ukuran, (v-titik).dot(tegak)/ukuran)) for v in vertices]
+        for u in range(floor(min(v.x for v in uv)), ceil(max(v.x for v in uv))):
+            for v in range(floor(min(p.y for p in uv)), ceil(max(p.y for p in uv))):
+                petak = potong_uv(potong_uv(uv, 0, u, 1), 0, u + 1, -1)
+                petak = potong_uv(potong_uv(petak, 1, v, 1), 1, v + 1, -1)
+                luas = sum(a.cross(b) for a, b in zip(petak, petak[1:] + petak[:1]))
+                if abs(luas) < 1e-6:
+                    continue
+                awal = len(verts)
+                verts.extend(titik + ukuran * (koor.x * kanan + koor.y * tegak) for koor in petak)
+                faces.append(tuple(range(awal, awal + len(petak))))
+                self.uv_atap[len(faces) - 1] = [(koor.x-u, koor.y-v) for koor in petak]
+                layout.append("Atap")
 
     def kotak(self, pusat, ukuran, bahan):
         x, y, z = pusat
@@ -85,8 +126,8 @@ class Fasad:
             uv = mesh.uv_layers.new()
             for face, bahan in zip(mesh.polygons, layout):
                 x,y = BAGIAN.get(bahan,(0,0))
-                for indeks, loop in enumerate(face.loop_indices):
-                    u,v = ((0,0),(1,0),(1,1),(0,1))[indeks]
+                peta = self.uv_atap[face.index] if bahan == "Atap" else ((0,0),(1,0),(1,1),(0,1))
+                for (u,v), loop in zip(peta, face.loop_indices):
                     uv.data[loop].uv = ((x+(u*.948+.026))/4,(y+(v*.948+.026))/4)
             item = bpy.data.objects.new(nama,mesh)
             bpy.context.collection.objects.link(item)

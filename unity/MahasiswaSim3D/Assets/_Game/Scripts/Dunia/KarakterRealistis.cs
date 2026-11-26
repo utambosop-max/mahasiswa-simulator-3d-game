@@ -117,7 +117,7 @@ namespace MS.Dunia
             }
             if (bounds.size.y > .02f)
             {
-                float skala = tinggiBadan[pilihan] / bounds.size.y;
+                float skala = (tinggiBadan[pilihan] + (pemain ? .12f : 0)) / bounds.size.y;
                 tampilan.transform.localScale *= skala;
                 float jarakKaki = (bounds.min.y - transform.position.y) * skala;
                 posisiBerdiri = new Vector3(0, -jarakKaki, 0);
