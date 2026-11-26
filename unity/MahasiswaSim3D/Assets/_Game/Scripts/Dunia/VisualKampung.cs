@@ -8,6 +8,7 @@ namespace MS.Dunia
         Material lampu;
         Material lampuAsal;
         PeneranganKampung penerangan;
+        RutinitasKampung rutinitas;
         internal CuacaKampung Cuaca { get; private set; }
         IPenerimaAksi aksi;
         TextMesh celetukan;
@@ -41,6 +42,8 @@ namespace MS.Dunia
             }
             Cuaca = gameObject.AddComponent<CuacaKampung>();
             Cuaca.Pasang(jalan != null ? jalan.transform : null);
+            rutinitas = gameObject.AddComponent<RutinitasKampung>();
+            rutinitas.Pasang(jalan != null ? jalan.transform : null);
 
             var bangunan = GameObject.Find("Bangunan");
             if (bangunan != null)
@@ -51,6 +54,7 @@ namespace MS.Dunia
             var prop = GameObject.Find("Prop");
             if (prop == null) return;
             KendaraanKampung.Pasang(gameObject.scene, prop.transform, bahan);
+            SatwaKampung.Pasang(prop.transform, bahan);
             TataPerabot.Pohon(prop.transform);
             lampu = bahan.Ambil(null, new Color(.64f, .55f, .37f), Vector2.one);
             var templat = Resources.Load<Material>("Fasad/LitBercahaya");
@@ -120,6 +124,7 @@ namespace MS.Dunia
         {
             bool malam = fase == Fase.Malam || fase == Fase.Begadang;
             penerangan?.Atur(malam);
+            rutinitas?.AturFase(fase);
             if (lampu != null)
                 lampu.SetColor("_EmissionColor", malam ? new Color(1f, .56f, .16f) * 2.4f : Color.black);
         }

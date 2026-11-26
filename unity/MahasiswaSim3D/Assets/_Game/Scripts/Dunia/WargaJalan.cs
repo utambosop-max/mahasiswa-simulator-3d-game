@@ -30,6 +30,16 @@ namespace MS.Dunia
         bool tersembunyi;
         float faseLangkah;
         Vector3 posisiDatar;     // posisi di jalur tanpa bobbing
+        Vector3[] perjalanan;
+        int langkahKegiatan;
+        internal bool SedangBerkegiatan => perjalanan != null;
+        internal Vector3 Rumah => jalur != null && jalur.Length > 0 ? jalur[0] : transform.position;
+
+        internal void IkutiKegiatan(Vector3[] rute)
+        {
+            perjalanan = rute;
+            langkahKegiatan = 1;
+        }
 
         internal void ReaksiKlakson(Vector3 posisiPemain)
         {
@@ -105,19 +115,21 @@ namespace MS.Dunia
                 }
             }
 
-            if (jalur == null || jalur.Length < 2) { Diam(dt); return; }
+            if (perjalanan != null && langkahKegiatan >= perjalanan.Length) { Diam(dt); return; }
+            if (perjalanan == null && (jalur == null || jalur.Length < 2)) { Diam(dt); return; }
 
             // --- Istirahat sebentar di ujung jalur ---
             if (timerJeda > 0f) { timerJeda -= dt; Diam(dt); return; }
 
             // --- Berjalan ke titik tujuan ---
-            Vector3 target = Datar(jalur[tujuan]);
+            Vector3 target = Datar(perjalanan != null ? perjalanan[langkahKegiatan] : jalur[tujuan]);
             Vector3 arah = target - posisiDatar;
             float langkah = kecepatan * dt;
             if (arah.sqrMagnitude <= langkah * langkah)
             {
                 posisiDatar = target;
-                TitikBerikutnya();
+                if (perjalanan != null) langkahKegiatan++;
+                else TitikBerikutnya();
             }
             else
             {

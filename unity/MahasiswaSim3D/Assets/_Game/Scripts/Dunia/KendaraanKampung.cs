@@ -31,12 +31,38 @@ namespace MS.Dunia
 
             var halte = prop.Find("Halte Barat");
             var asetAngkot = Resources.Load<GameObject>("Kendaraan/angkot/angkot");
-            if (halte == null || asetAngkot == null) return;
-            var angkot = new GameObject("Angkot Halte Barat").transform;
-            angkot.SetParent(prop, false);
-            angkot.SetPositionAndRotation(halte.position + halte.right * 3.1f + halte.forward * 1.3f,
-                halte.rotation * Quaternion.Euler(0, 90, 0));
-            Ganti(angkot, asetAngkot, "Angkot visual", umum, hijau);
+            if (halte != null && asetAngkot != null)
+            {
+                var angkot = new GameObject("Angkot Halte Barat").transform;
+                angkot.SetParent(prop, false);
+                angkot.SetPositionAndRotation(halte.position + halte.right * 3.1f + halte.forward * 1.3f,
+                    halte.rotation * Quaternion.Euler(0, 90, 0));
+                Ganti(angkot, asetAngkot, "Angkot visual", umum, hijau);
+            }
+            var rute = new[]
+            {
+                new Vector3(-16f, 0, .9f), new Vector3(31.1f, 0, .9f),
+                new Vector3(31.1f, 0, -25.1f), new Vector3(-31.1f, 0, -25.1f),
+                new Vector3(-31.1f, 0, .9f)
+            };
+            Bergerak(prop, asetAngkot, "Angkot melintas", umum, hijau, rute, 4.7f, .245f);
+            var motorRute = new[]
+            {
+                new Vector3(9f, 0, -.9f), new Vector3(-31.1f, 0, -.9f),
+                new Vector3(-31.1f, 0, 25.1f), new Vector3(31.1f, 0, 25.1f),
+                new Vector3(31.1f, 0, -.9f)
+            };
+            Bergerak(prop, asetMotor, "Bebek melintas", umum, krem, motorRute, 5.2f, .235f);
+        }
+
+        static void Bergerak(Transform prop, GameObject aset, string nama, Material umum, Material cat,
+            Vector3[] rute, float laju, float radius)
+        {
+            if (aset == null) return;
+            var induk = new GameObject(nama).transform;
+            induk.SetParent(prop, false);
+            induk.gameObject.AddComponent<PatroliKampung>().Pasang(rute, laju, false);
+            Ganti(induk, aset, "Bodi", umum, cat).AddComponent<RodaKendaraan>().Siapkan(radius);
         }
 
         static GameObject Ganti(Transform posisi, GameObject aset, string nama, Material umum, Material cat)

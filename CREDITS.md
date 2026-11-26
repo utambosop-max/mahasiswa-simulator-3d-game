@@ -127,6 +127,13 @@
 | worn_corrugated_iron | Warna, normal, dan kanal PBR | CC0 | [Aset](https://polyhaven.com/a/worn_corrugated_iron) |
 | worn_mossy_plasterwall | Warna, normal, dan kanal PBR | CC0 | [Aset](https://polyhaven.com/a/worn_mossy_plasterwall) |
 
+## Satwa Kampung
+
+| Aset | Sumber |
+|---|---|
+| Ayam kampung dan atlas warna bulu | Model orisinal proyek, dibuat dengan `blender/skrip/buat_ayam_unity.py` |
+| Oyen dan palet warna | Model orisinal proyek, digunakan ulang dari `blender/skrip/npc_fase3.py` |
+
 ## Mixamo (tidak diunggah ke repo)
 
 Karakter dan animasi Mixamo © Adobe. Bebas royalti untuk dipakai di dalam game, tapi file mentahnya tidak boleh dibagikan ulang.

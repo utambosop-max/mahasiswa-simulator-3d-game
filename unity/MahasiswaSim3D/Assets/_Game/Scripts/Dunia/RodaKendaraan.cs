@@ -4,16 +4,16 @@ namespace MS.Dunia
 {
     internal sealed class RodaKendaraan : MonoBehaviour
     {
-        Transform depan, belakang;
+        readonly System.Collections.Generic.List<Transform> roda = new();
+        float radius;
         Vector3 posisiLalu;
 
-        public void Siapkan()
+        public void Siapkan(float radius = .235f)
         {
+            this.radius = radius;
+            roda.Clear();
             foreach (var bagian in GetComponentsInChildren<Transform>(true))
-            {
-                if (bagian.name == "Roda_Depan") depan = bagian;
-                if (bagian.name == "Roda_Belakang") belakang = bagian;
-            }
+                if (bagian.name.StartsWith("Roda_", System.StringComparison.Ordinal)) roda.Add(bagian);
         }
 
         void OnEnable() => posisiLalu = transform.position;
@@ -24,8 +24,8 @@ namespace MS.Dunia
             posisiLalu = transform.position;
             float jarak = Vector3.Dot(delta, transform.forward);
             if (Mathf.Abs(jarak) < .00001f || Mathf.Abs(jarak) > 2f) return;
-            if (depan != null) depan.Rotate(Vector3.right, -jarak / .27f * Mathf.Rad2Deg, Space.Self);
-            if (belakang != null) belakang.Rotate(Vector3.right, -jarak / .265f * Mathf.Rad2Deg, Space.Self);
+            foreach (var ban in roda)
+                ban.Rotate(Vector3.right, -jarak / radius * Mathf.Rad2Deg, Space.Self);
         }
     }
 }

@@ -21,7 +21,7 @@ namespace MS.Dunia.Editor
                 "plastic_crate_01", "cardboard_box_01", "bleach_bottle", "metal_trash_can", "planter_pot_clay",
                 "ceramic_vase_01", "wooden_bucket_01", "watering_can_metal_01", "cement_bag", "wooden_crate_01",
                 "plastic_broom", "small_wooden_table_01", "painted_wooden_cabinet", "wooden_stool_01",
-                "desk_lamp_arm_01", "island_tree_01", "tree_small_02", "old_bed_frame", "prop_payung"
+                "desk_lamp_arm_01", "island_tree_01", "tree_small_02", "old_bed_frame", "prop_payung", "kar_oyen"
             };
             var katalog = AssetDatabase.LoadAssetAtPath<KatalogPropDunia>(Hasil);
             if (katalog == null)
@@ -35,7 +35,7 @@ namespace MS.Dunia.Editor
             for (int i = 0; i < daftar.Length; i++)
             {
                 string id = daftar[i];
-                string jalur = id == "prop_payung" ? "Assets/_Game/Models/prop_payung.fbx" : $"{Folder}/{id}/{id}.fbx";
+                string jalur = id is "prop_payung" or "kar_oyen" ? $"Assets/_Game/Models/{id}.fbx" : $"{Folder}/{id}/{id}.fbx";
                 var model = AssetDatabase.LoadAssetAtPath<GameObject>(jalur);
                 if (model == null) throw new InvalidOperationException("Prop dunia tidak tersedia: " + id);
                 prop.GetArrayElementAtIndex(i).objectReferenceValue = model;
