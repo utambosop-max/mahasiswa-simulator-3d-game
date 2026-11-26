@@ -63,6 +63,8 @@ namespace MS.Pemain
                 id.StartsWith("keluar", System.StringComparison.Ordinal)) return (1.02f, .58f);
             return id switch
             {
+                "ambilPindahan" => (0f, .32f),
+                "tataLaptop" => (.73f, .40f),
                 "tidur" or "rebahan" or "mandi" or "siramCabai" => (.35f, .49f),
                 "belajar" or "masakMi" or "minum" or "naikMotor" => (.69f, .46f),
                 _ => (.9f, .5f)

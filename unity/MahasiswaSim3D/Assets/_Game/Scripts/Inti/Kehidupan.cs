@@ -142,6 +142,7 @@ namespace MS.Inti
             s.traits.AddRange(pilihanKelemahan);
             AturKesulitan(kesulitan);
             s.tahapPindahan = 1;
+            s.energiAwalPindahan = stat.Energi;
             stat.TambahUang(asal.saldoAwal - stat.Uang);
             Buat(nama, jurusan, latar);
             ProfilDidaftarkan?.Invoke();

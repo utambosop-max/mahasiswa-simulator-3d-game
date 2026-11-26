@@ -7,7 +7,7 @@ namespace MS.Inti
 
     public class DataSimpan
     {
-        public const int VersiSekarang = 12;
+        public const int VersiSekarang = 13;
         public int versi = VersiSekarang;
         public int uang;
         public float ipk, energi, stres;
@@ -63,6 +63,9 @@ namespace MS.Inti
         public bool kipkDicabut;
         public int tahapPindahan, petunjukPindahan;
         public bool tidurPindahan;
+        public int barangPindahan;
+        public bool laptopPindahan, ospekPindahan;
+        public float energiAwalPindahan = 80f;
 
         public float kenyang = 85f, hidrasi = 90f, maag, masukAngin, kejenuhan, jamPuasa;
         public int kasbon, porsiNasiJam = -1;

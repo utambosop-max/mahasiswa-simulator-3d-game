@@ -1,3 +1,5 @@
+using MS.Inti;
+using MS.Pemain;
 using UnityEngine;
 
 namespace MS.Dunia
@@ -11,6 +13,7 @@ namespace MS.Dunia
             var ruang = kamar.transform;
             var bahan = induk.AddComponent<BahanRealistis>();
             if (KamarHemat.Pasang(ruang, bahan)) return;
+            PasangPindahanWarisan(ruang);
             TataPerabot.Kamar(ruang, bahan);
             var plester = new Color(.91f, .82f, .68f);
             bahan.Permukaan(ruang.Find("Lantai"), "Tiles110", new Color(.98f, .95f, .89f), new Vector2(5, 4));
@@ -53,6 +56,21 @@ namespace MS.Dunia
             bahan.Detail(ruang, "Rice cooker", new Vector3(4.25f, .95f, -1.83f), new Vector3(.32f, .19f, .32f), putih, PrimitiveType.Cylinder);
             bahan.Detail(ruang, "Panel rice cooker", new Vector3(3.99f, .95f, -1.83f), new Vector3(.04f, .12f, .14f), kusen);
             bahan.Tanaman(ruang, new Vector3(4.58f, 0, 3.18f), .59f);
+        }
+
+        static void PasangPindahanWarisan(Transform ruang)
+        {
+            var s = GameInti.Instans?.Simpanan;
+            if (s?.tahapPindahan != 2 || s.laptopPindahan) return;
+            var meja = ruang.Find("Titik Meja");
+            if (meja == null) return;
+            var penanda = new GameObject("Tata laptop");
+            penanda.transform.SetParent(ruang, false);
+            penanda.transform.position = meja.position;
+            var titik = penanda.AddComponent<TitikInteraksi>();
+            titik.idAksi = "tataLaptop";
+            titik.nama = "Tata laptop";
+            BarangPindahan.SembunyikanSetelahDitata(penanda);
         }
     }
 }

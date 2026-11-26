@@ -86,6 +86,7 @@ namespace MS.Inti
             Event = new EventAcak(Data, Simpanan, Stat, Jam, eventsJson != null ? eventsJson.text : null);
             Aksi.Ponsel = new LayananPonsel(Simpanan, Stat, Jam, Event);
             pindahan = new HariPindahan(Simpanan, Event);
+            Aksi.Pindahan = pindahan;
             Hidup.ProfilDidaftarkan += pindahan.Mulai;
             Aksi.AksiMulai += pindahan.Aksi;
             Aksi.MenuDibeli += pindahan.Makan;

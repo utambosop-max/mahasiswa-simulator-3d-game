@@ -82,7 +82,9 @@ namespace MS.UI
                 $"\nTabungan Rp{hidup.Tabungan:N0}{target}" +
                 $"\nBeasiswa {hidup.BeasiswaNama ?? "—"} · UKM {hidup.UkmNama ?? "—"}" +
                 $"\nPemrograman {hidup.LevelSkill("pemrograman")} · Memasak {hidup.LevelSkill("memasak")}" +
-                $"\nMusik {hidup.LevelSkill("musik")} · Olahraga {hidup.LevelSkill("olahraga")}";
+                $"\nMusik {hidup.LevelSkill("musik")} · Olahraga {hidup.LevelSkill("olahraga")}" +
+                $"\nAkademik {hidup.LevelSkill("akademik")} · Ketahanan {hidup.LevelSkill("ketahanan")} · Retorika {hidup.LevelSkill("retorika")}" +
+                $"\nMekanik {hidup.LevelSkill("mekanik")} · Tata Boga {hidup.LevelSkill("tataBoga")}";
         }
 
         internal void Tutup()

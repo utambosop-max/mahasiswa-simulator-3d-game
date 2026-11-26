@@ -37,7 +37,10 @@ namespace MS.UI
 
         private readonly HudKamar hud;
         private readonly DataMenuUI data;
-        private readonly RectTransform akar, isiGulir;
+        private readonly RectTransform akar, isiGulir, isiEtalase;
+        private readonly RectTransform kartuMenu, areaGulir;
+        private readonly GridLayoutGroup rakEtalase;
+        private readonly ScrollRect gulir;
         private readonly TextMeshProUGUI judul;
         private readonly List<BarisUI> pool = new List<BarisUI>();
         private int dipakai;
@@ -65,7 +68,7 @@ namespace MS.UI
             tombolRedup.onClick.AddListener(Tutup);
 
             // Kartu di tengah, di bawah bilah stat
-            var kartu = HudKamar.BuatKotak("Kartu menu", akar);
+            var kartu = kartuMenu = HudKamar.BuatKotak("Kartu menu", akar);
             HudKamar.Rentangkan(kartu, new Vector2(0.2f, 0.05f), new Vector2(0.8f, 0.86f));
             hud.Gambar(kartu, Kartu, sentuh: true); // sentuhan di kartu tidak menutup panel
 
@@ -87,7 +90,7 @@ namespace MS.UI
             HudKamar.Rentangkan(teksTutup.rectTransform, Vector2.zero, Vector2.one);
 
             // Area gulir
-            var port = HudKamar.BuatKotak("Viewport", kartu);
+            var port = areaGulir = HudKamar.BuatKotak("Viewport", kartu);
             HudKamar.Rentangkan(port, Vector2.zero, Vector2.one);
             port.offsetMin = new Vector2(24, 24);
             port.offsetMax = new Vector2(-24, -180);
@@ -105,10 +108,21 @@ namespace MS.UI
             susun.childControlHeight = false;
             susun.childControlWidth = true;
             susun.childForceExpandHeight = false;
+            isiEtalase = HudKamar.BuatKotak("Rak etalase", port);
+            isiEtalase.anchorMin = isiGulir.anchorMin;
+            isiEtalase.anchorMax = isiGulir.anchorMax;
+            isiEtalase.pivot = isiGulir.pivot;
+            isiEtalase.offsetMin = isiEtalase.offsetMax = Vector2.zero;
+            rakEtalase = isiEtalase.gameObject.AddComponent<GridLayoutGroup>();
+            rakEtalase.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+            rakEtalase.constraintCount = 2;
+            rakEtalase.spacing = new Vector2(16, 16);
             var pas = isiGulir.gameObject.AddComponent<ContentSizeFitter>();
             pas.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+            isiEtalase.gameObject.AddComponent<ContentSizeFitter>().verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+            isiEtalase.gameObject.SetActive(false);
 
-            var gulir = port.gameObject.AddComponent<ScrollRect>();
+            gulir = port.gameObject.AddComponent<ScrollRect>();
             gulir.viewport = port;
             gulir.content = isiGulir;
             gulir.horizontal = false;
@@ -130,12 +144,20 @@ namespace MS.UI
             // Jaga tinggi baris >= 56 px nyata di layar kecil (acuan 1920x1080)
             var skala = Mathf.Sqrt(Screen.width / 1920f * (Screen.height / 1080f));
             tinggiBaris = skala > 0f ? Mathf.Max(150f, 64f / skala) : 150f;
+            bool etalase = tempat == "warteg" && !Application.isMobilePlatform;
+            isiGulir.gameObject.SetActive(!etalase);
+            isiEtalase.gameObject.SetActive(etalase);
+            var isi = etalase ? isiEtalase : isiGulir;
+            gulir.content = isi;
+            HudKamar.Rentangkan(kartuMenu, etalase ? new Vector2(.09f, .06f) : new Vector2(.2f, .05f),
+                etalase ? new Vector2(.91f, .92f) : new Vector2(.8f, .86f));
 
             dipakai = 0;
             for (int i = 0; i < daftar.Count; i++)
             {
                 if (dipakai == pool.Count) pool.Add(BuatBaris());
                 var b = pool[dipakai++];
+                if (b.Kotak.parent != isi) b.Kotak.SetParent(isi, false);
                 b.Item = daftar[i];
                 b.IdMenu = daftar[i].Id;
                 b.HargaTerakhir = -1;
@@ -147,8 +169,10 @@ namespace MS.UI
                 b.Kotak.gameObject.SetActive(true);
             }
             for (int i = dipakai; i < pool.Count; i++) pool[i].Kotak.gameObject.SetActive(false);
-            isiGulir.anchoredPosition = Vector2.zero;
+            isi.anchoredPosition = Vector2.zero;
             akar.gameObject.SetActive(true);
+            if (etalase) Canvas.ForceUpdateCanvases();
+            UkurEtalase();
             hud.PanelMenuDibuka();
             akar.SetAsLastSibling();
             Segarkan();
@@ -167,6 +191,7 @@ namespace MS.UI
         public void Segarkan()
         {
             if (!Terbuka) return;
+            UkurEtalase();
             var layanan = Layanan.Aksi;
             bool tua = Layanan.Jam != null && Layanan.Jam.TanggalTua;
             for (int i = 0; i < dipakai; i++)
@@ -193,6 +218,13 @@ namespace MS.UI
                 b.Info.text = boleh ? TeksEfek(b.Item)
                     : HudKamar.BersihkanEmoji(string.IsNullOrWhiteSpace(alasan) ? "Belum bisa dibeli." : alasan);
             }
+        }
+
+        void UkurEtalase()
+        {
+            if (!isiEtalase.gameObject.activeSelf || areaGulir.rect.width <= rakEtalase.spacing.x) return;
+            var ukuran = new Vector2((areaGulir.rect.width - rakEtalase.spacing.x) * .5f, tinggiBaris);
+            if (rakEtalase.cellSize != ukuran) rakEtalase.cellSize = ukuran;
         }
 
         // Font HUD tidak memuat emoji, jadi ⚡/😵 ditulis sebagai kata.

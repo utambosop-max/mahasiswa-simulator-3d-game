@@ -50,7 +50,9 @@ namespace MS.Dunia
             Kotak("Khaki penyangga meja", new Vector3(-1.14f,.32f,.92f), new Vector3(.075f,.63f,.62f), kayu);
             Kotak("Laptop", new Vector3(-.87f,.74f,.89f), new Vector3(.34f,.045f,.29f), gelap, false);
             Kotak("Terminal kabel", new Vector3(-1.12f,.084f,.95f), new Vector3(.24f,.07f,.08f), putih, false);
-            Titik(hemat, "Meja dan laptop", new Vector3(-.70f,0,.93f), "belajar", "nugas");
+            if (s.tahapPindahan == 2 && !s.laptopPindahan)
+                BarangPindahan.SembunyikanSetelahDitata(Titik(hemat, "Tata laptop", new Vector3(-.70f, 0, .93f), "tataLaptop"));
+            Titik(hemat, "Meja dan laptop", new Vector3(-.70f,0,1.02f), "belajar", "nugas");
 
             Kotak("Lemari dua pintu", new Vector3(-.65f,.95f,1.33f), new Vector3(.78f,1.9f,.32f), kayu);
             Kotak("Cermin lemari", new Vector3(-.68f,1.22f,1.158f), new Vector3(.24f,.58f,.018f), kaca, false);
@@ -80,7 +82,7 @@ namespace MS.Dunia
             return true;
         }
 
-        static void Titik(Transform induk, string nama, Vector3 posisi, string id, string tambahan = null)
+        static GameObject Titik(Transform induk, string nama, Vector3 posisi, string id, string tambahan = null)
         {
             var penanda = new GameObject(nama);
             penanda.transform.SetParent(induk, false);
@@ -91,6 +93,7 @@ namespace MS.Dunia
             titik.idAksiTambahan = tambahan;
             titik.namaTambahan = tambahan;
             titik.radius = .92f;
+            return penanda;
         }
     }
 }

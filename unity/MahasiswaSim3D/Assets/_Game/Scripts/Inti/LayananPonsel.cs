@@ -61,7 +61,9 @@ namespace MS.Inti
                     return "KRS terdaftar. Jadwal pilihan: " + save.jadwalKrs + ".";
                 case "titipAbsen":
                     save.hariTitip = save.hari;
-                    if (skor < 60)
+                    int bonus = Layanan.Hidup?.LevelSkill("retorika") >= 3 ? 15 : 0;
+                    if (Layanan.Hidup?.TingkatConfidant("bima") == 5 && jam.Fase == Fase.Pagi) bonus += 60;
+                    if (skor + bonus < 60)
                     {
                         stat.Terapkan(new Efek { stres = 8 });
                         return "Titip absen gagal. Dosen memeriksa daftar hadir.";

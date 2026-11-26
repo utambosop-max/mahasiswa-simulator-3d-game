@@ -25,7 +25,12 @@ namespace MS.Inti
 
         public int LevelSkill(string id)
         {
-            foreach (var sk in F.skill) if (sk.id == id) return F.LevelSkill(TotalLatihan(sk));
+            foreach (var sk in F.skill)
+                if (sk.id == id)
+                {
+                    int dasar = id is "akademik" or "ketahanan" or "retorika" or "mekanik" or "tataBoga" ? 1 : 0;
+                    return dasar + F.LevelSkill(TotalLatihan(sk));
+                }
             return 0;
         }
 
@@ -446,7 +451,7 @@ namespace MS.Inti
         public string WarnaMotor => s.warnaMotor;
         DataMotorUp Up(int lv) { foreach (var u in F.motorUpgrade) if (u.level == lv) return u; return null; }
         public float PengaliMotor => Up(LevelMotor)?.kecepatan ?? 1f;
-        public float PengaliHemat => Up(LevelMotor)?.hemat ?? 1f;
+        public float PengaliHemat => (Up(LevelMotor)?.hemat ?? 1f) * (LevelSkill("mekanik") >= 2 ? .85f : 1f);
         int HargaUpgrade(DataMotorUp u)
         {
             float pengali = s.traits.Contains("tanganMontir") ? .75f : 1f;

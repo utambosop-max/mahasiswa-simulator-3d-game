@@ -43,6 +43,7 @@ namespace MS.Inti
         internal event Action MenuDibeli;
         internal KebutuhanHarian Kebutuhan;
         internal LayananPonsel Ponsel;
+        internal HariPindahan Pindahan;
 
         public PenerimaAksi(DataGame d, DataSimpan simpan, StatPemain st, JamGame j)
         { data = d; s = simpan; stat = st; jam = j; }
@@ -103,6 +104,11 @@ namespace MS.Inti
             alasan = null;
             string id = p.Id;
             if (jam.Sibuk) { alasan = "⏳ Tunggu dulu, masih sibuk."; return false; }
+            if (Pindahan != null)
+            {
+                alasan = Pindahan.Alasan(p);
+                if (alasan != null || HariPindahan.AksiKhusus(id)) return alasan == null;
+            }
             if (id is "naikBusKampus" or "naikAngkot" && p.Target != null)
             {
                 int menit = jam.JamDinding * 60 + jam.MenitDinding;
@@ -190,6 +196,13 @@ namespace MS.Inti
         {
             if (!BolehDilakukan(p, out var alasan)) { PesanTerakhir = alasan; return; }
             string id = p.Id;
+            if (Pindahan != null && HariPindahan.AksiKhusus(id))
+            {
+                PesanTerakhir = Pindahan.Lakukan(p);
+                SimpanMuat.Simpan(s);
+                AksiMulai?.Invoke(id);
+                return;
+            }
             if (id is "naikBusKampus" or "naikAngkot" && p.Target != null)
             {
                 NaikAngkutan(p);
@@ -204,6 +217,7 @@ namespace MS.Inti
             {
                 PesanTerakhir = Ponsel.Jalankan(p);
                 SimpanMuat.Simpan(s);
+                AksiMulai?.Invoke(id);
                 return;
             }
             if (Kebutuhan?.AksiKos(id) == true)
@@ -265,7 +279,10 @@ namespace MS.Inti
             if (id == "kuliah") { if (jam.Fase == Fase.Pagi) s.hadirPagi = true; else s.hadirSiang = true; }
 
             float lama = tidur ? LamaTidur() : LamaAksi(a);
+            if (a?.jenis == "belajar" && Sosial?.LevelSkill("akademik") >= 2) lama *= .85f;
+            if (id is "nugas" or "nulisSkripsi" && s.LevelPerabot("pc144") >= 2) lama /= 1.6f;
             Kebutuhan?.CatatAksi(id, a, efek);
+            if (id == "masakMi" && Sosial?.LevelSkill("tataBoga") >= 2) efek.energi *= 1.15f;
             if (int.TryParse(p.Target, out int skor) && skor is >= 0 and <= 100)
             {
                 if (id == "masakMi")
@@ -423,6 +440,9 @@ namespace MS.Inti
         bool AdaMenu(DataAksi a) =>
             a.tempat != null && data.Menu.TryGetValue(a.tempat, out var d) && d != null && d.Count > 0;
 
+        int BatasKasbon => data.Bal.vital.batasKasbon + (Sosial?.LevelSkill("retorika") >= 2 ? 10000 : 0) +
+            (Sosial?.ReputasiCircle("gang") >= 60 ? 5000 : 0);
+
         /// <summary>Kontrak: harga resmi menu untuk UI (−1 bila aksi/menu tidak dikenal).</summary>
         public int HargaMenu(string idAksi, string idMenu)
         {
@@ -458,7 +478,7 @@ namespace MS.Inti
                     continue;
                 }
                 int h = HargaMenu(a.tempat, m);
-                if (stat.Uang < h && m.kasbon && s.kasbon + h <= data.Bal.vital.batasKasbon)
+                if (stat.Uang < h && m.kasbon && s.kasbon + h <= BatasKasbon)
                 { harga = h; return m; }
                 if (stat.Uang - h >= data.Bal.batas.uangMin) { harga = h; return m; }
                 if (!string.IsNullOrEmpty(target)) return null; // menu pilihan tidak terjangkau
@@ -472,7 +492,7 @@ namespace MS.Inti
             if (m == null) return; // sudah dicek di BolehDilakukan
             efek.Kosongkan();
             if (m.efek != null) efek.Isi(m.efek);
-            bool kasbon = stat.Uang < harga && m.kasbon && s.kasbon + harga <= data.Bal.vital.batasKasbon;
+            bool kasbon = stat.Uang < harga && m.kasbon && s.kasbon + harga <= BatasKasbon;
             if (kasbon) s.kasbon += harga;
             else efek.uang = -harga;
             if (m.kategori == "Karbohidrat") s.porsiNasiJam = s.hari * 24 + jam.JamDinding;
