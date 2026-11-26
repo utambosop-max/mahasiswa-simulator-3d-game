@@ -37,9 +37,9 @@ namespace MS.Inti.Tes
         public void DataTerbaca()
         {
             Assert.AreEqual(6, data.Fitur3.kos.Count);
-            Assert.AreEqual(13, data.Fitur3.warga.Count);
+            Assert.AreEqual(22, data.Fitur3.warga.Count);
             Assert.AreEqual(4, data.Fitur3.beasiswa.Count);
-            Assert.AreEqual(4, data.Fitur3.skill.Count);
+            Assert.AreEqual(9, data.Fitur3.skill.Count);
             Assert.AreEqual(500000, sos.HargaKos);
             Assert.AreEqual(1080, data.Fitur3.Kos("melati").jamMalam);
             Assert.IsNull(data.Fitur3.Kos("bebas").jamMalam);

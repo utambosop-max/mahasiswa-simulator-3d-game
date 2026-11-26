@@ -76,6 +76,13 @@ namespace MS.Inti
 
         public int Relasi(string id) => s.Ambil(s.relasi, id);
         public int LevelRelasi(string id) => F.LevelRelasi(Relasi(id));
+        public int ReputasiCircle(string id) => s.Ambil(s.reputasiCircle, id);
+        public int TingkatConfidant(string id) => Mathf.Clamp(Mathf.CeilToInt(Relasi("w_" + id) / 20f), 0, 5);
+        public int Cemburu => s.cemburu;
+        public string JalurSemester => s.jalurSemester;
+
+        void TambahCircle(string id, int delta) =>
+            s.reputasiCircle[id] = Mathf.Clamp(ReputasiCircle(id) + delta, 0, 100);
         void TambahRelasi(string id, int n)
         {
             if (n > 0 && id != "oyen") n = Mathf.RoundToInt(n * PengaliJurusan("relasi", 1f));
@@ -133,13 +140,14 @@ namespace MS.Inti
                     if (SudahHari("h_" + id)) return "🎁 Sudah kasih hadiah hari ini. Jangan berlebihan!";
                     return stat.Uang - SOS.hadiahHarga < data.Bal.batas.uangMin ? "💸 Uangnya nggak cukup buat beli hadiah." : null;
                 case "tembak":
+                    if (s.tahapPindahan > 0 && s.semester < 2) return "Pacaran resmi tersedia mulai semester 2.";
                     if (PunyaPacar) return "💍 Kamu sudah punya pacar! Setia dong.";
                     if (!w.pacar) return w.nama + " lebih cocok jadi teman baik.";
                     return rel < SOS.tembakMinRelasi ? "💗 Belum cukup dekat (" + rel + "/" + SOS.tembakMinRelasi + "). Sering ngobrol & kasih hadiah dulu!" : null;
                 case "kencan":
                     if (!PacarDengan(id)) return "Kencan cuma sama pacar ya.";
                     if (SudahHari("k_" + id)) return "💑 Sudah kencan hari ini. Besok lagi!";
-                    if (stat.Uang + SOS.kencan.uang < data.Bal.batas.uangMin) return "💸 Uang kencan nggak cukup...";
+                    if (stat.Uang + BiayaKencan < data.Bal.batas.uangMin) return "💸 Uang kencan nggak cukup...";
                     return stat.Energi + SOS.kencan.energi < 0 ? "😮‍💨 Terlalu capek buat kencan." : null;
                 case "ajakTinggal":
                     if (!PacarDengan(id)) return "Hanya dengan pacar.";
@@ -154,6 +162,7 @@ namespace MS.Inti
         static readonly string[] JenisHadiah = { "buku", "kopi", "buah", "musik", "game" };
         static readonly string[] NamaHadiah = { "📚 buku", "☕ kopi", "🍎 buah", "🎵 voucher musik", "🎮 voucher game" };
         static readonly string[] TempatKencan = { "makan bakso", "nonton di bioskop mini", "jalan-jalan ke taman", "ngopi di kafe", "naik komidi putar" };
+        int BiayaKencan => jam.TanggalTua ? -Math.Min(10000, -SOS.kencan.uang) : SOS.kencan.uang;
 
         int Acak(int n) => Mathf.Clamp((int)(acak() * n), 0, n - 1);
 
@@ -171,6 +180,7 @@ namespace MS.Inti
                     TambahRelasi(k, SOS.ngobrolRelasi); Ubah(0, 0, SOS.ngobrolStres);
                     TandaiHari(k);
                     if (PacarDengan(id)) s.pacarTemu = s.hari;
+                    if (PacarDengan(id)) s.cemburu = Mathf.Max(0, s.cemburu - 6);
                     Umumkan(w.ikon + " " + w.nama + ": " + (w.dialog.Count > 0 ? w.dialog[Acak(w.dialog.Count)] : "\"Halo!\""));
                     Latih("ngobrolWarga");
                     break;
@@ -180,6 +190,8 @@ namespace MS.Inti
                     bool cocok = JenisHadiah[i] == w.suka;
                     Ubah(-SOS.hadiahHarga, 0, 0);
                     TambahRelasi(k, cocok ? SOS.hadiahSukaRelasi : SOS.hadiahRelasi);
+                    if (PunyaPacar && !PacarDengan(id) && w.pacar)
+                        s.cemburu = Mathf.Min(100, s.cemburu + 12);
                     TandaiHari("h_" + id);
                     Umumkan("🎁 Kamu kasih " + NamaHadiah[i] + " ke " + w.nama + ". " + (cocok ? "\"Wah, ini kesukaanku! Makasih banget!\" 😍" : "\"Makasih ya!\" 😊")
                             + "  −" + AturanHarian.Rupiah(SOS.hadiahHarga));
@@ -206,11 +218,13 @@ namespace MS.Inti
                 case "kencan":
                 {
                     var e = SOS.kencan;
-                    Ubah(e.uang, e.energi, e.stres);
+                    Ubah(BiayaKencan, e.energi, e.stres);
                     TambahRelasi(k, e.relasi);
+                    s.cemburu = Mathf.Max(0, s.cemburu - 20);
                     TandaiHari("k_" + id); s.pacarTemu = s.hari;
                     Latih("kencan");
-                    Umumkan("💑 Kencan sama " + w.nama + ": " + TempatKencan[Acak(TempatKencan.Length)] + "! −" + AturanHarian.Rupiah(-e.uang) + "  😵 " + e.stres);
+                    string tempat = jam.TanggalTua ? "jalan kaki dan berbagi camilan" : TempatKencan[Acak(TempatKencan.Length)];
+                    Umumkan($"Kencan sama {w.nama}: {tempat}! −{AturanHarian.Rupiah(-BiayaKencan)}");
                     if (SOS.kencanMenit > 0) jam.MulaiSibuk(SOS.kencanMenit, false);
                     break;
                 }
@@ -220,6 +234,7 @@ namespace MS.Inti
                     break;
                 case "putus":
                     s.pacarId = null; s.tinggalBareng = false;
+                    s.cemburu = 0;
                     Ubah(0, 0, SOS.putus.stres);
                     TambahRelasi(k, -40);
                     Umumkan("💔 Kamu putus dengan " + w.nama + ". Sakit, tapi hidup terus berjalan... 😵+" + SOS.putus.stres);

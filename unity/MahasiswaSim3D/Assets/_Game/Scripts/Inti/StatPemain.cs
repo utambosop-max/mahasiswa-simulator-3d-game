@@ -36,7 +36,7 @@ namespace MS.Inti
             s.uang += Mathf.RoundToInt(e.uang);
             s.ipk += e.ipk;
             s.energi += e.energi;
-            s.stres += e.stres;
+            s.stres += e.stres > 0 ? e.stres * s.pengaliKebutuhan : e.stres;
             Rapikan();
             Berubah?.Invoke();
         }

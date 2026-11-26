@@ -204,6 +204,14 @@
     { "id": "d_ibu_abadi", "ikon": "📞", "judul": "Telepon Ibu", "teks": "Ibu: \"Nak, nggak apa-apa lama. Ibu tunggu toganya. Asal jangan sampai Ibu yang wisuda duluan.\"", "pilihan": [ { "teks": "🥹 Siap, Bu", "efek": { "stres": -8 }, "hasil": "" } ] }
   ],
   "ending": [
+    {"id": "gdd_do", "judul": "Drop Out / Pulang Kampung", "teks": "Dua rapor berturut-turut berada di bawah batas IPK. Bu Ratna menemanimu ke terminal.", "ikon": "🎓", "syarat": {"akhirIpkRendahMin": 2}, "gdd": true},
+    {"id": "gdd_ugd", "judul": "Tumbang di Ruang UGD", "teks": "Kamu perlu istirahat dan bantuan untuk memulihkan kondisi serta keuangan.", "ikon": "🎓", "syarat": {"krisisKesehatanMin": 3}, "gdd": true},
+    {"id": "gdd_juragan", "judul": "Juragan Muda Kampus", "teks": "Usahamu mampu membiayai kuliah dan membuka pekerjaan untuk teman seangkatan.", "ikon": "🎓", "syarat": {"lulus": true, "ipkMin": 2.5, "asetMin": 50000000}, "gdd": true},
+    {"id": "gdd_aktivis", "judul": "Presiden Mahasiswa Legendaris", "teks": "Negosiasi UKT berakhir damai. Angkatanmu meneruskan kerja advokasi.", "ikon": "🎓", "syarat": {"lulus": true, "circleMin": {"aktivis": 85}}, "gdd": true},
+    {"id": "gdd_romansa", "judul": "Wisuda Berdua", "teks": "Kalian menyelesaikan kuliah dan merayakannya bersama keluarga.", "ikon": "🎓", "syarat": {"lulus": true, "relasiPacarMin": 100}, "gdd": true},
+    {"id": "gdd_ratna", "judul": "Menantu Idaman Ibu Kos", "teks": "Bu Ratna mempercayakan pengelolaan kos baru kepadamu.", "ikon": "🎓", "syarat": {"lulus": true, "relasiMin": {"buKos": 100}}, "gdd": true},
+    {"id": "gdd_cumlaude", "judul": "Cumlaude Teladan", "teks": "Keluarga datang ke wisuda dan langsung bertanya kapan kamu mulai bekerja.", "ikon": "🎓", "syarat": {"lulus": true, "ipkMin": 3.75}, "gdd": true},
+    {"id": "gdd_santai", "judul": "Sarjana Jalur Santai", "teks": "Berkas skripsi akhirnya selesai dijilid dan kamu sampai di panggung wisuda.", "ikon": "🎓", "syarat": {"lulus": true}, "gdd": true},
     { "id": "end_toga_rantang", "judul": "Toga & Rantang", "ikon": "🍱",
       "syarat": { "flag": ["jujur", "warkopSelamat"], "flagSalahSatu": ["rakaBertahan", "rakaCuti"], "wargaRelasiMin": { "nilai": 60, "jumlah": 3 } },
       "teks": "Ibu & Ayah datang naik bus bawa rantang rendang untuk satu kampung. Ayah: \"Bagus.\" Ibu: \"Ayahmu nangis di bus tadi.\"" },

@@ -135,6 +135,8 @@ namespace MS.UI
                     break;
                 case 1:
                     kosanOs.Tambah("Grup Angkatan", "Sari: Info tugas dan jadwal kuliah bisa dibuka di SIAKAD.", false, null);
+                    TambahAksiPc("Chat Bima", "menuWarga", "bima");
+                    TambahAksiPc("Chat Sari", "menuWarga", "sari");
                     TambahTantanganPc(4, "titipAbsen");
                     TambahAksiPc("Telepon darurat", "bantuanDarurat");
                     TambahTantanganPc(1);
@@ -169,11 +171,41 @@ namespace MS.UI
                     kosanOs.Tambah(profil?.Nama ?? "Mahasiswa",
                         $"Kartu Tanda Mahasiswa · {profil?.DaftarJurusan.FirstOrDefault(j => j.Id == profil.JurusanId)?.Nama}", false, null);
                     kosanOs.Tambah("Rapor & keterampilan", "", true, BukaRaporPc);
+                    kosanOs.Tambah("Circle & confidants", "", true, BukaRelasiPc);
+                    if (!string.IsNullOrEmpty(Layanan.Cerita?.Ending))
+                        kosanOs.Tambah("Warisan Senior", "Mulai sesi baru dengan perabot dari sesi ini.", true, KonfirmasiWarisan);
                     TambahTantanganPc(5, "nugas");
                     kosanOs.Tambah("Pengaturan", "", true, () => { TutupKosanOs(); panelPengaturan.Buka(); });
                     break;
             }
             kosanOs.Tambah("Beranda", "", true, BerandaKosanOs);
+        }
+
+        void BukaRelasiPc()
+        {
+            var hidup = Layanan.Hidup;
+            if (hidup == null) return;
+            kosanOs.Tampil(true, "Circle & confidants", $"Cemburu {hidup.Cemburu}%");
+            foreach (var (id, nama) in new[]
+            {
+                ("akademisi", "Akademisi & Dosen"), ("warkop", "Tongkrongan Warkop"), ("aktivis", "Aktivis & Organisasi"),
+                ("gang", "Warga Gang & Pedagang"), ("sultan", "Anak Sultan & Kafe")
+            })
+                kosanOs.Tambah(nama, $"Reputasi {hidup.ReputasiCircle(id)}/100", false, null);
+            foreach (var (id, nama) in new[]
+            {
+                ("bima", "Bima"), ("sari", "Sari"), ("dimas", "Dimas"), ("raka_ojol", "Raka"),
+                ("nadia_desain", "Nadia"), ("ujang", "Pak Ujang")
+            })
+                TambahAksiPc(nama, "menuWarga", id, $"Kedekatan Level {hidup.TingkatConfidant(id)}/5");
+            kosanOs.Tambah("Beranda", "", true, BerandaKosanOs);
+        }
+
+        void KonfirmasiWarisan()
+        {
+            kosanOs.Tampil(true, "Warisan Senior", "Sesi baru menjadi save aktif. Perabot kamar dibawa.");
+            TambahAksiPc("Mulai sesi baru", "warisanSenior");
+            kosanOs.Tambah("Batal", "", true, () => BukaAplikasiPc(7));
         }
 
         private void TambahAksiPc(string nama, string id, string target = null, string detail = null)

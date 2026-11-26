@@ -135,6 +135,16 @@ namespace MS.Inti
         {
             var lvLama = LevelSemuaSkill();
             Latih(id);
+            switch (id)
+            {
+                case "kuliah" or "belajarPerpus" or "bimbingan": TambahCircle("akademisi", 4); break;
+                case "nongkrong" or "ngopi": TambahCircle("warkop", 3); break;
+                case "rapatUKM" or "kerjakanLomba": TambahCircle("aktivis", 5); break;
+                case "ngobrolBuKos" or "makanWarteg" or "bayarKos": TambahCircle("gang", 4); break;
+                case "makanKafe" or "freelance": TambahCircle("sultan", 4); break;
+            }
+            if (id is "freelance" or "narikOjol" && a?.efek?.uang > 0)
+                s.pendapatanKerja += Mathf.RoundToInt(a.efek.uang);
             if (a != null && !string.IsNullOrEmpty(a.npc)) { TambahRelasiNpc(a.npc, F.relasiNgobrol); Latih("ngobrol"); }
             if (a != null && a.jenis == "menu" && !string.IsNullOrEmpty(a.tempat)) Latih("makan_" + a.tempat);
             if (id == "masakMi" && s.cabaiStok > 0) { s.cabaiStok--; Umumkan("🌶️ Mi pedas level dewa! (cabai sisa " + s.cabaiStok + ")"); }
@@ -437,7 +447,12 @@ namespace MS.Inti
         DataMotorUp Up(int lv) { foreach (var u in F.motorUpgrade) if (u.level == lv) return u; return null; }
         public float PengaliMotor => Up(LevelMotor)?.kecepatan ?? 1f;
         public float PengaliHemat => Up(LevelMotor)?.hemat ?? 1f;
-        int HargaUpgrade(DataMotorUp u) => s.traits.Contains("tanganMontir") ? Mathf.RoundToInt(u.harga * .75f) : u.harga;
+        int HargaUpgrade(DataMotorUp u)
+        {
+            float pengali = s.traits.Contains("tanganMontir") ? .75f : 1f;
+            if (TingkatConfidant("raka_ojol") >= 2) pengali *= .7f;
+            return Mathf.RoundToInt(u.harga * pengali);
+        }
         public string CekUpgradeMotor(DataMotorUp u) =>
             s.tahapPindahan > 0 && s.hari < 8 && u.level > 2 ? "Modifikasi berat dibuka mulai minggu kedua." :
             u.level <= LevelMotor ? "✅ Sudah terpasang." : u.level > LevelMotor + 1 ? "🔧 Upgrade level " + (u.level - 1) + " dulu." :

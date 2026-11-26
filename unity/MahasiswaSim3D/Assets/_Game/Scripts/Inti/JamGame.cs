@@ -65,7 +65,7 @@ namespace MS.Inti
         {
             if (detikNyata <= 0f) return;
             if (detikNyata > 1f) detikNyata = 1f; // setelah aplikasi di-pause, jangan loncat jauh
-            float laju = j.menitPerDetik * (Sibuk ? (sedangTidur ? j.lajuTidur : j.lajuSibuk) : 1f);
+            float laju = j.menitPerDetik * s.pengaliJam * (Sibuk ? (sedangTidur ? j.lajuTidur : j.lajuSibuk) : 1f);
             float maju = detikNyata * laju;
             if (Sibuk && maju >= sisaSibuk) maju = sisaSibuk; // berhenti tepat saat aksi selesai
             Maju(maju);

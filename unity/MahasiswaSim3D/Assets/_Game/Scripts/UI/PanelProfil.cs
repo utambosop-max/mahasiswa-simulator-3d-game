@@ -14,6 +14,7 @@ namespace MS.UI
         readonly List<Button> jurusan = new(), asal = new();
         readonly Dictionary<string, Button> tombolTrait = new();
         readonly HashSet<string> bakat = new(), kelemahan = new();
+        readonly OpsiKesulitan kesulitan = new();
         readonly System.Action saatBuka;
         IProfil profil;
         string idJurusan, idAsal;
@@ -120,7 +121,65 @@ namespace MS.UI
             }
             BuatDaftarTrait("Pilih 2 bakat", profil.Bakat, bakat);
             BuatDaftarTrait("Pilih 2 kelemahan", profil.Kelemahan, kelemahan);
+            BuatKesulitan();
             Warnai();
+        }
+
+        void BuatKesulitan()
+        {
+            Label(konten, "Kesulitan", 44);
+            var pilihan = new[] { "normal", "sultan", "pejuang", "sandbox" };
+            var namaMode = new[] { "Anak Kos Normal", "Anak Sultan", "Pejuang Tanggal Tua", "Sandbox" };
+            var tombol = new Button[pilihan.Length];
+            var panelSandbox = HudKamar.BuatKotak("Pengatur sandbox", konten);
+            panelSandbox.gameObject.SetActive(false);
+            for (int i = 0; i < pilihan.Length; i++)
+            {
+                int opsi = i;
+                tombol[i] = BuatTombol(konten, namaMode[i], () =>
+                {
+                    kesulitan.Preset = pilihan[opsi];
+                    for (int k = 0; k < tombol.Length; k++)
+                        tombol[k].targetGraphic.color = k == opsi ? TemaAntarmuka.Mint : TemaAntarmuka.Mentega;
+                    panelSandbox.gameObject.SetActive(opsi == 3);
+                });
+            }
+            tombol[0].targetGraphic.color = TemaAntarmuka.Mint;
+            panelSandbox.SetAsLastSibling();
+            var susun = panelSandbox.gameObject.AddComponent<VerticalLayoutGroup>();
+            susun.spacing = 10;
+            susun.childControlWidth = susun.childControlHeight = true;
+            susun.childForceExpandWidth = true;
+            susun.childForceExpandHeight = false;
+            Geser(panelSandbox, "Kiriman bulanan (ribu Rp)", 0, 5000, 1500, true, n => kesulitan.Kiriman = (int)n * 1000);
+            Geser(panelSandbox, "Frekuensi sidak", 0, 2, 1, true, n => kesulitan.Sidak = (int)n);
+            Geser(panelSandbox, "Ketegasan dosen", .5f, 2, 1, false, n => kesulitan.Dosen = n);
+            Geser(panelSandbox, "Peluang hujan", 0, 2, 1, false, n => kesulitan.Hujan = n);
+            Geser(panelSandbox, "Kecepatan waktu", .5f, 2, 1, false, n => kesulitan.Jam = n);
+        }
+
+        static void Geser(Transform induk, string nama, float min, float maks, float baku, bool bulat, System.Action<float> ubah)
+        {
+            var label = Label(induk, "", 31);
+            var kotak = HudKamar.BuatKotak(nama, induk);
+            kotak.gameObject.AddComponent<LayoutElement>().minHeight = 64;
+            var latar = kotak.gameObject.AddComponent<Image>();
+            latar.color = TemaAntarmuka.Pasif;
+            var pegangan = HudKamar.BuatKotak("Pegangan", kotak);
+            pegangan.anchorMin = Vector2.zero;
+            pegangan.anchorMax = Vector2.up;
+            pegangan.sizeDelta = new Vector2(64, 0);
+            var wajah = pegangan.gameObject.AddComponent<Image>();
+            wajah.color = TemaAntarmuka.Jingga;
+            var slider = kotak.gameObject.AddComponent<Slider>();
+            slider.targetGraphic = wajah;
+            slider.handleRect = pegangan;
+            slider.minValue = min;
+            slider.maxValue = maks;
+            slider.wholeNumbers = bulat;
+            slider.value = baku;
+            label.text = $"{nama} {baku:0.##}";
+            slider.onValueChanged.AddListener(n => { label.text = $"{nama} {n:0.##}"; ubah(n); });
         }
 
         void BuatDaftarTrait(string judul, IReadOnlyList<InfoPilihan> opsi, HashSet<string> pilihan)
@@ -151,7 +210,7 @@ namespace MS.UI
 
         void Mulai()
         {
-            if (!profil.Daftarkan(nama.text, idJurusan, idAsal, bakat, kelemahan))
+            if (!profil.Daftarkan(nama.text, idJurusan, idAsal, bakat, kelemahan, kesulitan))
                 validasi.text = "Lengkapi jurusan, latar, 2 bakat, dan 2 kelemahan.";
         }
 

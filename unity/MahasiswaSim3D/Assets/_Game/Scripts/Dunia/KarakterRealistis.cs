@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using MS.Kontrak;
+using MS.Pemain;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Playables;
@@ -64,6 +65,7 @@ namespace MS.Dunia
                 for (int i = 0; i < model.Length; i++)
                     model[i] = Resources.Load<GameObject>("Karakter/kar_" + (i + 1));
             }
+            PasangWargaKampus(scene, klip[0] != null && klip[1] != null);
             if (klip[0] == null || klip[1] == null) return;
 
             var utama = GameObject.Find("Pemain");
@@ -81,6 +83,55 @@ namespace MS.Dunia
                             if (anak.name.StartsWith("Penjaga ", StringComparison.Ordinal) ||
                                 anak.name.StartsWith("kar_penjaga_", StringComparison.Ordinal))
                                 anak.gameObject.AddComponent<KarakterRealistis>().pilihan = Math.Abs(anak.name.GetHashCode() % model.Length);
+        }
+
+        static void PasangWargaKampus(Scene scene, bool animasi)
+        {
+            var warga = scene.name switch
+            {
+                "Kampung" => new[] { ("bima", "Bima", 0), ("raka_ojol", "Raka (Ojol)", 2), ("dina", "Dina", 1) },
+                "Gedung_kampus" => new[] { ("sari", "Sari", 3), ("nadia_desain", "Nadia (Desain)", 5) },
+                "Gedung_fotokopi" => new[] { ("ujang", "Pak Ujang", 4) },
+                "Gedung_perpus" => new[] { ("alya", "Alya", 1) },
+                "Gedung_kafe" => new[] { ("keira", "Keira", 3) },
+                "Gedung_karier" => new[] { ("tari", "Tari", 5) },
+                _ => null
+            };
+            if (warga == null) return;
+            string idSpawn = scene.name == "Kampung" ? "pintuKos" : "masuk";
+            TitikSpawn spawn = null;
+            foreach (var titik in FindObjectsByType<TitikSpawn>(FindObjectsSortMode.None))
+                if (titik.gameObject.scene == scene && titik.id == idSpawn) { spawn = titik; break; }
+            if (spawn == null) return;
+            int indeks = 0;
+            foreach (var (id, nama, rupa) in warga)
+            {
+                var objek = new GameObject("Warga " + nama);
+                SceneManager.MoveGameObjectToScene(objek, scene);
+                var arah = spawn.transform;
+                objek.transform.SetPositionAndRotation(arah.position + arah.right * (indeks++ - 1) * 1.8f +
+                    arah.forward * 2.3f, arah.rotation * Quaternion.Euler(0, 180f, 0));
+                var interaksi = objek.AddComponent<TitikInteraksi>();
+                interaksi.idAksi = "menuWarga";
+                interaksi.target = id;
+                interaksi.nama = "Bicara dengan " + nama;
+                var tabrakan = objek.AddComponent<CapsuleCollider>();
+                tabrakan.height = 1.55f;
+                tabrakan.radius = .27f;
+                tabrakan.center = Vector3.up * .775f;
+                if (animasi && model[rupa] != null) objek.AddComponent<KarakterRealistis>().pilihan = rupa;
+                else
+                {
+                    var badan = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+                    badan.name = "Siluet warga";
+                    badan.transform.SetParent(objek.transform, false);
+                    badan.transform.localPosition = Vector3.up * .775f;
+                    badan.transform.localScale = new Vector3(.47f, .72f, .47f);
+                    var bentuk = badan.GetComponent<Collider>();
+                    bentuk.enabled = false;
+                    Destroy(bentuk);
+                }
+            }
         }
 
         void Start()

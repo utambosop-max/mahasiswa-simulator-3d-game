@@ -22,8 +22,23 @@ namespace MS.Inti
         /// <summary>Diisi GameInti: harga kos sesuai kos pilihan & perk Bu Kos.</summary>
         public Sosial Sosial;
         int BiayaKos => Sosial != null ? Sosial.HargaKos : data.Bal.bulanan.biayaKos;
-        int BatasBayar => data.Bal.bulanan.batasBayarKos + (Sosial != null ? Sosial.TambahanBatasBayarKos : 0); // Bu Kos akrab -> boleh telat
-        int Kiriman => Sosial != null && Sosial.SudahBekerja ? 0 : Hidup != null ? Hidup.Kiriman : data.Bal.bulanan.kirimanOrtu;
+        int BatasBayar => (s.kesulitan == "sultan" ? 14 : data.Bal.bulanan.batasBayarKos) + (Sosial?.TambahanBatasBayarKos ?? 0);
+        int Kiriman
+        {
+            get
+            {
+                if (Sosial?.SudahBekerja == true || s.kipkDicabut) return 0;
+                int dasar = Hidup?.Kiriman ?? data.Bal.bulanan.kirimanOrtu;
+                return s.kesulitan switch
+                {
+                    "sultan" => dasar * 2,
+                    "sandbox" => s.kirimanSandbox,
+                    "pejuang" when s.bulan > 1 => 0,
+                    _ when s.tahapPindahan > 0 && s.asal == "rantau" && stat.Ipk < 2.5f => dasar * 70 / 100,
+                    _ => dasar
+                };
+            }
+        }
         int Ongkos => Hidup != null ? Hidup.OngkosPulang : data.Bal.pulangKampung.ongkos;
 
         public AturanHarian(DataGame d, DataSimpan simpan, StatPemain st, JamGame j)
@@ -51,7 +66,7 @@ namespace MS.Inti
             bool sesi = lama == Fase.Pagi || lama == Fase.Siang;
             bool hadir = lama == Fase.Pagi ? s.hadirPagi : s.hadirSiang;
             bool bolos = sesi && HariKerja(s.hari) && !hadir && s.liburHari != s.hari;
-            if (bolos) efek.ipk = data.Bal.bolos.ipk;
+            if (bolos) efek.ipk = data.Bal.bolos.ipk * (s.kesulitan == "sultan" ? .65f : s.pengaliDosen);
             // Stres pasif: kipas Lv1 = gerah (+1/fase), Lv3 AC = −1
             efek.stres = data.EfekPerabot("kipas", s.LevelPerabot("kipas"), "stresPerFase", 0f);
             if (efek.ipk != 0f || efek.stres != 0f) stat.Terapkan(efek);
@@ -75,6 +90,7 @@ namespace MS.Inti
                 // Semester baru tiap 4 bulan → rapor
                 if (DataAkademik.BulanSemester(s.bulan) == 1)
                 {
+                    s.akhirIpkRendah = stat.Ipk < 2f ? s.akhirIpkRendah + 1 : 0;
                     var pr = ak.Predikat(stat.Ipk);
                     Pesan?.Invoke(pr.ikon + " Semester " + s.semester + " selesai! IPK " + stat.Ipk.ToString("0.00") + " — " + pr.nama);
                     if (s.asal == "kipk" && !s.kipkDicabut && stat.Ipk < 3.25f)
@@ -147,6 +163,7 @@ namespace MS.Inti
         public void PulangKampung(bool pindahScene = true)
         {
             var pk = data.Bal.pulangKampung;
+            s.krisisKesehatan++;
             stat.TambahUang(-Ongkos);
             jam.LompatKeBesok(data.Bal.jam.pulangKampungBangun);
             stat.Atur(pk.energi, pk.stres);

@@ -28,7 +28,7 @@ namespace MS.Inti.Tes
         {
             aksi.Lakukan(new PerintahAksi("bukaUpgrade"));
             Assert.IsTrue(up.Terbuka);
-            Assert.AreEqual(4, up.Daftar.Count);
+            Assert.AreEqual(7, up.Daftar.Count);
             int uang = s.uang;
             up.Beli("kasur");
             Assert.AreEqual(2, up.Level("kasur"));

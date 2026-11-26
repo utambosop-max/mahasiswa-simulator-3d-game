@@ -76,6 +76,7 @@ namespace MS.Inti
         {
             if (d.versi < 9 && d.jurusan == "kedokteran") d.jurusan = "sosial";
             d.traits ??= new System.Collections.Generic.List<string>();
+            d.reputasiCircle ??= new System.Collections.Generic.Dictionary<string, int>();
             if (d.versi < 8)
             {
                 d.cerita = d.cerita ?? new CeritaSimpan();

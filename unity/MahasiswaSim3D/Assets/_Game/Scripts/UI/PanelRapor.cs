@@ -75,6 +75,8 @@ namespace MS.UI
                 $"Skripsi {a.Skripsi}%{(a.Lulus ? " · Lulus" : "")}\nUang Rp{s.Uang:N0}";
             var hidup = Layanan.Hidup;
             if (hidup == null) return;
+            if (a != null)
+                isi.text += $"\nBabak {Mathf.Clamp((a.Semester + 1) / 2, 1, 4)} · {hidup.JalurSemester ?? "Jalur belum ditetapkan"}";
             string target = hidup.TargetTabungan > 0 ? $" / Rp{hidup.TargetTabungan:N0}" : "";
             isi.text += $"\n{hidup.KosNama} · Pacar {hidup.PacarNama ?? "—"}" +
                 $"\nTabungan Rp{hidup.Tabungan:N0}{target}" +

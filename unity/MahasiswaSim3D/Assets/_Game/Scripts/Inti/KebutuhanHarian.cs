@@ -1,3 +1,4 @@
+using MS.Kontrak;
 using UnityEngine;
 
 namespace MS.Inti
@@ -81,13 +82,15 @@ namespace MS.Inti
             if (lewat < 15) return;
             sampel = Menit;
             float jam = lewat / 60f;
-            float hemat = s.traits.Contains("hemat") ? .85f : 1f;
+            float hemat = s.pengaliKebutuhan * (s.traits.Contains("hemat") ? .85f : 1f);
+            if (Layanan.Hidup?.LevelSkill("ketahanan") >= 2) hemat *= .9f;
             float puasaSebelum = Mathf.Max(0, s.jamPuasa - 6);
             s.jamPuasa += jam;
             float puasaSesudah = Mathf.Max(0, s.jamPuasa - 6);
             s.kenyang -= b.kenyangPerJam * jam * hemat;
             s.hidrasi -= b.hidrasiPerJam * jam * hemat;
-            s.maag += b.maagPuasa * (Mathf.Pow(puasaSesudah, 1.5f) - Mathf.Pow(puasaSebelum, 1.5f));
+            float risikoMaag = s.kesulitan == "pejuang" ? 1.25f : 1f;
+            s.maag += risikoMaag * b.maagPuasa * (Mathf.Pow(puasaSesudah, 1.5f) - Mathf.Pow(puasaSebelum, 1.5f));
             s.masukAngin -= jam * 1.5f;
             float dayaLama = s.dayaListrik;
             s.dayaListrik = Mathf.Max(0, dayaLama - .12f * jam);

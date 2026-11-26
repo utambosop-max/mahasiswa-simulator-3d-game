@@ -41,6 +41,7 @@ namespace MS.Inti
         HariPindahan pindahan;
         KebutuhanHarian kebutuhan;
         bool ukurFps;
+        bool sesiBerakhir;
 
         void Awake()
         {
@@ -148,6 +149,7 @@ namespace MS.Inti
 
         void Update()
         {
+            if (sesiBerakhir) return;
             if (!Layanan.InputDitahan) Jam.Jalan(Time.deltaTime);
             pindahan.Periksa();
             if (!ukurFps) Aksi.Ponsel.Periksa();
@@ -166,10 +168,27 @@ namespace MS.Inti
         // Auto-save tiap ganti fase & saat aplikasi ditinggal (Android)
         void SaatFaseBerganti(Fase f) => SimpanMuat.Simpan(Simpanan);
         void SimpanSetelahPembelian() => SimpanMuat.Simpan(Simpanan);
-        void OnApplicationPause(bool jeda) { if (jeda && Simpanan != null) SimpanMuat.Simpan(Simpanan); }
-        void OnApplicationQuit() { if (Simpanan != null) SimpanMuat.Simpan(Simpanan); }
+        void OnApplicationPause(bool jeda) { if (jeda && !sesiBerakhir && Simpanan != null) SimpanMuat.Simpan(Simpanan); }
+        void OnApplicationQuit() { if (!sesiBerakhir && Simpanan != null) SimpanMuat.Simpan(Simpanan); }
 
-        void OnDestroy()
+        internal bool WarisanSenior()
+        {
+            if (sesiBerakhir || string.IsNullOrEmpty(Simpanan?.cerita?.ending) ||
+                !Application.CanStreamedLevelBeLoaded("KamarKos")) return false;
+            var baru = DataSimpan.Baru(Data.Bal);
+            baru.perabot = new System.Collections.Generic.Dictionary<string, int>(Simpanan.perabot);
+            baru.warisanSenior = Simpanan.warisanSenior + 1;
+            if (!SimpanMuat.Simpan(baru)) return false;
+            sesiBerakhir = true;
+            LepasLayanan();
+            Destroy(gameObject);
+            UnityEngine.SceneManagement.SceneManager.LoadScene("KamarKos");
+            return true;
+        }
+
+        void OnDestroy() => LepasLayanan();
+
+        void LepasLayanan()
         {
             if (Instans != this) return;
             Instans = null;

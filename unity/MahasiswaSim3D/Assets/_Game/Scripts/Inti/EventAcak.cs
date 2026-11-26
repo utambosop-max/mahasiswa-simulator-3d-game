@@ -10,15 +10,18 @@ namespace MS.Inti
 {
     public class SyaratEvent
     {
-        public int? tanggalMin, tanggalMax;
+        public int? tanggalMin, tanggalMax, hariMin, semesterMin;
+        public float? dayaMaks, bensinMaks;
+        public string scene;
         public List<string> fase, kos;
-        public bool hariKerja, kosBelumLunas, berhantu, kosBebas, punyaPacar, diKamar;
+        public bool hariKerja, kosBelumLunas, berhantu, kosBebas, punyaPacar, diKamar, hujan, jemuran, galonHabis, naikMotor;
     }
 
     public class PilihanEvent
     {
         public string label, hasil, terkunci;
         public Efek efek = new Efek();
+        public Dictionary<string, float> vital;
         public bool bayarKos, liburKuliah, kuis;
         public int follower;
     }
@@ -108,7 +111,11 @@ namespace MS.Inti
                     (kunci[k], kunci[k - 1]) = (kunci[k - 1], kunci[k]);
                     (calon[k], calon[k - 1]) = (calon[k - 1], calon[k]);
                 }
-            foreach (var ev in calon) if (acak() < ev.peluang) return ev;
+            foreach (var ev in calon)
+            {
+                float peluang = ev.id == "gdd_05" && s.kesulitan == "sandbox" ? ev.peluang * s.sidakSandbox : ev.peluang;
+                if (acak() < peluang) return ev;
+            }
             return null;
         }
 
@@ -117,6 +124,14 @@ namespace MS.Inti
             if (q == null) return true;
             if (q.tanggalMin.HasValue && s.tanggal < q.tanggalMin.Value) return false;
             if (q.tanggalMax.HasValue && s.tanggal > q.tanggalMax.Value) return false;
+            if (q.hariMin.HasValue && s.hari < q.hariMin.Value) return false;
+            if (q.semesterMin.HasValue && s.semester < q.semesterMin.Value) return false;
+            if (q.dayaMaks.HasValue && s.dayaListrik >= q.dayaMaks.Value) return false;
+            if (q.bensinMaks.HasValue && s.bensin > q.bensinMaks.Value) return false;
+            if (q.galonHabis && s.galonGelas > 0 || q.jemuran && s.jumlahJemuran == 0) return false;
+            if (q.naikMotor && Layanan.Kendaraan?.NaikMotor != true) return false;
+            if (q.hujan && data.Fitur.CuacaHari(s.hari, s.pengaliHujan)?.id is not ("hujan" or "badai")) return false;
+            if (!string.IsNullOrEmpty(q.scene) && SceneManager.GetActiveScene().name != q.scene) return false;
             if (q.fase != null && q.fase.Count > 0 && !q.fase.Contains(PenerimaAksi.NamaFase[(int)jam.Fase])) return false;
             if (q.hariKerja && !AturanHarian.HariKerja(s.hari)) return false;
             if (q.kosBelumLunas && s.kosLunas) return false;
@@ -191,6 +206,16 @@ namespace MS.Inti
             if (p.bayarKos) s.kosLunas = true;
             if (p.liburKuliah) s.liburHari = s.hari;
             if (p.follower != 0) s.follower = Math.Max(0, s.follower + p.follower);
+            if (p.vital != null)
+                foreach (var (jenis, nilai) in p.vital)
+                    switch (jenis)
+                    {
+                        case "kenyang": s.kenyang += nilai; break;
+                        case "maag": s.maag += nilai; break;
+                        case "hidrasi": s.hidrasi += nilai; break;
+                        case "kebersihan": s.kebersihan = Mathf.Clamp(s.kebersihan + nilai, 0, 100); break;
+                        case "masukAngin": s.masukAngin += nilai; break;
+                    }
             stat.Terapkan(efek);
             aktif = null; tampil = null;
             var cb = setelahPilih; setelahPilih = null;

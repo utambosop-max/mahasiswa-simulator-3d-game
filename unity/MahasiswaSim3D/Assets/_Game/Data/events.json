@@ -110,81 +110,6 @@
     ]
   },
   {
-    "id": "kuis_mendadak",
-    "ikon": "📝",
-    "judul": "Kuis Mendadak!",
-    "teks": "Dosen masuk kelas: \"Simpan HP kalian. Keluarkan selembar kertas...\"",
-    "syarat": {
-      "hariKerja": true,
-      "fase": [
-        "pagi"
-      ]
-    },
-    "peluang": 0.12,
-    "pilihan": [
-      {
-        "label": "✍️ Kerjakan!",
-        "efek": {},
-        "kuis": true,
-        "hasil": ""
-      }
-    ]
-  },
-  {
-    "id": "teman_traktir",
-    "ikon": "🍗",
-    "judul": "Teman Lagi Gajian",
-    "teks": "Temanmu baru dapat honor desain: \"Yuk, aku traktir makan! Mumpung ada rezeki.\"",
-    "syarat": {
-      "tanggalMin": 21,
-      "tanggalMax": 30,
-      "fase": [
-        "siang",
-        "sore",
-        "malam"
-      ]
-    },
-    "peluang": 0.12,
-    "pilihan": [
-      {
-        "label": "🍗 Gas!",
-        "efek": {
-          "energi": 25,
-          "stres": -8
-        },
-        "hasil": "Kenyang gratis di tanggal tua. Teman sejati!"
-      },
-      {
-        "label": "🙅 Nggak enak ah",
-        "efek": {
-          "stres": -2
-        },
-        "hasil": "Kamu menolak dengan sopan. Gengsi tetap terjaga."
-      }
-    ]
-  },
-  {
-    "id": "uang_di_celana",
-    "ikon": "💵",
-    "judul": "Harta Karun!",
-    "teks": "Pas mau nyuci celana jeans, ketemu uang Rp20.000 terlipat rapi di saku belakang.",
-    "syarat": {
-      "tanggalMin": 21,
-      "tanggalMax": 30
-    },
-    "peluang": 0.08,
-    "pilihan": [
-      {
-        "label": "💸 Rezeki anak soleh!",
-        "efek": {
-          "uang": 20000,
-          "stres": -3
-        },
-        "hasil": "Lumayan buat makan warteg dua kali!"
-      }
-    ]
-  },
-  {
     "id": "hp_retak",
     "ikon": "📱",
     "judul": "Prak!",
@@ -348,63 +273,6 @@
     ]
   },
   {
-    "id": "teman_pinjam",
-    "ikon": "🙏",
-    "judul": "Teman Pinjam Uang",
-    "teks": "Teman sekelas: \"Bro/Sis, pinjem 50 ribu dong, nanti tanggal 1 diganti.\"",
-    "syarat": {
-      "tanggalMin": 15
-    },
-    "peluang": 0.05,
-    "pilihan": [
-      {
-        "label": "🤝 Pinjamkan (−Rp50.000)",
-        "efek": {
-          "uang": -50000,
-          "stres": -3
-        },
-        "hasil": "Dia janji ganti. Semoga ingat ya..."
-      },
-      {
-        "label": "😅 Maaf, lagi bokek",
-        "efek": {
-          "stres": 2
-        },
-        "hasil": "Dia mengerti. Sama-sama anak kos."
-      }
-    ]
-  },
-  {
-    "id": "hujan_genteng",
-    "ikon": "💧",
-    "judul": "Atap Bocor!",
-    "teks": "Air menetes dari atap tepat di atas kasur!",
-    "syarat": {
-      "fase": [
-        "malam",
-        "begadang"
-      ]
-    },
-    "peluang": 0.04,
-    "pilihan": [
-      {
-        "label": "🪣 Taruh ember & lapor Bu Kos",
-        "efek": {
-          "stres": 4
-        },
-        "hasil": "Bu Kos janji besok dibetulkan."
-      },
-      {
-        "label": "🛌 Geser kasur, tidur di lantai",
-        "efek": {
-          "energi": -8,
-          "stres": 6
-        },
-        "hasil": "Punggung pegal..."
-      }
-    ]
-  },
-  {
     "id": "diskon_warteg",
     "ikon": "🏷️",
     "judul": "Promo Warteg",
@@ -512,56 +380,6 @@
         "label": "🙅 Lain kali",
         "efek": {},
         "hasil": "Mungkin tahun depan."
-      }
-    ]
-  },
-  {
-    "id": "ortu_video",
-    "ikon": "📹",
-    "judul": "Video Call dari Rumah",
-    "teks": "Ibu video call: \"Kamu kurusan ya? Sudah makan belum?\"",
-    "syarat": {
-      "fase": [
-        "malam"
-      ]
-    },
-    "peluang": 0.05,
-    "pilihan": [
-      {
-        "label": "🥰 Ngobrol lama",
-        "efek": {
-          "stres": -10
-        },
-        "hasil": "Kangen rumah terobati."
-      }
-    ]
-  },
-  {
-    "id": "ban_bocor",
-    "ikon": "🛞",
-    "judul": "Ban Motor Kempes",
-    "teks": "Pagi-pagi ban motormu kempes. Tukang tambal ban di ujung gang.",
-    "syarat": {
-      "fase": [
-        "pagi"
-      ]
-    },
-    "peluang": 0.03,
-    "pilihan": [
-      {
-        "label": "🔧 Tambal (−Rp15.000)",
-        "efek": {
-          "uang": -15000
-        },
-        "hasil": "Ban aman lagi."
-      },
-      {
-        "label": "🚶 Jalan kaki saja hari ini",
-        "efek": {
-          "energi": -5,
-          "stres": 3
-        },
-        "hasil": "Olahraga gratis."
       }
     ]
   },
@@ -756,28 +574,6 @@
     ]
   },
   {
-    "id": "paket_salah",
-    "ikon": "📦",
-    "judul": "Paket Nyasar",
-    "teks": "Kurir menitipkan paket atas nama tetangga kos ke kamu.",
-    "syarat": {
-      "fase": [
-        "siang",
-        "sore"
-      ]
-    },
-    "peluang": 0.04,
-    "pilihan": [
-      {
-        "label": "🤝 Simpan & kabari tetangga",
-        "efek": {
-          "stres": -3
-        },
-        "hasil": "Tetangga berterima kasih, kamu dapat cokelat."
-      }
-    ]
-  },
-  {
     "id": "hantu_ketukan",
     "ikon": "👻",
     "judul": "Tok... Tok... Tok...",
@@ -954,6 +750,1317 @@
           "stres": -10
         },
         "hasil": "Masakannya enak banget! Kamu langsung posting story."
+      }
+    ]
+  },
+  {
+    "id": "gdd_01",
+    "gdd": 1,
+    "judul": "Alarm Token Listrik Jam 2 Pagi",
+    "teks": "Pulsa listrik < 5 kWh pada pukul 01.00– 04.00.",
+    "peluang": 0.022,
+    "syarat": {
+      "fase": [
+        "begadang"
+      ],
+      "diKamar": true,
+      "dayaMaks": 5
+    },
+    "pilihan": [
+      {
+        "label": "Keluar beli token darurat lewat M-Banking",
+        "hasil": "Bayar Rp22.000 (Stres +5)",
+        "efek": {
+          "stres": 5,
+          "uang": -22000
+        }
+      },
+      {
+        "label": "Biarkan mati sampai pagi",
+        "hasil": "Laptop mati mendadak, progres tugas belum tersimpan hilang",
+        "efek": {
+          "stres": 12
+        }
+      }
+    ]
+  },
+  {
+    "id": "gdd_02",
+    "gdd": 2,
+    "judul": "Air Keran Mati Pas Sudah Sabunan",
+    "teks": "Mandi pagi pukul 06.30–08.00 di kos tipe hemat.",
+    "peluang": 0.022,
+    "syarat": {
+      "fase": [
+        "pagi"
+      ],
+      "diKamar": true
+    },
+    "pilihan": [
+      {
+        "label": "Bilas pakai sisa air galon minum",
+        "hasil": "Stok galon habis −3 liter",
+        "efek": {},
+        "vital": {
+          "hidrasi": -10
+        }
+      },
+      {
+        "label": "Menunggu pompa menyala 45 menit",
+        "hasil": "Terlambat masuk kelas jam pertama",
+        "efek": {
+          "stres": 7
+        }
+      }
+    ]
+  },
+  {
+    "id": "gdd_03",
+    "gdd": 3,
+    "judul": "Jemuran Kehujanan di Lantai Atas",
+    "teks": "Hujan turun saat pakaian masih dijemur di atap.",
+    "peluang": 0.022,
+    "syarat": {
+      "hujan": true,
+      "jemuran": true
+    },
+    "pilihan": [
+      {
+        "label": "Berlari mengangkat jemuran",
+        "hasil": "Pakaian selamat",
+        "efek": {
+          "energi": -5
+        }
+      },
+      {
+        "label": "Mengabaikan karena sedang sibuk",
+        "hasil": "Semua baju basah ulang, status Kebersihan turun −20",
+        "efek": {},
+        "vital": {
+          "kebersihan": -20
+        }
+      }
+    ]
+  },
+  {
+    "id": "paket_salah",
+    "gdd": 4,
+    "judul": "Paket COD Salah Alamat Kamar",
+    "teks": "Siang hari di teras kos saat Bima tidak ada.",
+    "peluang": 0.032,
+    "syarat": {
+      "fase": [
+        "siang"
+      ],
+      "scene": "Kampung"
+    },
+    "pilihan": [
+      {
+        "label": "Talangi dulu Rp45.000 milik Bima",
+        "hasil": "Saldo −Rp45.000 (diganti Bima awal bulan + Reputasi +10)",
+        "efek": {
+          "uang": -45000
+        }
+      },
+      {
+        "label": "Tolak kurir paket",
+        "hasil": "Bima kecewa (−5)",
+        "efek": {
+          "stres": 2
+        }
+      }
+    ]
+  },
+  {
+    "id": "gdd_05",
+    "gdd": 5,
+    "judul": "Sidak Rice Cooker Mendadak",
+    "teks": "Menyalakan alat pemanas malam hari di kamar hemat.",
+    "peluang": 0.022,
+    "syarat": {
+      "diKamar": true,
+      "fase": [
+        "malam",
+        "begadang"
+      ],
+      "hariMin": 8
+    },
+    "pilihan": [
+      {
+        "label": "Mainkan mini-game sembunyikan ke lemari",
+        "hasil": "Lolos tanpa denda",
+        "efek": {
+          "energi": -5
+        }
+      },
+      {
+        "label": "Jujur bayar denda listrik",
+        "hasil": "Tambahan tagihan kos +Rp25.000/bulan",
+        "efek": {
+          "uang": -25000
+        }
+      }
+    ]
+  },
+  {
+    "id": "hujan_genteng",
+    "gdd": 6,
+    "judul": "Atap Kamar Bocor Tepat di Atas Meja",
+    "teks": "Hujan deras di kos tipe hemat.",
+    "peluang": 0.022,
+    "syarat": {
+      "diKamar": true,
+      "hujan": true
+    },
+    "pilihan": [
+      {
+        "label": "Geser meja & pasang ember penampung",
+        "hasil": "Laptop aman (Energi −5)",
+        "efek": {
+          "energi": -5
+        }
+      },
+      {
+        "label": "Lapor Bu Ratna",
+        "hasil": "Diperbaiki tukang keesokan harinya",
+        "efek": {
+          "stres": 3
+        }
+      }
+    ]
+  },
+  {
+    "id": "gdd_07",
+    "gdd": 7,
+    "judul": "Konser Gitar Tetangga Jam 1 Malam",
+    "teks": "Menjelang minggu UTS/UAS pada malam hari.",
+    "peluang": 0.022,
+    "syarat": {
+      "diKamar": true,
+      "fase": [
+        "malam",
+        "begadang"
+      ]
+    },
+    "pilihan": [
+      {
+        "label": "Tegur baik-baik ajak ngopi",
+        "hasil": "Suasana tenang + Reputasi Kos +5",
+        "efek": {}
+      },
+      {
+        "label": "Gedor tembok dengan emosi",
+        "hasil": "Terjadi perang dingin antar-kamar (Stres +15)",
+        "efek": {
+          "stres": 15
+        }
+      }
+    ]
+  },
+  {
+    "id": "gdd_08",
+    "gdd": 8,
+    "judul": "Kunci Kamar Tertinggal di Dalam",
+    "teks": "Keluar ke kamar mandi luar terburu- buru.",
+    "peluang": 0.032,
+    "syarat": {
+      "scene": "Kampung"
+    },
+    "pilihan": [
+      {
+        "label": "Pinjam kunci cadangan Bu Ratna",
+        "hasil": "Reputasi Ibu Kos −5 (diomeli)",
+        "efek": {}
+      },
+      {
+        "label": "Panggil tukang kunci keliling",
+        "hasil": "Biaya tukang kunci −Rp35.000",
+        "efek": {
+          "uang": -35000
+        }
+      }
+    ]
+  },
+  {
+    "id": "gdd_09",
+    "gdd": 9,
+    "judul": "Kucing Oren Melahirkan di Depan Pintu",
+    "teks": "Pagi hari di depan pintu kamar lantai 1.",
+    "peluang": 0.022,
+    "syarat": {
+      "scene": "Kampung"
+    },
+    "pilihan": [
+      {
+        "label": "Beri kardus bekas & sisa ikan",
+        "hasil": "Stres −15 & dapat teman anabul",
+        "efek": {
+          "stres": -15
+        }
+      },
+      {
+        "label": "Pindahkan ke teras luar",
+        "hasil": "Reputasi Warga lokal −3",
+        "efek": {}
+      }
+    ]
+  },
+  {
+    "id": "gdd_10",
+    "gdd": 10,
+    "judul": "Iuran Sampah & Keamanan Gang",
+    "teks": "Tanggal 15 siang saat berpapasan ketua RT.",
+    "peluang": 0.022,
+    "syarat": {
+      "scene": "Kampung",
+      "tanggalMax": 10
+    },
+    "pilihan": [
+      {
+        "label": "Bayar iuran Rp15.000",
+        "hasil": "Saldo −Rp15.000 & Reputasi Warga +8",
+        "efek": {
+          "uang": -15000
+        }
+      },
+      {
+        "label": "Mengaku belum dapat kiriman",
+        "hasil": "Bebas iuran bulan ini (Reputasi −5)",
+        "efek": {}
+      }
+    ]
+  },
+  {
+    "id": "gdd_11",
+    "gdd": 11,
+    "judul": "Kulkas Bersama Kehilangan Lauk",
+    "teks": "Menyimpan lauk di dapur bersama kos.",
+    "peluang": 0.022,
+    "syarat": {
+      "diKamar": true
+    },
+    "pilihan": [
+      {
+        "label": "Tempel catatan peringatan kocak",
+        "hasil": "Pencuri mengembalikan + minta maaf",
+        "efek": {}
+      },
+      {
+        "label": "Relakan saja",
+        "hasil": "Kehilangan stok makanan (Stres +10)",
+        "efek": {
+          "stres": 10
+        }
+      }
+    ]
+  },
+  {
+    "id": "gdd_12",
+    "gdd": 12,
+    "judul": "Renovasi Kamar Sebelah Jam 7 Pagi",
+    "teks": "Akhir pekan saat pemain baru tidur jam 3 pagi.",
+    "peluang": 0.032,
+    "syarat": {
+      "diKamar": true,
+      "fase": [
+        "pagi"
+      ]
+    },
+    "pilihan": [
+      {
+        "label": "Pindah tidur ke perpustakaan/warkop",
+        "hasil": "Energi pulih sebagian + ketemu teman kampus",
+        "efek": {}
+      },
+      {
+        "label": "Pakai headset peredam",
+        "hasil": "Stres +8",
+        "efek": {
+          "stres": 8
+        }
+      }
+    ]
+  },
+  {
+    "id": "gdd_13",
+    "gdd": 13,
+    "judul": "Lauk Favorit Habis Tersisa Kuah",
+    "teks": "Datang ke warteg di atas pukul 14.30.",
+    "peluang": 0.022,
+    "syarat": {
+      "scene": "Gedung_warteg"
+    },
+    "pilihan": [
+      {
+        "label": "Ambil nasi + kuah rendang gratis + kerupuk",
+        "hasil": "Hemat Rp8.000 (Energi sedang)",
+        "efek": {}
+      },
+      {
+        "label": "Beralih ke menu sayur",
+        "hasil": "Lambung lebih sehat (Maag −8)",
+        "efek": {},
+        "vital": {
+          "maag": -8
+        }
+      }
+    ]
+  },
+  {
+    "id": "gdd_14",
+    "gdd": 14,
+    "judul": "Ketemu Gebetan Pas Lagi Mode Hemat",
+    "teks": "Memesan nasi setengah + tempe saat tanggal 27.",
+    "peluang": 0.022,
+    "syarat": {
+      "scene": "Gedung_warteg",
+      "tanggalMin": 21
+    },
+    "pilihan": [
+      {
+        "label": "Tetap santai menyapa & ajak duduk bareng",
+        "hasil": "Jika pasangan pengertian: Cinta +10; jika gengsian: Malu (Stres +12)",
+        "efek": {
+          "stres": 12
+        }
+      },
+      {
+        "label": "Pura-pura bungkus bawa pulang",
+        "hasil": "Kamu memilih tidak ikut.",
+        "efek": {}
+      }
+    ]
+  },
+  {
+    "id": "gdd_15",
+    "gdd": 15,
+    "judul": "Syukuran Ulang Tahun Mbak Yanti",
+    "teks": "Reputasi Warteg ≥ 60 pada tanggal acak.",
+    "peluang": 0.022,
+    "syarat": {
+      "scene": "Gedung_warteg"
+    },
+    "pilihan": [
+      {
+        "label": "Makan gratis sepuasnya + bantu bereskan piring",
+        "hasil": "Kenyang & Energi 100%, Stres −20, Reputasi Warteg +15",
+        "efek": {
+          "stres": -20
+        }
+      },
+      {
+        "label": "Makan dan langsung pulang",
+        "hasil": "Kamu memilih tidak ikut.",
+        "efek": {}
+      }
+    ]
+  },
+  {
+    "id": "gdd_16",
+    "gdd": 16,
+    "judul": "Warteg Tutup Mendadak (Pulang Kampung)",
+    "teks": "Akhir pekan acak selama 2 hari berturut-turut.",
+    "peluang": 0.032,
+    "syarat": {
+      "scene": "Gedung_warteg"
+    },
+    "pilihan": [
+      {
+        "label": "Masak stok mie di kos",
+        "hasil": "Risiko Maag naik jika tanpa sayur",
+        "efek": {}
+      },
+      {
+        "label": "Beli makan di kafe/warung lebih mahal",
+        "hasil": "Pengeluaran harian naik 2× lipat",
+        "efek": {}
+      }
+    ]
+  },
+  {
+    "id": "gdd_17",
+    "gdd": 17,
+    "judul": "Tantangan Sambal Terasi Ekstrem",
+    "teks": "Memesan sambal terasi porsi ganda saat lapar.",
+    "peluang": 0.022,
+    "syarat": {
+      "scene": "Gedung_warteg"
+    },
+    "pilihan": [
+      {
+        "label": "Habiskan demi gengsi di depan teman",
+        "hasil": "Fokus naik sesaat (+15) lalu Maag +18",
+        "efek": {},
+        "vital": {
+          "maag": 18
+        }
+      },
+      {
+        "label": "Sisakan sebagian",
+        "hasil": "Lambung aman",
+        "efek": {
+          "stres": 3
+        }
+      }
+    ]
+  },
+  {
+    "id": "gdd_18",
+    "gdd": 18,
+    "judul": "Galon Air Habis Tengah Malam",
+    "teks": "Hidrasi < 25% di atas pukul 22.00.",
+    "peluang": 0.022,
+    "syarat": {
+      "diKamar": true,
+      "galonHabis": true,
+      "fase": [
+        "begadang"
+      ]
+    },
+    "pilihan": [
+      {
+        "label": "Jalan kaki ke warung 24 jam angkat galon",
+        "hasil": "Saldo −Rp20.000 & Energi −10",
+        "efek": {
+          "energi": -10,
+          "uang": -12000
+        },
+        "vital": {
+          "hidrasi": 20
+        }
+      },
+      {
+        "label": "Tahan haus sampai pagi",
+        "hasil": "Fokus belajar pagi turun −25%",
+        "efek": {},
+        "vital": {
+          "hidrasi": -15
+        }
+      }
+    ]
+  },
+  {
+    "id": "gdd_19",
+    "gdd": 19,
+    "judul": "Promo Flash Sale Makanan 00.00",
+    "teks": "Stres ≥ 60% pada tengah malam.",
+    "peluang": 0.022,
+    "syarat": {
+      "fase": [
+        "begadang"
+      ]
+    },
+    "pilihan": [
+      {
+        "label": "Pesan ayam geprek promo Rp18.000",
+        "hasil": "Stres turun −20 (Saldo −Rp18.000)",
+        "efek": {
+          "uang": -18000
+        }
+      },
+      {
+        "label": "Tutup aplikasi & minum air",
+        "hasil": "Disiplin anggaran terjaga",
+        "efek": {}
+      }
+    ]
+  },
+  {
+    "id": "uang_di_celana",
+    "gdd": 20,
+    "judul": "Nemu Uang Rp20.000 di Saku Jaket",
+    "teks": "Tanggal 24–30 saat saldo < Rp30.000.",
+    "peluang": 0.032,
+    "syarat": {
+      "tanggalMin": 21
+    },
+    "pilihan": [
+      {
+        "label": "Simpan untuk makan besok",
+        "hasil": "Uang Tunai +Rp20.000 & Stres −15",
+        "efek": {
+          "stres": -15,
+          "uang": 20000
+        }
+      },
+      {
+        "label": "Traktir gorengan teman kos",
+        "hasil": "Reputasi Circle Kos +10",
+        "efek": {
+          "stres": -3
+        }
+      }
+    ]
+  },
+  {
+    "id": "gdd_21",
+    "gdd": 21,
+    "judul": "Kaleng Kerupuk Warteg Kosong",
+    "teks": "Makan siang jam sibuk di warteg.",
+    "peluang": 0.022,
+    "syarat": {
+      "scene": "Gedung_warteg",
+      "fase": [
+        "siang"
+      ]
+    },
+    "pilihan": [
+      {
+        "label": "Minta izin Mbak Yanti buka stok kaleng baru",
+        "hasil": "Reputasi Warteg +3 & dapat kerupuk ekstra renyah",
+        "efek": {}
+      },
+      {
+        "label": "Makan tanpa kerupuk",
+        "hasil": "Stres +2",
+        "efek": {
+          "stres": 2
+        }
+      }
+    ]
+  },
+  {
+    "id": "teman_traktir",
+    "gdd": 22,
+    "judul": "Traktiran Teman Baru Lulus Sidang",
+    "teks": "Reputasi Circle Kampus ≥ 55.",
+    "peluang": 0.022,
+    "syarat": {
+      "scene": "Gedung_warteg",
+      "hariMin": 8
+    },
+    "pilihan": [
+      {
+        "label": "Ikut makan besar di warung pecel lele",
+        "hasil": "Energi & Kenyang penuh, Stres −18 (waktu habis 2 jam)",
+        "efek": {
+          "stres": -18,
+          "energi": 35
+        },
+        "vital": {
+          "kenyang": 45
+        }
+      },
+      {
+        "label": "Minta dibungkuskan karena ada tugas",
+        "hasil": "Hemat waktu belajar",
+        "efek": {
+          "stres": -3
+        }
+      }
+    ]
+  },
+  {
+    "id": "gdd_23",
+    "gdd": 23,
+    "judul": "Grup WA: \"Kelas Dimajuin 1 Jam\"",
+    "teks": "45 menit sebelum jadwal kuliah pagi.",
+    "peluang": 0.022,
+    "syarat": {
+      "hariKerja": true,
+      "fase": [
+        "pagi"
+      ]
+    },
+    "pilihan": [
+      {
+        "label": "Langsung berangkat tanpa mandi/sarapan",
+        "hasil": "Hadir tepat waktu (Kebersihan −15, Lapar −15)",
+        "efek": {},
+        "vital": {
+          "kebersihan": -15
+        }
+      },
+      {
+        "label": "Titip absen ke teman",
+        "hasil": "Risiko ketahuan dosen",
+        "efek": {}
+      }
+    ]
+  },
+  {
+    "id": "kuis_mendadak",
+    "gdd": 24,
+    "judul": "Kuis Dadakan Tanpa Pemberitahuan",
+    "teks": "Masuk kelas dengan indeks Fokus < 40.",
+    "peluang": 0.032,
+    "syarat": {
+      "hariKerja": true,
+      "fase": [
+        "pagi",
+        "siang"
+      ]
+    },
+    "pilihan": [
+      {
+        "label": "Kerjakan sebisanya dengan jujur",
+        "hasil": "Nilai kuis sedang (aman)",
+        "efek": {},
+        "kuis": true
+      },
+      {
+        "label": "Melirik catatan teman sebelah",
+        "hasil": "Peluang nilai tinggi namun risiko nilai E jika ketahuan",
+        "efek": {}
+      }
+    ]
+  },
+  {
+    "id": "gdd_25",
+    "gdd": 25,
+    "judul": "Anggota Kelompok Tugas Menghilang",
+    "teks": "H-1 pengumpulan makalah kelompok.",
+    "peluang": 0.022,
+    "syarat": {
+      "hariKerja": true,
+      "hariMin": 8
+    },
+    "pilihan": [
+      {
+        "label": "Begadang kerjakan bagiannya sendirian",
+        "hasil": "Nilai kelompok aman (Energi −35, Stres +20)",
+        "efek": {
+          "stres": 20,
+          "energi": -35
+        }
+      },
+      {
+        "label": "Laporkan nama ke dosen",
+        "hasil": "Reputasi Circle −15",
+        "efek": {}
+      }
+    ]
+  },
+  {
+    "id": "gdd_26",
+    "gdd": 26,
+    "judul": "Printer Fotokopian Macet Jelang Kumpul",
+    "teks": "15 menit sebelum batas pengumpulan laporan cetak.",
+    "peluang": 0.022,
+    "syarat": {
+      "scene": "Gedung_fotokopi"
+    },
+    "pilihan": [
+      {
+        "label": "Bantu penjaga fotokopi perbaiki kertas (Reputasi ≥ 40)",
+        "hasil": "Lolos tepat waktu & diskon cetak",
+        "efek": {
+          "uang": -15000
+        }
+      },
+      {
+        "label": "Lari ke kios lain",
+        "hasil": "Terlambat 10 menit (nilai dipotong −10%)",
+        "efek": {
+          "stres": 8
+        }
+      }
+    ]
+  },
+  {
+    "id": "gdd_27",
+    "gdd": 27,
+    "judul": "Laptop Blue Screen Sebelum Save",
+    "teks": "Mengetik tugas/skripsi lebih dari 2 jam tanpa simpan.",
+    "peluang": 0.022,
+    "syarat": {
+      "diKamar": true,
+      "fase": [
+        "malam",
+        "begadang"
+      ]
+    },
+    "pilihan": [
+      {
+        "label": "Pulihkan file auto-recovery (Fokus ≥ 60)",
+        "hasil": "80% naskah selamat",
+        "efek": {
+          "stres": 8
+        }
+      },
+      {
+        "label": "Ketik ulang dari awal",
+        "hasil": "Progres tugas mundur −25% (Stres +25)",
+        "efek": {
+          "stres": 13
+        }
+      }
+    ]
+  },
+  {
+    "id": "gdd_28",
+    "gdd": 28,
+    "judul": "Dosen Killer Mendadak Traktir Kelas",
+    "teks": "Ulang tahun dosen di tengah jam kuliah.",
+    "peluang": 0.032,
+    "syarat": {
+      "scene": "Gedung_kampus"
+    },
+    "pilihan": [
+      {
+        "label": "Ajukan pertanyaan cerdas saat diskusi",
+        "hasil": "Reputasi Dosen +12 & bonus nilai partisipasi +5",
+        "efek": {}
+      },
+      {
+        "label": "Diam menyimak",
+        "hasil": "Dapat snack gratis",
+        "efek": {}
+      }
+    ]
+  },
+  {
+    "id": "gdd_29",
+    "gdd": 29,
+    "judul": "Salah Masuk Ruang Ujian",
+    "teks": "Mengikuti ujian dengan Energi < 20%.",
+    "peluang": 0.022,
+    "syarat": {
+      "scene": "Gedung_kampus"
+    },
+    "pilihan": [
+      {
+        "label": "Segera pindah ruangan setelah 10 menit",
+        "hasil": "Waktu ujian berkurang 10 menit",
+        "efek": {}
+      },
+      {
+        "label": "Panik kehilangan fokus",
+        "hasil": "Penalti skor ujian −15%",
+        "efek": {}
+      }
+    ]
+  },
+  {
+    "id": "gdd_30",
+    "gdd": 30,
+    "judul": "Tawaran Jadi Asisten Praktikum",
+    "teks": "IPK ≥ 3,40 di awal Semester 3 atau 5.",
+    "peluang": 0.022,
+    "syarat": {
+      "scene": "Gedung_kampus",
+      "semesterMin": 2
+    },
+    "pilihan": [
+      {
+        "label": "Terima tawaran (honor bulanan + reputasi)",
+        "hasil": "Pemasukan +Rp350.000/bulan & Reputasi Dosen +15",
+        "efek": {
+          "uang": 350000
+        }
+      },
+      {
+        "label": "Tolak demi fokus usaha",
+        "hasil": "Waktu luang berkurang",
+        "efek": {}
+      }
+    ]
+  },
+  {
+    "id": "gdd_31",
+    "gdd": 31,
+    "judul": "Pengumuman Kenaikan UKT Mendadak",
+    "teks": "Pertengahan Semester 4 atau 5.",
+    "peluang": 0.022,
+    "syarat": {
+      "semesterMin": 2
+    },
+    "pilihan": [
+      {
+        "label": "Ikut aksi demonstrasi bersama BEM",
+        "hasil": "Membuka cabang cerita Aktivis",
+        "efek": {}
+      },
+      {
+        "label": "Fokus ajukan keringanan administrasi",
+        "hasil": "Hemat energi & nilai tetap stabil",
+        "efek": {}
+      }
+    ]
+  },
+  {
+    "id": "gdd_32",
+    "gdd": 32,
+    "judul": "Mati Lampu Saat Presentasi Kelompok",
+    "teks": "Presentasi siang hari di gedung kuliah.",
+    "peluang": 0.032,
+    "syarat": {
+      "scene": "Gedung_kampus"
+    },
+    "pilihan": [
+      {
+        "label": "Lanjutkan presentasi tanpa slide (Penguasaan Materi tinggi)",
+        "hasil": "Nilai presentasi A langsung dari dosen",
+        "efek": {}
+      },
+      {
+        "label": "Tunda minggu depan",
+        "hasil": "Beban tugas minggu depan menumpuk",
+        "efek": {}
+      }
+    ]
+  },
+  {
+    "id": "gdd_33",
+    "gdd": 33,
+    "judul": "Surat Peringatan Titip Absen",
+    "teks": "Ketahuan titip absen lebih dari 2 kali.",
+    "peluang": 0.022,
+    "syarat": {
+      "scene": "Gedung_kampus",
+      "hariMin": 8
+    },
+    "pilihan": [
+      {
+        "label": "Menghadap dosen & berjanji memperbaiki diri",
+        "hasil": "Sanksi dicabut (Reputasi Dosen −10)",
+        "efek": {}
+      },
+      {
+        "label": "Buat tugas tambahan 10 halaman",
+        "hasil": "Energi −25, nilai kembali normal",
+        "efek": {
+          "energi": -25
+        }
+      }
+    ]
+  },
+  {
+    "id": "gdd_34",
+    "gdd": 34,
+    "judul": "Bimbingan Skripsi Digeser ke Jam Istirahat",
+    "teks": "Semester 7–8 saat menunggu di depan ruang dosen.",
+    "peluang": 0.022,
+    "syarat": {
+      "scene": "Gedung_kampus",
+      "semesterMin": 4
+    },
+    "pilihan": [
+      {
+        "label": "Tetap sabar menunggu meski lapar",
+        "hasil": "Bab skripsi di-ACC (Maag +10)",
+        "efek": {},
+        "vital": {
+          "maag": 10
+        }
+      },
+      {
+        "label": "Minta jadwal ulang besok",
+        "hasil": "Progres skripsi tertunda 3 hari",
+        "efek": {}
+      }
+    ]
+  },
+  {
+    "id": "ban_bocor",
+    "gdd": 35,
+    "judul": "Ban Bocor di Jalan Sepi Malam Hari",
+    "teks": "Kondisi ban < 30% saat berkendara malam.",
+    "peluang": 0.022,
+    "syarat": {
+      "naikMotor": true,
+      "fase": [
+        "malam",
+        "begadang"
+      ]
+    },
+    "pilihan": [
+      {
+        "label": "Mainkan mini-game tambal ban mandiri",
+        "hasil": "Hemat biaya (waktu 15 menit)",
+        "efek": {}
+      },
+      {
+        "label": "Dorong ke tukang tambal ban",
+        "hasil": "Biaya −Rp20.000 & Energi −15",
+        "efek": {
+          "energi": -15,
+          "uang": -20000
+        }
+      }
+    ]
+  },
+  {
+    "id": "gdd_36",
+    "gdd": 36,
+    "judul": "Razia Gabungan Polisi di Simpang Utama",
+    "teks": "Berkendara di jalan arteri pada jam pagi/sore.",
+    "peluang": 0.032,
+    "syarat": {
+      "naikMotor": true
+    },
+    "pilihan": [
+      {
+        "label": "Tunjukkan kelengkapan surat (jika pakai helm & knalpot standar)",
+        "hasil": "Lolos lancar",
+        "efek": {}
+      },
+      {
+        "label": "Putar balik",
+        "hasil": "Jika pakai knalpot brong/tanpa helm: Denda tilang −Rp100.000",
+        "efek": {
+          "uang": -100000
+        }
+      }
+    ]
+  },
+  {
+    "id": "gdd_37",
+    "gdd": 37,
+    "judul": "Hujan Badai Tanpa Jas Hujan",
+    "teks": "Cuaca berubah hujan deras saat di perjalanan.",
+    "peluang": 0.022,
+    "syarat": {
+      "hujan": true,
+      "scene": "Kampung"
+    },
+    "pilihan": [
+      {
+        "label": "Berteduh di teras minimarket/warkop",
+        "hasil": "Terlambat kelas 15 menit (kesehatan aman)",
+        "efek": {
+          "uang": -13000
+        }
+      },
+      {
+        "label": "Terobos hujan demi kejar kelas",
+        "hasil": "Masuk Angin +60%",
+        "efek": {},
+        "vital": {
+          "masukAngin": 60
+        }
+      }
+    ]
+  },
+  {
+    "id": "gdd_38",
+    "gdd": 38,
+    "judul": "Bensin Habis 200 Meter Sebelum SPBU",
+    "teks": "Indikator bensin menyentuh 0%.",
+    "peluang": 0.022,
+    "syarat": {
+      "naikMotor": true,
+      "bensinMaks": 8
+    },
+    "pilihan": [
+      {
+        "label": "Dorong motor ke SPBU resmi",
+        "hasil": "Harga normal Rp10.000/L (Energi −10)",
+        "efek": {
+          "energi": -10
+        }
+      },
+      {
+        "label": "Beli bensin eceran Pertamini terdekat",
+        "hasil": "Harga Rp13.000/L & tarikan agak berat",
+        "efek": {}
+      }
+    ]
+  },
+  {
+    "id": "gdd_39",
+    "gdd": 39,
+    "judul": "Helm Tertukar / Hilang di Parkiran",
+    "teks": "Parkir di area luar kampus tanpa penitipan.",
+    "peluang": 0.022,
+    "syarat": {
+      "scene": "Kampung"
+    },
+    "pilihan": [
+      {
+        "label": "Beli helm bekas murah di teman kos",
+        "hasil": "Saldo −Rp65.000",
+        "efek": {
+          "uang": -65000
+        }
+      },
+      {
+        "label": "Berkendara pulang lewat jalan tikus",
+        "hasil": "Risiko tinggi terkena razia polisi di jalan utama",
+        "efek": {}
+      }
+    ]
+  },
+  {
+    "id": "gdd_40",
+    "gdd": 40,
+    "judul": "Kena Cipratan Genangan Air Mobil",
+    "teks": "Berjalan kaki di pinggir jalan saat hujan.",
+    "peluang": 0.032,
+    "syarat": {
+      "scene": "Kampung",
+      "hujan": true
+    },
+    "pilihan": [
+      {
+        "label": "Mampir ganti baju cadangan di sekretariat UKM",
+        "hasil": "Terlambat 5 menit (Kebersihan terjaga)",
+        "efek": {
+          "energi": -4
+        }
+      },
+      {
+        "label": "Masuk kelas dalam kondisi basah",
+        "hasil": "Kebersihan −30 & Masuk Angin +25%",
+        "efek": {},
+        "vital": {
+          "kebersihan": -15,
+          "masukAngin": 20
+        }
+      }
+    ]
+  },
+  {
+    "id": "gdd_41",
+    "gdd": 41,
+    "judul": "Kunci Motor Patah di Lubang Kontak",
+    "teks": "Menggunakan motor bekas dengan kondisi perawatan < 25%.",
+    "peluang": 0.022,
+    "syarat": {
+      "naikMotor": true
+    },
+    "pilihan": [
+      {
+        "label": "Panggil tukang duplikat kunci ke parkiran",
+        "hasil": "Biaya −Rp40.000",
+        "efek": {
+          "uang": -40000
+        }
+      },
+      {
+        "label": "Naik angkot pulang dulu",
+        "hasil": "Waktu terbuang 1 jam",
+        "efek": {}
+      }
+    ]
+  },
+  {
+    "id": "gdd_42",
+    "gdd": 42,
+    "judul": "Orderan Ojol Nyasar ke Area Pemakaman",
+    "teks": "Mengambil orderan pengantaran makanan di atas jam 23.00. Sosial",
+    "peluang": 0.022,
+    "syarat": {
+      "naikMotor": true,
+      "fase": [
+        "malam",
+        "begadang"
+      ]
+    },
+    "pilihan": [
+      {
+        "label": "Tetap antar ke titik GPS dengan berani",
+        "hasil": "Bonus tip +Rp25.000 (Stres +12)",
+        "efek": {
+          "stres": 12,
+          "uang": 25000
+        }
+      },
+      {
+        "label": "Hubungi pemesan tunggu di jalan utama",
+        "hasil": "Tarif normal tanpa bonus",
+        "efek": {}
+      }
+    ]
+  },
+  {
+    "id": "gdd_43",
+    "gdd": 43,
+    "judul": "Patungan Kado / Bukber Wajib Angkatan",
+    "teks": "Tanggal 25–29 saat saldo < Rp150.000.",
+    "peluang": 0.022,
+    "syarat": {
+      "hariMin": 8
+    },
+    "pilihan": [
+      {
+        "label": "Ikut patungan Rp50.000 demi solidaritas",
+        "hasil": "Saldo −Rp50.000 & Reputasi Circle +10",
+        "efek": {
+          "uang": -50000
+        }
+      },
+      {
+        "label": "Jujur sedang bokek",
+        "hasil": "Circle paham (jika relasi ≥ 50)",
+        "efek": {}
+      }
+    ]
+  },
+  {
+    "id": "ortu_video",
+    "gdd": 44,
+    "judul": "Telepon Orang Tua Menanyakan Kabar",
+    "teks": "Setiap akhir pekan ke-2 atau saat IPK turun.",
+    "peluang": 0.032,
+    "syarat": {
+      "fase": [
+        "sore",
+        "malam"
+      ]
+    },
+    "pilihan": [
+      {
+        "label": "Cerita jujur butuh tambahan uang buku",
+        "hasil": "Kiriman ekstra +Rp200.000 (jika IPK ≥ 3,00)",
+        "efek": {
+          "uang": 200000
+        }
+      },
+      {
+        "label": "Bilang semua aman & sehat",
+        "hasil": "Orang tua tenang & bangga",
+        "efek": {}
+      }
+    ]
+  },
+  {
+    "id": "teman_pinjam",
+    "gdd": 45,
+    "judul": "Teman Lama SMP Minta Pinjam Uang",
+    "teks": "Saldo M-Banking ≥ Rp500.000.",
+    "peluang": 0.022,
+    "syarat": {
+      "tanggalMin": 21
+    },
+    "pilihan": [
+      {
+        "label": "Pinjamkan Rp100.000",
+        "hasil": "Uang sulit kembali (Karma baik +10)",
+        "efek": {}
+      },
+      {
+        "label": "Tolak halus dengan alasan bayar UKT",
+        "hasil": "Saldo tetap utuh",
+        "efek": {}
+      }
+    ]
+  },
+  {
+    "id": "gdd_46",
+    "gdd": 46,
+    "judul": "Gebetan Minta Dijemput Hujan- Hujanan",
+    "teks": "Status PDKT / Pacaran saat cuaca hujan sore hari.",
+    "peluang": 0.022,
+    "syarat": {
+      "punyaPacar": true,
+      "hujan": true
+    },
+    "pilihan": [
+      {
+        "label": "Jemput bawa jas hujan ekstra",
+        "hasil": "Cinta +20 & Kedekatan +15 (Masuk Angin +20%)",
+        "efek": {},
+        "vital": {
+          "masukAngin": 20
+        }
+      },
+      {
+        "label": "Pesankan ojol/taksi online untuknya",
+        "hasil": "Saldo −Rp25.000 & Cinta +12",
+        "efek": {
+          "uang": -25000
+        }
+      }
+    ]
+  },
+  {
+    "id": "gdd_47",
+    "gdd": 47,
+    "judul": "Salah Kirim Stiker Meme ke Grup Dosen",
+    "teks": "Menggunakan ChatApp saat Fokus < 30%.",
+    "peluang": 0.022,
+    "syarat": {
+      "hariMin": 8
+    },
+    "pilihan": [
+      {
+        "label": "Segera tarik pesan & minta maaf sopan",
+        "hasil": "Dosen memaklumi (Stres +8)",
+        "efek": {
+          "stres": 8
+        }
+      },
+      {
+        "label": "Pura-pura HP dibajak teman",
+        "hasil": "Reputasi Dosen −12",
+        "efek": {}
+      }
+    ]
+  },
+  {
+    "id": "gdd_48",
+    "gdd": 48,
+    "judul": "Menang Undian Kupon Belanja Minimarket",
+    "teks": "Belanja kebutuhan pokok minimal Rp30.000.",
+    "peluang": 0.032,
+    "syarat": {
+      "scene": "Gedung_minimarket"
+    },
+    "pilihan": [
+      {
+        "label": "Tukar voucher belanja beras/mie instan",
+        "hasil": "Stok makanan kamar penuh untuk 5 hari",
+        "efek": {
+          "uang": 25000
+        }
+      },
+      {
+        "label": "Uangkan ke teman kos",
+        "hasil": "Uang Tunai +Rp50.000",
+        "efek": {
+          "uang": 50000,
+          "stres": -3
+        }
+      }
+    ]
+  },
+  {
+    "id": "gdd_49",
+    "gdd": 49,
+    "judul": "Tawaran Proyek Desain/Koding Kilat",
+    "teks": "Akhir pekan dengan keahlian jurusan ≥ Level 3.",
+    "peluang": 0.022,
+    "syarat": {
+      "semesterMin": 2
+    },
+    "pilihan": [
+      {
+        "label": "Ambil proyek deadline Senin pagi",
+        "hasil": "Bayaran +Rp250.000 (Energi −40, Stres +20)",
+        "efek": {
+          "stres": 20,
+          "energi": -40,
+          "uang": 250000
+        }
+      },
+      {
+        "label": "Tolak untuk istirahat",
+        "hasil": "Stres turun −15",
+        "efek": {}
+      }
+    ]
+  },
+  {
+    "id": "gdd_50",
+    "gdd": 50,
+    "judul": "Reuni Kecil Penghuni Kos Lantai 1 & 2",
+    "teks": "Malam Minggu di ruang tengah/teras kos.",
+    "peluang": 0.022,
+    "syarat": {
+      "diKamar": true,
+      "hariMin": 8
+    },
+    "pilihan": [
+      {
+        "label": "Patungan beli kopi & gorengan bareng",
+        "hasil": "Reputasi seluruh penghuni kos +12 & Stres turun −25",
+        "efek": {}
+      },
+      {
+        "label": "Ikut nimbrung bawa cerita lucu",
+        "hasil": "Kamu memilih tidak ikut.",
+        "efek": {}
       }
     ]
   }

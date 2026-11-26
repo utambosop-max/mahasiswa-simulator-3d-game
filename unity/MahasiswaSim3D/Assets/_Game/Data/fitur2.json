@@ -43,6 +43,11 @@
   ],
 
   "skill": [
+    {"id": "akademik", "nama": "Manajemen Waktu & Akademik", "stat": ["kuliah", "belajarPerpus", "nugas", "nulisSkripsi"], "bonus": "Belajar dan tugas lebih efisien"},
+    {"id": "ketahanan", "nama": "Ketahanan Fisik Anak Kos", "stat": ["jogging", "makan_warteg", "masakMi", "mandi"], "bonus": "Kenyang turun lebih lambat"},
+    {"id": "retorika", "nama": "Retorika & Diplomasi", "stat": ["ngobrolWarga", "ngobrol", "kencan", "rapatUKM"], "bonus": "Bonus kasbon dan titip absen"},
+    {"id": "mekanik", "nama": "Mekanik & Navigasi Jalanan", "stat": ["narikOjol", "servisMotor", "naikMotor"], "bonus": "Bensin lebih irit"},
+    {"id": "tataBoga", "nama": "Tata Boga & Survival Kos", "stat": ["masakMi", "kerja_warteg", "kerja_warkop"], "bonus": "Masakan mengisi energi lebih baik"},
     { "id": "pemrograman", "nama": "Pemrograman", "ikon": "💻", "stat": ["nugas", "freelance", "nulisSkripsi", "ukm_coding"], "bonus": "Freelance +10% & skripsi +1 per level" },
     { "id": "memasak", "nama": "Memasak", "ikon": "🍳", "stat": ["masakMi", "kerja"], "bonus": "Masak di kamar ⚡+2 per level" },
     { "id": "musik", "nama": "Musik", "ikon": "🎸", "stat": ["mainGitar", "ukm_musik"], "bonus": "Main gitar 😵 −2 lagi per level" },
@@ -60,10 +65,10 @@
   "ukmHariRapat": 2,
 
   "npc": [
-    { "id": "buKos", "nama": "Bu Kos", "ikon": "👩‍🦱", "perk": ["Batas bayar kos +3 hari", "Tidak kena denda kos", "Kadang dikasih makanan (⚡+15)"] },
+    { "id": "buKos", "nama": "Bu Ratna", "ikon": "👩‍🦱", "perk": ["Batas bayar kos +3 hari", "Tidak kena denda kos", "Kadang dikasih makanan (⚡+15)"] },
     { "id": "mbakSri", "nama": "Mbak Yanti", "ikon": "👩‍🍳", "perk": ["Makan warteg −Rp1.000", "Makan warteg −Rp2.000", "Gaji kerja warteg +Rp5.000"] },
     { "id": "bangUdin", "nama": "Bang Udin", "ikon": "🧔", "perk": ["Kopi warkop −Rp1.000", "Nongkrong ⚡ tidak berkurang", "Gaji kerja warkop +Rp5.000"] },
-    { "id": "pakDosen", "nama": "Pak Dosen Budiman", "ikon": "👨‍🏫", "perk": ["Kuliah 🎓 +10%", "Bimbingan skripsi ×1.5", "Ujian dapat petunjuk ekstra"] },
+    { "id": "pakDosen", "nama": "Prof. Hendra", "ikon": "👨‍🏫", "perk": ["Kuliah 🎓 +10%", "Bimbingan skripsi ×1.5", "Ujian dapat petunjuk ekstra"] },
     { "id": "oyen", "nama": "Oyen", "ikon": "🐱", "perk": ["Elus Oyen 😵 −6", "Oyen ikut nemenin tidur (😵 −3)", "Oyen bawa 'hadiah' (Rp5.000 jatuh di depan kos)"] }
   ],
   "relasiNgobrol": 8,

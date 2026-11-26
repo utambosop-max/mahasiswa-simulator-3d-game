@@ -1,6 +1,6 @@
 {
   "name": "MS.Dunia",
   "rootNamespace": "MS.Dunia",
-  "references": ["MS.Kontrak","MS.Inti","Unity.RenderPipelines.Core.Runtime","Unity.RenderPipelines.Universal.Runtime"],
+  "references": ["MS.Kontrak","MS.Inti","MS.Pemain","Unity.RenderPipelines.Core.Runtime","Unity.RenderPipelines.Universal.Runtime"],
   "autoReferenced": true
 }

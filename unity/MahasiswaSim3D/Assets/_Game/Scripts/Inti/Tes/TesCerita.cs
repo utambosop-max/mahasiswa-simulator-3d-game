@@ -41,7 +41,8 @@ namespace MS.Inti.Tes
             Assert.AreEqual(9, data.Cerita.bab.Count);
             Assert.AreEqual("prolog", data.Cerita.bab[0].id);
             Assert.GreaterOrEqual(data.Cerita.dialog.Count, 30);
-            Assert.AreEqual(4, data.Cerita.ending.Count);
+            Assert.AreEqual(8, data.Cerita.ending.FindAll(e => e.gdd).Count);
+            Assert.AreEqual(4, data.Cerita.ending.FindAll(e => !e.gdd).Count);
         }
 
         [Test]

@@ -103,6 +103,12 @@ namespace MS.Inti
             alasan = null;
             string id = p.Id;
             if (jam.Sibuk) { alasan = "⏳ Tunggu dulu, masih sibuk."; return false; }
+            if (id == "warisanSenior")
+            {
+                if (!string.IsNullOrEmpty(s.cerita?.ending)) return true;
+                alasan = "Warisan Senior tersedia setelah mendapat ending.";
+                return false;
+            }
             if (Ponsel?.Tangani(id) == true) { alasan = Ponsel.Cek(id); return alasan == null; }
             if (Kebutuhan?.AksiKos(id) == true) { alasan = Kebutuhan.Cek(id); return alasan == null; }
             if (s.tahapPindahan > 0 && s.semester < 2 && (id == "bimbingan" || id == "sidang"))
@@ -174,6 +180,11 @@ namespace MS.Inti
         {
             if (!BolehDilakukan(p, out var alasan)) { PesanTerakhir = alasan; return; }
             string id = p.Id;
+            if (id == "warisanSenior")
+            {
+                if (GameInti.Instans?.WarisanSenior() != true) PesanTerakhir = "Sesi baru belum dapat disimpan.";
+                return;
+            }
             if (Ponsel?.Tangani(id) == true)
             {
                 PesanTerakhir = Ponsel.Jalankan(p);
@@ -395,6 +406,7 @@ namespace MS.Inti
             int naik = tempat == "warteg" && jam.TanggalTua ? data.NaikTanggalTua : 0;
             if (Sosial != null) naik -= Sosial.DiskonMenu(tempat, m.id); // akrab dengan penjual -> lebih murah
             float h = (m.harga + naik) * data.Bal.hargaMakan.pengali;
+            if (s.kesulitan == "pejuang") h *= Mathf.Pow(1.05f, Mathf.Max(0, s.semester - 1));
             return Math.Max(1000, (int)Math.Round(h / 500f) * 500);
         }
 

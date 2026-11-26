@@ -70,12 +70,18 @@ namespace MS.Inti
         }
 
         /// <summary>Cuaca "tetap" dari nomor hari (hash), sama dengan cuacaHari() di web. 2 hari pertama cerah.</summary>
-        public DataCuaca CuacaHari(int hari)
+        public DataCuaca CuacaHari(int hari, float pengaliHujan = 1f)
         {
             if (cuaca.Count == 0) return null;
             if (hari <= 2) return cuaca[0];
-            double r = AsliCpp.CuacaAcak(hari), acc = 0; // C++ bila MsNative.dll ada, selain itu C#
-            foreach (var c in cuaca) { acc += c.peluang; if (r < acc) return c; }
+            double total = 0;
+            foreach (var c in cuaca) total += c.peluang * (c.id is "hujan" or "badai" ? pengaliHujan : 1f);
+            double r = AsliCpp.CuacaAcak(hari) * total, acc = 0;
+            foreach (var c in cuaca)
+            {
+                acc += c.peluang * (c.id is "hujan" or "badai" ? pengaliHujan : 1f);
+                if (r < acc) return c;
+            }
             return cuaca[0];
         }
     }

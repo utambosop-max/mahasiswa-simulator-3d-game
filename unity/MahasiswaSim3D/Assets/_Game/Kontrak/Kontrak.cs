@@ -186,6 +186,13 @@ namespace MS.Kontrak
     public sealed class InfoPilihan { public string Id, Nama, Ikon, Deskripsi; }
 
     /// <summary>Buat karakter di awal game (nama, jurusan, asal). Dikunci setelah Buat().</summary>
+    public sealed class OpsiKesulitan
+    {
+        public string Preset = "normal";
+        public int Kiriman = 1500000, Sidak = 1;
+        public float Dosen = 1f, Hujan = 1f, Jam = 1f;
+    }
+
     public interface IProfil
     {
         bool PerluDibuat { get; }    // true → UI tampilkan layar buat karakter (jam berhenti)
@@ -197,7 +204,7 @@ namespace MS.Kontrak
         System.Collections.Generic.IReadOnlyList<InfoPilihan> Bakat { get; }
         System.Collections.Generic.IReadOnlyList<InfoPilihan> Kelemahan { get; }
         bool Daftarkan(string nama, string jurusan, string latar, System.Collections.Generic.IReadOnlyCollection<string> bakat,
-            System.Collections.Generic.IReadOnlyCollection<string> kelemahan);
+            System.Collections.Generic.IReadOnlyCollection<string> kelemahan, OpsiKesulitan kesulitan = null);
         event Action Berubah;
     }
 
@@ -267,6 +274,10 @@ namespace MS.Kontrak
         string WarnaRambut { get; }     // hex
         int LevelSkill(string idSkill); // 0–4 (pemrograman, memasak, musik, olahraga)
         int Relasi(string idOrang);     // 0–100 (id warga atau NPC: buKos, mbakSri, ...)
+        int ReputasiCircle(string id);
+        int TingkatConfidant(string id);
+        int Cemburu { get; }
+        string JalurSemester { get; }
         float CabaiTumbuh { get; }      // −1 = pot kosong, 0–1 pertumbuhan
         string KarierNama { get; }      // pekerjaan setelah lulus (null = belum)
         bool PunyaSim { get; }

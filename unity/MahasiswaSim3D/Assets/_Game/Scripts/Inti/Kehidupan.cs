@@ -44,9 +44,10 @@ namespace MS.Inti
         public void Lepas() { jam.HariDimulai -= SaatHariDimulai; jam.FaseSelesai -= SaatFaseSelesai; }
 
         // ================= IKondisi =================
-        public string CuacaId => F.CuacaHari(s.hari)?.id;
-        public string CuacaNama => F.CuacaHari(s.hari)?.nama;
-        public string CuacaIkon => F.CuacaHari(s.hari)?.ikon;
+        DataCuaca CuacaKini => F.CuacaHari(s.hari, s.pengaliHujan);
+        public string CuacaId => CuacaKini?.id;
+        public string CuacaNama => CuacaKini?.nama;
+        public string CuacaIkon => CuacaKini?.ikon;
         public bool Sakit => s.sakit > 0;
         public float Kebersihan => s.kebersihan;
         public bool KamarKotor => s.kebersihan < K.kebersihanKotor;
@@ -132,18 +133,31 @@ namespace MS.Inti
         internal event Action ProfilDidaftarkan;
 
         public bool Daftarkan(string nama, string jurusan, string latar, IReadOnlyCollection<string> pilihanBakat,
-            IReadOnlyCollection<string> pilihanKelemahan)
+            IReadOnlyCollection<string> pilihanKelemahan, OpsiKesulitan kesulitan = null)
         {
             var asal = F.Asal(latar);
             if (s.profilDibuat || F.Jurusan(jurusan) == null || asal == null || !F.latar.Contains(asal) ||
                 !Sah(pilihanBakat, bakat) || !Sah(pilihanKelemahan, kelemahan)) return false;
             s.traits = new List<string>(pilihanBakat);
             s.traits.AddRange(pilihanKelemahan);
+            AturKesulitan(kesulitan);
             s.tahapPindahan = 1;
             stat.TambahUang(asal.saldoAwal - stat.Uang);
             Buat(nama, jurusan, latar);
             ProfilDidaftarkan?.Invoke();
             return true;
+        }
+
+        void AturKesulitan(OpsiKesulitan opsi)
+        {
+            s.kesulitan = opsi?.Preset is "sultan" or "pejuang" or "sandbox" ? opsi.Preset : "normal";
+            s.pengaliKebutuhan = s.kesulitan == "sultan" ? .5f : 1f;
+            if (s.kesulitan != "sandbox") return;
+            s.kirimanSandbox = Mathf.Clamp(opsi.Kiriman, 0, 5000000);
+            s.sidakSandbox = Mathf.Clamp(opsi.Sidak, 0, 2);
+            s.pengaliDosen = Mathf.Clamp(opsi.Dosen, .5f, 2f);
+            s.pengaliHujan = Mathf.Clamp(opsi.Hujan, 0f, 2f);
+            s.pengaliJam = Mathf.Clamp(opsi.Jam, .5f, 2f);
         }
 
         static bool Sah(IReadOnlyCollection<string> pilihan, List<InfoPilihan> katalog)

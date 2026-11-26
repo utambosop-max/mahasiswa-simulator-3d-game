@@ -79,6 +79,11 @@ namespace MS.Inti
             if (q.bulanMin.HasValue && s.bulan < q.bulanMin) return false;
             if (q.uangMin.HasValue && s.uang < q.uangMin) return false;
             if (q.uangMaks.HasValue && s.uang > q.uangMaks) return false;
+            if (q.asetMin.HasValue && (long)s.uang + s.tabungan < q.asetMin.Value) return false;
+            if (q.relasiPacarMin.HasValue && (s.pacarId == null || s.Ambil(s.relasi, "w_" + s.pacarId) < q.relasiPacarMin.Value)) return false;
+            if (q.akhirIpkRendahMin.HasValue && s.akhirIpkRendah < q.akhirIpkRendahMin.Value) return false;
+            if (q.krisisKesehatanMin.HasValue && s.krisisKesehatan < q.krisisKesehatanMin.Value) return false;
+            if (q.circleMin != null) foreach (var kv in q.circleMin) if (s.Ambil(s.reputasiCircle, kv.Key) < kv.Value) return false;
             if (q.sksMin.HasValue && s.sks < q.sksMin) return false;
             if (q.skripsiMin.HasValue && s.skripsi < q.skripsiMin) return false;
             if (q.ipkMin.HasValue && s.ipk < q.ipkMin) return false;
@@ -162,6 +167,14 @@ namespace MS.Inti
         public void Periksa()
         {
             if (!s.profilDibuat) return;
+            if (s.tahapPindahan >= 6 && s.semester >= 3 && s.jalurSemester == null)
+            {
+                s.jalurSemester = s.ipk >= 3.5f && s.Ambil(s.reputasiCircle, "akademisi") >= 45 ? "Pejuang Cumlaude"
+                    : s.Ambil(s.reputasiCircle, "aktivis") >= 50 && s.ukm != null ? "Aktivis Kampus"
+                    : s.pendapatanKerja >= 5000000 ? "Juragan Muda"
+                    : "Diplomat Gang";
+                Umumkan("Jalur semester terbuka: " + s.jalurSemester + ".");
+            }
             bool ubah = false;
 
             // 1) Bab aktif: tujuan, adegan, selesai / Rencana B
@@ -231,7 +244,8 @@ namespace MS.Inti
             // 3) Ending saat wisuda
             BabCerita babEnd = null;
             foreach (var b in C.bab) if (b.ending) { babEnd = b; break; }
-            if (babEnd != null && c.ending == null && Cek(babEnd.pemicu))
+            bool akhirDini = s.tahapPindahan >= 6 && (s.akhirIpkRendah >= 2 || s.krisisKesehatan >= 3);
+            if (babEnd != null && c.ending == null && (akhirDini || Cek(babEnd.pemicu)))
             {
                 var e = TentukanEnding();
                 if (e != null)
@@ -274,8 +288,9 @@ namespace MS.Inti
 
         public EndingCerita TentukanEnding()
         {
-            foreach (var e in C.ending) if (Cek(e.syarat)) return e;
-            return C.ending.Count > 0 ? C.ending[C.ending.Count - 1] : null;
+            bool semesterBaru = s.tahapPindahan >= 6;
+            foreach (var e in C.ending) if (e.gdd == semesterBaru && Cek(e.syarat)) return e;
+            return C.ending.FindLast(e => e.gdd == semesterBaru);
         }
 
         // ===================== Dialog =====================

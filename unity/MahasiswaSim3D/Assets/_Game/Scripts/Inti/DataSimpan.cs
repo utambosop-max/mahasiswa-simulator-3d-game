@@ -7,7 +7,7 @@ namespace MS.Inti
 
     public class DataSimpan
     {
-        public const int VersiSekarang = 11;
+        public const int VersiSekarang = 12;
         public int versi = VersiSekarang;
         public int uang;
         public float ipk, energi, stres;
@@ -72,6 +72,13 @@ namespace MS.Inti
         public bool laptopDigadai;
         public int danaHari, hariPenagih, semesterKrs, hariTitip;
         public string jadwalKrs;
+        public Dictionary<string, int> reputasiCircle = new Dictionary<string, int>();
+        public int cemburu, akhirIpkRendah, krisisKesehatan, warisanSenior;
+        public int pendapatanKerja;
+        public string jalurSemester;
+        public string kesulitan = "normal";
+        public float pengaliKebutuhan = 1f, pengaliDosen = 1f, pengaliHujan = 1f, pengaliJam = 1f;
+        public int kirimanSandbox = 1500000, sidakSandbox = 1;
 
         public static DataSimpan Baru(DataBalance b) => new DataSimpan
         {

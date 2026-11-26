@@ -237,7 +237,7 @@ namespace MS.Inti
                     case "ngobrolWarga": Tambah(a, "💬", "Ngobrol", "Relasi +" + SOS.ngobrolRelasi, 0, alasan); break;
                     case "kasihHadiah": Tambah(a, "🎁", "Kasih Hadiah", "Kalau cocok kesukaannya, makin senang", SOS.hadiahHarga, alasan); break;
                     case "tembak": Tambah(a, "💘", "Nyatakan Cinta", "Butuh relasi " + SOS.tembakMinRelasi + "+", 0, alasan); break;
-                    case "kencan": Tambah(a, "💑", "Kencan", "2 jam · 😵 " + SOS.kencan.stres, -SOS.kencan.uang, alasan); break;
+                    case "kencan": Tambah(a, "💑", jam.TanggalTua ? "Kencan hemat" : "Kencan", "2 jam · 😵 " + SOS.kencan.stres, -BiayaKencan, alasan); break;
                     case "ajakTinggal": Tambah(a, "🏠", "Ajak Tinggal Bareng", "Sewa kos jadi patungan", 0, alasan); break;
                     case "putus": Tambah(a, "💔", "Putus", null, 0, alasan); break;
                 }

@@ -15,9 +15,10 @@ namespace MS.Inti
         public bool? pembukaSelesai, lulus, punyaPacar, bulanBaru;
         public bool punyaBeasiswa;
         public int? hariMin, hariMaks, tanggalMin, tanggalMaks, bulanMin, uangMin, uangMaks, sksMin, skripsiMin, tabunganMin, celenganMin, raporMin, followerMaks;
+        public int? asetMin, relasiPacarMin, akhirIpkRendahMin, krisisKesehatanMin;
         public float? ipkMin, ipkMaks, stresMin;
         public List<string> fase, lokasi, gedung, kos, flag, tanpaFlag, flagSalahSatu;
-        public Dictionary<string, int> flagUmur, relasiMin, statMin;
+        public Dictionary<string, int> flagUmur, relasiMin, statMin, circleMin;
         public RelasiJumlah wargaRelasiMin, wargaRelasiMaks;
         public List<SyaratCerita> atau;
     }
@@ -50,7 +51,7 @@ namespace MS.Inti
         public List<KeJika> keJika;
     }
     public class DialogCerita { public string id, ikon, judul, teks; public List<PilihanCerita> pilihan = new List<PilihanCerita>(); }
-    public class EndingCerita { public string id, judul, ikon, teks; public SyaratCerita syarat = new SyaratCerita(); }
+    public class EndingCerita { public string id, judul, ikon, teks; public bool gdd; public SyaratCerita syarat = new SyaratCerita(); }
     public class EpilogCerita { public SyaratCerita syarat = new SyaratCerita(); public string teks; }
     public class SampinganCerita { public string id, dialog; public SyaratCerita pemicu = new SyaratCerita(); }
     public class NabungCerita { public int target = 300000, durasiHari = 60, setor = 50000; public Efek hadiah = new Efek(); }

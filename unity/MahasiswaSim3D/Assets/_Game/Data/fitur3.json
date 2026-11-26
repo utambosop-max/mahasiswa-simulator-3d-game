@@ -130,7 +130,7 @@
 
   "warga": [
     { "id": "rina", "gaya": "panjang", "nama": "Rina", "ikon": "👩‍🎓", "peran": "mahasiswi Sastra", "pacar": true, "suka": "buku", "dialog": ["\"Lagi baca novel apa? Aku lagi suka puisi Chairil.\"", "\"Kantin kampus enak, tapi warteg Mbak Yanti juara!\"", "\"Eh, kamu sering lewat sini ya?\""] },
-    { "id": "dimas", "gaya": "jabrik", "nama": "Dimas", "ikon": "🧑‍🎓", "peran": "mahasiswa Teknik", "pacar": true, "suka": "game", "dialog": ["\"Laptopku nge-hang pas ngoding. Sedih.\"", "\"Main futsal sore ini? Kurang satu orang!\"", "\"Kopi hitam itu bahan bakar anak teknik.\""] },
+    { "id": "dimas", "gaya": "jabrik", "nama": "Dimas", "ikon": "🧑‍🎓", "peran": "mahasiswa Teknik dan koordinator BEM", "pacar": true, "suka": "game", "dialog": ["\"Laptopku nge-hang pas ngoding. Sedih.\"", "\"Main futsal sore ini? Kurang satu orang!\"", "\"Kopi hitam itu bahan bakar anak teknik.\""] },
     { "id": "bayu", "gaya": "pendek", "nama": "Bayu", "ikon": "🧢", "peran": "ojol senior", "pacar": false, "suka": "kopi", "dialog": ["\"Narik pagi-pagi rezekinya lancar, Dek.\"", "\"Jalan depan kampus macet terus jam 7.\"", "\"Isi bensin di Pak Jo aja, takarannya jujur.\""] },
     { "id": "laras", "gaya": "kuncir", "nama": "Laras", "ikon": "👩", "peran": "mahasiswi Ekonomi", "pacar": true, "suka": "kopi", "dialog": ["\"Aku lagi nabung buat beli laptop baru!\"", "\"Tips hemat: masak sendiri, jangan jajan terus.\"", "\"Kafe baru itu enak buat nugas loh.\""] },
     { "id": "pakRT", "gaya": "botak", "nama": "Pak RT Slamet", "ikon": "👴", "peran": "ketua RT", "pacar": false, "suka": "buah", "dialog": ["\"Jangan lupa ronda malam Minggu ya, Mas!\"", "\"Anak kos di sini sopan-sopan, Bapak senang.\"", "\"Kerja bakti minggu depan, ikut ya!\""] },
@@ -141,7 +141,16 @@
     { "id": "putri", "gaya": "poni", "nama": "Putri", "ikon": "👧", "peran": "mahasiswi Seni", "pacar": true, "suka": "musik", "dialog": ["\"Aku lagi gambar mural di dinding kampus.\"", "\"Warna pastel itu bikin hati adem.\"", "\"Mau kugambar potretmu? Gratis kok!\""] },
     { "id": "joko", "gaya": "belah", "nama": "Mas Joko", "ikon": "🛵", "peran": "kurir paket", "pacar": false, "suka": "kopi", "dialog": ["\"Paket buat anak kos numpuk tanggal muda!\"", "\"Checkout terus, bayarnya tanggal tua, hehe.\"", "\"Hati-hati, ada anjing galak di gang sebelah.\""] },
     { "id": "nadia", "gaya": "hijab", "nama": "Nadia", "ikon": "🙋‍♀️", "peran": "ketua BEM", "pacar": true, "suka": "buku", "dialog": ["\"Ada seminar nasional minggu depan, daftar ya!\"", "\"Mahasiswa harus kritis tapi tetap sopan.\"", "\"Rapat terus, kapan tidurnya ya...\""] },
-    { "id": "raka", "gaya": "belah", "nama": "Raka", "ikon": "🧑", "peran": "mahasiswa rantau", "pacar": true, "suka": "game", "dialog": ["\"Kangen masakan ibu di kampung...\"", "\"Kiriman belum masuk, makan mi dulu deh.\"", "\"Kita senasib, sama-sama anak rantau!\""] }
+    { "id": "raka", "gaya": "belah", "nama": "Raka", "ikon": "🧑", "peran": "mahasiswa rantau", "pacar": true, "suka": "game", "dialog": ["\"Kangen masakan ibu di kampung...\"", "\"Kiriman belum masuk, makan mi dulu deh.\"", "\"Kita senasib, sama-sama anak rantau!\""] },
+    {"id": "bima", "nama": "Bima", "peran": "Tetangga kos", "suka": "kopi", "pacar": false, "ikon": "💬", "gaya": "belah", "dialog": ["Kalau butuh colokan atau pinjam alat, ketuk saja pintuku."]},
+    {"id": "sari", "nama": "Sari", "peran": "Ketua tingkat", "suka": "buku", "pacar": false, "ikon": "💬", "gaya": "belah", "dialog": ["Catatan kelas sudah kubagikan ke grup. Baca sebelum kuis, ya."]},
+    {"id": "raka_ojol", "nama": "Raka", "peran": "Senior ojol dan mekanik", "suka": "kopi", "pacar": false, "ikon": "💬", "gaya": "belah", "dialog": ["Cek tekanan ban dulu sebelum berangkat."]},
+    {"id": "nadia_desain", "nama": "Nadia", "peran": "Mahasiswi desain dan freelancer", "suka": "musik", "pacar": false, "ikon": "💬", "gaya": "belah", "dialog": ["Poster event bisa jadi portofolio. Jangan lupa minta izin klien."]},
+    {"id": "ujang", "nama": "Pak Ujang", "peran": "Pemilik kios fotokopi", "suka": "kopi", "pacar": false, "ikon": "💬", "gaya": "belah", "dialog": ["Simpan salinan laporan. Flashdisk suka ngambek dekat tenggat."]},
+    {"id": "alya", "nama": "Alya", "peran": "Mahasiswi berprestasi", "suka": "buku", "pacar": true, "ikon": "💬", "gaya": "belah", "dialog": ["Aku biasanya belajar dekat jendela perpustakaan."]},
+    {"id": "tari", "nama": "Tari", "peran": "Aktivis dan panitia event", "suka": "buah", "pacar": true, "ikon": "💬", "gaya": "belah", "dialog": ["Ada angkringan dekat pasar yang murah dan ramai."]},
+    {"id": "keira", "nama": "Keira", "peran": "Mahasiswi desain", "suka": "musik", "pacar": true, "ikon": "💬", "gaya": "belah", "dialog": ["Aku lagi bikin sketsa pasar malam. Mau lihat?"]},
+    {"id": "dina", "nama": "Dina", "peran": "Teman seperjuangan kos", "suka": "game", "pacar": true, "ikon": "💬", "gaya": "belah", "dialog": ["Kalau tanggal tua, mi sebungkus bisa dimakan berdua."]}
   ],
 
   "sosial": {
