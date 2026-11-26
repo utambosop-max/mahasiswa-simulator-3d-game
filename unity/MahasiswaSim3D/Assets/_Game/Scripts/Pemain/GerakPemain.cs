@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace MS.Pemain
@@ -17,6 +18,9 @@ namespace MS.Pemain
         CharacterController _cc;
         InputPemain _input;
         float _vy;
+        float jarakLangkah;
+        readonly List<Bounds> jalan = new();
+        readonly List<Bounds> paving = new();
 
         /// <summary>Untuk animasi (parameter Animator "Kecepatan").</summary>
         public float KecepatanSaatIni { get; private set; }
@@ -26,6 +30,15 @@ namespace MS.Pemain
             _cc = GetComponent<CharacterController>();
             _input = GetComponent<InputPemain>();
             if (kamera == null && Camera.main != null) kamera = Camera.main.transform;
+            var kampung = GameObject.Find("Tanah & Jalan");
+            if (kampung == null) return;
+            foreach (Transform bidang in kampung.transform)
+            {
+                if (!bidang.TryGetComponent<Renderer>(out var permukaan)) continue;
+                if (bidang.name.StartsWith("Jalan ")) jalan.Add(permukaan.bounds);
+                else if (bidang.name.StartsWith("Trotoar") || bidang.name == "Gang" || bidang.name == "Jalur Tepi Sungai")
+                    paving.Add(permukaan.bounds);
+            }
         }
 
         void Update()
@@ -55,7 +68,20 @@ namespace MS.Pemain
             if (_cc.isGrounded && _vy < 0f) _vy = -2f;
             _vy += gravitasi * dt;
             v.y = _vy;
+            Vector3 asal = transform.position;
             _cc.Move(v * dt);
+            if (motor) jarakLangkah = 0;
+            else if (_cc.isGrounded)
+            {
+                var perpindahan = transform.position - asal;
+                perpindahan.y = 0;
+                jarakLangkah += perpindahan.magnitude;
+                if (jarakLangkah >= .85f)
+                {
+                    jarakLangkah -= .85f;
+                    MS.Kontrak.Layanan.Audio?.Mainkan(SuaraLangkah());
+                }
+            }
 
             // Putar halus menghadap arah gerak
             if (arah.sqrMagnitude > 0.0001f)
@@ -63,6 +89,32 @@ namespace MS.Pemain
                 Quaternion tuju = Quaternion.LookRotation(arah, Vector3.up);
                 transform.rotation = Quaternion.Slerp(transform.rotation, tuju, Mathf.Min(1f, dt * lajuPutar));
             }
+        }
+
+        string SuaraLangkah()
+        {
+            if (!Physics.Raycast(transform.position + Vector3.up * .13f, Vector3.down, out var lantai,
+                .38f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) return "langkah";
+            var bidang = lantai.collider;
+            string nama = bidang.name;
+            if (nama == "Tanah")
+            {
+                // Aspal dan trotoar adalah bidang visual. Keduanya memakai kolider Tanah.
+                var posisi = transform.position;
+                if (DiBidang(jalan, posisi)) return "langkahAspal";
+                return DiBidang(paving, posisi) ? "langkahPaving" : "langkahRumput";
+            }
+            if (nama.Contains("Got")) return "langkahPaving";
+            var bahan = bidang.GetComponent<Renderer>()?.sharedMaterial?.name;
+            return bahan != null && (bahan.Contains("oak") || bahan.Contains("wood"))
+                ? "langkahKayu" : "langkahKeramik";
+        }
+
+        static bool DiBidang(List<Bounds> daftar, Vector3 posisi)
+        {
+            foreach (var batas in daftar)
+                if (batas.Contains(new Vector3(posisi.x, batas.center.y, posisi.z))) return true;
+            return false;
         }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using MS.Kontrak;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace MS.Audio
 {
@@ -14,8 +15,9 @@ namespace MS.Audio
         readonly AudioSource[] saluran = new AudioSource[3];
         IPenerimaAksi aksi;
         int giliran;
-        AudioSource mesin, hujan;
-        float bensinTerakhir, gas, bersinBerikut;
+        AudioSource mesin, hujan, ruang, sekitar;
+        float bensinTerakhir, gas, bersinBerikut, sekitarBerikut;
+        bool ayamBerikut = true;
         bool tadiNaik;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
@@ -37,6 +39,9 @@ namespace MS.Audio
             BuatKlip();
             mesin = BuatSaluranLoop("mesin", .10f);
             hujan = BuatSaluranLoop("hujan", .075f);
+            ruang = BuatSaluranLoop("kipas", .043f);
+            sekitar = gameObject.AddComponent<AudioSource>();
+            sekitar.playOnAwake = false;
             Layanan.Audio = this;
         }
 
@@ -72,8 +77,8 @@ namespace MS.Audio
             tadiNaik = naik;
             bensinTerakhir = bensin;
 
-            bool gerimis = Layanan.Kondisi?.CuacaId == "hujan" &&
-                UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Kampung";
+            string scene = SceneManager.GetActiveScene().name;
+            bool gerimis = Layanan.Kondisi?.CuacaId == "hujan" && scene == "Kampung";
             if (gerimis && !hujan.isPlaying) hujan.Play();
             if (!gerimis && hujan.isPlaying) hujan.Stop();
             if (gerimis)
@@ -81,12 +86,47 @@ namespace MS.Audio
                 bool ringan = Layanan.Jam?.Fase == Fase.Pagi || Layanan.Jam?.Fase == Fase.Sore;
                 hujan.volume = Mathf.MoveTowards(hujan.volume, ringan ? .044f : .086f, Time.unscaledDeltaTime * .08f);
             }
+            PutarLingkungan(scene, gerimis);
             if (Layanan.Kondisi?.Sakit != true) bersinBerikut = 0;
             else if (Time.unscaledTime >= bersinBerikut)
             {
                 Mainkan("bersin");
                 bersinBerikut = Time.unscaledTime + 24;
             }
+        }
+
+        void PutarLingkungan(string scene, bool hujanTurun)
+        {
+            var fase = Layanan.Jam?.Fase;
+            bool kampung = scene == "Kampung";
+            bool malam = fase == Fase.Malam || fase == Fase.Begadang;
+            var klipRuang = scene == "KamarKos" ? klip["kipas"] :
+                kampung && malam && !hujanTurun ? klip["jangkrik"] : null;
+            if (ruang.clip != klipRuang)
+            {
+                ruang.Stop();
+                ruang.clip = klipRuang;
+                if (klipRuang != null) ruang.Play();
+            }
+            else if (klipRuang != null && !ruang.isPlaying) ruang.Play();
+
+            if (!kampung)
+            {
+                if (sekitar.isPlaying) sekitar.Stop();
+                sekitarBerikut = 0;
+                ayamBerikut = true;
+                return;
+            }
+            float sekarang = Time.unscaledTime;
+            if (sekitarBerikut == 0) sekitarBerikut = sekarang + 1.2f;
+            if (sekarang < sekitarBerikut) return;
+            bool ayam = fase == Fase.Pagi && ayamBerikut && !hujanTurun;
+            ayamBerikut = !ayamBerikut;
+            sekitar.clip = klip[ayam ? "ayamPagi" : "motorJauh"];
+            sekitar.volume = ayam ? .093f : hujanTurun ? .035f : .073f;
+            sekitar.pitch = UnityEngine.Random.Range(.91f, 1.08f);
+            sekitar.Play();
+            sekitarBerikut = sekarang + UnityEngine.Random.Range(12f, 21f);
         }
 
         void OnDestroy()
@@ -104,9 +144,10 @@ namespace MS.Audio
             terakhir[id] = Time.unscaledTime;
             var sumber = saluran[giliran++ % saluran.Length];
             sumber.Stop();
-            sumber.pitch = id == "klik" || id == "langkah" ? UnityEngine.Random.Range(.9f, 1.1f) : 1f;
+            bool langkah = id.StartsWith("langkah", StringComparison.Ordinal);
+            sumber.pitch = id == "klik" || langkah ? UnityEngine.Random.Range(.88f, 1.12f) : 1f;
             sumber.clip = clip;
-            sumber.volume = id == "klakson" ? .13f : id == "langkah" ? .12f : id == "klik" ? .16f : .22f;
+            sumber.volume = id == "klakson" ? .13f : langkah ? .12f : id == "klik" ? .16f : .22f;
             sumber.Play();
         }
 
@@ -115,6 +156,7 @@ namespace MS.Audio
         static string PilihSuara(string id)
         {
             if (string.IsNullOrEmpty(id)) return "aksi";
+            if (id is "langkahRumput" or "langkahAspal" or "langkahPaving" or "langkahKayu" or "langkahKeramik") return id;
             if (id is "klakson" or "minum") return id;
             if (id == "bersin") return id;
             if (id is "razia" or "bengkel" or "bukuSakti") return id;
@@ -178,6 +220,28 @@ namespace MS.Audio
                 return Nada(lokal, 145, 82, .16f) * Bungkus(lokal, .16f) * .55f;
             });
             Buat("mesin", 1f, (t, _) => .42f * Mathf.Sin(2 * Mathf.PI * 48 * t) + .18f * Mathf.Sin(2 * Mathf.PI * 96 * t));
+            Buat("kipas", 1f, (t, _) => .33f * Nada(t, 60, 60, 1) + .14f * Nada(t, 120, 120, 1)
+                + .059f * Nada(t, 248, 248, 1) * (.65f + .35f * Nada(t, 12, 12, 1)));
+            Buat("jangkrik", 5.2f, (t, _) =>
+            {
+                float frasa = t % 1.3f;
+                float pulsa = frasa % .064f;
+                return frasa > .33f ? 0 : .36f * Nada(pulsa, 3570, 3790, .064f) * Bungkus(pulsa, .064f);
+            });
+            Buat("ayamPagi", 1.16f, (t, _) =>
+            {
+                float lokal = t < .28f ? t % .14f : t - .28f;
+                float dasar = t < .14f ? 680 : t < .28f ? 835 : 1050;
+                float panjang = t < .28f ? .14f : .88f;
+                return (.44f * Nada(lokal, dasar, dasar * .82f, panjang) +
+                    .16f * Nada(lokal, dasar * 2, dasar * 1.64f, panjang)) *
+                    Bungkus(lokal, panjang) * (.75f + .25f * Mathf.Sin(90f * t));
+            });
+            Buat("motorJauh", 2.4f, (t, d) =>
+            {
+                float lewat = Mathf.Sin(Mathf.PI * t / d);
+                return (.46f * Nada(t, 102, 65, d) + .20f * Nada(t, 204, 130, d)) * lewat * lewat;
+            });
             var acakHujan = new System.Random(314);
             float redam = 0;
             Buat("hujan", 4f, (_, _) => redam = .72f * redam + .28f * (float)(acakHujan.NextDouble() * 2 - 1));
@@ -211,12 +275,31 @@ namespace MS.Audio
             });
             Buat("salah", .18f, (t, d) => Bergerigi(t, 300 - 150 * t / d) * Bungkus(t, d));
             Buat("langkah", .08f, (t, d) => Mathf.Sin(2 * Mathf.PI * (115 - 45 * t / d) * t) * Bungkus(t, d));
+            BuatLangkah("langkahRumput", 82f, .76f, .10f);
+            BuatLangkah("langkahAspal", 133f, .46f, .085f);
+            BuatLangkah("langkahPaving", 193f, .46f, .067f);
+            BuatLangkah("langkahKayu", 172f, .21f, .12f);
+            BuatLangkah("langkahKeramik", 390f, .18f, .073f);
             Buat("aksi", .23f, (t, d) => Nada(t, 523, 784, d) * Bungkus(t, d));
-            Buat("pintu", .34f, (t, d) => (Bergerigi(t, 170 - 70 * t / d) * .45f + Nada(t, 523, 523, d) * .25f) * Bungkus(t, d));
+            Buat("pintu", .34f, (t, _) => t < .20f
+                ? .29f * Bergerigi(t, 170 - 220 * t) * Bungkus(t, .20f)
+                : .62f * Nada(t - .20f, 109, 63, .14f) * Bungkus(t - .20f, .14f));
             Buat("tidur", .55f, (t, d) => Nada(t, t < d / 2 ? 784 : 587, 523, d) * Bungkus(t, d) * .65f);
             Buat("ketik", .27f, (t, d) => Mathf.Sin(2 * Mathf.PI * 880 * t) * Bungkus(t % .09f, .09f) * .35f);
             Buat("wajan", .32f, (t, d) => (Mathf.Sin(2 * Mathf.PI * 1175 * t) + Mathf.Sin(2 * Mathf.PI * 1568 * t)) * .24f * Bungkus(t, d));
             Buat("koin", .27f, (t, d) => Nada(t, t < d / 2 ? 1319 : 1568, 1568, d) * Bungkus(t, d) * .7f);
+        }
+
+        void BuatLangkah(string id, float frekuensi, float bunyi, float durasi)
+        {
+            var acak = new System.Random((int)frekuensi);
+            float rendah = 0;
+            Buat(id, durasi, (t, d) =>
+            {
+                float gangguan = (float)(acak.NextDouble() * 2 - 1);
+                rendah = .69f * rendah + .31f * gangguan;
+                return (.57f * Nada(t, frekuensi, frekuensi * .62f, d) + bunyi * (gangguan - rendah)) * Bungkus(t, d);
+            });
         }
 
         void Buat(string id, float durasi, Func<float, float, float> sampel)
