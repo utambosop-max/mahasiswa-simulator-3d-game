@@ -1,3 +1,6 @@
+using System.Collections;
+using MS.Kontrak;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace MS.Inti
@@ -10,9 +13,41 @@ namespace MS.Inti
 
         public static void Ke(string namaScene, string idSpawn)
         {
+            if (Layanan.SedangPindahScene) return;
+            if (!Application.CanStreamedLevelBeLoaded(namaScene))
+            {
+                GameInti.Instans?.Aksi?.Umumkan("Tempat ini belum bisa dibuka.");
+                return;
+            }
             SpawnBerikut = idSpawn;
-            if (GameInti.Instans != null) SimpanMuat.Simpan(GameInti.Instans.Simpanan); // simpan dulu, jaga-jaga
-            SceneManager.LoadScene(namaScene);
+            var game = GameInti.Instans;
+            if (game != null) SimpanMuat.Simpan(game.Simpanan);
+            if (game == null || !Application.isPlaying) SceneManager.LoadScene(namaScene);
+            else
+            {
+                Layanan.SedangPindahScene = true;
+                game.StartCoroutine(Pindah(namaScene));
+            }
+        }
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        static void AturUlang()
+        {
+            Layanan.SedangPindahScene = false;
+            SpawnBerikut = null;
+        }
+
+        static IEnumerator Pindah(string namaScene)
+        {
+            try
+            {
+                yield return new WaitForSecondsRealtime(.23f);
+                yield return SceneManager.LoadSceneAsync(namaScene);
+            }
+            finally
+            {
+                Layanan.SedangPindahScene = false;
+            }
         }
     }
 }

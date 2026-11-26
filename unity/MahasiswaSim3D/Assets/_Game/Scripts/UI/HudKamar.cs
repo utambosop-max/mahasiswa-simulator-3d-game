@@ -46,6 +46,7 @@ namespace MS.UI
         private Canvas kanvas;
         private Image tiraiTransisi;
         private Coroutine jalannyaTirai;
+        private bool mulaiPindah;
         private RectTransform areaAman, kotakPesan;
         private Button tombolUtama, tombolTambahan, tombolKamera, tombolKlakson;
         private TextMeshProUGUI labelUtama, labelTambahan;
@@ -153,6 +154,7 @@ namespace MS.UI
             PerbaruiKalender();
             HubungkanLayanan();
             PerbaruiKonteks();
+            mulaiPindah = Layanan.SedangPindahScene;
             jalannyaTirai = StartCoroutine(BukaTirai());
         }
 
@@ -160,6 +162,15 @@ namespace MS.UI
         {
             PerbaruiAreaAman();
             HubungkanLayanan();
+            if (mulaiPindah != Layanan.SedangPindahScene)
+            {
+                mulaiPindah = Layanan.SedangPindahScene;
+                if (mulaiPindah)
+                {
+                    if (jalannyaTirai != null) StopCoroutine(jalannyaTirai);
+                    jalannyaTirai = StartCoroutine(TutupTirai());
+                }
+            }
             if (tombolKlakson.gameObject.activeSelf != (Layanan.Kendaraan?.NaikMotor == true))
                 PerbaruiTombol();
             if (Time.unscaledTime >= cekAksiBerikut)
@@ -559,6 +570,18 @@ namespace MS.UI
             if (id != "mandi") return;
             if (jalannyaTirai != null) StopCoroutine(jalannyaTirai);
             jalannyaTirai = StartCoroutine(TiraiMandi());
+        }
+
+        private IEnumerator TutupTirai()
+        {
+            tiraiTransisi.enabled = true;
+            for (float waktu = 0; waktu < .19f; waktu += Time.unscaledDeltaTime)
+            {
+                tiraiTransisi.color = new Color(0, 0, 0, Mathf.SmoothStep(0, 1, waktu / .19f));
+                yield return null;
+            }
+            tiraiTransisi.color = Color.black;
+            jalannyaTirai = null;
         }
 
         private IEnumerator TiraiMandi()

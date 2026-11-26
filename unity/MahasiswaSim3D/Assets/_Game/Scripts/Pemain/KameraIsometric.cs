@@ -19,6 +19,9 @@ namespace MS.Pemain
         float _sudut, _sudutTuju, _velSudut;
         float _jarakKini = -1f, _velJarak;
         float waktuPutarAktif;
+        Camera lensa;
+        float fovDasar, velFov, dialogHingga;
+        MS.Kontrak.IPenerimaAksi aksi;
         readonly RaycastHit[] penghalang = new RaycastHit[16];
         static readonly float[] SudutAlternatif = { 45f, -45f, 90f, -90f, 135f, -135f, 180f };
         readonly Dictionary<Transform, Dinding> dindingKamar = new();
@@ -55,10 +58,14 @@ namespace MS.Pemain
 
         void Start()
         {
+            lensa = GetComponent<Camera>();
+            if (lensa != null) fovDasar = lensa.fieldOfView;
             if (gameObject.scene.name == "KamarKos" || gameObject.scene.name.StartsWith("Gedung_"))
             {
                 _sudutTuju = 180f;
                 SiapkanDinding();
+                if (lensa != null && PlayerPrefs.GetInt("KurangiGerak", 0) == 0)
+                    lensa.fieldOfView = fovDasar + 7f;
             }
             Lompat();
         }
@@ -90,6 +97,7 @@ namespace MS.Pemain
 
         void OnDestroy()
         {
+            if (aksi != null) aksi.AksiMulai -= Dialog;
             foreach (var dinding in dindingKamar.Values)
                 Destroy(dinding.Transparan);
         }
@@ -162,6 +170,7 @@ namespace MS.Pemain
 
         void LateUpdate()
         {
+            AturLensa();
             var kb = Keyboard.current;
             if (kb != null)
             {
@@ -186,6 +195,31 @@ namespace MS.Pemain
             if (_jarakKini < penuh - 0.01f) posisi = fokus + (posisi - fokus) / penuh * _jarakKini;
             transform.position = posisi;
             transform.LookAt(fokus);
+        }
+
+        void Dialog(string id)
+        {
+            if (id is "ngobrolWarga" or "ngobrolBuKos" or "menuWarga")
+                dialogHingga = Time.unscaledTime + 2.3f;
+        }
+
+        void AturLensa()
+        {
+            if (!ReferenceEquals(aksi, MS.Kontrak.Layanan.Aksi))
+            {
+                if (aksi != null) aksi.AksiMulai -= Dialog;
+                aksi = MS.Kontrak.Layanan.Aksi;
+                if (aksi != null) aksi.AksiMulai += Dialog;
+            }
+            if (lensa == null || target == null) return;
+            if (PlayerPrefs.GetInt("KurangiGerak", 0) != 0)
+            {
+                lensa.fieldOfView = fovDasar;
+                return;
+            }
+            float tujuan = Time.unscaledTime < dialogHingga ? fovDasar - 7f : fovDasar;
+            lensa.fieldOfView = Mathf.SmoothDamp(lensa.fieldOfView, tujuan, ref velFov, .31f,
+                Mathf.Infinity, Time.unscaledDeltaTime);
         }
     }
 }

@@ -299,10 +299,11 @@ namespace MS.Kontrak
 
         /// <summary>UI mengisi true saat panel miliknya (mis. menu makan) terbuka → gerak & E/Spasi dikunci.</summary>
         public static bool UiModal;
+        public static bool SedangPindahScene;
 
         /// <summary>Ada panel/layar yang menahan input pemain (event, kerja, upgrade, atau panel UI)?</summary>
         public static bool InputDitahan =>
-            UiModal || (Event != null && Event.Aktif != null) || (Kerja != null && Kerja.Aktif != null) || (Upgrade != null && Upgrade.Terbuka)
+            UiModal || SedangPindahScene || (Event != null && Event.Aktif != null) || (Kerja != null && Kerja.Aktif != null) || (Upgrade != null && Upgrade.Terbuka)
             || (Toko != null && Toko.Terbuka) || (Profil != null && Profil.PerluDibuat) || (Menu != null && Menu.Terbuka);
     }
 
