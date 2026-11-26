@@ -10,10 +10,17 @@ namespace MS.Inti
     {
         /// <summary>Id TitikSpawn tempat pemain muncul di scene berikutnya (dibaca MS.Pemain saat Start).</summary>
         public static string SpawnBerikut;
+        public static System.Func<string, bool> PindahDiScene;
 
         public static void Ke(string namaScene, string idSpawn)
         {
             if (Layanan.SedangPindahScene) return;
+            if (SceneManager.GetActiveScene().name == namaScene && PindahDiScene?.Invoke(idSpawn) == true)
+            {
+                var sesi = GameInti.Instans;
+                if (sesi != null) SimpanMuat.Simpan(sesi.Simpanan);
+                return;
+            }
             if (!Application.CanStreamedLevelBeLoaded(namaScene))
             {
                 GameInti.Instans?.Aksi?.Umumkan("Tempat ini belum bisa dibuka.");
@@ -35,6 +42,7 @@ namespace MS.Inti
         {
             Layanan.SedangPindahScene = false;
             SpawnBerikut = null;
+            PindahDiScene = null;
         }
 
         static IEnumerator Pindah(string namaScene)

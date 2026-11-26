@@ -106,8 +106,8 @@ namespace MS.Dunia
             var jam = Layanan.Jam;
             var id = Layanan.Kondisi?.CuacaId;
             int kualitas = QualitySettings.GetQualityLevel();
-            bool turun = id == "hujan";
-            int sekarang = turun ? (jam?.Fase == Fase.Pagi || jam?.Fase == Fase.Sore ? Gerimis : Hujan)
+            bool turun = id is "hujan" or "badai";
+            int sekarang = turun ? (id != "badai" && (jam?.Fase == Fase.Pagi || jam?.Fase == Fase.Sore) ? Gerimis : Hujan)
                 : id == "cerah" && jam?.Tanggal % 4 == 0 ? Mendung : Cerah;
             bool terlihat = jam?.Fase != Fase.Begadang;
             if (sekarang == terakhir && mutu == kualitas && wargaDiLuar == terlihat) return;

@@ -24,6 +24,7 @@ namespace MS.Dunia
         public void Pasang()
         {
             var bahan = gameObject.AddComponent<BahanRealistis>();
+            WilayahSemester.Pasang(transform, bahan);
             penerangan = gameObject.AddComponent<PeneranganKampung>();
             var jalan = GameObject.Find("Tanah & Jalan");
             if (jalan != null)

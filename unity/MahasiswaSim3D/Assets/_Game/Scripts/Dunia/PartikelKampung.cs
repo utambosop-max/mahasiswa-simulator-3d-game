@@ -81,7 +81,7 @@ namespace MS.Dunia
         void LateUpdate()
         {
             if (debu == null) return;
-            bool perlu = tinggi && siang && Layanan.Kondisi?.CuacaId != "hujan";
+            bool perlu = tinggi && siang && Layanan.Kondisi?.CuacaId is not ("hujan" or "badai");
             if (perlu != menyala)
             {
                 menyala = perlu;
@@ -96,7 +96,12 @@ namespace MS.Dunia
                     daun.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
                 }
             }
-            if (menyala && pemain != null) transform.position = pemain.position + Vector3.up * 1.8f;
+            if (menyala && pemain != null)
+            {
+                Vector3 posisi = pemain.position + Vector3.up * 1.8f;
+                debu.transform.position = posisi;
+                daun.transform.position = posisi;
+            }
         }
 
         void OnDestroy()

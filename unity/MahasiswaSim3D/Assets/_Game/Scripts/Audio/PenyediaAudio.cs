@@ -78,7 +78,7 @@ namespace MS.Audio
             bensinTerakhir = bensin;
 
             string scene = SceneManager.GetActiveScene().name;
-            bool gerimis = Layanan.Kondisi?.CuacaId == "hujan" && scene == "Kampung";
+            bool gerimis = Layanan.Kondisi?.CuacaId is "hujan" or "badai" && scene == "Kampung";
             if (gerimis && !hujan.isPlaying) hujan.Play();
             if (!gerimis && hujan.isPlaying) hujan.Stop();
             if (gerimis)

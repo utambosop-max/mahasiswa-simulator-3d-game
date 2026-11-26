@@ -2,6 +2,12 @@
 
 Riwayat versi Unity dan web.
 
+## Unity v0.5.0 — Kegiatan dan lingkungan Anak Kos (2026-11-27)
+
+- Registrasi mahasiswa, alur pindahan, kebutuhan harian, dan 32 menu Warteg Bahari.
+- Delapan aplikasi KosanOS, tantangan singkat, sistem relasi, dan Warisan Senior.
+- Kamar hemat 2,5 × 3 m, empat penanda Kampung, bus dan angkot, tiga tingkat banjir, serta musik adaptif.
+
 ## Unity v0.4.0 - Anak Kos di Windows (2026-11-26)
 
 - Versi PC mendukung Windows x64. Ukuran jendela dapat diubah.

@@ -21,7 +21,8 @@ namespace MS.Dunia
             bool kamar = scene == "KamarKos";
             if (!kamar && !scene.StartsWith("Gedung_")) return null;
             var ruang = GameObject.Find(kamar ? "Kamar" : "Ruang " + scene.Substring(7));
-            var lantai = ruang != null ? ruang.transform.Find("Lantai") : null;
+            var indukLantai = ruang != null ? ruang.transform.Find("Kamar Hemat 2,5 × 3 m") ?? ruang.transform : null;
+            var lantai = indukLantai != null ? indukLantai.Find("Lantai") : null;
             if (lantai == null) return null;
 
             var akar = new GameObject("Pencahayaan Ultra");
@@ -57,8 +58,9 @@ namespace MS.Dunia
             if (warteg) BuatLampu(pusat + new Vector3(-1.15f, .95f, .25f), 3200f, 1.8f, 6.5f, "Bohlam warteg 3200 K");
             if (kamar)
             {
-                BuatLampu(pusat + new Vector3(.9f, 1.12f, .35f), 6500f, 1.4f, 5.5f, "Neon kamar 6500 K");
-                BuatBerkas(lantai.parent);
+                bool hemat = lantai.lossyScale.x < 3f;
+                BuatLampu(pusat + new Vector3(.75f, 1.05f, .35f), 6500f, 1.4f, 5.5f, "Neon kamar 6500 K");
+                BuatBerkas(lantai.parent, hemat);
             }
         }
 
@@ -75,14 +77,16 @@ namespace MS.Dunia
             lampu.shadows = LightShadows.None;
         }
 
-        void BuatBerkas(Transform kamar)
+        void BuatBerkas(Transform kamar, bool hemat)
         {
             var shader = Resources.Load<Shader>("Efek/BerkasJendelaUltra");
             if (shader == null) return;
             bahanBerkas = new Material(shader) { name = "Cahaya jendela Ultra" };
             berkasJendela = new GameObject("Berkas cahaya jendela", typeof(MeshFilter), typeof(MeshRenderer));
             berkasJendela.transform.SetParent(transform, false);
-            berkasJendela.transform.position = kamar.TransformPoint(new Vector3(-3.2f, 1.56f, 3.32f));
+            berkasJendela.transform.position = kamar.TransformPoint(hemat ? new Vector3(.54f, 1.66f, 1.44f) :
+                new Vector3(-3.2f, 1.56f, 3.32f));
+            if (hemat) berkasJendela.transform.localScale = Vector3.one * .52f;
             berkasJendela.transform.rotation = kamar.rotation;
 
             var mulai = new Vector3(0, 0, 0);

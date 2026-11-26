@@ -9,6 +9,7 @@ namespace MS.Pemain
     {
         // Angka dari web (Player.tsx KECEPATAN_JALAN, balance.json). TODO: baca dari Data JSON via MS.Inti.
         [SerializeField] float kecepatanJalan = 3.2f;     // m/s
+        public static float PengaliMedan { get; set; } = 1f;
         [SerializeField] float pengaliLari = 1.5f;
         [SerializeField] float pengaliLemas = 0.6f;       // balance.json pengali.kecepatanSaatLemas
         [SerializeField] float ambangEnergiLemas = 20f;   // TODO: samakan dengan balance.json ambang.energiLemas
@@ -64,7 +65,7 @@ namespace MS.Pemain
             bool motor = hidup != null && hidup.NaikMotor;
             if (motor) lemas = 1f; // motor tidak terpengaruh lemas
             else if (_input.Lari) lemas *= pengaliLari;
-            Vector3 v = arah * (kecepatanJalan * lemas * (hidup != null ? hidup.PengaliKecepatan : 1f));
+            Vector3 v = arah * (kecepatanJalan * lemas * PengaliMedan * (hidup != null ? hidup.PengaliKecepatan : 1f));
             if (motor) hidup.Tempuh(v.magnitude * dt); // bensin berkurang sesuai jarak
             KecepatanSaatIni = v.magnitude;
 

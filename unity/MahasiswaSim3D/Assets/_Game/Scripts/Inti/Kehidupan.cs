@@ -76,8 +76,7 @@ namespace MS.Inti
                 s.sakit = K.sakitHari;
                 Pesan?.Invoke("🤧 Badan lemas terus... kamu masuk angin! Istirahat atau ke klinik ya.");
             }
-            var c = F.CuacaHari(s.hari);
-            if (c != null && c.id == "hujan") Pesan?.Invoke("🌧️ Hari ini hujan. " + (s.payung ? "Untung punya payung!" : "Jangan lupa beli payung di toko."));
+            if (CuacaId is "hujan" or "badai") Pesan?.Invoke("🌧️ Hari ini hujan. " + (s.payung ? "Untung punya payung!" : "Jangan lupa beli payung di toko."));
             Berubah?.Invoke();
         }
 
@@ -96,9 +95,10 @@ namespace MS.Inti
         /// <summary>Keluar kos saat hujan tanpa payung → basah & bisa masuk angin.</summary>
         public void SaatKeluarKos()
         {
-            if (CuacaId != "hujan") return;
+            if (CuacaId is not ("hujan" or "badai")) return;
             if (s.payung) { Pesan?.Invoke("☂️ Untung bawa payung!"); return; }
             Terapkan(0, 0, K.stresKehujanan);
+            s.masukAngin = Mathf.Clamp(s.masukAngin + (s.traits.Contains("rentanMasukAngin") ? 40 : 15), 0, 100);
             string cuaca = jam.Fase == Fase.Pagi || jam.Fase == Fase.Sore ? "Gerimis" : "Hujan deras";
             Pesan?.Invoke("🌧️ " + cuaca + " dan kamu tidak bawa payung. 😵+" + K.stresKehujanan);
             if (s.sakit == 0 && s.vitaminHari != s.hari && acak() < K.peluangSakitHujan)

@@ -155,7 +155,13 @@
       "id": "hujan",
       "nama": "Hujan",
       "ikon": "🌧️",
-      "peluang": 0.2
+      "peluang": 0.17
+    },
+    {
+      "id": "badai",
+      "nama": "Badai",
+      "ikon": "⛈️",
+      "peluang": 0.03
     }
   ],
   "barang": [

@@ -52,9 +52,10 @@ namespace MS.Inti
                     stat.TambahUang(-5000); s.galonGelas = 20;
                     return "Galon terisi 20 gelas.";
                 case "cuciManual":
-                    s.jumlahJemuran = s.bajuKotor; s.jemuranKeringJam = JamAbsolut + 4;
+                    int lama = (s.hari - 1) % 124 < 56 ? 4 : 8;
+                    s.jumlahJemuran = s.bajuKotor; s.jemuranKeringJam = JamAbsolut + lama;
                     s.bajuKotor = 0; stat.Terapkan(new Efek { energi = -4 });
-                    return "Pakaian dijemur. Angkat setelah 4 jam.";
+                    return $"Pakaian dijemur. Angkat setelah {lama} jam.";
                 case "angkatJemuran":
                     s.jumlahJemuran = 0;
                     return "Jemuran kering diangkat.";
@@ -88,7 +89,8 @@ namespace MS.Inti
             s.jamPuasa += jam;
             float puasaSesudah = Mathf.Max(0, s.jamPuasa - 6);
             s.kenyang -= b.kenyangPerJam * jam * hemat;
-            s.hidrasi -= b.hidrasiPerJam * jam * hemat;
+            bool terik = (s.hari - 1) % 124 < 56 && Layanan.Jam?.Fase == Fase.Siang && Layanan.Kondisi?.CuacaId == "cerah";
+            s.hidrasi -= b.hidrasiPerJam * jam * hemat * (terik ? 1.3f : 1f);
             float risikoMaag = s.kesulitan == "pejuang" ? 1.25f : 1f;
             s.maag += risikoMaag * b.maagPuasa * (Mathf.Pow(puasaSesudah, 1.5f) - Mathf.Pow(puasaSebelum, 1.5f));
             s.masukAngin -= jam * 1.5f;

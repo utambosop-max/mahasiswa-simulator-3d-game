@@ -103,6 +103,16 @@ namespace MS.Inti
             alasan = null;
             string id = p.Id;
             if (jam.Sibuk) { alasan = "⏳ Tunggu dulu, masih sibuk."; return false; }
+            if (id is "naikBusKampus" or "naikAngkot" && p.Target != null)
+            {
+                int menit = jam.JamDinding * 60 + jam.MenitDinding;
+                bool bus = id == "naikBusKampus";
+                if (bus && !s.profilDibuat) alasan = "Tunjukkan KTM untuk naik bus kampus.";
+                else if (bus && (menit < 390 || menit > 1050)) alasan = "Bus berangkat pukul 06.30–17.30.";
+                else if (!bus && (menit < 360 || menit > 1260)) alasan = "Angkot beroperasi pukul 06.00–21.00.";
+                else if (!bus && stat.Uang < 5000) alasan = "Tarif angkot Rp5.000.";
+                return alasan == null;
+            }
             if (id == "warisanSenior")
             {
                 if (!string.IsNullOrEmpty(s.cerita?.ending)) return true;
@@ -180,6 +190,11 @@ namespace MS.Inti
         {
             if (!BolehDilakukan(p, out var alasan)) { PesanTerakhir = alasan; return; }
             string id = p.Id;
+            if (id is "naikBusKampus" or "naikAngkot" && p.Target != null)
+            {
+                NaikAngkutan(p);
+                return;
+            }
             if (id == "warisanSenior")
             {
                 if (GameInti.Instans?.WarisanSenior() != true) PesanTerakhir = "Sesi baru belum dapat disimpan.";
@@ -264,6 +279,24 @@ namespace MS.Inti
             stat.Terapkan(efek); // web: efek diterapkan lalu waktu dimajukan
             AksiMulai?.Invoke(id);
             if (lama > 0f) jam.MulaiSibuk(lama, tidur);
+        }
+
+        void NaikAngkutan(PerintahAksi perintah)
+        {
+            bool bus = perintah.Id == "naikBusKampus";
+            int periode = bus ? 30 : 10;
+            int tunggu = (periode - jam.MenitDinding % periode) % periode;
+            int ngetem = !bus && (s.hari + jam.JamDinding) % 3 == 0 ? 15 + s.tanggal % 11 : 0;
+            string halte = bus
+                ? (perintah.Target == "halteKampus" ? "halteBusBarat" : "halteKampus")
+                : (perintah.Target == "halteBarat" ? "halteTimur" : "halteBarat");
+            if (!bus) stat.TambahUang(-5000);
+            Hidup?.Turun();
+            jam.Maju(tunggu + ngetem + (bus ? 8 : 12));
+            PesanTerakhir = bus ? "KTM diperiksa. Bus sampai di halte." :
+                ngetem > 0 ? $"Angkot ngetem {ngetem} menit, lalu sampai di halte." : "Angkot sampai di halte.";
+            AksiMulai?.Invoke(perintah.Id);
+            PindahScene.Ke("Kampung", halte);
         }
 
         /// <summary>Aksi motor/toko/kopi. True = sudah ditangani.</summary>

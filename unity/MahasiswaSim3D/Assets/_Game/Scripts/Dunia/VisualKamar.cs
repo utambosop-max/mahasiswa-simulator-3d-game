@@ -10,6 +10,7 @@ namespace MS.Dunia
             if (kamar == null) return;
             var ruang = kamar.transform;
             var bahan = induk.AddComponent<BahanRealistis>();
+            if (KamarHemat.Pasang(ruang, bahan)) return;
             TataPerabot.Kamar(ruang, bahan);
             var plester = new Color(.91f, .82f, .68f);
             bahan.Permukaan(ruang.Find("Lantai"), "Tiles110", new Color(.98f, .95f, .89f), new Vector2(5, 4));

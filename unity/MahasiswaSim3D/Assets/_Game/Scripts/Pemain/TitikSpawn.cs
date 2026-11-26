@@ -8,12 +8,29 @@ namespace MS.Pemain
     {
         public string id;
 
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        static void DaftarPindahDiScene() => PindahScene.PindahDiScene = CariDanPindah;
+
+        static bool CariDanPindah(string id)
+        {
+            if (string.IsNullOrEmpty(id)) return false;
+            var scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
+            foreach (var calon in FindObjectsByType<TitikSpawn>(FindObjectsSortMode.None))
+                if (calon.id == id && calon.gameObject.scene == scene && calon.PindahkanPemain())
+                    return true;
+            return false;
+        }
+
         void Start()
         {
             if (string.IsNullOrEmpty(id) || id != PindahScene.SpawnBerikut) return;
-            PindahScene.SpawnBerikut = null;
+            if (PindahkanPemain()) PindahScene.SpawnBerikut = null;
+        }
+
+        bool PindahkanPemain()
+        {
             var pemain = FindAnyObjectByType<GerakPemain>();
-            if (pemain == null) return;
+            if (pemain == null) return false;
             // CharacterController harus dimatikan sebentar, kalau tidak posisi baru ditolak
             var cc = pemain.GetComponent<CharacterController>();
             if (cc != null) cc.enabled = false;
@@ -21,6 +38,7 @@ namespace MS.Pemain
             if (cc != null) cc.enabled = true;
             var kam = FindAnyObjectByType<KameraIsometric>();
             if (kam != null) kam.Lompat();
+            return true;
         }
     }
 }

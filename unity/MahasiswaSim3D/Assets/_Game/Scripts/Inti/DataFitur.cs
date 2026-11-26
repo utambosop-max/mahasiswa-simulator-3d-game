@@ -74,6 +74,7 @@ namespace MS.Inti
         {
             if (cuaca.Count == 0) return null;
             if (hari <= 2) return cuaca[0];
+            pengaliHujan *= (hari - 1) % 124 < 56 ? .65f : 1.5f;
             double total = 0;
             foreach (var c in cuaca) total += c.peluang * (c.id is "hujan" or "badai" ? pengaliHujan : 1f);
             double r = AsliCpp.CuacaAcak(hari) * total, acc = 0;

@@ -29,6 +29,7 @@ namespace MS.Pemain
             if (scene.name != "KamarKos") return;
             var kamar = GameObject.Find("Kamar");
             if (kamar == null) return;
+            if (kamar.transform.Find("Kamar Hemat 2,5 × 3 m") != null) return;
             var galon = new GameObject("Titik galon");
             galon.transform.SetParent(kamar.transform, false);
             galon.transform.localPosition = new Vector3(4.15f, 0, 1.18f);
