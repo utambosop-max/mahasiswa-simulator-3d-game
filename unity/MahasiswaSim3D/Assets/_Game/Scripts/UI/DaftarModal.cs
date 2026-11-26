@@ -76,6 +76,8 @@ namespace MS.UI
         internal void Tambah(string nama, string detail, bool boleh, Action klik, Color? contoh = null)
             => BuatBaris(nama, detail, boleh, klik, contoh);
 
+        internal void AturRingkasan(string teks) => info.text = teks;
+
         internal void KeDepan()
         {
             if (Terbuka && akar.GetSiblingIndex() != akar.parent.childCount - 1)

@@ -7,7 +7,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
+using System.Linq;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
@@ -71,6 +71,13 @@ namespace MS.UI
         private float cekAksiBerikut;
         private float statTampilEnergi, statTampilStres;
         private DaftarModal kosanOs;
+        private TantanganKosanOs tantanganPc;
+        private GameObject ponselPc;
+        private bool berandaPc;
+        private static readonly string[] AplikasiPc =
+        {
+            "DompetKu", "ChatApp", "SIAKAD", "Gaskeun", "TokoOren", "DanaKilat", "JagoMasak", "Profil & KTM"
+        };
         private TextMeshProUGUI hariPc, labelKenyang;
         private Image barKenyang;
         private static bool judulSudahTampil;
@@ -93,26 +100,148 @@ namespace MS.UI
         private void SiapkanMenuPc()
         {
             kosanOs = new DaftarModal(this, areaAman, "KosanOS", TutupKosanOs);
+            tantanganPc = new TantanganKosanOs(kosanOs);
         }
 
         private void BukaKosanOs()
         {
             if (Layanan.InputDitahan) return;
             Layanan.UiModal = true;
-            kosanOs.Tampil(true, "KosanOS", $"Saldo {uang.text}   ·   IPK {ipk.text}");
-            kosanOs.Tambah("1 · Rapor", "", true, BukaRaporPc);
-            kosanOs.Tambah("Kebutuhan kos", "", true, BukaKebutuhanKos);
-            kosanOs.Tambah("2 · Pengaturan", "", true, () =>
+            TampilkanPonselPc();
+            BerandaKosanOs();
+        }
+
+        private void BerandaKosanOs()
+        {
+            tantanganPc.Batal();
+            berandaPc = true;
+            string waktu = kalender != null ? kalender.text : "";
+            kosanOs.Tampil(true, "KosanOS", $"{waktu}  ·  Wi-Fi  ·  Baterai 86%\nSaldo {uang.text}   ·   IPK {ipk.text}");
+            kosanOs.TambahKisi(AplikasiPc, BukaAplikasiPc);
+        }
+
+        private void BukaAplikasiPc(int indeks)
+        {
+            tantanganPc.Batal();
+            berandaPc = false;
+            kosanOs.Tampil(true, AplikasiPc[indeks]);
+            switch (indeks)
+            {
+                case 0:
+                    TambahAksiPc("Bank & tabungan", "bukaBank");
+                    TambahAksiPc("Bayar sewa kos", "bayarKos");
+                    kosanOs.Tambah("Meteran listrik & kebutuhan kos", "", true, BukaKebutuhanKos);
+                    TambahTantanganPc(7);
+                    break;
+                case 1:
+                    kosanOs.Tambah("Grup Angkatan", "Sari: Info tugas dan jadwal kuliah bisa dibuka di SIAKAD.", false, null);
+                    TambahTantanganPc(4, "titipAbsen");
+                    TambahAksiPc("Telepon darurat", "bantuanDarurat");
+                    TambahTantanganPc(1);
+                    break;
+                case 2:
+                    kosanOs.Tambah("Transkrip & jadwal", "Rapor semester, SKS, dan skripsi", true, BukaRaporPc);
+                    TambahTantanganPc(0, "krsWar");
+                    TambahTantanganPc(8, "sidang");
+                    break;
+                case 3:
+                    TambahAksiPc("Ambil order kurir", "narikOjol");
+                    TambahAksiPc("Kerja serabutan", "kerjaDarurat");
+                    TambahAksiPc("Papan lowongan", "bukaKarier");
+                    TambahAksiPc("Racik kopi & gorengan", "kerjaWarkop");
+                    break;
+                case 4:
+                    TambahAksiPc("Belanja kebutuhan", "belanjaBarang");
+                    TambahAksiPc("Perabot kamar", "bukaUpgrade");
+                    TambahTantanganPc(6);
+                    break;
+                case 5:
+                    TambahAksiPc("Cairkan pinjaman Rp100.000", "pinjamDana", detail: "Bunga majemuk 8% per hari.");
+                    TambahAksiPc("Lunasi tagihan", "lunasiDana");
+                    break;
+                case 6:
+                    TambahTantanganPc(2, "masakMi");
+                    TambahTantanganPc(3);
+                    kosanOs.Tambah("Saran menu", "Sayur sop membantu memulihkan Maag. Pastikan galon dan listrik tersedia.", false, null);
+                    break;
+                case 7:
+                    var profil = Layanan.Profil;
+                    kosanOs.Tambah(profil?.Nama ?? "Mahasiswa",
+                        $"Kartu Tanda Mahasiswa · {profil?.DaftarJurusan.FirstOrDefault(j => j.Id == profil.JurusanId)?.Nama}", false, null);
+                    kosanOs.Tambah("Rapor & keterampilan", "", true, BukaRaporPc);
+                    TambahTantanganPc(5, "nugas");
+                    kosanOs.Tambah("Pengaturan", "", true, () => { TutupKosanOs(); panelPengaturan.Buka(); });
+                    break;
+            }
+            kosanOs.Tambah("Beranda", "", true, BerandaKosanOs);
+        }
+
+        private void TambahAksiPc(string nama, string id, string target = null, string detail = null)
+        {
+            var aksi = new PerintahAksi(id, target);
+            string alasan = null;
+            bool boleh = penerimaAksi != null && penerimaAksi.BolehDilakukan(aksi, out alasan);
+            kosanOs.Tambah(nama, alasan ?? detail, boleh, () =>
             {
                 TutupKosanOs();
-                panelPengaturan.Buka();
+                MintaAksi(aksi, false);
             });
+        }
+
+        private void TambahTantanganPc(int nomor, string idAksi = null)
+        {
+            string alasan = null;
+            bool boleh = idAksi == null || (penerimaAksi != null &&
+                penerimaAksi.BolehDilakukan(new PerintahAksi(idAksi), out alasan));
+            kosanOs.Tambah(TantanganKosanOs.Nama(nomor), alasan, boleh, () => MulaiTantanganPc(nomor, idAksi));
+        }
+
+        private void MulaiTantanganPc(int nomor, string idAksi)
+        {
+            if (!kosanOs.Terbuka) BukaKosanOs();
+            berandaPc = false;
+            tantanganPc.Mulai(nomor, skor =>
+            {
+                if (idAksi != null)
+                {
+                    TutupKosanOs();
+                    MintaAksi(new PerintahAksi(idAksi, skor.ToString(CultureInfo.InvariantCulture)), false);
+                    BeriPesan($"{TantanganKosanOs.Nama(nomor)} · skor {skor}/100");
+                    return;
+                }
+                kosanOs.Tampil(true, TantanganKosanOs.Nama(nomor), $"Skor {skor}/100");
+                kosanOs.Tambah("Beranda", "", true, BerandaKosanOs);
+            }, BerandaKosanOs);
+        }
+
+        private void TampilkanPonselPc()
+        {
+            var kamera = Camera.main;
+            if (kamera == null) return;
+            if (ponselPc == null)
+            {
+                ponselPc = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                ponselPc.name = "Ponsel KosanOS";
+                Destroy(ponselPc.GetComponent<Collider>());
+                ponselPc.transform.SetParent(kamera.transform, false);
+                ponselPc.transform.localPosition = new Vector3(.47f, -.19f, .98f);
+                ponselPc.transform.localRotation = Quaternion.Euler(-9, -15, -8);
+                ponselPc.transform.localScale = new Vector3(.23f, .405f, .022f);
+                var renderer = ponselPc.GetComponent<Renderer>();
+                renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+                renderer.receiveShadows = false;
+                var warna = new MaterialPropertyBlock();
+                warna.SetColor("_BaseColor", new Color(.12f, .18f, .23f));
+                renderer.SetPropertyBlock(warna);
+            }
+            ponselPc.SetActive(true);
         }
 
         private void BukaKebutuhanKos()
         {
             var vital = stat as IVitalPemain;
             string ringkasan = vital == null ? "" : $"Hidrasi {vital.Hidrasi:0}% · Kebersihan {vital.Kebersihan:0}% · Masuk angin {vital.MasukAngin:0}% · Fokus {vital.Fokus:0}% · Kejenuhan {vital.Kejenuhan:0}%";
+            berandaPc = false;
             kosanOs.Tampil(true, "Kebutuhan kos", ringkasan);
             foreach (var (id, nama) in new[]
             {
@@ -131,6 +260,7 @@ namespace MS.UI
                     BukaKebutuhanKos();
                 });
             }
+            kosanOs.Tambah("Beranda", "", true, BerandaKosanOs);
         }
 
         private void BukaRaporPc()
@@ -143,6 +273,8 @@ namespace MS.UI
         {
             if (kosanOs?.Terbuka != true) return;
             kosanOs.Tampil(false);
+            tantanganPc?.Batal();
+            if (ponselPc != null) ponselPc.SetActive(false);
             Layanan.UiModal = false;
             EventSystem.current?.SetSelectedGameObject(null);
         }
@@ -157,16 +289,16 @@ namespace MS.UI
                 else BukaKosanOs();
             }
             if (!kosanOs.Terbuka) return;
-            if (Ditekan(papan.digit1Key, papan.numpad1Key)) BukaRaporPc();
-            else if (Ditekan(papan.digit2Key, papan.numpad2Key))
+            if (tantanganPc.Aktif) return;
+            for (int indeks = 0; indeks < AplikasiPc.Length; indeks++)
             {
-                TutupKosanOs();
-                panelPengaturan.Buka();
+                var angka = papan[(Key)((int)Key.Digit1 + indeks)];
+                var numpad = papan[(Key)((int)Key.Numpad1 + indeks)];
+                if (!angka.wasPressedThisFrame && !numpad.wasPressedThisFrame) continue;
+                BukaAplikasiPc(indeks);
+                break;
             }
         }
-
-        private static bool Ditekan(KeyControl tombol, KeyControl numpad) =>
-            tombol.wasPressedThisFrame || numpad.wasPressedThisFrame;
 
         private void BuatHudPc()
         {
@@ -391,11 +523,16 @@ namespace MS.UI
             panelProfil.KeDepan();
             if (panelPengaturan.LayarJudul) panelPengaturan.KeDepan();
             if (!Application.isMobilePlatform) PintasanPc();
+            tantanganPc?.Tick();
             // Esc di PC / tombol Back di Android menutup panel aktif dahulu.
             if (!panelEvent.Terbuka && UnityEngine.InputSystem.Keyboard.current?.escapeKey.wasPressedThisFrame == true)
             {
                 if (panelPengaturan.Terbuka) panelPengaturan.Tutup();
-                else if (kosanOs?.Terbuka == true) TutupKosanOs();
+                else if (kosanOs?.Terbuka == true)
+                {
+                    if (berandaPc) TutupKosanOs();
+                    else BerandaKosanOs();
+                }
                 else if (panelRapor.Terbuka) panelRapor.Tutup();
                 else if (panelLayanan.Terbuka) panelLayanan.Tutup();
                 else if (panelToko.Terbuka) panelToko.Tutup();
@@ -693,6 +830,15 @@ namespace MS.UI
                 return;
             }
 
+            if (!Application.isMobilePlatform && perintah.Target == null)
+            {
+                int tantangan = perintah.Id switch { "masakMi" => 2, "nugas" => 5, "sidang" => 8, _ => -1 };
+                if (tantangan >= 0)
+                {
+                    MulaiTantanganPc(tantangan, perintah.Id);
+                    return;
+                }
+            }
             layanan.Lakukan(perintah);
 #if UNITY_ANDROID || UNITY_IOS
             if (Application.isMobilePlatform && PlayerPrefs.GetInt("GetarAksi", 1) == 1)

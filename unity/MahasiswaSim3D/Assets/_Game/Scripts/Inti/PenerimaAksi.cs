@@ -42,6 +42,7 @@ namespace MS.Inti
         public event Action<string> AksiMulai;   // id aksi → hook animasi/audio
         internal event Action MenuDibeli;
         internal KebutuhanHarian Kebutuhan;
+        internal LayananPonsel Ponsel;
 
         public PenerimaAksi(DataGame d, DataSimpan simpan, StatPemain st, JamGame j)
         { data = d; s = simpan; stat = st; jam = j; }
@@ -102,6 +103,7 @@ namespace MS.Inti
             alasan = null;
             string id = p.Id;
             if (jam.Sibuk) { alasan = "⏳ Tunggu dulu, masih sibuk."; return false; }
+            if (Ponsel?.Tangani(id) == true) { alasan = Ponsel.Cek(id); return alasan == null; }
             if (Kebutuhan?.AksiKos(id) == true) { alasan = Kebutuhan.Cek(id); return alasan == null; }
             if (s.tahapPindahan > 0 && s.semester < 2 && (id == "bimbingan" || id == "sidang"))
             { alasan = "Pengajuan skripsi dibuka mulai semester 2."; return false; }
@@ -172,6 +174,12 @@ namespace MS.Inti
         {
             if (!BolehDilakukan(p, out var alasan)) { PesanTerakhir = alasan; return; }
             string id = p.Id;
+            if (Ponsel?.Tangani(id) == true)
+            {
+                PesanTerakhir = Ponsel.Jalankan(p);
+                SimpanMuat.Simpan(s);
+                return;
+            }
             if (Kebutuhan?.AksiKos(id) == true)
             {
                 PesanTerakhir = Kebutuhan.Jalankan(id);
@@ -232,6 +240,15 @@ namespace MS.Inti
 
             float lama = tidur ? LamaTidur() : LamaAksi(a);
             Kebutuhan?.CatatAksi(id, a, efek);
+            if (int.TryParse(p.Target, out int skor) && skor is >= 0 and <= 100)
+            {
+                if (id == "masakMi")
+                {
+                    if (skor >= 65) efek.energi *= 1.25f;
+                    else s.maag += 10;
+                }
+                else if (id == "nugas" && skor >= 65) efek.ipk *= 2f;
+            }
             if (a?.jenis == "belajar" && Kebutuhan != null) efek.ipk *= Mathf.Lerp(.65f, 1f, stat.Fokus / 100f);
             stat.Terapkan(efek); // web: efek diterapkan lalu waktu dimajukan
             AksiMulai?.Invoke(id);

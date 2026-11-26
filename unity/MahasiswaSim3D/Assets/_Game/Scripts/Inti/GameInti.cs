@@ -83,6 +83,7 @@ namespace MS.Inti
             Aturan.Pesan += Aksi.Umumkan;
             Jam.FaseBerganti += SaatFaseBerganti;
             Event = new EventAcak(Data, Simpanan, Stat, Jam, eventsJson != null ? eventsJson.text : null);
+            Aksi.Ponsel = new LayananPonsel(Simpanan, Stat, Jam, Event);
             pindahan = new HariPindahan(Simpanan, Event);
             Hidup.ProfilDidaftarkan += pindahan.Mulai;
             Aksi.AksiMulai += pindahan.Aksi;
@@ -149,6 +150,7 @@ namespace MS.Inti
         {
             if (!Layanan.InputDitahan) Jam.Jalan(Time.deltaTime);
             pindahan.Periksa();
+            if (!ukurFps) Aksi.Ponsel.Periksa();
             Sosial.Periksa(); // jam malam kos
             // Cerita: cek pemicu tiap 1 detik nyata, tampilkan dialog saat layar kosong
             if (!ukurFps)
