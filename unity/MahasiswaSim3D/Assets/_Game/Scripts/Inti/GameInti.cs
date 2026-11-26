@@ -39,6 +39,7 @@ namespace MS.Inti
         public Cerita Cerita { get; private set; }
         float timerCerita;
         HariPindahan pindahan;
+        KebutuhanHarian kebutuhan;
         bool ukurFps;
 
         void Awake()
@@ -66,7 +67,14 @@ namespace MS.Inti
             Simpanan = SimpanMuat.Muat(Data.Bal);
             Stat = new StatPemain(Simpanan, Data.Bal);
             Jam = new JamGame(Simpanan, Data.Bal, Stat);
-            Aksi = new PenerimaAksi(Data, Simpanan, Stat, Jam);
+            kebutuhan = new KebutuhanHarian(Simpanan, Data.Bal.vital, Stat);
+            Jam.Berubah += kebutuhan.Periksa;
+            Aksi = new PenerimaAksi(Data, Simpanan, Stat, Jam) { Kebutuhan = kebutuhan };
+            kebutuhan.MeteranRendah = () =>
+            {
+                Layanan.Audio?.Mainkan("notif");
+                Aksi.Umumkan("Meteran berbunyi. Sisa daya di bawah 1 kWh.");
+            };
             Aksi.MenuDibeli += SimpanSetelahPembelian;
             Hidup = new Kehidupan(Data, Simpanan, Stat, Jam);
             Hidup.Pesan += Aksi.Umumkan;
@@ -163,6 +171,7 @@ namespace MS.Inti
         {
             if (Instans != this) return;
             Instans = null;
+            if (kebutuhan != null) Jam.Berubah -= kebutuhan.Periksa;
             if (pindahan != null)
             {
                 Hidup.ProfilDidaftarkan -= pindahan.Mulai;

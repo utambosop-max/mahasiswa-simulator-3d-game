@@ -17,6 +17,17 @@ namespace MS.Kontrak
         event Action Berubah;   // dipanggil setiap ada stat yang berubah
     }
 
+    public interface IVitalPemain
+    {
+        float Kenyang { get; }
+        float Maag { get; }
+        float Hidrasi { get; }
+        float Kebersihan { get; }
+        float MasukAngin { get; }
+        float Fokus { get; }
+        float Kejenuhan { get; }
+    }
+
     /// <summary>Jam & kalender game.</summary>
     public interface IJamGame
     {

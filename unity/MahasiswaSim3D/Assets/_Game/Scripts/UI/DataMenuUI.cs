@@ -8,9 +8,9 @@ namespace MS.UI
     /// <summary>Satu baris menu untuk ditampilkan (hanya data tampilan, bukan logika beli).</summary>
     internal sealed class ItemMenuUI
     {
-        public string Id, Nama, Ikon;
+        public string Id, Nama, Ikon, Kategori;
         public int HargaDasar;
-        public float Energi, Stres;
+        public float Energi, Stres, Karbo, Protein, Serat, Maag;
     }
 
     /// <summary>
@@ -60,6 +60,11 @@ namespace MS.UI
                                 Ikon = m.Value<string>("ikon"),
                                 HargaDasar = m.Value<int?>("harga") ?? 0,
                                 Energi = efek?.Value<float?>("energi") ?? 0f,
+                                Kategori = m.Value<string>("kategori"),
+                                Karbo = m.Value<float?>("karbo") ?? 0f,
+                                Protein = m.Value<float?>("protein") ?? 0f,
+                                Serat = m.Value<float?>("serat") ?? 0f,
+                                Maag = m.Value<float?>("maag") ?? 0f,
                                 Stres = efek?.Value<float?>("stres") ?? 0f,
                             });
                         }

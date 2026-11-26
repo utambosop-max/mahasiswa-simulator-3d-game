@@ -41,6 +41,7 @@ namespace MS.Inti
         public event Action<string> PesanMasuk; // setiap pesan baru (tidak tertimpa dalam satu frame)
         public event Action<string> AksiMulai;   // id aksi → hook animasi/audio
         internal event Action MenuDibeli;
+        internal KebutuhanHarian Kebutuhan;
 
         public PenerimaAksi(DataGame d, DataSimpan simpan, StatPemain st, JamGame j)
         { data = d; s = simpan; stat = st; jam = j; }
@@ -101,6 +102,7 @@ namespace MS.Inti
             alasan = null;
             string id = p.Id;
             if (jam.Sibuk) { alasan = "⏳ Tunggu dulu, masih sibuk."; return false; }
+            if (Kebutuhan?.AksiKos(id) == true) { alasan = Kebutuhan.Cek(id); return alasan == null; }
             if (s.tahapPindahan > 0 && s.semester < 2 && (id == "bimbingan" || id == "sidang"))
             { alasan = "Pengajuan skripsi dibuka mulai semester 2."; return false; }
             if (id == "bukaUpgrade") return Upgrade != null;
@@ -136,6 +138,11 @@ namespace MS.Inti
             if (a.hari != null && a.hari.Count > 0 && !a.hari.Contains(AturanHarian.HariMinggu(s.hari)))
             { alasan = a.alasanTutup ?? "Belum waktunya."; return false; }
             if (id == "kuliah" && !CekKuliah(out alasan)) return false;
+            if (Kebutuhan != null)
+            {
+                alasan = Kebutuhan.Cek(id);
+                if (alasan != null) return false;
+            }
             if ((a.jenis == "makan" || a.jenis == "menu" || id == "minum") && s.porsiFase >= data.Bal.kenyang.porsiPerFase)
             { alasan = "🤰 Masih kenyang! Tunggu fase berikutnya."; return false; }
             if (a.jenis == "kerja" && s.kerjaHari == s.hari && data.Bal.kerja.maksShiftPerHari <= 1)
@@ -165,6 +172,13 @@ namespace MS.Inti
         {
             if (!BolehDilakukan(p, out var alasan)) { PesanTerakhir = alasan; return; }
             string id = p.Id;
+            if (Kebutuhan?.AksiKos(id) == true)
+            {
+                PesanTerakhir = Kebutuhan.Jalankan(id);
+                SimpanMuat.Simpan(s);
+                AksiMulai?.Invoke(id);
+                return;
+            }
             if ((id == "masukKos" || id == "masukGedung") && Hidup != null) Hidup.Turun(); // motor diparkir saat masuk bangunan
             if (id == "masukKos") { PesanTerakhir = "🏠 Pulang ke kamar."; AksiMulai?.Invoke(id); PindahScene.Ke("KamarKos", "pintuKamar"); return; }
             if (id == "keluarKos") { PesanTerakhir = "🚪 Keluar kos."; AksiMulai?.Invoke(id); Hidup?.SaatKeluarKos(); PindahScene.Ke("Kampung", "pintuKos"); return; }
@@ -217,6 +231,8 @@ namespace MS.Inti
             if (id == "kuliah") { if (jam.Fase == Fase.Pagi) s.hadirPagi = true; else s.hadirSiang = true; }
 
             float lama = tidur ? LamaTidur() : LamaAksi(a);
+            Kebutuhan?.CatatAksi(id, a, efek);
+            if (a?.jenis == "belajar" && Kebutuhan != null) efek.ipk *= Mathf.Lerp(.65f, 1f, stat.Fokus / 100f);
             stat.Terapkan(efek); // web: efek diterapkan lalu waktu dimajukan
             AksiMulai?.Invoke(id);
             if (lama > 0f) jam.MulaiSibuk(lama, tidur);
@@ -358,6 +374,7 @@ namespace MS.Inti
         /// <summary>Harga warteg naik saat tanggal tua; semua menu x hargaMakan.pengali; dibulatkan Rp500 (min Rp1.000).</summary>
         public int HargaMenu(string tempat, DataMenu m)
         {
+            if (m.kategori == "Kuah & sambal") return 0;
             int naik = tempat == "warteg" && jam.TanggalTua ? data.NaikTanggalTua : 0;
             if (Sosial != null) naik -= Sosial.DiskonMenu(tempat, m.id); // akrab dengan penjual -> lebih murah
             float h = (m.harga + naik) * data.Bal.hargaMakan.pengali;
@@ -373,7 +390,14 @@ namespace MS.Inti
             {
                 var m = daftar[i];
                 if (!string.IsNullOrEmpty(target) && m.id != target) continue;
+                if (m.kategori == "Kuah & sambal" && s.porsiNasiJam != s.hari * 24 + jam.JamDinding)
+                {
+                    if (!string.IsNullOrEmpty(target)) return null;
+                    continue;
+                }
                 int h = HargaMenu(a.tempat, m);
+                if (stat.Uang < h && m.kasbon && s.kasbon + h <= data.Bal.vital.batasKasbon)
+                { harga = h; return m; }
                 if (stat.Uang - h >= data.Bal.batas.uangMin) { harga = h; return m; }
                 if (!string.IsNullOrEmpty(target)) return null; // menu pilihan tidak terjangkau
             }
@@ -386,11 +410,16 @@ namespace MS.Inti
             if (m == null) return; // sudah dicek di BolehDilakukan
             efek.Kosongkan();
             if (m.efek != null) efek.Isi(m.efek);
-            efek.uang = -harga;
-            s.porsiFase++;
+            bool kasbon = stat.Uang < harga && m.kasbon && s.kasbon + harga <= data.Bal.vital.batasKasbon;
+            if (kasbon) s.kasbon += harga;
+            else efek.uang = -harga;
+            if (m.kategori == "Karbohidrat") s.porsiNasiJam = s.hari * 24 + jam.JamDinding;
+            if (m.kategori == "Kuah & sambal") s.porsiNasiJam = -1;
+            Kebutuhan?.Makan(m, efek);
+            if (m.kategori != "Minuman" && m.kategori != "Kuah & sambal") s.porsiFase++;
             if (a.tempat == "warteg" || a.tempat == "gerobak") s.streakMi = 0; // makan bergizi -> perut lega
             stat.Terapkan(efek);
-            PesanTerakhir = m.ikon + " " + m.nama + "  −" + AturanHarian.Rupiah(harga);
+            PesanTerakhir = m.ikon + " " + m.nama + (kasbon ? " · Kasbon " : " · −") + AturanHarian.Rupiah(harga);
             Sosial?.Setelah(id, a); // statistik cerita (mis. makan_warteg)
             MenuDibeli?.Invoke();
             AksiMulai?.Invoke(id);

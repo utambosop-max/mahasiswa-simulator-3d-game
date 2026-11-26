@@ -48,7 +48,7 @@ namespace MS.Inti
             }
         }
         string Gedung { get { string n = Scene() ?? ""; return n.StartsWith("Gedung_") ? n.Substring(7) : ""; } }
-        static int BulanDari(int hari) => (hari - 1) / 30 + 1;
+        int BulanDari(int hari) => (hari - 1) / data.Bal.bulanan.hariPerBulan + 1;
         string KunciRelasi(string id) => data.Fitur3.Warga(id) != null ? "w_" + id : id;
 
         /// <summary>Nilai statistik; kunci "a+b" = dijumlah. "kerja" = jumlah shift.</summary>

@@ -125,7 +125,7 @@ namespace MS.UI
         {
             idAksi = aksi;
             var daftar = data.Daftar(aksi, out tempat);
-            judul.text = string.IsNullOrWhiteSpace(namaTempat) ? "Menu" : namaTempat;
+            judul.text = tempat == "warteg" ? "Etalase Warteg Bahari" : string.IsNullOrWhiteSpace(namaTempat) ? "Menu" : namaTempat;
 
             // Jaga tinggi baris >= 56 px nyata di layar kecil (acuan 1920x1080)
             var skala = Mathf.Sqrt(Screen.width / 1920f * (Screen.height / 1080f));
@@ -141,7 +141,8 @@ namespace MS.UI
                 b.HargaTerakhir = -1;
                 b.BolehTerakhir = null;
                 b.AlasanTerakhir = null;
-                b.Nama.text = HudKamar.BersihkanEmoji(daftar[i].Nama ?? daftar[i].Id);
+                string nama = HudKamar.BersihkanEmoji(b.Item.Nama ?? b.Item.Id);
+                b.Nama.text = string.IsNullOrEmpty(b.Item.Kategori) ? nama : b.Item.Kategori + " · " + nama;
                 b.Kotak.sizeDelta = new Vector2(0, tinggiBaris);
                 b.Kotak.gameObject.SetActive(true);
             }
@@ -196,7 +197,9 @@ namespace MS.UI
 
         // Font HUD tidak memuat emoji, jadi ⚡/😵 ditulis sebagai kata.
         private static string TeksEfek(ItemMenuUI m) =>
-            "Energi " + Tanda(m.Energi) + "   Stres " + Tanda(m.Stres);
+            string.IsNullOrEmpty(m.Kategori)
+                ? "Energi " + Tanda(m.Energi) + "   Stres " + Tanda(m.Stres)
+                : $"Karbo {m.Karbo:g} · Protein {m.Protein:g} · Serat {m.Serat:g} · Stres {Tanda(m.Stres)} · Maag {Tanda(m.Maag)}";
 
         private static string Tanda(float n)
         {

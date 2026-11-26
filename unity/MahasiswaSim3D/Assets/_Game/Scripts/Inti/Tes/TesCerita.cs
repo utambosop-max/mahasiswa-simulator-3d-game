@@ -111,7 +111,7 @@ namespace MS.Inti.Tes
             Assert.IsTrue(sos.SudahBekerja);
             // 3,5 jt + 1,5 jt × 1,0 + 150 rb × 2 = 5,3 jt
             Assert.AreEqual(5300000, sos.HitungGaji("bumn"));
-            s.tanggal = 30; s.hari = 30; int u = s.uang;
+            s.tanggal = s.hari = data.Bal.bulanan.hariPerBulan; int u = s.uang;
             jam.LompatKeBesok(60);
             Assert.AreEqual(u + 5300000, s.uang);
         }

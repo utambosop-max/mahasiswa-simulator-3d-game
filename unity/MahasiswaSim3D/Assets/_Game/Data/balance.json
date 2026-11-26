@@ -1,4 +1,17 @@
 {
+  "vital": {
+    "kenyangPerJam": 7,
+    "hidrasiPerJam": 6,
+    "maagPuasa": 0.4,
+    "maagMi": 2,
+    "maagKopi": 3,
+    "serap": 0.6,
+    "pulihHidrasi": 28,
+    "maagAkut": 75,
+    "batasKasbon": 12000,
+    "awalWaspada": 8,
+    "awalTanggalTua": 21
+  },
   "statAwal": {
     "uang": 1000000,
     "ipk": 3,
@@ -10,7 +23,7 @@
     "uangMin": -100000
   },
   "bulanan": {
-    "hariPerBulan": 30,
+    "hariPerBulan": 31,
     "kirimanOrtu": 1500000,
     "biayaKos": 500000,
     "batasBayarKos": 5,

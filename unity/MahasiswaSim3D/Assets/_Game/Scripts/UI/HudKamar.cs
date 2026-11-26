@@ -71,7 +71,8 @@ namespace MS.UI
         private float cekAksiBerikut;
         private float statTampilEnergi, statTampilStres;
         private DaftarModal kosanOs;
-        private TextMeshProUGUI hariPc;
+        private TextMeshProUGUI hariPc, labelKenyang;
+        private Image barKenyang;
         private static bool judulSudahTampil;
         private static readonly string[] NamaHari =
             { "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu" };
@@ -100,11 +101,36 @@ namespace MS.UI
             Layanan.UiModal = true;
             kosanOs.Tampil(true, "KosanOS", $"Saldo {uang.text}   ·   IPK {ipk.text}");
             kosanOs.Tambah("1 · Rapor", "", true, BukaRaporPc);
+            kosanOs.Tambah("Kebutuhan kos", "", true, BukaKebutuhanKos);
             kosanOs.Tambah("2 · Pengaturan", "", true, () =>
             {
                 TutupKosanOs();
                 panelPengaturan.Buka();
             });
+        }
+
+        private void BukaKebutuhanKos()
+        {
+            var vital = stat as IVitalPemain;
+            string ringkasan = vital == null ? "" : $"Hidrasi {vital.Hidrasi:0}% · Kebersihan {vital.Kebersihan:0}% · Masuk angin {vital.MasukAngin:0}% · Fokus {vital.Fokus:0}% · Kejenuhan {vital.Kejenuhan:0}%";
+            kosanOs.Tampil(true, "Kebutuhan kos", ringkasan);
+            foreach (var (id, nama) in new[]
+            {
+                ("isiToken", "Isi token Rp10.000"), ("isiGalon", "Isi galon Rp5.000"),
+                ("cuciManual", "Cuci pakaian & jemur"), ("angkatJemuran", "Angkat jemuran"),
+                ("kerjaDarurat", "Kerja serabutan"), ("gadaiLaptop", "Gadai laptop"),
+                ("tebusLaptop", "Tebus laptop"), ("bantuanDarurat", "Telepon darurat")
+            })
+            {
+                var aksi = new PerintahAksi(id);
+                string alasan = null;
+                bool boleh = penerimaAksi != null && penerimaAksi.BolehDilakukan(aksi, out alasan);
+                kosanOs.Tambah(nama, alasan, boleh, () =>
+                {
+                    penerimaAksi.Lakukan(aksi);
+                    BukaKebutuhanKos();
+                });
+            }
         }
 
         private void BukaRaporPc()
@@ -158,8 +184,7 @@ namespace MS.UI
             foreach (var label in new[] { judulKalender, statusAkademik, uang, ipk })
                 label.gameObject.SetActive(false);
 
-            BuatVital("Kenyang", 24, out _, out var kenyang);
-            kenyang.text = "—";
+            barKenyang = BuatVital("Kenyang", 24, out _, out labelKenyang);
             barEnergi = BuatVital("Energi", 174, out _, out energi);
             barStres = BuatVital("Stres", 324, out _, out stres);
         }
@@ -227,6 +252,13 @@ namespace MS.UI
             var tenang = TemaAntarmuka.Mint;
             var merah = Color.Lerp(new Color32(173, 45, 44, 255), new Color32(255, 114, 104, 255),
                 .5f + .5f * Mathf.Sin(Time.unscaledTime * 6f));
+            if (stat is IVitalPemain vital)
+            {
+                IsiBar(barKenyang, vital.Kenyang);
+                barKenyang.color = vital.Kenyang < 25 || vital.Maag >= 75 ? merah : tenang;
+                string label = $"{vital.Kenyang:0}% · M {vital.Maag:0}";
+                if (labelKenyang.text != label) labelKenyang.text = label;
+            }
             barEnergi.color = stat.Energi < 25 ? merah : tenang;
             barStres.color = stat.Stres > 75 ? merah : TemaAntarmuka.Jingga;
         }

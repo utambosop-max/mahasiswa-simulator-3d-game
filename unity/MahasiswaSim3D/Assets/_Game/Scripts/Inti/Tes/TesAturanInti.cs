@@ -59,6 +59,29 @@ namespace MS.Inti.Tes
         }
 
         [Test]
+        public void BulanWartegBahariBisaDilaluiDanTanggalTuaLebihMahal()
+        {
+            Assert.AreEqual(32, data.Menu["warteg"].FindAll(m => m.id.StartsWith("bahari_")).Count);
+            int hargaPagi = aksi.HargaMenu("makanWarteg", "bahari_02");
+            s.uang = 800000;
+            s.asal = "rantau";
+            for (int tanggal = 1; tanggal <= 31; tanggal++)
+            {
+                Assert.AreEqual(tanggal, s.tanggal);
+                var porsi = new PerintahAksi("makanWarteg", "bahari_02");
+                if (tanggal >= 22) Assert.Greater(aksi.HargaMenu(porsi.Id, porsi.Target), hargaPagi);
+                for (int jatah = 0; jatah < 2; jatah++)
+                {
+                    Assert.IsTrue(aksi.BolehDilakukan(porsi, out var alasan), alasan);
+                    aksi.Lakukan(porsi);
+                    Assert.GreaterOrEqual(stat.Uang, 0);
+                }
+                jam.LompatKeBesok(60);
+            }
+            Assert.AreEqual(1, s.tanggal);
+        }
+
+        [Test]
         public void KosDitagihOtomatisSetelahBatas()
         {
             var b = data.Bal.bulanan;

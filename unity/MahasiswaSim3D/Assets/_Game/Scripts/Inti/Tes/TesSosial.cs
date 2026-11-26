@@ -133,12 +133,12 @@ namespace MS.Inti.Tes
             sos.DaftarBeasiswa("cendekia");
             Assert.AreEqual("cendekia", s.beasiswa);
             Assert.IsNotNull(sos.CekBeasiswa(data.Fitur3.Beasiswa("kip")), "maks 1");
-            s.hari = 30; s.tanggal = 30;
+            s.hari = s.tanggal = data.Bal.bulanan.hariPerBulan;
             int u = s.uang;
             jam.LompatKeBesok(60); // tanggal 1
             Assert.AreEqual(1, s.tanggal);
             Assert.AreEqual(u + 1000000, s.uang);
-            s.ipk = 3.0f; s.tanggal = 30;
+            s.ipk = 3.0f; s.tanggal = data.Bal.bulanan.hariPerBulan;
             jam.LompatKeBesok(60);
             Assert.IsNull(s.beasiswa, "IPK turun → dicabut");
         }

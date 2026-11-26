@@ -28,8 +28,10 @@ namespace MS.Inti
 
     public class DataMenu
     {
-        public string id, nama, ikon;
+        public string id, nama, ikon, kategori;
         public int harga;
+        public float karbo, protein, serat, maag;
+        public bool kasbon;
         public Efek efek = new Efek();
     }
 
@@ -44,6 +46,13 @@ namespace MS.Inti
     {
         public string id, nama, ikon;
         public List<LevelUpgrade> levels = new List<LevelUpgrade>();
+    }
+
+    public class BalVital
+    {
+        public float kenyangPerJam = 7f, hidrasiPerJam = 6f, maagPuasa = .4f, maagMi = 2f, maagKopi = 3f;
+        public float serap = .6f, pulihHidrasi = 28f, maagAkut = 75f;
+        public int batasKasbon = 12000, awalWaspada = 8, awalTanggalTua = 21;
     }
 
     public class BalStatAwal { public int uang = 1000000, tanggal = 1; public float ipk = 3, energi = 80, stres = 20; }
@@ -75,6 +84,7 @@ namespace MS.Inti
 
     public class DataBalance
     {
+        public BalVital vital = new BalVital();
         public BalStatAwal statAwal = new BalStatAwal();
         public BalBatas batas = new BalBatas();
         public BalBulanan bulanan = new BalBulanan();

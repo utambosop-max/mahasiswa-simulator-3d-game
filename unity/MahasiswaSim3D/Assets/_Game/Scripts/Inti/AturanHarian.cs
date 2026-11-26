@@ -105,12 +105,12 @@ namespace MS.Inti
                 if (s.tanggal == u.tanggalMulai)
                     Pesan?.Invoke("📝 Minggu " + u.nama + " dimulai (tgl " + u.tanggalMulai + "–" + u.tanggalSelesai + ")! Kuliah = ikut ujian. Sudah belajar belum?");
             }
-            // Tagihan listrik + WiFi
+            // Listrik profil baru dibayar lewat meter prabayar; WiFi tetap bulanan.
             if (s.tanggal == ak.tanggalTagihan)
             {
-                int tagih = ak.listrik + ak.wifi;
+                int tagih = (s.tahapPindahan == 0 ? ak.listrik : 0) + ak.wifi;
                 stat.TambahUang(-tagih);
-                Pesan?.Invoke("🧾 Tagihan listrik & WiFi −" + Rupiah(tagih));
+                Pesan?.Invoke("Tagihan kos berkala −" + Rupiah(tagih));
             }
             if (s.tanggal == 1) s.kosLunas = s.asal == "lokal" && s.kosPindahHari == 0;
             int tanggalCair = s.asal == "rantau" ? 3 + (s.bulan % 4) : 1;
@@ -121,7 +121,10 @@ namespace MS.Inti
             }
             else if (s.tanggal == tanggalCair && Kiriman > 0)
             {
-                stat.TambahUang(Kiriman);
+                int lunasKasbon = Math.Min(Kiriman, s.kasbon);
+                s.kasbon -= lunasKasbon;
+                stat.TambahUang(Kiriman - lunasKasbon);
+                if (lunasKasbon > 0) Pesan?.Invoke("Kasbon Warteg Bahari dilunasi " + Rupiah(lunasKasbon) + ".");
                 string sumber = s.asal == "kipk" ? "Biaya hidup KIP-K" : "Kiriman orang tua";
                 Pesan?.Invoke(sumber + " masuk " + Rupiah(Kiriman) + ". Bayar kos sebelum tanggal " + BatasBayar + ".");
             }
@@ -134,6 +137,7 @@ namespace MS.Inti
                 Pesan?.Invoke("😠 Bu Kos menagih langsung: kos + denda −" + Rupiah(total));
             }
             if (s.tanggal == b.tanggalTuaMulai) Pesan?.Invoke("😱 Tanggal tua dimulai! Hemat-hemat ya...");
+            else if (s.tanggal == data.Bal.vital.awalWaspada) Pesan?.Invoke("Minggu Waspada. Sisihkan uang makan untuk tanggal tua.");
         }
 
         /// <summary>Stres penuh dan tidak sedang sibuk → harus pulang kampung.</summary>
