@@ -58,7 +58,8 @@ namespace MS.UI
         void SaatAksi(string id)
         {
             pose = id == "tidur" || id == "tidurSiang" || id == "rebahan" ? 3 :
-                id == "belajar" || id == "nugas" || id == "kuliah" || id == "santaiTaman" || id == "nongkrong" ? 2 : 0;
+                id is "belajar" or "belajarPerpus" or "nugas" or "nugasKafe" or "wfhKafe" or "nulisSkripsi"
+                    or "kuliah" or "santaiTaman" or "nongkrong" or "makanWarteg" ? 2 : 0;
             poseHingga = Time.time + (pose == 0 ? 0 : 1f);
         }
 

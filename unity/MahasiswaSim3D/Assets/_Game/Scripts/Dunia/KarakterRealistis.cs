@@ -25,10 +25,12 @@ namespace MS.Dunia
         int keadaan = -1;
         int pose;
         int warnaTerakhir = -1;
-        float tahan;
+        float tahan, mulaiAksi;
         Vector3 posisiLalu;
         Vector3 posisiBerdiri;
         Transform pinggul;
+        PentasAksi pentas;
+        PentasAksi.Jenis kegiatan;
         IPenerimaAksi layanan;
         Renderer[] bawaan;
         GameObject tampilan;
@@ -85,6 +87,7 @@ namespace MS.Dunia
         {
             posisiLalu = transform.position;
             bawaan = GetComponentsInChildren<Renderer>(true);
+            if (pemain) pentas = new PentasAksi(transform);
             pilihan = pemain ? Mathf.Clamp(PlayerPrefs.GetInt("KarakterRealistis", 1), 0, 5) : pilihan;
             PasangModel();
             if (tampilan != null && (pemain || GetComponent<WargaJalan>() == null))
@@ -105,6 +108,12 @@ namespace MS.Dunia
             var animator = tampilan.GetComponent<Animator>();
             animator.applyRootMotion = false;
             animator.cullingMode = AnimatorCullingMode.CullCompletely;
+            if (pentas != null)
+            {
+                pentas.Berhenti();
+                pentas.Hubungkan(animator);
+                kegiatan = PentasAksi.Jenis.TidakAda;
+            }
             var renderer = tampilan.GetComponentsInChildren<SkinnedMeshRenderer>();
             var bounds = renderer.Length > 0 ? renderer[0].bounds : new Bounds(tampilan.transform.position, Vector3.zero);
             foreach (var item in renderer)
@@ -195,9 +204,12 @@ namespace MS.Dunia
             posisiLalu = transform.position;
             delta.y = 0;
             float laju = delta.magnitude / Mathf.Max(.001f, Time.deltaTime);
-            int tujuan = pemain && Layanan.Kendaraan?.NaikMotor == true ? 3
-                : Time.time < tahan || (pemain && pose != 0 && Layanan.Jam?.Sibuk == true) ? pose
-                : laju > 4.2f ? 2 : laju > .2f ? 1 : 0;
+            bool naik = pemain && Layanan.Kendaraan?.NaikMotor == true;
+            bool kerja = kegiatan == PentasAksi.Jenis.Melayani && Layanan.Kerja?.Aktif != null;
+            bool aksi = Time.time < tahan || pemain && pose != 0 && Layanan.Jam?.Sibuk == true || kerja;
+            bool diam = laju < .4f || Time.time - mulaiAksi < .18f;
+            bool pentasAktif = pemain && !naik && aksi && diam && kegiatan != PentasAksi.Jenis.TidakAda;
+            int tujuan = naik ? 3 : aksi && diam ? pose : laju > 4.2f ? 2 : laju > .2f ? 1 : 0;
             if (klip[tujuan] == null) tujuan = 0;
             if (tujuan != keadaan)
             {
@@ -208,12 +220,22 @@ namespace MS.Dunia
             }
             if (gerak.GetTime() >= klip[tujuan].length)
                 gerak.SetTime(gerak.GetTime() % klip[tujuan].length);
-            if (pemain) CocokkanPosisiMotor(tujuan == 3 && Layanan.Kendaraan?.NaikMotor == true);
+            if (pemain)
+            {
+                if (!pentasAktif && kegiatan != PentasAksi.Jenis.TidakAda)
+                {
+                    pentas.Berhenti();
+                    kegiatan = PentasAksi.Jenis.TidakAda;
+                    pose = 0;
+                }
+                CocokkanPosisi(naik && tujuan == 3, pentasAktif);
+            }
         }
 
-        void CocokkanPosisiMotor(bool naik)
+        void CocokkanPosisi(bool naik, bool bermain)
         {
             var target = posisiBerdiri;
+            var rotasi = Quaternion.identity;
             if (naik && pinggul != null)
             {
                 var posisiJok = new Vector3(0, .77f, -.23f);
@@ -222,8 +244,10 @@ namespace MS.Dunia
                 target = new Vector3(Mathf.Clamp(koreksi.x, -.15f, .15f),
                     Mathf.Clamp(koreksi.y, -.48f, .65f), Mathf.Clamp(koreksi.z, -.5f, .5f));
             }
-            tampilan.transform.localPosition = Vector3.Lerp(tampilan.transform.localPosition, target,
-                1f - Mathf.Exp(-15f * Time.deltaTime));
+            else if (bermain) pentas.Terapkan(ref target, ref rotasi);
+            float halus = 1f - Mathf.Exp(-15f * Time.deltaTime);
+            tampilan.transform.localPosition = Vector3.Lerp(tampilan.transform.localPosition, target, halus);
+            tampilan.transform.localRotation = Quaternion.Slerp(tampilan.transform.localRotation, rotasi, halus);
         }
 
         void TerapkanBaju(Color warna)
@@ -246,11 +270,16 @@ namespace MS.Dunia
 
         void SaatAksi(string id)
         {
+            kegiatan = PentasAksi.Pilih(id);
+            mulaiAksi = Time.time;
+            pentas?.Mulai(kegiatan);
             pose = id switch
             {
                 "tidur" or "tidurSiang" or "rebahan" => 4,
                 "minum" or "seduhKopi" => 5,
-                "belajar" or "nugas" or "kuliah" or "santaiTaman" => 3,
+                "belajar" or "belajarPerpus" or "nugas" or "nugasKafe" or "wfhKafe" or "nulisSkripsi"
+                    or "kuliah" or "santaiTaman" or "makanWarteg" => 3,
+                "masakMi" or "kerjaWarteg" or "kerjaWarkop" => 6,
                 "ngobrolWarga" or "ngobrolBuKos" => 6,
                 "klakson" => 7,
                 _ => id.StartsWith("makan", StringComparison.Ordinal) ? 5 : 0
@@ -262,6 +291,7 @@ namespace MS.Dunia
         {
             if (layanan != null) layanan.AksiMulai -= SaatAksi;
             if (graf.IsValid()) graf.Destroy();
+            pentas?.Lepas();
         }
     }
 }

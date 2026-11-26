@@ -45,6 +45,7 @@ namespace MS.UI
 
         private Canvas kanvas;
         private Image tiraiTransisi;
+        private Coroutine jalannyaTirai;
         private RectTransform areaAman, kotakPesan;
         private Button tombolUtama, tombolTambahan, tombolKamera, tombolKlakson;
         private TextMeshProUGUI labelUtama, labelTambahan;
@@ -152,7 +153,7 @@ namespace MS.UI
             PerbaruiKalender();
             HubungkanLayanan();
             PerbaruiKonteks();
-            StartCoroutine(BukaTirai());
+            jalannyaTirai = StartCoroutine(BukaTirai());
         }
 
         private void Update()
@@ -209,7 +210,13 @@ namespace MS.UI
                 konteks.Berubah -= PerbaruiKonteks;
                 konteks.MintaUtama -= MintaAksiUtama;
             }
-            if (penerimaAksi != null) penerimaAksi.PesanMasuk -= BeriPesan;
+            if (penerimaAksi != null)
+            {
+                penerimaAksi.PesanMasuk -= BeriPesan;
+                penerimaAksi.AksiMulai -= SaatAksiVisual;
+            }
+            if (jalannyaTirai != null) StopCoroutine(jalannyaTirai);
+            jalannyaTirai = null;
             panelMenu.Tutup();
             toast.Kosongkan();
             stat = null;
@@ -277,9 +284,17 @@ namespace MS.UI
             if (!ReferenceEquals(penerimaAksi, Layanan.Aksi))
             {
                 // Toast berlangganan SETIAP pesan (aksi, bolos, kiriman, kos), bukan hanya PesanTerakhir
-                if (penerimaAksi != null) penerimaAksi.PesanMasuk -= BeriPesan;
+                if (penerimaAksi != null)
+                {
+                    penerimaAksi.PesanMasuk -= BeriPesan;
+                    penerimaAksi.AksiMulai -= SaatAksiVisual;
+                }
                 penerimaAksi = Layanan.Aksi;
-                if (penerimaAksi != null) penerimaAksi.PesanMasuk += BeriPesan;
+                if (penerimaAksi != null)
+                {
+                    penerimaAksi.PesanMasuk += BeriPesan;
+                    penerimaAksi.AksiMulai += SaatAksiVisual;
+                }
                 PerbaruiTombol();
             }
         }
@@ -536,6 +551,29 @@ namespace MS.UI
                 waktu += Time.unscaledDeltaTime;
             }
             tiraiTransisi.enabled = false;
+            jalannyaTirai = null;
+        }
+
+        private void SaatAksiVisual(string id)
+        {
+            if (id != "mandi") return;
+            if (jalannyaTirai != null) StopCoroutine(jalannyaTirai);
+            jalannyaTirai = StartCoroutine(TiraiMandi());
+        }
+
+        private IEnumerator TiraiMandi()
+        {
+            const float pudar = .22f;
+            const float tahan = .48f;
+            tiraiTransisi.enabled = true;
+            for (float waktu = 0; waktu < pudar * 2 + tahan; waktu += Time.unscaledDeltaTime)
+            {
+                float pekat = Mathf.Clamp01(Mathf.Min(waktu, pudar * 2 + tahan - waktu) / pudar);
+                tiraiTransisi.color = new Color(0, 0, 0, Mathf.SmoothStep(0, 1, pekat));
+                yield return null;
+            }
+            tiraiTransisi.enabled = false;
+            jalannyaTirai = null;
         }
 
         private void PerbaruiKondisi()
