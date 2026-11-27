@@ -24,7 +24,8 @@ namespace MS.Inti
         public float Kebersihan => s.kebersihan;
         public float MasukAngin => s.masukAngin;
         public float Kejenuhan => s.kejenuhan;
-        public float Fokus => Mathf.Clamp(Energi - .65f * (100f - Kenyang) - .85f * Maag - .4f * Stres,
+        internal float BonusFokusMoodlet { get; set; }
+        public float Fokus => Mathf.Clamp(Energi - .65f * (100f - Kenyang) - .85f * Maag - .4f * Stres + BonusFokusMoodlet,
             0f, Maag >= b.vital.maagAkut ? 25f : 100f);
 
         public bool Lemas => s.energi < b.ambang.energiLemas;

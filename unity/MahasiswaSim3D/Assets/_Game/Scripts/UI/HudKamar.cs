@@ -39,6 +39,7 @@ namespace MS.UI
         private PanelRapor panelRapor;
         private PanelPengaturan panelPengaturan;
         private PanelProfil panelProfil;
+        private PanelModeAtur panelModeAtur;
         private PanelToko panelToko;
         private PanelMenuLayanan panelLayanan;
         private WidgetBukuSakti bukuSakti;
@@ -155,6 +156,8 @@ namespace MS.UI
                 case 4:
                     TambahAksiPc("Belanja kebutuhan", "belanjaBarang");
                     TambahAksiPc("Perabot kamar", "bukaUpgrade");
+                    if (gameObject.scene.name == "KamarKos") kosanOs.Tambah("Katalog penataan", "Pilih, beli, dan tempatkan perabot", true,
+                        () => { TutupKosanOs(); panelModeAtur?.TampilkanDekor(true); });
                     TambahTantanganPc(6);
                     break;
                 case 5:
@@ -476,6 +479,8 @@ namespace MS.UI
                 teksPengaturan.fontSizeMax = 38;
                 IkonHud.Pasang(kotakPengaturan, IkonHud.Jenis.Pengaturan, 38);
             }
+            if (!Application.isMobilePlatform)
+                panelModeAtur = new PanelModeAtur(areaAman, p => MintaAksi(p, true), BeriPesan);
             panelProfil = new PanelProfil(this, areaAman, () =>
             {
                 panelMenu.Tutup();
@@ -525,6 +530,7 @@ namespace MS.UI
         {
             PerbaruiAreaAman();
             HubungkanLayanan();
+            panelModeAtur?.Tick();
             if (mulaiPindah != Layanan.SedangPindahScene)
             {
                 mulaiPindah = Layanan.SedangPindahScene;
@@ -622,6 +628,7 @@ namespace MS.UI
 
         private void OnDestroy()
         {
+            panelModeAtur?.Lepas();
         }
 
         private void HubungkanLayanan()

@@ -19,7 +19,7 @@ namespace MS.UI
         static bool LayarPenuh => PlayerPrefs.GetInt("LayarPenuh", 1) == 1;
         static bool VSync => PlayerPrefs.GetInt("VSync", 1) == 1;
         static int Fps => Mathf.Clamp(PlayerPrefs.GetInt("BatasFps", 1), 0, BatasFps.Length - 1);
-        static bool KameraAtas => PlayerPrefs.GetInt("KameraAtas", 0) == 1;
+        static bool KameraAtas => PlayerPrefs.GetInt("ModeKontrolPC", 0) == 0;
         readonly DaftarModal modal;
         readonly HudKamar hud;
         readonly Action mulai;
@@ -108,8 +108,8 @@ namespace MS.UI
                 string fps = BatasFps[Fps] < 0 ? "Tanpa batas" : BatasFps[Fps].ToString();
                 modal.Tambah($"Batas FPS · {fps}", VSync ? "Matikan VSync untuk memakai batas ini." : "", true,
                     () => Simpan("BatasFps", (Fps + 1) % BatasFps.Length));
-                modal.Tambah(KameraAtas ? "Kamera · Kamera Atas" : "Kamera · Orang pertama", "", true,
-                    () => Simpan("KameraAtas", KameraAtas ? 0 : 1));
+                modal.Tambah(KameraAtas ? "Kontrol bawaan · Mode Atur" : "Kontrol bawaan · Orang pertama", "", true,
+                    () => Simpan("ModeKontrolPC", KameraAtas ? 1 : 0));
             }
             modal.Tambah(TeksBesar ? "Ukuran teks · Besar" : "Ukuran teks · Normal", "", true,
                 () => Simpan("TeksBesar", TeksBesar ? 0 : 1));

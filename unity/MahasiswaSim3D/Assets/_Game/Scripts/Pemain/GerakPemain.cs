@@ -20,6 +20,7 @@ namespace MS.Pemain
         CharacterController _cc;
         InputPemain _input;
         KameraIsometric _kamera;
+        AntreanAksi antrean;
         float _vy;
         float jarakLangkah;
         readonly List<Bounds> jalan = new();
@@ -32,6 +33,7 @@ namespace MS.Pemain
         {
             _cc = GetComponent<CharacterController>();
             _input = GetComponent<InputPemain>();
+            antrean = gameObject.AddComponent<AntreanAksi>();
             if (kamera == null && Camera.main != null) kamera = Camera.main.transform;
             if (kamera != null) _kamera = kamera.GetComponent<KameraIsometric>();
             var kampung = GameObject.Find("Tanah & Jalan");
@@ -57,7 +59,7 @@ namespace MS.Pemain
                 maju = kamera.forward; maju.y = 0f; maju.Normalize();
                 kanan = kamera.right; kanan.y = 0f; kanan.Normalize();
             }
-            Vector3 arah = kanan * g.x + maju * g.y;
+            Vector3 arah = _kamera?.ModeAtur == true ? antrean.Arah : kanan * g.x + maju * g.y;
 
             var stat = MS.Kontrak.Layanan.Stat;
             float lemas = (stat != null && stat.Energi < ambangEnergiLemas) ? pengaliLemas : 1f;

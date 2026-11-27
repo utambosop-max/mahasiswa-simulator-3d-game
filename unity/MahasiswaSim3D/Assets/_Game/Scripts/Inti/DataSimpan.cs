@@ -6,9 +6,16 @@ namespace MS.Inti
 {
     public class SimpanDeposito { public int jumlah, mulai; }
 
+    public sealed class LetakPerabot
+    {
+        public float x, z;
+        public int rotasi;
+        public bool terpasang;
+    }
+
     public class DataSimpan
     {
-        public const int VersiSekarang = 14;
+        public const int VersiSekarang = 15;
         public int versi = VersiSekarang;
         public int uang;
         public float ipk, energi, stres;
@@ -54,6 +61,9 @@ namespace MS.Inti
         public int lombaBulan, cv; public List<float> lombaSkor = new List<float>(); public bool lombaSelesai = true;
         public float cabai = -1f; public int cabaiSiram, cabaiStok, makananKucing;
         public RupaMahasiswa rupa;
+        public Dictionary<string, LetakPerabot> tataKamar = new();
+        public int catKamar, lantaiKamar;
+        public Dictionary<string, float> moodletHingga = new();
         public string rambut = "pendek", warnaRambut = "#2a1d15";
         // --- versi 8: cerita, karier, SIM, bengkel ---
         public CeritaSimpan cerita = new CeritaSimpan();

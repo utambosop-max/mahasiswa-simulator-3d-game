@@ -26,6 +26,7 @@ namespace MS.Inti
         public DataGame Data { get; private set; }
         public DataSimpan Simpanan { get; private set; }
         public StatPemain Stat { get; private set; }
+        public Moodlet Suasana { get; private set; }
         public JamGame Jam { get; private set; }
         public PenerimaAksi Aksi { get; private set; }
         public AturanHarian Aturan { get; private set; }
@@ -89,6 +90,9 @@ namespace MS.Inti
             Aksi.Pindahan = pindahan;
             Hidup.ProfilDidaftarkan += pindahan.Mulai;
             Aksi.AksiMulai += pindahan.Aksi;
+            Suasana = new Moodlet(Simpanan, Stat, Jam);
+            Aksi.AksiMulai += Suasana.Aksi;
+            Aksi.PesanMasuk += Suasana.Pesan;
             Aksi.MenuDibeli += pindahan.Makan;
             Kerja = new KerjaSambilan(Data, Simpanan, Stat, Aksi, kerjaJson != null ? kerjaJson.text : null, menuJson != null ? menuJson.text : null);
             Aksi.Kerja = Kerja;
@@ -160,6 +164,7 @@ namespace MS.Inti
             if (sesiBerakhir) return;
             if (!Layanan.InputDitahan) Jam.Jalan(Time.deltaTime);
             pindahan.Periksa();
+            Suasana?.Segarkan();
             if (!ukurFps) Aksi.Ponsel.Periksa();
             Sosial.Periksa(); // jam malam kos
             // Cerita: cek pemicu tiap 1 detik nyata, tampilkan dialog saat layar kosong

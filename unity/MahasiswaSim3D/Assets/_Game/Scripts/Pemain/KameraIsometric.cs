@@ -21,6 +21,11 @@ namespace MS.Pemain
         float _jarakKini = -1f, _velJarak;
         float waktuPutarAktif;
         Camera lensa;
+        Vector3 geser;
+        float zoom = 1f, pitch;
+        int modeBawaan = -1;
+        bool modeMata;
+        public bool ModeAtur => !Application.isMobilePlatform && !OrangPertama;
         float fovDasar, velFov, dialogHingga;
         float klipDekatDasar;
         TampilanOrangPertama orangPertama;
@@ -131,9 +136,10 @@ namespace MS.Pemain
                 orangPertama.Lompat(target);
                 return;
             }
+            geser = Vector3.zero;
             _vel = Vector3.zero;
             _velSudut = 0;
-            Vector3 fokus = target.position + Vector3.up * tinggiLihat;
+            Vector3 fokus = target.position + geser + Vector3.up * tinggiLihat;
             Vector3 posisi = HitungPosisi(_sudutTuju);
             PudarkanDinding(fokus, posisi);
             float jarak = JarakBebas(fokus, posisi);
@@ -164,7 +170,8 @@ namespace MS.Pemain
         Vector3 HitungPosisi(float sudut)
         {
             float r = sudut * Mathf.Deg2Rad;
-            return target.position + new Vector3(Mathf.Sin(r) * jarakDatar, tinggi, Mathf.Cos(r) * jarakDatar);
+            float skala = ModeAtur ? zoom : 1f;
+            return target.position + geser + new Vector3(Mathf.Sin(r) * jarakDatar, tinggi + pitch, Mathf.Cos(r) * jarakDatar) * skala;
         }
 
         float JarakBebas(Vector3 fokus, Vector3 posisi)
@@ -188,7 +195,11 @@ namespace MS.Pemain
         void Update()
         {
             if (orangPertama == null || target == null) return;
-            bool gunakan = !Application.isMobilePlatform && PlayerPrefs.GetInt("KameraAtas", 0) == 0;
+            int preferensi = PlayerPrefs.GetInt("ModeKontrolPC", 0);
+            if (modeBawaan != preferensi) { modeMata = preferensi == 1; modeBawaan = preferensi; }
+            if (!MS.Kontrak.Layanan.InputDitahan && Keyboard.current?.vKey.wasPressedThisFrame == true)
+                modeMata = !modeMata;
+            bool gunakan = !Application.isMobilePlatform && modeMata;
             if (gunakan != OrangPertama)
             {
                 orangPertama.AturAktif(gunakan, target);
@@ -206,6 +217,70 @@ namespace MS.Pemain
                 }
             }
             if (OrangPertama) orangPertama.Input(target);
+            else if (ModeAtur) AturInput();
+            AturPotongan();
+        }
+
+        void AturInput()
+        {
+            if (!Application.isFocused || MS.Kontrak.Layanan.InputDitahan) return;
+            var kb = Keyboard.current;
+            var mouse = Mouse.current;
+            var arah = Vector2.zero;
+            if (kb != null)
+            {
+                if (kb.aKey.isPressed || kb.leftArrowKey.isPressed) arah.x--;
+                if (kb.dKey.isPressed || kb.rightArrowKey.isPressed) arah.x++;
+                if (kb.wKey.isPressed || kb.upArrowKey.isPressed) arah.y++;
+                if (kb.sKey.isPressed || kb.downArrowKey.isPressed) arah.y--;
+                if (kb.eKey.wasPressedThisFrame) PutarKanan();
+                if (kb.homeKey.wasPressedThisFrame) Lompat();
+            }
+            if (mouse != null)
+            {
+                var p = mouse.position.ReadValue();
+                if (p.x >= 0 && p.y >= 0 && p.x <= Screen.width && p.y <= Screen.height &&
+                    UnityEngine.EventSystems.EventSystem.current?.IsPointerOverGameObject() != true)
+                {
+                    if (p.x < 12) arah.x--;
+                    if (p.x > Screen.width - 12) arah.x++;
+                    if (p.y < 12) arah.y--;
+                    if (p.y > Screen.height - 12) arah.y++;
+                    zoom = Mathf.Clamp(zoom - mouse.scroll.ReadValue().y * .0013f, .3f, 2.25f);
+                }
+                if (mouse.rightButton.isPressed)
+                {
+                    Vector2 d = mouse.delta.ReadValue();
+                    _sudutTuju += d.x * .21f;
+                    pitch = Mathf.Clamp(pitch + d.y * .033f, -tinggi * .52f, tinggi * .56f);
+                }
+            }
+            var maju = Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
+            geser += (transform.right * arah.x + maju * arah.y) * (5.8f * zoom * Time.unscaledDeltaTime);
+            geser = Vector3.ClampMagnitude(geser, gameObject.scene.name == "Kampung" ? 95f : 10f);
+        }
+
+        readonly Dictionary<Renderer, bool> potongan = new();
+        void AturPotongan()
+        {
+            if (!ModeAtur)
+            {
+                foreach (var pasangan in potongan) if (pasangan.Key != null) pasangan.Key.forceRenderingOff = pasangan.Value;
+                potongan.Clear();
+                return;
+            }
+            if (gameObject.scene.name == "Kampung" || Time.frameCount % 10 != 0) return;
+            var fokus = target.position + geser + Vector3.up * .8f;
+            var arah = transform.position - fokus;
+            foreach (var d in FindObjectsByType<Renderer>(FindObjectsSortMode.None))
+            {
+                if (!d.name.StartsWith("Dinding", System.StringComparison.OrdinalIgnoreCase)) continue;
+                if (!potongan.TryGetValue(d, out bool asli)) potongan.Add(d, asli = d.forceRenderingOff);
+                var normal = d.bounds.size.x > d.bounds.size.z ? Vector3.forward : Vector3.right;
+                float sisi = Vector3.Dot(d.bounds.center - fokus, normal);
+                bool depan = sisi * Vector3.Dot(arah, normal) > 0 && Mathf.Abs(sisi) < Mathf.Abs(Vector3.Dot(arah, normal));
+                d.forceRenderingOff = asli || depan;
+            }
         }
 
         void OnDisable()
@@ -233,14 +308,20 @@ namespace MS.Pemain
             if (kb != null && !MS.Kontrak.Layanan.InputDitahan)
             {
                 if (kb.qKey.wasPressedThisFrame) PutarKiri();
-                if (kb.rKey.wasPressedThisFrame) PutarKanan();
+                if (!ModeAtur && kb.rKey.wasPressedThisFrame) PutarKanan();
             }
             if (target == null) return;
             _sudut = Mathf.SmoothDampAngle(_sudut, _sudutTuju, ref _velSudut,
                 waktuPutarAktif > 0 ? waktuPutarAktif : waktuPutar);
-            Vector3 fokus = target.position + Vector3.up * tinggiLihat;
+            Vector3 fokus = target.position + geser + Vector3.up * tinggiLihat;
             _posisiHalus = Vector3.SmoothDamp(_posisiHalus, HitungPosisi(_sudut), ref _vel, waktuHalus);
             Vector3 posisi = _posisiHalus;
+            if (ModeAtur)
+            {
+                transform.position = posisi;
+                transform.LookAt(fokus);
+                return;
+            }
             PudarkanDinding(fokus, posisi);
             // Jarak kamera dihaluskan: maju cepat (agar tidak tembus dinding), mundur pelan.
             // Sebelumnya kamera melompat maju-mundur tiap frame saat lewat tiang/pohon -> layar berkedip.

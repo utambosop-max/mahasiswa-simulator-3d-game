@@ -1,0 +1,8 @@
+﻿{
+  "daftar": [
+    { "id": "kenyang", "ikon": "+", "judul": "Kenyang Banget", "durasi": 100, "stres": -3, "fokus": 7 },
+    { "id": "dosen", "ikon": "!", "judul": "Habis Diomelin Dosen", "durasi": 90, "stres": 6, "fokus": -8 },
+    { "id": "tanggal", "ikon": "Rp", "judul": "Tanggal Tua Mode On", "durasi": 360, "stres": 4, "fokus": -4 },
+    { "id": "bersih", "ikon": "*", "judul": "Kamar Wangi, Hati Lega", "durasi": 180, "stres": -3, "fokus": 5 }
+  ]
+}

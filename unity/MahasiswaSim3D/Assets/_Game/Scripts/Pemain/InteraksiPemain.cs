@@ -65,7 +65,7 @@ namespace MS.Pemain
             var kb = Keyboard.current;
             bool tombol = kb != null && (kb.eKey.wasPressedThisFrame || kb.spaceKey.wasPressedThisFrame);
             bool klik = fp && pengaturKamera.BidikanAktif && best != null && Mouse.current?.leftButton.wasPressedThisFrame == true;
-            if ((tombol || klik) && !Layanan.InputDitahan && Application.isFocused && (!fp || pengaturKamera.BidikanAktif))
+            if (pengaturKamera?.ModeAtur != true && (tombol || klik) && !Layanan.InputDitahan && Application.isFocused && (!fp || pengaturKamera.BidikanAktif))
             {
                 if (MintaUtama != null) MintaUtama(); // HUD yang memutuskan (buka menu / jalankan)
                 else Lakukan();
