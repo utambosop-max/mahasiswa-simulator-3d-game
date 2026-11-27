@@ -10,9 +10,12 @@ namespace MS.UI
     internal sealed class PanelPengaturan
     {
         internal const string JudulGame = "Anak Kos: Survival Semester";
-        private static readonly string[] LabelGrafis = { "Hemat", "Tinggi", "Ultra" };
+        private static readonly string[] GrafisPc = { "Rendah", "Sedang", "Tinggi", "Ultra" };
+        private static readonly string[] GrafisSeluler = { "Mobile", "PC" };
         private static readonly int[] BatasFps = { 30, 60, 120, -1 };
-        static int MutuMaks => Mathf.Min(Application.isMobilePlatform ? 1 : 2, QualitySettings.names.Length - 1);
+        static string[] Preset => Application.isMobilePlatform ? GrafisSeluler : GrafisPc;
+        static string KunciMutu => Application.isMobilePlatform ? "MutuGrafis" : "MutuGrafisHdrp";
+        static int Mutu => Mathf.Clamp(PlayerPrefs.GetInt(KunciMutu, Application.isMobilePlatform ? 0 : 2), 0, Preset.Length - 1);
         static bool LayarPenuh => PlayerPrefs.GetInt("LayarPenuh", 1) == 1;
         static bool VSync => PlayerPrefs.GetInt("VSync", 1) == 1;
         static int Fps => Mathf.Clamp(PlayerPrefs.GetInt("BatasFps", 1), 0, BatasFps.Length - 1);
@@ -39,9 +42,8 @@ namespace MS.UI
         static void Muat()
         {
             AudioListener.volume = Volume / 100f;
-            int baku = Application.isMobilePlatform ? 0 : 2;
-            int kualitas = Mathf.Clamp(PlayerPrefs.GetInt("MutuGrafis", baku), 0, MutuMaks);
-            if (QualitySettings.GetQualityLevel() != kualitas) QualitySettings.SetQualityLevel(kualitas, true);
+            int kualitas = Array.IndexOf(QualitySettings.names, Preset[Mutu]);
+            if (kualitas >= 0 && QualitySettings.GetQualityLevel() != kualitas) QualitySettings.SetQualityLevel(kualitas, true);
             if (Application.isMobilePlatform)
             {
                 Application.targetFrameRate = 60;
@@ -93,9 +95,10 @@ namespace MS.UI
             modal.Tampil(true, "Pengaturan");
             modal.Tambah($"Volume · {Volume}%", "Ketuk untuk mengubah volume", true,
                 () => Simpan("VolumeUtama", Volume == 0 ? 100 : Volume - 25));
-            int grafik = Mathf.Clamp(QualitySettings.GetQualityLevel(), 0, MutuMaks);
-            modal.Tambah($"Grafis · {LabelGrafis[grafik]}", "Hemat mengurangi beban grafis", MutuMaks > 0,
-                () => Simpan("MutuGrafis", (grafik + 1) % (MutuMaks + 1)));
+            int grafik = Mutu;
+            string labelGrafis = Application.isMobilePlatform ? (grafik == 0 ? "Hemat" : "Tinggi") : Preset[grafik];
+            modal.Tambah($"Grafis · {labelGrafis}", "Pilih preset kualitas gambar", true,
+                () => Simpan(KunciMutu, (grafik + 1) % Preset.Length));
             if (!Application.isMobilePlatform)
             {
                 modal.Tambah(LayarPenuh ? "Tampilan · Layar penuh" : "Tampilan · Jendela", "Jendela dapat diubah ukurannya.", true,

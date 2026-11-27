@@ -22,7 +22,7 @@ namespace MS.Dunia.Editor
             string folder = Path.Combine(Rilis, "pc", "AnakKos-v" + PlayerSettings.bundleVersion);
             string keluar = Argumen("-keluar") ?? Path.Combine(folder, "AnakKos.exe");
             Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(keluar)));
-            var hasil = BuildPipeline.BuildPlayer(new BuildPlayerOptions
+            var hasil = BahanBuildPc.Bangun(new BuildPlayerOptions
             {
                 scenes = EditorBuildSettings.scenes.Where(s => s.enabled).Select(s => s.path).ToArray(),
                 locationPathName = keluar,

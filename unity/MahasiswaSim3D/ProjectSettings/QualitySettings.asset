@@ -4,9 +4,9 @@
 QualitySettings:
   m_ObjectHideFlags: 0
   serializedVersion: 5
-  m_CurrentQuality: 1
+  m_CurrentQuality: 4
   m_QualitySettings:
-  - serializedVersion: 4
+  - serializedVersion: 5
     name: Mobile
     pixelLightCount: 2
     shadows: 2
@@ -34,6 +34,7 @@ QualitySettings:
     adaptiveVsyncExtraA: 0
     adaptiveVsyncExtraB: 0
     lodBias: 1
+    meshLodThreshold: 1
     maximumLODLevel: 0
     enableLODCrossFade: 1
     streamingMipmapsActive: 0
@@ -47,8 +48,7 @@ QualitySettings:
     asyncUploadBufferSize: 16
     asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
-    customRenderPipeline: {fileID: 11400000, guid: 5e6cbd92db86f4b18aec3ed561671858,
-      type: 2}
+    customRenderPipeline: {fileID: 11400000, guid: 5e6cbd92db86f4b18aec3ed561671858, type: 2}
     terrainQualityOverrides: 0
     terrainPixelError: 1
     terrainDetailDensityScale: 1
@@ -58,8 +58,9 @@ QualitySettings:
     terrainBillboardStart: 50
     terrainFadeLength: 5
     terrainMaxTrees: 50
-    excludedTargetPlatforms: []
-  - serializedVersion: 4
+    excludedTargetPlatforms:
+    - Standalone
+  - serializedVersion: 5
     name: PC
     pixelLightCount: 2
     shadows: 2
@@ -87,6 +88,7 @@ QualitySettings:
     adaptiveVsyncExtraA: 0
     adaptiveVsyncExtraB: 0
     lodBias: 2
+    meshLodThreshold: 1
     maximumLODLevel: 0
     enableLODCrossFade: 1
     streamingMipmapsActive: 0
@@ -100,8 +102,7 @@ QualitySettings:
     asyncUploadBufferSize: 16
     asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
-    customRenderPipeline: {fileID: 11400000, guid: 4b83569d67af61e458304325a23e5dfd,
-      type: 2}
+    customRenderPipeline: {fileID: 11400000, guid: 4b83569d67af61e458304325a23e5dfd, type: 2}
     terrainQualityOverrides: 0
     terrainPixelError: 1
     terrainDetailDensityScale: 1
@@ -111,8 +112,174 @@ QualitySettings:
     terrainBillboardStart: 50
     terrainFadeLength: 5
     terrainMaxTrees: 50
-    excludedTargetPlatforms: []
-  - serializedVersion: 4
+    excludedTargetPlatforms:
+    - Standalone
+  - serializedVersion: 5
+    name: Rendah
+    pixelLightCount: 2
+    shadows: 2
+    shadowResolution: 3
+    shadowProjection: 1
+    shadowCascades: 4
+    shadowDistance: 75
+    shadowNearPlaneOffset: 3
+    shadowCascade2Split: 0.33333334
+    shadowCascade4Split: {x: 0.06666667, y: 0.2, z: 0.46666667}
+    shadowmaskMode: 1
+    skinWeights: 4
+    globalTextureMipmapLimit: 2
+    textureMipmapLimitSettings: []
+    anisotropicTextures: 2
+    antiAliasing: 0
+    softParticles: 0
+    softVegetation: 1
+    realtimeReflectionProbes: 1
+    billboardsFaceCameraPosition: 1
+    useLegacyDetailDistribution: 1
+    adaptiveVsync: 0
+    vSyncCount: 0
+    realtimeGICPUUsage: 100
+    adaptiveVsyncExtraA: 0
+    adaptiveVsyncExtraB: 0
+    lodBias: 2
+    meshLodThreshold: 1
+    maximumLODLevel: 0
+    enableLODCrossFade: 1
+    streamingMipmapsActive: 0
+    streamingMipmapsAddAllCameras: 1
+    streamingMipmapsMemoryBudget: 512
+    streamingMipmapsRenderersPerFrame: 512
+    streamingMipmapsMaxLevelReduction: 2
+    streamingMipmapsMaxFileIORequests: 1024
+    particleRaycastBudget: 256
+    asyncUploadTimeSlice: 2
+    asyncUploadBufferSize: 16
+    asyncUploadPersistentBuffer: 1
+    resolutionScalingFixedDPIFactor: 1
+    customRenderPipeline: {fileID: 11400000, guid: 32cc84ab4d7f30c4690f8141ebe0e34e, type: 2}
+    terrainQualityOverrides: 0
+    terrainPixelError: 1
+    terrainDetailDensityScale: 1
+    terrainBasemapDistance: 1000
+    terrainDetailDistance: 80
+    terrainTreeDistance: 5000
+    terrainBillboardStart: 50
+    terrainFadeLength: 5
+    terrainMaxTrees: 50
+    excludedTargetPlatforms:
+    - Android
+    - iPhone
+  - serializedVersion: 5
+    name: Sedang
+    pixelLightCount: 2
+    shadows: 2
+    shadowResolution: 3
+    shadowProjection: 1
+    shadowCascades: 4
+    shadowDistance: 75
+    shadowNearPlaneOffset: 3
+    shadowCascade2Split: 0.33333334
+    shadowCascade4Split: {x: 0.06666667, y: 0.2, z: 0.46666667}
+    shadowmaskMode: 1
+    skinWeights: 4
+    globalTextureMipmapLimit: 1
+    textureMipmapLimitSettings: []
+    anisotropicTextures: 2
+    antiAliasing: 0
+    softParticles: 0
+    softVegetation: 1
+    realtimeReflectionProbes: 1
+    billboardsFaceCameraPosition: 1
+    useLegacyDetailDistribution: 1
+    adaptiveVsync: 0
+    vSyncCount: 0
+    realtimeGICPUUsage: 100
+    adaptiveVsyncExtraA: 0
+    adaptiveVsyncExtraB: 0
+    lodBias: 2
+    meshLodThreshold: 1
+    maximumLODLevel: 0
+    enableLODCrossFade: 1
+    streamingMipmapsActive: 0
+    streamingMipmapsAddAllCameras: 1
+    streamingMipmapsMemoryBudget: 512
+    streamingMipmapsRenderersPerFrame: 512
+    streamingMipmapsMaxLevelReduction: 2
+    streamingMipmapsMaxFileIORequests: 1024
+    particleRaycastBudget: 256
+    asyncUploadTimeSlice: 2
+    asyncUploadBufferSize: 16
+    asyncUploadPersistentBuffer: 1
+    resolutionScalingFixedDPIFactor: 1
+    customRenderPipeline: {fileID: 11400000, guid: 3d201c94527b31c489a885921ab7941d, type: 2}
+    terrainQualityOverrides: 0
+    terrainPixelError: 1
+    terrainDetailDensityScale: 1
+    terrainBasemapDistance: 1000
+    terrainDetailDistance: 80
+    terrainTreeDistance: 5000
+    terrainBillboardStart: 50
+    terrainFadeLength: 5
+    terrainMaxTrees: 50
+    excludedTargetPlatforms:
+    - Android
+    - iPhone
+  - serializedVersion: 5
+    name: Tinggi
+    pixelLightCount: 2
+    shadows: 2
+    shadowResolution: 3
+    shadowProjection: 1
+    shadowCascades: 4
+    shadowDistance: 75
+    shadowNearPlaneOffset: 3
+    shadowCascade2Split: 0.33333334
+    shadowCascade4Split: {x: 0.06666667, y: 0.2, z: 0.46666667}
+    shadowmaskMode: 1
+    skinWeights: 4
+    globalTextureMipmapLimit: 0
+    textureMipmapLimitSettings: []
+    anisotropicTextures: 2
+    antiAliasing: 0
+    softParticles: 0
+    softVegetation: 1
+    realtimeReflectionProbes: 1
+    billboardsFaceCameraPosition: 1
+    useLegacyDetailDistribution: 1
+    adaptiveVsync: 0
+    vSyncCount: 0
+    realtimeGICPUUsage: 100
+    adaptiveVsyncExtraA: 0
+    adaptiveVsyncExtraB: 0
+    lodBias: 2
+    meshLodThreshold: 1
+    maximumLODLevel: 0
+    enableLODCrossFade: 1
+    streamingMipmapsActive: 0
+    streamingMipmapsAddAllCameras: 1
+    streamingMipmapsMemoryBudget: 512
+    streamingMipmapsRenderersPerFrame: 512
+    streamingMipmapsMaxLevelReduction: 2
+    streamingMipmapsMaxFileIORequests: 1024
+    particleRaycastBudget: 256
+    asyncUploadTimeSlice: 2
+    asyncUploadBufferSize: 16
+    asyncUploadPersistentBuffer: 1
+    resolutionScalingFixedDPIFactor: 1
+    customRenderPipeline: {fileID: 11400000, guid: 4100b0aa1bb18fb49a107f8555b7643f, type: 2}
+    terrainQualityOverrides: 0
+    terrainPixelError: 1
+    terrainDetailDensityScale: 1
+    terrainBasemapDistance: 1000
+    terrainDetailDistance: 80
+    terrainTreeDistance: 5000
+    terrainBillboardStart: 50
+    terrainFadeLength: 5
+    terrainMaxTrees: 50
+    excludedTargetPlatforms:
+    - Android
+    - iPhone
+  - serializedVersion: 5
     name: Ultra
     pixelLightCount: 2
     shadows: 2
@@ -140,6 +307,7 @@ QualitySettings:
     adaptiveVsyncExtraA: 0
     adaptiveVsyncExtraB: 0
     lodBias: 2
+    meshLodThreshold: 1
     maximumLODLevel: 0
     enableLODCrossFade: 1
     streamingMipmapsActive: 0
@@ -153,8 +321,7 @@ QualitySettings:
     asyncUploadBufferSize: 16
     asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
-    customRenderPipeline: {fileID: 11400000, guid: 62cde49e3d8940d79599adf76a13e379,
-      type: 2}
+    customRenderPipeline: {fileID: 11400000, guid: 0282de17f4ae8ca499393df69e20ccb2, type: 2}
     terrainQualityOverrides: 0
     terrainPixelError: 1
     terrainDetailDensityScale: 1
@@ -174,11 +341,12 @@ QualitySettings:
     GameCoreXboxOne: 1
     Lumin: 0
     Nintendo Switch: 1
+    Nintendo Switch 2: 1
     PS4: 1
     PS5: 1
     Server: 0
     Stadia: 0
-    Standalone: 2
+    Standalone: 4
     WebGL: 0
     Windows Store Apps: 0
     XboxOne: 0

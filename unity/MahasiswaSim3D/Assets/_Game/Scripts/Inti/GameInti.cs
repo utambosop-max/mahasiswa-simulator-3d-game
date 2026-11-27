@@ -132,6 +132,13 @@ namespace MS.Inti
 #if UNITY_STANDALONE_WIN && !UNITY_EDITOR
         System.Collections.IEnumerator UkurKinerja()
         {
+            var args = System.Environment.GetCommandLineArgs();
+            int pilihan = System.Array.IndexOf(args, "-scene-fps") + 1;
+            if (pilihan > 0 && pilihan < args.Length && Application.CanStreamedLevelBeLoaded(args[pilihan]))
+            {
+                yield return null;
+                yield return UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(args[pilihan]);
+            }
             // Lewati pemuatan awal sebelum menghitung gambar yang benar-benar dirender.
             yield return new WaitForSecondsRealtime(5f);
             while (true)

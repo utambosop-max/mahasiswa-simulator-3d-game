@@ -2,6 +2,12 @@
 
 Riwayat versi Unity dan web.
 
+## Unity v0.6.0 — Pencahayaan PC HDRP (2026-11-27)
+
+- Windows x64 memakai HDRP dengan preset Rendah, Sedang, Tinggi, dan Ultra. Preset Tinggi menjadi bawaan.
+- Volume per scene mengatur eksposur, langit, dan pantulan. Warteg memakai lampu hangat 3200 K dan kamar memakai lampu dingin serta berkas cahaya jendela.
+- Profil Android Hemat dan Tinggi memakai URP.
+
 ## Unity v0.5.0 — Kegiatan dan lingkungan Anak Kos (2026-11-27)
 
 - Registrasi mahasiswa, alur pindahan, kebutuhan harian, dan 32 menu Warteg Bahari.

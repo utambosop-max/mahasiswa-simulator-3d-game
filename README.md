@@ -16,7 +16,7 @@ Game simulasi kehidupan mahasiswa rantau di Indonesia, untuk PC Windows. Pemain 
 1. Buka `unity/MahasiswaSim3D` dengan Unity **6000.3.29f1**.
 2. Menu **Mahasiswa Sim → Bangun APK Android** untuk membuat APK. Untuk Windows, pilih **Mahasiswa Sim > Bangun PC**. Untuk bermain di Editor, buka scene `Assets/_Game/Scenes/KamarKos.unity` lalu tekan Play.
 
-Build uji Windows 0.5.0 membuat `rilis/pc/AnakKos-v0.5.0/AnakKos.exe`. Gunakan WASD atau panah untuk berjalan, Shift untuk berlari, mouse untuk melihat, serta E atau klik untuk berinteraksi. Tab membuka KosanOS dan angka 1–8 memilih aplikasinya. Esc membuka menu jeda.
+Build uji Windows 0.6.0 membuat `rilis/pc/AnakKos-v0.6.0/AnakKos.exe`. Pilih preset Rendah, Sedang, Tinggi, atau Ultra dari Pengaturan. Gunakan WASD atau panah untuk berjalan, Shift untuk berlari, mouse untuk melihat, serta E atau klik untuk berinteraksi. Tab membuka KosanOS dan angka 1–8 memilih aplikasinya. Esc membuka menu jeda.
 3. Tes otomatis: Window → General → Test Runner → EditMode.
 
 ## Lisensi aset

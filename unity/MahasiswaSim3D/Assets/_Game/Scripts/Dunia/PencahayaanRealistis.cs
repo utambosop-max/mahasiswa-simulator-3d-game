@@ -20,6 +20,7 @@ namespace MS.Dunia
         VisualKampung kampung;
         PartikelKampung partikel;
         PencahayaanUltra pencahayaanUltra;
+        TampilanHdrp hdrp;
         bool luar;
         int mutu = -1;
         float cahayaCuaca = 1f;
@@ -37,7 +38,7 @@ namespace MS.Dunia
             var cahaya = dunia.AddComponent<PencahayaanRealistis>();
             if (scene.name == "KamarKos") VisualKamar.Pasang(dunia);
             if (scene.name.StartsWith("Gedung_")) VisualInterior.Pasang(dunia, scene.name.Substring(7));
-            cahaya.pencahayaanUltra = PencahayaanUltra.Pasang(dunia.transform, scene.name);
+            if (!TampilanHdrp.Aktif) cahaya.pencahayaanUltra = PencahayaanUltra.Pasang(dunia.transform, scene.name);
             if (scene.name == "Kampung")
             {
                 cahaya.kampung = dunia.AddComponent<VisualKampung>();
@@ -52,6 +53,13 @@ namespace MS.Dunia
             jam = GameInti.Instans?.Jam;
             if (jam != null) jam.FaseBerganti += AturCahaya;
             if (kampung?.Cuaca != null) kampung.Cuaca.CahayaBerubah += SaatCuaca;
+            if (TampilanHdrp.Aktif)
+            {
+                hdrp = gameObject.AddComponent<TampilanHdrp>();
+                hdrp.Pasang(gameObject.scene.name, matahari);
+                AturCahaya(jam?.Fase ?? Fase.Pagi);
+                return;
+            }
 
             var volume = gameObject.AddComponent<Volume>();
             volume.isGlobal = true;
@@ -110,7 +118,7 @@ namespace MS.Dunia
 
         void Update()
         {
-            if (mutu != QualitySettings.GetQualityLevel()) AturMutu();
+            if (hdrp == null && mutu != QualitySettings.GetQualityLevel()) AturMutu();
         }
 
         internal static bool UltraAktif()
@@ -153,7 +161,8 @@ namespace MS.Dunia
                 }
             }
             pencahayaanUltra?.AturFase(fase);
-            if (luar) Suasana(fase);
+            if (hdrp != null) hdrp.AturFase(fase, matahari, cahayaCuaca);
+            else if (luar) Suasana(fase);
         }
 
         void Suasana(Fase fase)
