@@ -1,7 +1,7 @@
 {
   "name": "MS.Dunia.Editor",
   "rootNamespace": "MS.Dunia.Editor",
-  "references": ["MS.Kontrak","MS.Inti","MS.Pemain","MS.UI","MS.Dunia"],
+  "references": ["MS.Kontrak","MS.Inti","MS.Pemain","MS.UI","MS.Dunia","Unity.RenderPipelines.Core.Runtime","Unity.RenderPipelines.HighDefinition.Runtime"],
   "includePlatforms": ["Editor"],
   "autoReferenced": false
 }

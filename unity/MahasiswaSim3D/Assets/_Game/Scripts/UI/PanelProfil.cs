@@ -19,6 +19,8 @@ namespace MS.UI
         IProfil profil;
         string idJurusan, idAsal;
         bool dibuat;
+        readonly RupaMahasiswa rupa = new();
+        readonly StudioPenampilan studio;
         internal bool Terbuka => akar.gameObject.activeSelf;
         internal void KeDepan()
         {
@@ -35,7 +37,11 @@ namespace MS.UI
             HudKamar.Rentangkan(kartu, new Vector2(.06f, .03f), new Vector2(.94f, .92f));
             hud.Gambar(kartu, TemaAntarmuka.Kertas, true);
             var port = HudKamar.BuatKotak("Viewport karakter", kartu);
-            HudKamar.Rentangkan(port, Vector2.zero, Vector2.one);
+            HudKamar.Rentangkan(port, Vector2.zero, new Vector2(.59f, 1));
+            var pratinjau = HudKamar.BuatKotak("Pratinjau 3D", kartu);
+            HudKamar.Rentangkan(pratinjau, new Vector2(.62f, .19f), new Vector2(.97f, .94f));
+            pratinjau.gameObject.AddComponent<RawImage>().raycastTarget = false;
+            studio = pratinjau.gameObject.AddComponent<StudioPenampilan>();
             port.offsetMin = new Vector2(24, 205); port.offsetMax = new Vector2(-24, -20);
             port.gameObject.AddComponent<RectMask2D>();
             port.gameObject.AddComponent<Image>().color = Color.clear;
@@ -48,7 +54,7 @@ namespace MS.UI
             var scroll = kartu.gameObject.AddComponent<ScrollRect>();
             scroll.viewport = port; scroll.content = konten; scroll.horizontal = false; scroll.movementType = ScrollRect.MovementType.Clamped;
             Label(konten, "Buat Karakter", 52);
-            Label(konten, "Gulir untuk memilih jurusan dan asal", 32);
+            Label(konten, "Atur penampilan, lalu pilih jurusan dan latar.", 32);
             var kotak = HudKamar.BuatKotak("Nama mahasiswa", konten);
             kotak.gameObject.AddComponent<LayoutElement>().minHeight = 145;
             var latar = hud.Gambar(kotak, Color.white, true);
@@ -98,11 +104,13 @@ namespace MS.UI
         void BangunPilihan()
         {
             dibuat = true;
-            if (Resources.Load<GameObject>("Karakter/kar_2") != null)
-            {
-                BuatPemilih("Karakter", "KarakterRealistis", 1, new[] { "1", "2", "3", "4", "5", "6" });
-                BuatPemilih("Warna pakaian", "BajuRealistis", 0, new[] { "Asli", "Biru", "Hijau", "Terakota" });
-            }
+            BuatPemilih("Figur", new[] { "Mahasiswa", "Mahasiswi" }, n => rupa.Figur = n);
+            BuatPemilih("Gaya rambut", new[] { "Pendek", "Bob", "Panjang" }, n => rupa.Rambut = n);
+            BuatPemilih("Warna kulit", new[] { "Terang", "Hangat", "Sawo matang", "Gelap" }, n => rupa.Kulit = n);
+            BuatPemilih("Warna pakaian", new[] { "Asli", "Biru", "Hijau", "Terakota" }, n => rupa.Baju = n);
+            Geser(konten, "Bentuk wajah", -1, 1, 0, false, n => { rupa.Wajah = n; studio.Tampilkan(rupa); });
+            Geser(konten, "Postur badan", -1, 1, 0, false, n => { rupa.Badan = n; studio.Tampilkan(rupa); });
+            studio.Tampilkan(rupa);
             Label(konten, "Pilih jurusan", 44);
             foreach (var item in profil.DaftarJurusan)
             {
@@ -193,24 +201,24 @@ namespace MS.UI
                 }, 126));
         }
 
-        void BuatPemilih(string namaPilihan, string kunci, int baku, string[] pilihan)
+        void BuatPemilih(string namaPilihan, string[] pilihan, System.Action<int> pilih)
         {
-            int indeks = Mathf.Clamp(PlayerPrefs.GetInt(kunci, baku), 0, pilihan.Length - 1);
-            var tombol = BuatTombol(konten, namaPilihan + " · " + pilihan[indeks], () => { });
+            int indeks = 0;
+            var tombol = BuatTombol(konten, namaPilihan + " · " + pilihan[0], () => { }, 84);
             tombol.targetGraphic.color = TemaAntarmuka.Mentega;
             var teks = tombol.GetComponentInChildren<TextMeshProUGUI>();
             tombol.onClick.AddListener(() =>
             {
                 indeks = (indeks + 1) % pilihan.Length;
-                PlayerPrefs.SetInt(kunci, indeks);
-                PlayerPrefs.Save();
+                pilih(indeks);
                 teks.text = namaPilihan + " · " + pilihan[indeks];
+                studio.Tampilkan(rupa);
             });
         }
 
         void Mulai()
         {
-            if (!profil.Daftarkan(nama.text, idJurusan, idAsal, bakat, kelemahan, kesulitan))
+            if (!profil.Daftarkan(nama.text, idJurusan, idAsal, bakat, kelemahan, kesulitan, rupa))
                 validasi.text = "Lengkapi jurusan, latar, 2 bakat, dan 2 kelemahan.";
         }
 

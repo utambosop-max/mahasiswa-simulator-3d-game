@@ -120,6 +120,7 @@ namespace MS.Inti
         }
 
         // ================= IProfil =================
+        public RupaMahasiswa Rupa => s.rupa;
         public bool PerluDibuat => !s.profilDibuat;
         public string Nama => s.nama;
         public string JurusanId => s.jurusan;
@@ -133,7 +134,7 @@ namespace MS.Inti
         internal event Action ProfilDidaftarkan;
 
         public bool Daftarkan(string nama, string jurusan, string latar, IReadOnlyCollection<string> pilihanBakat,
-            IReadOnlyCollection<string> pilihanKelemahan, OpsiKesulitan kesulitan = null)
+            IReadOnlyCollection<string> pilihanKelemahan, OpsiKesulitan kesulitan = null, RupaMahasiswa rupa = null)
         {
             var asal = F.Asal(latar);
             if (s.profilDibuat || F.Jurusan(jurusan) == null || asal == null || !F.latar.Contains(asal) ||
@@ -141,6 +142,14 @@ namespace MS.Inti
             s.traits = new List<string>(pilihanBakat);
             s.traits.AddRange(pilihanKelemahan);
             AturKesulitan(kesulitan);
+            if (rupa != null)
+                s.rupa = new RupaMahasiswa
+                {
+                    Figur = Mathf.Clamp(rupa.Figur, 0, 1), Rambut = Mathf.Clamp(rupa.Rambut, 0, 2),
+                    Kulit = Mathf.Clamp(rupa.Kulit, 0, 3), Baju = Mathf.Clamp(rupa.Baju, 0, 3),
+                    Wajah = float.IsFinite(rupa.Wajah) ? Mathf.Clamp(rupa.Wajah, -1f, 1f) : 0,
+                    Badan = float.IsFinite(rupa.Badan) ? Mathf.Clamp(rupa.Badan, -1f, 1f) : 0
+                };
             s.tahapPindahan = 1;
             s.energiAwalPindahan = stat.Energi;
             stat.TambahUang(asal.saldoAwal - stat.Uang);

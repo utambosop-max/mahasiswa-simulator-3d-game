@@ -35,6 +35,12 @@ namespace MS.Dunia
         IPenerimaAksi layanan;
         Renderer[] bawaan;
         GameObject tampilan;
+        string wargaId;
+        PenampilanMahasiswa rupaBaru;
+        Animator animatorModel;
+        Transform pemainDunia;
+        RupaMahasiswa rupaAktif;
+        string idAktif;
         PlayableGraph graf;
         AnimationPlayableOutput hasil;
         AnimationClipPlayable gerak;
@@ -65,8 +71,7 @@ namespace MS.Dunia
                 for (int i = 0; i < model.Length; i++)
                     model[i] = Resources.Load<GameObject>("Karakter/kar_" + (i + 1));
             }
-            PasangWargaKampus(scene, klip[0] != null && klip[1] != null);
-            if (klip[0] == null || klip[1] == null) return;
+            PasangWargaKampus(scene);
 
             var utama = GameObject.Find("Pemain");
             if (utama != null) utama.AddComponent<KarakterRealistis>().pemain = true;
@@ -74,7 +79,9 @@ namespace MS.Dunia
             foreach (var warga in FindObjectsByType<WargaJalan>(FindObjectsSortMode.InstanceID))
             {
                 if (warga.gameObject.scene != scene || nomor >= 19) continue;
-                warga.gameObject.AddComponent<KarakterRealistis>().pilihan = (++nomor % model.Length);
+                var karakter = warga.gameObject.AddComponent<KarakterRealistis>();
+                karakter.pilihan = ++nomor % model.Length;
+                karakter.wargaId = karakter.pilihan % 2 == 0 ? "reno" : "dina";
             }
             if (nomor == 0)
                 foreach (var akar in scene.GetRootGameObjects())
@@ -82,15 +89,20 @@ namespace MS.Dunia
                         foreach (Transform anak in akar.transform)
                             if (anak.name.StartsWith("Penjaga ", StringComparison.Ordinal) ||
                                 anak.name.StartsWith("kar_penjaga_", StringComparison.Ordinal))
-                                anak.gameObject.AddComponent<KarakterRealistis>().pilihan = Math.Abs(anak.name.GetHashCode() % model.Length);
+                            {
+                                var karakter = anak.gameObject.AddComponent<KarakterRealistis>();
+                                karakter.pilihan = Math.Abs(anak.name.GetHashCode() % model.Length);
+                                karakter.wargaId = scene.name == "Gedung_warteg" ? "yanti"
+                                    : karakter.pilihan % 2 == 0 ? "hendra" : "ratna";
+                            }
         }
 
-        static void PasangWargaKampus(Scene scene, bool animasi)
+        static void PasangWargaKampus(Scene scene)
         {
             var warga = scene.name switch
             {
-                "Kampung" => new[] { ("bima", "Bima", 0), ("raka_ojol", "Raka (Ojol)", 2), ("dina", "Dina", 1) },
-                "Gedung_kampus" => new[] { ("sari", "Sari", 3), ("nadia_desain", "Nadia (Desain)", 5) },
+                "Kampung" => new[] { ("bima", "Bima", 0), ("raka_ojol", "Raka (Ojol)", 2), ("dina", "Dina", 1), ("buKos", "Bu Ratna", 5), ("reno", "Reno", 2) },
+                "Gedung_kampus" => new[] { ("sari", "Sari", 3), ("nadia_desain", "Nadia (Desain)", 5), ("pakDosen", "Prof. Hendra", 2) },
                 "Gedung_fotokopi" => new[] { ("ujang", "Pak Ujang", 4) },
                 "Gedung_perpus" => new[] { ("alya", "Alya", 1) },
                 "Gedung_kafe" => new[] { ("keira", "Keira", 3) },
@@ -119,8 +131,13 @@ namespace MS.Dunia
                 tabrakan.height = 1.55f;
                 tabrakan.radius = .27f;
                 tabrakan.center = Vector3.up * .775f;
-                if (animasi && model[rupa] != null) objek.AddComponent<KarakterRealistis>().pilihan = rupa;
-                else
+                var karakter = objek.AddComponent<KarakterRealistis>();
+                karakter.pilihan = rupa;
+                karakter.wargaId = id switch
+                {
+                    "buKos" => "ratna", "pakDosen" or "ujang" => "hendra",
+                    "nadia_desain" => "sari", "raka_ojol" => "reno", _ => id
+                };
                 {
                     var badan = GameObject.CreatePrimitive(PrimitiveType.Capsule);
                     badan.name = "Siluet warga";
@@ -137,6 +154,7 @@ namespace MS.Dunia
         void Start()
         {
             posisiLalu = transform.position;
+            pemainDunia = GameObject.Find("Pemain")?.transform;
             bawaan = GetComponentsInChildren<Renderer>(true);
             if (pemain) pentas = new PentasAksi(transform);
             pilihan = pemain ? Mathf.Clamp(PlayerPrefs.GetInt("KarakterRealistis", 1), 0, 5) : pilihan;
@@ -147,7 +165,10 @@ namespace MS.Dunia
 
         void PasangModel()
         {
-            var sumber = model[pilihan];
+            rupaAktif = pemain ? Layanan.Profil?.Rupa : null;
+            idAktif = pemain ? PenampilanMahasiswa.Figur(rupaAktif?.Figur ?? 0) : wargaId;
+            var baru = idAktif != null ? PenampilanMahasiswa.Muat(idAktif) : null;
+            var sumber = baru != null ? baru : model[pilihan];
             var avatar = sumber != null ? sumber.GetComponent<Animator>()?.avatar : null;
             if (avatar == null || !avatar.isValid || !avatar.isHuman) return;
             if (graf.IsValid()) graf.Destroy();
@@ -156,7 +177,9 @@ namespace MS.Dunia
             tampilan = Instantiate(sumber, transform);
             tampilan.name = "Model humanoid";
             tampilan.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
-            var animator = tampilan.GetComponent<Animator>();
+            var animator = animatorModel = tampilan.GetComponent<Animator>();
+            rupaBaru = baru != null ? tampilan.AddComponent<PenampilanMahasiswa>() : null;
+            if (rupaBaru != null) rupaBaru.Atur(rupaAktif ?? (pemain ? new RupaMahasiswa() : null), idAktif);
             animator.applyRootMotion = false;
             animator.cullingMode = AnimatorCullingMode.CullCompletely;
             if (pentas != null)
@@ -170,15 +193,20 @@ namespace MS.Dunia
             foreach (var item in renderer)
             {
                 bounds.Encapsulate(item.bounds);
-                var material = item.sharedMaterials;
-                for (int i = 0; i < material.Length; i++)
-                    if (material[i] != null) material[i] = BahanUntuk(material[i], pilihan);
-                item.sharedMaterials = material;
+                if (rupaBaru == null)
+                {
+                    var material = item.sharedMaterials;
+                    for (int i = 0; i < material.Length; i++)
+                        if (material[i] != null) material[i] = BahanUntuk(material[i], pilihan);
+                    item.sharedMaterials = material;
+                }
             }
             if (bounds.size.y > .02f)
             {
                 float skala = (tinggiBadan[pilihan] + (pemain ? .12f : 0)) / bounds.size.y;
                 tampilan.transform.localScale *= skala;
+                if (rupaAktif != null) tampilan.transform.localScale = Vector3.Scale(tampilan.transform.localScale,
+                    new Vector3(1 + .14f * rupaAktif.Badan, 1 + .055f * rupaAktif.Badan, 1 + .09f * rupaAktif.Badan));
                 float jarakKaki = (bounds.min.y - transform.position.y) * skala;
                 posisiBerdiri = new Vector3(0, -jarakKaki, 0);
                 tampilan.transform.localPosition = posisiBerdiri;
@@ -190,9 +218,14 @@ namespace MS.Dunia
             foreach (var item in bawaan)
                 if (item != null && !BagianMotor(item.transform)) item.enabled = false;
 
-            graf = PlayableGraph.Create("Gerak humanoid");
-            hasil = AnimationPlayableOutput.Create(graf, "Karakter", animator);
-            graf.Play();
+            if (klip[0] != null && klip[1] != null)
+            {
+                graf = PlayableGraph.Create("Gerak humanoid");
+                hasil = AnimationPlayableOutput.Create(graf, "Karakter", animator);
+                graf.Play();
+            }
+            else if (rupaBaru != null)
+                PenampilanMahasiswa.PoseSantai(animator);
             warnaTerakhir = -1;
         }
 
@@ -231,14 +264,15 @@ namespace MS.Dunia
         {
             if (pemain)
             {
+                if (!ReferenceEquals(rupaAktif, Layanan.Profil?.Rupa)) PasangModel();
                 var pilih = Mathf.Clamp(PlayerPrefs.GetInt("KarakterRealistis", 1), 0, 5);
-                if (pilih != pilihan)
+                if (rupaBaru == null && pilih != pilihan)
                 {
                     pilihan = pilih;
                     PasangModel();
                 }
                 int warna = Mathf.Clamp(PlayerPrefs.GetInt("BajuRealistis", 0), 0, warnaBaju.Length - 1);
-                if (warna != warnaTerakhir && tampilan != null)
+                if (rupaBaru == null && warna != warnaTerakhir && tampilan != null)
                 {
                     warnaTerakhir = warna;
                     TerapkanBaju(warnaBaju[warna]);
@@ -250,11 +284,21 @@ namespace MS.Dunia
                     if (layanan != null) layanan.AksiMulai += SaatAksi;
                 }
             }
-            if (!graf.IsValid() || !tampilan.activeInHierarchy) return;
+            if (tampilan == null || !tampilan.activeInHierarchy) return;
             var delta = transform.position - posisiLalu;
             posisiLalu = transform.position;
             delta.y = 0;
             float laju = delta.magnitude / Mathf.Max(.001f, Time.deltaTime);
+            if (rupaBaru != null)
+            {
+                bool ngobrol = pemain ? pose == 6 && Time.time < tahan
+                    : Layanan.Menu?.Terbuka == true && pemainDunia != null &&
+                        (pemainDunia.position - transform.position).sqrMagnitude < 6f;
+                rupaBaru.Ekspresi(ngobrol);
+                if (!graf.IsValid())
+                    PenampilanMahasiswa.PoseSantai(animatorModel, laju > .2f ? Mathf.Sin(Time.time * 8f) * .3f : 0f);
+            }
+            if (!graf.IsValid()) return;
             bool naik = pemain && Layanan.Kendaraan?.NaikMotor == true;
             bool kerja = kegiatan == PentasAksi.Jenis.Melayani && Layanan.Kerja?.Aktif != null;
             bool aksi = Time.time < tahan || pemain && pose != 0 && Layanan.Jam?.Sibuk == true || kerja;

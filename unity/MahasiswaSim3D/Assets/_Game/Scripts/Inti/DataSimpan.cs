@@ -1,5 +1,6 @@
 // Isi file save. Tambah field baru → naikkan VersiSekarang & beri nilai default.
 using System.Collections.Generic;
+using MS.Kontrak;
 
 namespace MS.Inti
 {
@@ -7,7 +8,7 @@ namespace MS.Inti
 
     public class DataSimpan
     {
-        public const int VersiSekarang = 13;
+        public const int VersiSekarang = 14;
         public int versi = VersiSekarang;
         public int uang;
         public float ipk, energi, stres;
@@ -52,6 +53,7 @@ namespace MS.Inti
         public Dictionary<string, int> latihan = new Dictionary<string, int>();  // id aksi → berapa kali (skill)
         public int lombaBulan, cv; public List<float> lombaSkor = new List<float>(); public bool lombaSelesai = true;
         public float cabai = -1f; public int cabaiSiram, cabaiStok, makananKucing;
+        public RupaMahasiswa rupa;
         public string rambut = "pendek", warnaRambut = "#2a1d15";
         // --- versi 8: cerita, karier, SIM, bengkel ---
         public CeritaSimpan cerita = new CeritaSimpan();

@@ -195,6 +195,7 @@ namespace MS.Kontrak
 
     public interface IProfil
     {
+        RupaMahasiswa Rupa { get; }
         bool PerluDibuat { get; }    // true → UI tampilkan layar buat karakter (jam berhenti)
         string Nama { get; }
         string JurusanId { get; }
@@ -204,7 +205,7 @@ namespace MS.Kontrak
         System.Collections.Generic.IReadOnlyList<InfoPilihan> Bakat { get; }
         System.Collections.Generic.IReadOnlyList<InfoPilihan> Kelemahan { get; }
         bool Daftarkan(string nama, string jurusan, string latar, System.Collections.Generic.IReadOnlyCollection<string> bakat,
-            System.Collections.Generic.IReadOnlyCollection<string> kelemahan, OpsiKesulitan kesulitan = null);
+            System.Collections.Generic.IReadOnlyCollection<string> kelemahan, OpsiKesulitan kesulitan = null, RupaMahasiswa rupa = null);
         event Action Berubah;
     }
 

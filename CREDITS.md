@@ -11,6 +11,7 @@
 | Tiles 074, warna / normal / roughness | ambientCG | CC0 | [Aset](https://ambientcg.com/a/Tiles074) | Keramik |
 | Tiles 110, warna / normal / kanal PBR | ambientCG | CC0 | [Aset](https://ambientcg.com/a/Tiles110) | Lantai kamar |
 | Potted Plant 01, model disederhanakan / warna / alpha | Poly Haven | CC0 | [Aset](https://polyhaven.com/a/potted_plant_01) | Tanaman pot |
+| Mesh hm08, rig Game Engine, tekstur kulit, mata, rambut, pakaian, dan target ekspresi | MakeHuman / MPFB2 serta MakeHuman System Assets | CC0 1.0 | [Lisensi MPFB2](https://github.com/makehumancommunity/mpfb2/blob/d9648f3257a0b9712281d466245f30d656250154/LICENSE.md), [paket aset](https://static.makehumancommunity.org/assets/assetpacks/) | Figur pemain dan warga |
 
 ## Katalog Poly Haven
 
